@@ -2,49 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://1mangesh1.github.io/blog/portfolio/crimiface/</loc>
+    <loc>https://1mangesh1.github.io/portfolio/crimiface/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/hello-world/</loc>
+    <loc>https://1mangesh1.github.io/hello-world/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/introduction/</loc>
+    <loc>https://1mangesh1.github.io/blog/introduction/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/machine-learning/</loc>
+    <loc>https://1mangesh1.github.io/blog/machine-learning/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/portfolio/</loc>
-    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/</loc>
-    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/python/</loc>
-    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/tensorflow/</loc>
-    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/welcome/</loc>
+    <loc>https://1mangesh1.github.io/portfolio/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://1mangesh1.github.io/blog/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/algorithms/</loc>
+    <loc>https://1mangesh1.github.io/blog/python/</loc>
+    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://1mangesh1.github.io/blog/tensorflow/</loc>
+    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://1mangesh1.github.io/blog/welcome/</loc>
+    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://1mangesh1.github.io/</loc>
+    <lastmod>2024-10-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://1mangesh1.github.io/blog/algorithms/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/gamedev/</loc>
+    <loc>https://1mangesh1.github.io/blog/gamedev/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/infinite-worlds/</loc>
+    <loc>https://1mangesh1.github.io/infinite-worlds/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/procedural-generation/</loc>
+    <loc>https://1mangesh1.github.io/blog/procedural-generation/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://1mangesh1.github.io/blog/blog/typescript/</loc>
+    <loc>https://1mangesh1.github.io/blog/typescript/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url>
 </urlset>
