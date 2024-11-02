@@ -1,5 +1,5 @@
 # Basic config
-baseURL = "https://1mangesh1.github.io/"
+baseURL = "https://1mangesh1.github.io/blog/"
 theme = "hugo-simple"
 languageCode = "en"                # zh-Hans
 title = "Hugo Simple"
