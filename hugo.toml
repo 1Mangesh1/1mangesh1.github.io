@@ -2,8 +2,8 @@
 baseURL = "https://mangeshbide.tech"
 theme = "hugo-simple"
 languageCode = "en"                # zh-Hans
-title = "Hugo Simple"
-copyright = "© 2024 Shaolong Chen"
+title = "YOLO blogs"
+copyright = "© 2024 Mangesh Bide"
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT = true
@@ -11,7 +11,7 @@ enableRobotsTXT = true
 # https://github.com/gohugoio/hugo/issues/12152
 capitalizeListTitles = false
 
-# Generate "Bearblog"-like URLs !only!, see https://bearblog.dev/.
+
 disableKinds = ["taxonomy"]
 # ignoreErrors = ["error-disable-taxonomy"]
 [taxonomies]
@@ -33,16 +33,16 @@ noClasses = true
 style = "catppuccin-mocha"
 
 [params]
-title = "Hugo Simple"
-description = "Hugo Simple Demo"
+title = "YOLO blogs"
+description = "A blog about technology, programming, and life."
 favicon = "images/favicon.png"
 dateFormat = "2006-01-02"
-hideMadeWithLine = false
+hideMadeWithLine = true
 hideRSSLink = false
 
 [params.author]
-name = "Shaolong Chen"
-email = "shaolong.chen@outlook.it"
+name = "Mangesh Bide"
+email = "mangeshsbide@gmail.com"
 
 [[menu.main]]
 name = "Home"
