@@ -69,3 +69,8 @@ pagerSize = 16
 section = ["html"]
 taxonomy = ["html"]
 term = ["html"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

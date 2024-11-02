@@ -248,8 +248,7 @@ document.getElementById("generate").addEventListener("click", () => {
 ```
 
 here is the output of the code:
-<iframe src="https://1mangesh1.github.io/procedural-generation/" width="100%" height="600" frameborder="0" allowfullscreen></iframe>
-
+[View the procedural generation demo](https://1mangesh1.github.io/procedural-generation/)
 
 ## Challenges and Considerations
 
