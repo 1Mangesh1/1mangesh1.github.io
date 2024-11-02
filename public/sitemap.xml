@@ -2,49 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/portfolio/crimiface/</loc>
+    <loc>https://mangeshbide.tech/portfolio/crimiface/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/hello-world/</loc>
+    <loc>https://mangeshbide.tech/hello-world/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/introduction/</loc>
+    <loc>https://mangeshbide.tech/blog/introduction/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/machine-learning/</loc>
+    <loc>https://mangeshbide.tech/blog/machine-learning/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/portfolio/</loc>
+    <loc>https://mangeshbide.tech/portfolio/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/</loc>
+    <loc>https://mangeshbide.tech/blog/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/python/</loc>
+    <loc>https://mangeshbide.tech/blog/python/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/tensorflow/</loc>
+    <loc>https://mangeshbide.tech/blog/tensorflow/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/welcome/</loc>
+    <loc>https://mangeshbide.tech/blog/welcome/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://mangeshbide.tech/</loc>
     <lastmod>2024-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/algorithms/</loc>
+    <loc>https://mangeshbide.tech/blog/algorithms/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/gamedev/</loc>
+    <loc>https://mangeshbide.tech/blog/gamedev/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/infinite-worlds/</loc>
+    <loc>https://mangeshbide.tech/infinite-worlds/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/procedural-generation/</loc>
+    <loc>https://mangeshbide.tech/blog/procedural-generation/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/typescript/</loc>
+    <loc>https://mangeshbide.tech/blog/typescript/</loc>
     <lastmod>2024-03-02T00:00:00+00:00</lastmod>
   </url>
 </urlset>
