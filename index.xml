@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Hugo Simple</title>
+    <link>https://mangeshbide.tech/</link>
+    <description>Recent content on Hugo Simple</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>shaolong.chen@outlook.it (Shaolong Chen)</managingEditor>
+    <webMaster>shaolong.chen@outlook.it (Shaolong Chen)</webMaster>
+    <copyright>© 2024 Shaolong Chen</copyright>
+    <lastBuildDate>Wed, 30 Oct 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mangeshbide.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CrimiFace</title>
+      <link>https://mangeshbide.tech/portfolio/crimiface/</link>
+      <pubDate>Wed, 30 Oct 2024 00:00:00 +0000</pubDate><author>shaolong.chen@outlook.it (Shaolong Chen)</author>
+      <guid>https://mangeshbide.tech/portfolio/crimiface/</guid>
+      <description>&lt;p&gt;CrimiFace is a Criminal Recognition System designed to enhance security applications by improving identification accuracy with face recognition.&lt;/p&gt;
+&lt;p&gt;here is the link to the project: &lt;a href=&#34;https://github.com/1Mangesh1/CrimiFace-Final/tree/master&#34;&gt;CrimiFace&lt;/a&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>CrimiFace is a Criminal Recognition System designed to enhance security applications by improving identification accuracy with face recognition.</p>
+<p>here is the link to the project: <a href="https://github.com/1Mangesh1/CrimiFace-Final/tree/master">CrimiFace</a></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Hello World</title>
+      <link>https://mangeshbide.tech/hello-world/</link>
+      <pubDate>Wed, 30 Oct 2024 00:00:00 +0000</pubDate><author>shaolong.chen@outlook.it (Shaolong Chen)</author>
+      <guid>https://mangeshbide.tech/hello-world/</guid>
+      <description>&lt;p&gt;Welcome to my blog! Here I’ll share my projects, thoughts on technology, and more.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Welcome to my blog! Here I’ll share my projects, thoughts on technology, and more.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Procedural Generation: Creating Infinite Worlds</title>
+      <link>https://mangeshbide.tech/infinite-worlds/</link>
+      <pubDate>Sat, 02 Mar 2024 00:00:00 +0000</pubDate><author>shaolong.chen@outlook.it (Shaolong Chen)</author>
+      <guid>https://mangeshbide.tech/infinite-worlds/</guid>
+      <description>&lt;p&gt;Imagine a game where every time you log in, the world feels fresh, uncharted, and limitless. Procedural generation is the magic behind these ever-expanding, dynamic environments. Games like Minecraft revolutionized the idea of endless exploration, crafting an infinite sandbox with complex landscapes, resources, and creatures—all created through algorithms rather than meticulous design.&lt;/p&gt;
+&lt;p&gt;In this post, we&amp;rsquo;ll dive deep into the fascinating world of procedural generation. We’ll walk through how developers use this technique to generate vast terrains, random quests, and unique objects, keeping gameplay fresh with each session. By the end, you’ll even learn how to implement a simple terrain generator yourself! But first, let’s look at the games that brought procedural generation into the spotlight.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Imagine a game where every time you log in, the world feels fresh, uncharted, and limitless. Procedural generation is the magic behind these ever-expanding, dynamic environments. Games like Minecraft revolutionized the idea of endless exploration, crafting an infinite sandbox with complex landscapes, resources, and creatures—all created through algorithms rather than meticulous design.</p>
+<p>In this post, we&rsquo;ll dive deep into the fascinating world of procedural generation. We’ll walk through how developers use this technique to generate vast terrains, random quests, and unique objects, keeping gameplay fresh with each session. By the end, you’ll even learn how to implement a simple terrain generator yourself! But first, let’s look at the games that brought procedural generation into the spotlight.</p>
+<h2 id="games-that-embrace-procedural-generation">Games That Embrace Procedural Generation</h2>
+<h3 id="1-minecraft">1. <strong>Minecraft</strong></h3>
+<p>Minecraft is the poster child for procedural generation, creating vast, blocky worlds filled with resources, creatures, and dungeons. Each new world is generated based on a seed value, ensuring that players can share their unique worlds with others.</p>
+<h3 id="2-no-mans-sky">2. <strong>No man&rsquo;s Sky</strong></h3>
+<p>No man&rsquo;s Sky takes procedural generation to the stars, crafting an entire universe of planets, flora, and fauna. The game uses complex algorithms to create diverse ecosystems, ensuring that each planet feels distinct and unexplored.</p>
+<p>and many more games are using procedural generation to create vast worlds and unique experiences for players.</p>
+<hr>
+<p>Procedural generation has revolutionized how we create virtual worlds, enabling developers to craft vast, unique environments without manually designing every detail. In this post, we&rsquo;ll explore the fundamentals of procedural generation and implement a simple terrain generator.</p>
+<h2 id="what-is-procedural-generation">What is Procedural Generation?</h2>
+<p>Procedural generation refers to creating content algorithmically rather than manually. In game development, this technique can generate:</p>
+<ul>
+<li>Terrain and landscapes</li>
+<li>Buildings and structures</li>
+<li>Flora and fauna</li>
+<li>Quest systems</li>
+<li>Item variations</li>
+</ul>
+<h2 id="the-power-of-randomized-seeds">The Power of Randomized Seeds</h2>
+<p>One of the most fascinating aspects of procedural generation is that complex worlds can emerge from simple mathematical functions and random seeds. The same seed will always generate identical content, allowing for:</p>
+<ul>
+<li>Reproducible worlds</li>
+<li>Shared experiences between players</li>
+<li>Efficient storage of vast environments</li>
+</ul>
+<h2 id="building-a-simple-terrain-generator">Building a Simple Terrain Generator</h2>
+<p>Let&rsquo;s create a simple visualization of our terrain generation using HTML and TypeScript. This example will create a grid-based display where each cell&rsquo;s color represents different terrain heights:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span><span style="color:#cba6f7">const</span> worldWidth <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">10</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span><span style="color:#cba6f7">const</span> worldHeight <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">10</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span><span style="color:#cba6f7">const</span> terrainTypes <span style="color:#89dceb;font-weight:bold">=</span> [<span style="color:#a6e3a1">&#34;grass&#34;</span>, <span style="color:#a6e3a1">&#34;water&#34;</span>, <span style="color:#a6e3a1">&#34;mountain&#34;</span>];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span><span style="color:#f38ba8">function</span> generateWorld(width, height) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>  <span style="color:#cba6f7">const</span> world <span style="color:#89dceb;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>  <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> y <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>; y <span style="color:#89dceb;font-weight:bold">&lt;</span> height; y<span style="color:#89dceb;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>    <span style="color:#cba6f7">const</span> row <span style="color:#89dceb;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">11</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">12</span><span>    <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> x <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>; x <span style="color:#89dceb;font-weight:bold">&lt;</span> width; x<span style="color:#89dceb;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">13</span><span>      <span style="color:#cba6f7">const</span> randomTerrain <span style="color:#89dceb;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">14</span><span>        terrainTypes[<span style="color:#89dceb">Math</span>.floor(<span style="color:#89dceb">Math</span>.random() <span style="color:#89dceb;font-weight:bold">*</span> terrainTypes.length)];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">15</span><span>      row.push(randomTerrain);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">16</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">17</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">18</span><span>    world.push(row);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">19</span><span>  }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">20</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">21</span><span>  <span style="color:#cba6f7">return</span> world;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">22</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">23</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">24</span><span><span style="color:#f38ba8">function</span> displayWorld(world) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">25</span><span>  <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> row <span style="color:#cba6f7">of</span> world) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">26</span><span>    console.log(row.join(<span style="color:#a6e3a1">&#34; | &#34;</span>));
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">27</span><span>  }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">28</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">29</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">30</span><span><span style="color:#cba6f7">const</span> world <span style="color:#89dceb;font-weight:bold">=</span> generateWorld(worldWidth, worldHeight);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">31</span><span>displayWorld(world);</span></span></code></pre></div>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span>water | mountain | grass | water | mountain | grass | water | mountain | grass | water
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span>mountain | grass | water | mountain | grass | water | mountain | grass | water | mountain
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span>water | mountain | grass | water | mountain | grass | water | mountain | grass | water
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span>mountain | grass | water | mountain | grass | water | mountain | grass | water | mountain
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span>water | mountain | grass | water | mountain | grass | water | mountain | grass | water
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>mountain | grass | water | mountain | grass | water | mountain | grass | water | mountain
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass</span></span></code></pre></div>
+<p>Here&rsquo;s a breakdown of the code:</p>
+<ul>
+<li>We define the <code>worldWidth</code> and <code>worldHeight</code> constants to set the dimensions of our grid.</li>
+<li>The <code>terrainTypes</code> array contains the different types of terrain we want to generate.</li>
+<li>The <code>generateWorld</code> function creates a 2D array representing the world by randomly selecting terrain types for each cell.</li>
+<li>The <code>displayWorld</code> function outputs the world to the console for visualization.</li>
+</ul>
+<p>By running this code, you can see a simple grid-based representation of a procedurally generated world. This is just the beginning of what&rsquo;s possible with procedural generation!</p>
+<p>This implementation:</p>
+<ul>
+<li>Creates a grid-based terrain visualization using HTML and TypeScript</li>
+<li>Generates random terrain based on noise functions</li>
+<li>Displays different terrain types with varying colors</li>
+<li>Allows users to generate new terrains with a button click</li>
+</ul>
+<h3 id="html-and-javascript-implementation">HTML and JavaScript Implementation</h3>
+<p>follow the below code to create a simple terrain generator using Perlin noise and HTML:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span><span style="color:#6c7086;font-style:italic">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span>&lt;<span style="color:#cba6f7">html</span> <span style="color:#89b4fa">lang</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span>  &lt;<span style="color:#cba6f7">head</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span>    &lt;<span style="color:#cba6f7">meta</span> <span style="color:#89b4fa">charset</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;UTF-8&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span>    &lt;<span style="color:#cba6f7">meta</span> <span style="color:#89b4fa">name</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;viewport&#34;</span> <span style="color:#89b4fa">content</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;width=device-width, initial-scale=1.0&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span>    &lt;<span style="color:#cba6f7">title</span>&gt;Procedural Terrain Generation&lt;/<span style="color:#cba6f7">title</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>    &lt;<span style="color:#cba6f7">style</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span>      .<span style="color:#f9e2af">cell</span> {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>        <span style="color:#cba6f7">width</span>: <span style="color:#fab387">20</span><span style="color:#f38ba8">px</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>        <span style="color:#cba6f7">height</span>: <span style="color:#fab387">20</span><span style="color:#f38ba8">px</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">11</span><span>        <span style="color:#cba6f7">display</span>: <span style="color:#fab387">inline-block</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">12</span><span>      }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">13</span><span>    &lt;/<span style="color:#cba6f7">style</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">14</span><span>  &lt;/<span style="color:#cba6f7">head</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">15</span><span>  &lt;<span style="color:#cba6f7">body</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">16</span><span>    &lt;<span style="color:#cba6f7">div</span> <span style="color:#89b4fa">id</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;terrain&#34;</span>&gt;&lt;/<span style="color:#cba6f7">div</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">17</span><span>    &lt;<span style="color:#cba6f7">button</span> <span style="color:#89b4fa">id</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;generate&#34;</span>&gt;Generate Terrain&lt;/<span style="color:#cba6f7">button</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">18</span><span>    &lt;<span style="color:#cba6f7">script</span> <span style="color:#89b4fa">src</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;terrain.js&#34;</span>&gt;&lt;/<span style="color:#cba6f7">script</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">19</span><span>  &lt;/<span style="color:#cba6f7">body</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">20</span><span>&lt;/<span style="color:#cba6f7">html</span>&gt;</span></span></code></pre></div>
+<p>Here&rsquo;s the javascript code for generating terrain using Perlin noise and displaying it in the HTML document:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span><span style="color:#cba6f7">const</span> worldWidth <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">10</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span><span style="color:#cba6f7">const</span> worldHeight <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">10</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span><span style="color:#cba6f7">const</span> octaveCount <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">4</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span><span style="color:#cba6f7">const</span> persistence <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0.5</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span><span style="color:#cba6f7">const</span> terrainTypes <span style="color:#89dceb;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span>  { type<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#a6e3a1">&#34;water&#34;</span>, color<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#a6e3a1">&#34;blue&#34;</span>, threshold<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#fab387">0.4</span> },
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>  { type<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#a6e3a1">&#34;grass&#34;</span>, color<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#a6e3a1">&#34;green&#34;</span>, threshold<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#fab387">0.6</span> },
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span>  { type<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#a6e3a1">&#34;mountain&#34;</span>, color<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#a6e3a1">&#34;gray&#34;</span>, threshold<span style="color:#89dceb;font-weight:bold">:</span> <span style="color:#fab387">1</span> },
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">11</span><span><span style="color:#f38ba8">function</span> generateTerrain(width, height, octaveCount, persistence) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">12</span><span>  <span style="color:#cba6f7">const</span> world <span style="color:#89dceb;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">13</span><span>  <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> y <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>; y <span style="color:#89dceb;font-weight:bold">&lt;</span> height; y<span style="color:#89dceb;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">14</span><span>    <span style="color:#cba6f7">const</span> row <span style="color:#89dceb;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">15</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">16</span><span>    <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> x <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>; x <span style="color:#89dceb;font-weight:bold">&lt;</span> width; x<span style="color:#89dceb;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">17</span><span>      <span style="color:#cba6f7">const</span> noiseValue <span style="color:#89dceb;font-weight:bold">=</span> perlinNoise(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">18</span><span>        x <span style="color:#89dceb;font-weight:bold">/</span> width,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">19</span><span>        y <span style="color:#89dceb;font-weight:bold">/</span> height,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">20</span><span>        octaveCount,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">21</span><span>        persistence
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">22</span><span>      );
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">23</span><span>      <span style="color:#cba6f7">const</span> terrainType <span style="color:#89dceb;font-weight:bold">=</span> getTerrainType(noiseValue);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">24</span><span>      row.push(terrainType);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">25</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">26</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">27</span><span>    world.push(row);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">28</span><span>  }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">29</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">30</span><span>  <span style="color:#cba6f7">return</span> world;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">31</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">32</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">33</span><span><span style="color:#f38ba8">function</span> perlinNoise(x, y, octaveCount, persistence) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">34</span><span>  <span style="color:#f38ba8">let</span> total <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">35</span><span>  <span style="color:#f38ba8">let</span> frequency <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">1</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">36</span><span>  <span style="color:#f38ba8">let</span> amplitude <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">1</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">37</span><span>  <span style="color:#f38ba8">let</span> maxValue <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">38</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">39</span><span>  <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> i <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#fab387">0</span>; i <span style="color:#89dceb;font-weight:bold">&lt;</span> octaveCount; i<span style="color:#89dceb;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">40</span><span>    total <span style="color:#89dceb;font-weight:bold">+=</span> noise(x <span style="color:#89dceb;font-weight:bold">*</span> frequency, y <span style="color:#89dceb;font-weight:bold">*</span> frequency) <span style="color:#89dceb;font-weight:bold">*</span> amplitude;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">41</span><span>    maxValue <span style="color:#89dceb;font-weight:bold">+=</span> amplitude;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">42</span><span>    amplitude <span style="color:#89dceb;font-weight:bold">*=</span> persistence;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">43</span><span>    frequency <span style="color:#89dceb;font-weight:bold">*=</span> <span style="color:#fab387">2</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">44</span><span>  }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">45</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">46</span><span>  <span style="color:#cba6f7">return</span> total <span style="color:#89dceb;font-weight:bold">/</span> maxValue;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">47</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">48</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">49</span><span><span style="color:#f38ba8">function</span> noise(x, y) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">50</span><span>  <span style="color:#cba6f7">const</span> n <span style="color:#89dceb;font-weight:bold">=</span> x <span style="color:#89dceb;font-weight:bold">+</span> y <span style="color:#89dceb;font-weight:bold">*</span> <span style="color:#fab387">57</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">51</span><span>  <span style="color:#cba6f7">return</span> (<span style="color:#89dceb">Math</span>.sin(n) <span style="color:#89dceb;font-weight:bold">*</span> <span style="color:#fab387">43758.5453123</span>) <span style="color:#89dceb;font-weight:bold">%</span> <span style="color:#fab387">1</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">52</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">53</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">54</span><span><span style="color:#f38ba8">function</span> getTerrainType(value) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">55</span><span>  <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> terrain <span style="color:#cba6f7">of</span> terrainTypes) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">56</span><span>    <span style="color:#cba6f7">if</span> (value <span style="color:#89dceb;font-weight:bold">&lt;</span> terrain.threshold) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">57</span><span>      <span style="color:#cba6f7">return</span> terrain;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">58</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">59</span><span>  }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">60</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">61</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">62</span><span><span style="color:#f38ba8">function</span> displayTerrain(world) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">63</span><span>  <span style="color:#cba6f7">const</span> terrainElement <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#89dceb">document</span>.getElementById(<span style="color:#a6e3a1">&#34;terrain&#34;</span>);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">64</span><span>  terrainElement.innerHTML <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#a6e3a1">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">65</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">66</span><span>  <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> row <span style="color:#cba6f7">of</span> world) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">67</span><span>    <span style="color:#cba6f7">for</span> (<span style="color:#f38ba8">let</span> cell <span style="color:#cba6f7">of</span> row) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">68</span><span>      <span style="color:#cba6f7">const</span> cellElement <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#89dceb">document</span>.createElement(<span style="color:#a6e3a1">&#34;div&#34;</span>);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">69</span><span>      cellElement.className <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#a6e3a1">&#34;cell&#34;</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">70</span><span>      cellElement.style.backgroundColor <span style="color:#89dceb;font-weight:bold">=</span> cell.color;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">71</span><span>      terrainElement.appendChild(cellElement);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">72</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">73</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">74</span><span>    terrainElement.appendChild(<span style="color:#89dceb">document</span>.createElement(<span style="color:#a6e3a1">&#34;br&#34;</span>));
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">75</span><span>  }
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">76</span><span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">77</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">78</span><span><span style="color:#cba6f7">const</span> world <span style="color:#89dceb;font-weight:bold">=</span> generateTerrain(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">79</span><span>  worldWidth,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">80</span><span>  worldHeight,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">81</span><span>  octaveCount,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">82</span><span>  persistence
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">83</span><span>);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">84</span><span>displayTerrain(world);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">85</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">86</span><span><span style="color:#89dceb">document</span>.getElementById(<span style="color:#a6e3a1">&#34;generate&#34;</span>).addEventListener(<span style="color:#a6e3a1">&#34;click&#34;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">87</span><span>  <span style="color:#cba6f7">const</span> newWorld <span style="color:#89dceb;font-weight:bold">=</span> generateTerrain(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">88</span><span>    worldWidth,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">89</span><span>    worldHeight,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">90</span><span>    octaveCount,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">91</span><span>    persistence
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">92</span><span>  );
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">93</span><span>  displayTerrain(newWorld);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">94</span><span>});</span></span></code></pre></div>
+<p>here is the output of the code:</p>
+<iframe src="https://1mangesh1.github.io/procedural-generation/" width="100%" height="600" frameborder="0" allowfullscreen></iframe>
+<h2 id="challenges-and-considerations">Challenges and Considerations</h2>
+<p>While procedural generation offers incredible possibilities, developers face several challenges:</p>
+<h3 id="1-performance-optimization">1. Performance Optimization</h3>
+<p>Generated content must be created efficiently, especially for real-time applications. Solutions include:</p>
+<ul>
+<li>Chunk-based generation</li>
+<li>Level of detail systems</li>
+<li>Caching mechanisms</li>
+</ul>
+<h3 id="2-content-quality">2. Content Quality</h3>
+<p>Purely random generation rarely produces compelling results. Successful systems often:</p>
+<ul>
+<li>Combine predefined templates with randomization</li>
+<li>Implement constraints and rules</li>
+<li>Use machine learning for content validation</li>
+</ul>
+<h3 id="3-memory-management">3. Memory Management</h3>
+<p>With infinite worlds comes the challenge of memory management:</p>
+<ul>
+<li>Streaming content dynamically</li>
+<li>Unloading distant areas</li>
+<li>Efficient storage of seed data</li>
+</ul>
+<h2 id="looking-ahead">Looking Ahead</h2>
+<p>The future of procedural generation is bright, with emerging technologies like:</p>
+<ul>
+<li>Machine learning-enhanced generation</li>
+<li>Real-time ray tracing for dynamic worlds</li>
+<li>Collaborative procedural spaces</li>
+</ul>
+<p>By understanding these fundamentals, developers can create vast, engaging worlds that keep players exploring for hours on end.</p>
+<h2 id="try-it-yourself">Try It Yourself</h2>
+<p>The provided code offers a starting point for experimentation. Try modifying parameters like:</p>
+<ul>
+<li>Octave count for different levels of detail</li>
+<li>Persistence value for varying roughness</li>
+<li>Terrain type thresholds for different biome distributions</li>
+</ul>
+<p>Remember, the best procedural generation systems often start simple and grow through iteration and refinement.</p>
+<p>heres the link to the code: <a href="https://github.com/1Mangesh1/procedural-generation">Procedural Generation</a></p>
+<hr>
+<p>In this post, we explored the power of procedural generation in creating vast, dynamic game worlds. We discussed the fundamentals of procedural generation, its applications in game development, and even implemented a simple terrain generator using javascript, typescript and HTML.</p>
+<p>If you&rsquo;re interested in learning more about procedural generation, check out the following resources:</p>
+<p><a href="https://www.gamedeveloper.com/design/how-to-effectively-use-procedural-generation-in-games">How to effectively use procedural generation in games</a></p>
+<p><a href="https://www.youtube.com/watch?v=tyS7WKf_dtk&amp;ab_channel=MattMirrorFish">Procedural Generation For Beginners: Randomize Object Placement</a></p>
+<p><a href="https://gamedevacademy.org/procedural-2d-maps-unity-tutorial/">A Guide to Procedural Generation</a></p>
+<p>Keep exploring, experimenting, and creating—there&rsquo;s no limit to what you can generate with procedural techniques!</p>
+<p>Happy coding! 🚀</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
