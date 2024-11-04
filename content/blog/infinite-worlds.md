@@ -1,6 +1,6 @@
 +++
 title = "Procedural Generation: Creating Infinite Worlds"
-date = "2024-03-02"
+date = "2024-11-01"
 description = "Deep dive into procedural generation technology and its applications in creating vast game worlds."
 tags = [
     "gamedev",
