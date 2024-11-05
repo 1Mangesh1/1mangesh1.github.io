@@ -250,6 +250,19 @@ document.getElementById("generate").addEventListener("click", () => {
 here is the output of the code:
 [View the procedural generation demo](https://1mangesh1.github.io/procedural-generation/)
 
+Putting It All Together
+When generating a terrain grid:
+
+- Seed ensures the randomness is consistent.
+- Octaves add layered complexity to noise for detail.
+- Perlin noise creates smooth, natural variation.
+- Noise function provides the base values.
+- Persistence balances the contribution of each octave.
+- Frequency sets each octave's scale of detail.
+- Amplitude adjusts how much influence each octave has.
+
+In this way, each cell in the grid is assigned a noise value that translates into terrain types like water, grass, or mountains. The combination of all these factors produces realistic, varied terrain.
+
 ## Challenges and Considerations
 
 While procedural generation offers incredible possibilities, developers face several challenges:
