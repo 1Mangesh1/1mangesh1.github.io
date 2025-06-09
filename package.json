@@ -1,0 +1,7 @@
+{
+  "name": "mangesh-blog",
+  "scripts": {
+    "build": "hugo",
+    "deploy": "hugo && gh-pages -d public"
+  }
+}
