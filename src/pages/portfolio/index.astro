@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all portfolio items from the content collection
+const portfolioProjects = await getCollection('portfolio');
+---
+
+<Layout title="Portfolio - Mangesh">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-4">Portfolio</h1>
+      <p class="text-gray-600 dark:text-gray-400">A showcase of my projects and work</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      {portfolioProjects.map((project) => (
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-semibold mb-2">
+            <a 
+              href={`/portfolio/${project.slug}`}
+              class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              {project.data.title}
+            </a>
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">{project.data.description}</p>
+          <div class="text-sm text-gray-500 dark:text-gray-500">{project.data.date}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout> 
