@@ -7,10 +7,8 @@ const allPosts = await getCollection('blog');
 
 // Sort by date (newest first)
 const sortedPosts = allPosts
-  .filter(post => !post.data.draft)
   .sort((a, b) => {
-    if (!a.data.date || !b.data.date) return 0;
-    return b.data.date.getTime() - a.data.date.getTime();
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
   });
 ---
 
@@ -36,15 +34,13 @@ const sortedPosts = allPosts
             {post.data.description && (
               <p class="text-gray-600 dark:text-gray-400">{post.data.description}</p>
             )}
-            {post.data.date && (
-              <time class="text-sm text-gray-600 dark:text-gray-400">
-                {post.data.date.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </time>
-            )}
+            <time class="text-sm text-gray-600 dark:text-gray-400">
+              {post.data.pubDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
           </div>
         </article>
       ))}

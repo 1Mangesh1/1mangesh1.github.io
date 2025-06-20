@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const resources = await getCollection('resources');
+---
+
+<Layout title="Resources - Mangesh">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="prose prose-lg dark:prose-invert max-w-none mb-12">
+      <h1>🔗 Resources</h1>
+      <p>Curated links and tools that I find useful for development, learning, and productivity.</p>
+    </div>
+
+    <div class="grid gap-8">
+      {resources.map(async (resource) => {
+        const { Content } = await resource.render();
+        return (
+          <article class="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h2 class="text-2xl font-bold mb-2">
+                  <a 
+                    href={resource.data.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {resource.data.title}
+                  </a>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-3">{resource.data.description}</p>
+                <div class="flex items-center space-x-3 text-sm">
+                  <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md capitalize">
+                    {resource.data.category}
+                  </span>
+                  {resource.data.featured && (
+                    <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md">
+                      ⭐ Featured
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div class="text-gray-400">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="prose dark:prose-invert max-w-none">
+              <Content />
+            </div>
+
+            {resource.data.tags && resource.data.tags.length > 0 && (
+              <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex flex-wrap gap-2">
+                  {resource.data.tags.map((tag) => (
+                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+
+    {resources.length === 0 && (
+      <div class="text-center py-12">
+        <div class="text-6xl mb-4">🔗</div>
+        <h3 class="text-xl font-semibold mb-2">No resources yet</h3>
+        <p class="text-gray-600 dark:text-gray-400">Check back soon for curated tools and links!</p>
+      </div>
+    )}
+  </div>
+</Layout> 
