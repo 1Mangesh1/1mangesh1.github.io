@@ -26,30 +26,16 @@ jobs:
         with:
           node-version: 18
 
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+      - name: Enable Corepack (for Yarn)
+        run: corepack enable
 
-      - name: Setup npm cache
-        uses: actions/cache@v4
-        id: npm-cache
-        with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Clean install dependencies
+      - name: Install dependencies with Yarn
         run: |
-          if [ -f package-lock.json ]; then
-            npm ci --force
-          else
-            npm install
-          fi
+          rm -rf node_modules package-lock.json yarn.lock
+          yarn install
 
       - name: Build site
-        run: npm run build
+        run: yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
