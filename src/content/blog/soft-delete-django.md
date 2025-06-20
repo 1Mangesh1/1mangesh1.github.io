@@ -1,7 +1,7 @@
 ---
 title: "How to implement soft delete in Django"
-date: 2025-02-13T00:00:00Z
 description: "Learn how to implement soft delete functionality in Django using custom managers and model mixins."
+pubDate: 2025-02-13T00:00:00Z
 tags: ["Django", "Soft Delete"]
 ---
 

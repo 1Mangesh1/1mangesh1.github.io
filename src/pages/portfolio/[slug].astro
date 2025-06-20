@@ -34,11 +34,11 @@ const { Content } = await item.render();
             })}
           </time>
         )}
-        {item.data.tags && item.data.tags.length > 0 && (
+        {item.data.tech && item.data.tech.length > 0 && (
           <div class="flex flex-wrap gap-2">
-            {item.data.tags.map((tag) => (
+            {item.data.tech.map((tech) => (
               <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs">
-                {tag}
+                {tech}
               </span>
             ))}
           </div>

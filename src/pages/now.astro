@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const nowEntries = await getCollection('now');
+// Get the latest entry
+const latestEntry = nowEntries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())[0];
+---
+
+<Layout title="Now - Mangesh">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="prose prose-lg dark:prose-invert max-w-none mb-12">
+      <h1>⏰ Now</h1>
+      <p>What I'm doing, thinking about, and focusing on right now. Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400">Derek Sivers' /now page movement</a>.</p>
+    </div>
+
+    {latestEntry ? (
+      <article class="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700 mb-8">
+        <div class="mb-6">
+          <h2 class="text-3xl font-bold mb-3">{latestEntry.data.title}</h2>
+          <div class="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <div class="flex items-center space-x-2">
+              <span>📅</span>
+              <span>{latestEntry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            {latestEntry.data.location && (
+              <div class="flex items-center space-x-2">
+                <span>📍</span>
+                <span>{latestEntry.data.location}</span>
+              </div>
+            )}
+            {latestEntry.data.mood && (
+              <div class="flex items-center space-x-2">
+                <span>💭</span>
+                <span class="capitalize">{latestEntry.data.mood}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div class="prose dark:prose-invert max-w-none mb-8">
+          {await latestEntry.render().then(({ Content }) => <Content />)}
+        </div>
+
+        {/* Quick Status Cards */}
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {latestEntry.data.currentlyReading && latestEntry.data.currentlyReading.length > 0 && (
+            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+              <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-3 flex items-center">
+                <span class="mr-2">📚</span>
+                Currently Reading
+              </h3>
+              <ul class="space-y-1">
+                {latestEntry.data.currentlyReading.map((book) => (
+                  <li class="text-sm text-blue-800 dark:text-blue-200">{book}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {latestEntry.data.currentlyWatching && latestEntry.data.currentlyWatching.length > 0 && (
+            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
+              <h3 class="font-semibold text-purple-900 dark:text-purple-100 mb-3 flex items-center">
+                <span class="mr-2">📺</span>
+                Currently Watching
+              </h3>
+              <ul class="space-y-1">
+                {latestEntry.data.currentlyWatching.map((show) => (
+                  <li class="text-sm text-purple-800 dark:text-purple-200">{show}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {latestEntry.data.currentlyLearning && latestEntry.data.currentlyLearning.length > 0 && (
+            <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
+              <h3 class="font-semibold text-green-900 dark:text-green-100 mb-3 flex items-center">
+                <span class="mr-2">🧠</span>
+                Currently Learning
+              </h3>
+              <ul class="space-y-1">
+                {latestEntry.data.currentlyLearning.map((topic) => (
+                  <li class="text-sm text-green-800 dark:text-green-200">{topic}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {latestEntry.data.currentlyBuilding && latestEntry.data.currentlyBuilding.length > 0 && (
+            <div class="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4 border border-orange-200 dark:border-orange-800">
+              <h3 class="font-semibold text-orange-900 dark:text-orange-100 mb-3 flex items-center">
+                <span class="mr-2">🛠️</span>
+                Currently Building
+              </h3>
+              <ul class="space-y-1">
+                {latestEntry.data.currentlyBuilding.map((project) => (
+                  <li class="text-sm text-orange-800 dark:text-orange-200">{project}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </article>
+    ) : (
+      <div class="text-center py-12">
+        <div class="text-6xl mb-4">⏰</div>
+        <h3 class="text-xl font-semibold mb-2">No updates yet</h3>
+        <p class="text-gray-600 dark:text-gray-400">Check back soon for updates on what I'm up to!</p>
+      </div>
+    )}
+
+    {/* Archive */}
+    {nowEntries.length > 1 && (
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">Previous Updates</h2>
+        <div class="space-y-4">
+          {nowEntries.slice(1).map((entry) => (
+            <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">{entry.data.title}</h3>
+                <span class="text-sm text-gray-500">
+                  {entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Last updated: {latestEntry ? latestEntry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Never'}
+      </p>
+    </div>
+  </div>
+</Layout> 

@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Uses - Mangesh">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="prose prose-lg dark:prose-invert max-w-none mb-8">
+      <h1>What I Use</h1>
+      <p>
+        People often ask about my setup and tools I use for development. Here's a comprehensive 
+        list of my hardware, software, and services that help me build great things.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <!-- Hardware -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
+          💻 Hardware
+        </h2>
+        <div class="grid gap-6">
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-2">Development Machine</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-2">MacBook Air M1 13 and ol' reliable Thinkpad T480s</p>
+            <p class="text-sm">Perfect for development with great performance and battery life.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Development Tools -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
+          🛠️ Development Tools
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-3">Code Editor</h3>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-3">
+                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span>Cursor</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 ml-5">
+                Primary AI-powered editor with extensions for Python, JavaScript, and more.
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-3">Terminal</h3>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-3">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span>Terminal</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 ml-5">
+                With Oh My Zsh for enhanced productivity.
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-3">Version Control</h3>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-3">
+                <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+                <span>Git + GitHub</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 ml-5">
+                For version control and collaboration.
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-3">Database Tools</h3>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-3">
+                <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                <span>DBeaver</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 ml-5">
+                For database management and queries.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Languages & Frameworks -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
+          🚀 Languages & Frameworks
+        </h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          {[
+            { name: 'Python', desc: 'Primary backend language' },
+            { name: 'JavaScript', desc: 'Frontend and Node.js' },
+            { name: 'TypeScript', desc: 'Type-safe JavaScript' },
+            { name: 'Django', desc: 'Web framework' },
+            { name: 'React', desc: 'Frontend library' },
+            { name: 'Astro', desc: 'Static site generator' },
+            { name: 'TensorFlow', desc: 'Machine learning' },
+            { name: 'Docker', desc: 'Containerization' },
+            { name: 'PostgreSQL', desc: 'Database' }
+          ].map((tech) => (
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+              <h3 class="font-semibold text-blue-800 dark:text-blue-200">{tech.name}</h3>
+              <p class="text-sm text-blue-600 dark:text-blue-400">{tech.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Services & Tools -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
+          ☁️ Services & Productivity
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-3">Cloud & Hosting</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• GitHub Pages - Static site hosting</li>
+              <li>• Vercel/Netlify - Web app deployment</li>
+              <li>• Digital Ocean - VPS hosting</li>
+              <li>• AWS - Cloud services</li>
+            </ul>
+          </div>
+          
+          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 class="font-semibold text-lg mb-3">Design & Productivity</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Figma - Design and prototyping</li>
+              <li>• Notion - Notes and documentation</li>
+              <li>• Todoist - Task management</li>
+              <li>• Spotify - Coding music</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
+        <h3 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+          💡 Want to suggest a tool?
+        </h3>
+        <p class="text-blue-600 dark:text-blue-400 text-sm">
+          I'm always looking for new tools to improve my workflow. 
+          <a href="/contact" class="underline hover:no-underline">Let me know</a> if you have recommendations!
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout> 

@@ -1,10 +1,24 @@
 ---
+import { siteConfig } from '../config/site';
+
 export interface Props {
   title: string;
   description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
 }
 
-const { title, description = "Mangesh's Blog - Tech, AI, and Development" } = Astro.props;
+const { 
+  title, 
+  description = "Software Developer | Python | Django | Machine Learning | Web Development", 
+  image = "/me.jpg",
+  canonical,
+  noindex = false
+} = Astro.props;
+
+const canonicalURL = canonical || new URL(Astro.url.pathname, siteConfig.url);
+const imageURL = new URL(image, siteConfig.url);
 ---
 
 <!DOCTYPE html>
@@ -14,8 +28,61 @@ const { title, description = "Mangesh's Blog - Tech, AI, and Development" } = As
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.author} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Robots -->
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:site_name" content={siteConfig.title} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={imageURL} />
+    <meta property="twitter:creator" content="@Mangesh_Bide" />
+    
+    <!-- Additional SEO -->
+    <meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog" />
+    <meta name="theme-color" content="#3b82f6" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mangesh Bide",
+        "url": "https://mangeshbide.tech",
+        "image": "https://mangeshbide.tech/me.jpg",
+        "jobTitle": "Software Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Houseworks Technologies"
+        },
+        "alumniOf": "Savitribai Phule Pune University",
+        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+        "sameAs": [
+          "https://github.com/1mangesh1",
+          "https://x.com/Mangesh_Bide",
+          "https://linkedin.com/in/mangesh-bide/"
+        ]
+      }
+    </script>
   </head>
   <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
     <div class="min-h-screen flex flex-col">
@@ -23,18 +90,28 @@ const { title, description = "Mangesh's Blog - Tech, AI, and Development" } = As
         <nav class="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center">
           <div class="flex items-center space-x-8">
             <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              Mangesh
+           by mangesh
             </a>
             <div class="hidden md:flex space-x-6">
               <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Blog</a>
               <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</a>
+              <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+              <a href="/uses" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Uses</a>
+              <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
+              <a href="/resume" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Resume</a>
             </div>
           </div>
-          <button
-            id="theme-toggle"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Toggle theme"
-          >
+          <div class="flex items-center space-x-2">
+            <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Search">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </a>
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label="Toggle theme"
+            >
             <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
             </svg>

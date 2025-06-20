@@ -1,6 +1,6 @@
-# Mangesh's Blog & Portfolio
+# Mangesh's Personal Website
 
-A modern, minimal blog and portfolio site built with Astro, featuring dark/light mode toggle and markdown-powered content.
+A modern, comprehensive personal website built with Astro, featuring blog, portfolio, and professional pages with dark/light mode toggle and markdown-powered content.
 
 🌐 **Live Site**: [mangeshbide.tech](https://mangeshbide.tech) | [1mangesh1.github.io](https://1mangesh1.github.io)
 
@@ -8,10 +8,12 @@ A modern, minimal blog and portfolio site built with Astro, featuring dark/light
 
 - **⚡ Fast & Lightweight**: Built with Astro for optimal performance
 - **🌙 Dark/Light Mode**: Automatic theme toggle with user preference persistence
-- **📝 Markdown Content**: Blog posts and portfolio items powered by MDX
+- **📝 Blog & Portfolio**: Markdown-powered content with full MDX support
+- **👤 Professional Pages**: About, Contact, Resume, Uses, and Speaking pages
 - **📱 Responsive Design**: Mobile-first design with Tailwind CSS
 - **🔍 SEO Optimized**: Built-in meta tags and structured data
-- **🚀 Auto Deploy**: GitHub Actions workflow for seamless deployment
+- **📧 Contact Form**: Functional contact form with validation
+- **🚀 Auto Deploy**: GitHub Actions workflow with Yarn for seamless deployment
 
 ## 🛠️ Tech Stack
 
@@ -37,40 +39,62 @@ git clone https://github.com/1mangesh1/1mangesh1.github.io.git
 # Navigate to the project directory
 cd 1mangesh1.github.io
 
-# Install dependencies
-npm install
+# Install dependencies (using Yarn for better CI/CD compatibility)
+yarn install
 
 # Start development server
-npm run dev
+yarn dev
 ```
 
 ### Development
 
 ```bash
 # Start dev server
-npm run dev
+yarn dev
 
 # Build for production
-npm run build
+yarn build
 
 # Preview production build
-npm run preview
+yarn preview
+
+# Type checking
+yarn astro check
 ```
 
 ## 📁 Project Structure
 
 ```
 src/
-├── content/           # Markdown content
-│   ├── blog/         # Blog posts
-│   ├── portfolio/    # Portfolio projects
-│   └── config.ts     # Content collections config
-├── layouts/          # Page layouts
-├── pages/            # Route pages
-│   ├── blog/         # Blog listing and individual posts
-│   ├── portfolio/    # Portfolio listing and projects
-│   └── index.astro   # Homepage
-└── styles/           # Global styles
+├── content/              # Markdown content
+│   ├── blog/            # Blog posts
+│   ├── portfolio/       # Portfolio projects
+│   ├── fun/             # Fun projects and experiments
+│   ├── now/             # Current status updates
+│   ├── resources/       # Learning resources and tools
+│   ├── talks/           # Speaking engagements
+│   └── config.ts        # Content collections config
+├── layouts/             # Page layouts
+│   └── Layout.astro     # Main layout with navigation
+├── pages/               # Route pages
+│   ├── blog/           # Blog listing and individual posts
+│   ├── portfolio/      # Portfolio listing and projects
+│   ├── resources/      # Resources page
+│   ├── about.astro     # About page
+│   ├── contact.astro   # Contact form
+│   ├── fun.astro       # Fun projects
+│   ├── index.astro     # Homepage
+│   ├── now.astro       # Current status
+│   ├── resume.astro    # Professional resume
+│   ├── rss.xml.ts      # RSS feed
+│   ├── search.astro    # Search functionality
+│   ├── speaking.astro  # Speaking page
+│   └── uses.astro      # Tools and setup
+public/
+├── favicon.svg         # Site favicon
+├── me.jpg             # Profile photo
+├── Resume.pdf         # Downloadable resume
+└── CNAME              # Custom domain config
 ```
 
 ## ✍️ Adding Content
@@ -107,14 +131,34 @@ demo: "https://demo-url.com"
 Project details here...
 ```
 
+### Other Content Types
+
+- **Fun Projects**: Add to `src/content/fun/`
+- **Now Updates**: Add to `src/content/now/` (current status/activities)
+- **Learning Resources**: Add to `src/content/resources/`
+- **Speaking**: Add to `src/content/talks/`
+
+Each content type has its own schema defined in `src/content/config.ts`.
+
 ## 🚀 Deployment
 
-The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch. The workflow:
+The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch using GitHub Actions with Yarn for reliable dependency management. The workflow:
 
-1. Builds the Astro site
-2. Deploys to `gh-pages` branch
-3. Serves at `1mangesh1.github.io`
-4. Custom domain `mangeshbide.tech` points to GitHub Pages
+1. Installs dependencies with Yarn
+2. Builds the Astro site with `yarn build`
+3. Deploys to `gh-pages` branch using `peaceiris/actions-gh-pages`
+4. Serves at `1mangesh1.github.io`
+5. Custom domain `mangeshbide.tech` points to GitHub Pages
+
+### Manual Deployment
+
+```bash
+# Build the site
+yarn build
+
+# Deploy manually (if needed)
+yarn build && npx gh-pages -d dist
+```
 
 ## 🎨 Customization
 
@@ -134,9 +178,17 @@ theme: {
 
 ### Layout & Styling
 
-- Main layout: `src/layouts/Layout.astro`
-- Component styles: Use Tailwind classes
-- Global styles: Add to the layout component
+- **Main layout**: `src/layouts/Layout.astro` - Contains navigation, theme toggle, and base styles
+- **Component styles**: Use Tailwind classes throughout the codebase
+- **Dark/Light mode**: Automatically handled via `dark:` classes and localStorage
+- **Typography**: Enhanced with `@tailwindcss/typography` plugin for markdown content
+
+### Site Configuration
+
+- **Site metadata**: Update in `src/layouts/Layout.astro`
+- **Navigation**: Modify the nav items in the Layout component
+- **Content collections**: Configure in `src/content/config.ts`
+- **Custom domain**: Update `public/CNAME` file
 
 ## 📝 License
 
