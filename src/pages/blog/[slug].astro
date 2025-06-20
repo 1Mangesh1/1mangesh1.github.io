@@ -21,15 +21,13 @@ const { Content } = await post.render();
   <article class="max-w-4xl mx-auto px-4 py-12">
     <header class="mb-8">
       <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-      {post.data.date && (
-        <time class="text-gray-600 dark:text-gray-400">
-          {post.data.date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </time>
-      )}
+      <time class="text-gray-600 dark:text-gray-400">
+        {post.data.pubDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </time>
     </header>
 
     <div class="prose prose-lg dark:prose-invert max-w-none">

@@ -28,11 +28,11 @@ const portfolioProjects = await getCollection('portfolio');
             <p class="text-gray-600 dark:text-gray-400 mb-4">{project.data.description}</p>
           )}
           
-          {project.data.tags && project.data.tags.length > 0 && (
+          {project.data.tech && project.data.tech.length > 0 && (
             <div class="flex flex-wrap gap-2 mb-4">
-              {project.data.tags.map((tag) => (
+              {project.data.tech.map((tech) => (
                 <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs">
-                  {tag}
+                  {tech}
                 </span>
               ))}
             </div>

@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const technologies = ['Python', 'JavaScript', 'Django', 'TensorFlow', 'React', 'Astro', 'Docker', 'Git', 'Node.js', 'Express', 'Socket.io', 'NestJS', 'TypeORM', 'JWT', 'Terraform', 'AWS'] 
+---
+
+<Layout title="About - Mangesh">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <h1>About Me</h1>
+      
+      <div class="flex flex-col md:flex-row gap-8 items-start mb-8">
+        <div class="md:w-1/3">
+          <div class="w-full max-w-sm mx-auto">
+            <img src="/me.jpg" alt="Mangesh Bide" class="w-full aspect-square object-cover rounded-lg shadow-lg">
+          </div>
+        </div>
+        <div class="md:w-2/3">
+          <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">
+            Hi, I'm Mangesh! A passionate developer who loves creating innovative solutions.
+          </p>
+          
+          <p>
+            I'm a software developer with expertise in Python, Django, TensorFlow, and web development. 
+            I enjoy working on machine learning projects, building web applications, and sharing my 
+            knowledge through blogging.
+          </p>
+        </div>
+      </div>
+
+      <h2>My Journey</h2>
+      <p>
+        My coding journey started with curiosity about how video games work. Since then, I've been 
+        constantly learning and building projects that solve real-world problems.
+      </p>
+
+      <h2>What I Do</h2>
+      <ul>
+        <li>🚀 Build web applications with modern frameworks</li>
+        <li>🤖 Develop machine learning solutions</li>
+        <li>📝 Write technical blogs and tutorials</li>
+        <li>🎯 Create tools that make people's lives easier</li>
+      </ul>
+
+      <h2>Technologies I Love</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+        {technologies.map((tech) => (
+          <div class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-2 rounded-lg text-center text-sm">
+            {tech}
+          </div>
+        ))}
+      </div>
+
+      <h2>Let's Connect</h2>
+      <p>
+        I'm always excited to connect with fellow developers and tech enthusiasts. 
+        Feel free to reach out!
+      </p>
+      
+      <div class="flex flex-wrap gap-3 mt-6">
+        <a href="https://github.com/1mangesh1" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <span>🐙</span> GitHub
+        </a>
+        <a href="https://x.com/Mangesh_Bide" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <span>🐦</span> Twitter
+        </a>
+        <a href="mailto:mangeshsbide@gmail.com" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <span>📧</span> Email
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout> 
