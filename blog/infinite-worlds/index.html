@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Deep dive into procedural generation technology and its applications in creating vast game worlds."><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.10.0"><title>Procedural Generation: Creating Infinite Worlds - Mangesh&#39;s Blog</title><link rel="stylesheet" href="/assets/_slug_.Djre1oW6.css"></head> <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200"> <div class="min-h-screen flex flex-col"> <header class="border-b border-gray-200 dark:border-gray-700"> <nav class="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center"> <div class="flex items-center space-x-8"> <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Mangesh
+</a> <div class="hidden md:flex space-x-6"> <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Blog</a> <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</a> </div> </div> <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle theme"> <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path> </svg> <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"> <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path> </svg> </button> </nav> </header> <main class="flex-1">  <article class="max-w-4xl mx-auto px-4 py-12"> <header class="mb-8"> <h1 class="text-4xl font-bold mb-4">Procedural Generation: Creating Infinite Worlds</h1> <time class="text-gray-600 dark:text-gray-400"> November 1, 2024 </time> </header> <div class="prose prose-lg dark:prose-invert max-w-none"> <p>Imagine a game where every time you log in, the world feels fresh, uncharted, and limitless. Procedural generation is the magic behind these ever-expanding, dynamic environments. Games like Minecraft revolutionized the idea of endless exploration, crafting an infinite sandbox with complex landscapes, resources, and creatures—all created through algorithms rather than meticulous design.</p>
+<p>In this post, we’ll dive deep into the fascinating world of procedural generation. We’ll walk through how developers use this technique to generate vast terrains, random quests, and unique objects, keeping gameplay fresh with each session. By the end, you’ll even learn how to implement a simple terrain generator yourself! But first, let’s look at the games that brought procedural generation into the spotlight.</p>
+<h2 id="games-that-embrace-procedural-generation">Games That Embrace Procedural Generation</h2>
+<h3 id="1-minecraft">1. <strong>Minecraft</strong></h3>
+<p>Minecraft is the poster child for procedural generation, creating vast, blocky worlds filled with resources, creatures, and dungeons. Each new world is generated based on a seed value, ensuring that players can share their unique worlds with others.</p>
+<h3 id="2-no-mans-sky">2. <strong>No man’s Sky</strong></h3>
+<p>No man’s Sky takes procedural generation to the stars, crafting an entire universe of planets, flora, and fauna. The game uses complex algorithms to create diverse ecosystems, ensuring that each planet feels distinct and unexplored.</p>
+<p>and many more games are using procedural generation to create vast worlds and unique experiences for players.</p>
+<hr>
+<p>Procedural generation has revolutionized how we create virtual worlds, enabling developers to craft vast, unique environments without manually designing every detail. In this post, we’ll explore the fundamentals of procedural generation and implement a simple terrain generator.</p>
+<h2 id="what-is-procedural-generation">What is Procedural Generation?</h2>
+<p>Procedural generation refers to creating content algorithmically rather than manually. In game development, this technique can generate:</p>
+<ul>
+<li>Terrain and landscapes</li>
+<li>Buildings and structures</li>
+<li>Flora and fauna</li>
+<li>Quest systems</li>
+<li>Item variations</li>
+</ul>
+<h2 id="the-power-of-randomized-seeds">The Power of Randomized Seeds</h2>
+<p>One of the most fascinating aspects of procedural generation is that complex worlds can emerge from simple mathematical functions and random seeds. The same seed will always generate identical content, allowing for:</p>
+<ul>
+<li>Reproducible worlds</li>
+<li>Shared experiences between players</li>
+<li>Efficient storage of vast environments</li>
+</ul>
+<h2 id="building-a-simple-terrain-generator">Building a Simple Terrain Generator</h2>
+<p>Let’s create a simple visualization of our terrain generation using HTML and TypeScript. This example will create a grid-based display where each cell’s color represents different terrain heights:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> worldWidth</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 10</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> worldHeight</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 10</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> terrainTypes</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"grass"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"water"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"mountain"</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> generateWorld</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">width</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">height</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> world</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> y </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; y </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> height; y</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> row</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; x </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> width; x</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> randomTerrain</span><span style="color:#F97583"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">        terrainTypes[Math.</span><span style="color:#B392F0">floor</span><span style="color:#E1E4E8">(Math.</span><span style="color:#B392F0">random</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> terrainTypes.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">)];</span></span>
+<span class="line"><span style="color:#E1E4E8">      row.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(randomTerrain);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    world.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(row);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> world;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> displayWorld</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">world</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> row </span><span style="color:#F97583">of</span><span style="color:#E1E4E8"> world) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(row.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">" | "</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> world</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> generateWorld</span><span style="color:#E1E4E8">(worldWidth, worldHeight);</span></span>
+<span class="line"><span style="color:#B392F0">displayWorld</span><span style="color:#E1E4E8">(world);</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass</span></span>
+<span class="line"><span>water | mountain | grass | water | mountain | grass | water | mountain | grass | water</span></span>
+<span class="line"><span>mountain | grass | water | mountain | grass | water | mountain | grass | water | mountain</span></span>
+<span class="line"><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass</span></span>
+<span class="line"><span>water | mountain | grass | water | mountain | grass | water | mountain | grass | water</span></span>
+<span class="line"><span>mountain | grass | water | mountain | grass | water | mountain | grass | water | mountain</span></span>
+<span class="line"><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass</span></span>
+<span class="line"><span>water | mountain | grass | water | mountain | grass | water | mountain | grass | water</span></span>
+<span class="line"><span>mountain | grass | water | mountain | grass | water | mountain | grass | water | mountain</span></span>
+<span class="line"><span>grass | water | mountain | grass | water | mountain | grass | water | mountain | grass</span></span></code></pre>
+<p>Here’s a breakdown of the code:</p>
+<ul>
+<li>We define the <code>worldWidth</code> and <code>worldHeight</code> constants to set the dimensions of our grid.</li>
+<li>The <code>terrainTypes</code> array contains the different types of terrain we want to generate.</li>
+<li>The `</li>
+</ul> </div> <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"> <a href="/blog" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+← Back to blog
+</a> </div> </article>  </main> <footer class="border-t border-gray-200 dark:border-gray-700 mt-16"> <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400"> <p>Made with 💙 by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-blue-400 hover:underline">Mangesh</a></p> </div> </footer> </div> <script type="module">const n=document.getElementById("theme-toggle"),e=document.documentElement,l=localStorage.getItem("theme")||"light";l==="dark"&&e.classList.add("dark");n?.addEventListener("click",()=>{e.classList.toggle("dark");const t=e.classList.contains("dark");localStorage.setItem("theme",t?"dark":"light")});const o=document.getElementById("mobile-menu-btn"),c=document.getElementById("mobile-menu");o?.addEventListener("click",()=>{c?.classList.toggle("hidden")});</script> </body> </html>
