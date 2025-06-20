@@ -34,7 +34,7 @@ Check out [my GitHub](https://github.com/1mangesh1) for more projects!
 
 ### Images
 
-![Alt text](path-to-your-image.jpg)
+![Alt text](https://assets.turbologo.com/blog/en/2019/10/19084945/new-spiderman-logo.png)
 
 ### Quotes
 
