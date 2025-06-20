@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const portfolioItems = await getCollection('portfolio');
+  
+  return portfolioItems.map((item) => {
+    return {
+      params: { slug: item.slug },
+      props: { item }
+    };
+  });
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+---
+
+<Layout title={`${item.data.title} - Portfolio`} description={item.data.description}>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{item.data.title}</h1>
+      {item.data.description && (
+        <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{item.data.description}</p>
+      )}
+      {item.data.date && (
+        <time class="text-gray-600 dark:text-gray-400">
+          {item.data.date}
+        </time>
+      )}
+    </header>
+
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <a 
+        href="/portfolio" 
+        class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        ← Back to portfolio
+      </a>
+    </div>
+  </article>
+</Layout> 

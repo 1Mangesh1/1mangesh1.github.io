@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  
+  return blogPosts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { post }
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={`${post.data.title} - Mangesh's Blog`} description={post.data.description}>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+      {post.data.date && (
+        <time class="text-gray-600 dark:text-gray-400">
+          {post.data.date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+      )}
+    </header>
+
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <a 
+        href="/blog" 
+        class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        ← Back to blog
+      </a>
+    </div>
+  </article>
+</Layout> 

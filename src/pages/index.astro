@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Welcome to My Blog!";
+---
+
+<Layout title={title}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <h1>Welcome to My Blog!</h1>
+      <p>Welcome to my corner of the internet! Here, I dive into topics like <strong>software development</strong>, <strong>AI</strong>, and the fascinating world of <strong>gaming</strong>. I'm a tech enthusiast, and I love sharing my thoughts on the latest trends and innovations in the tech industry. I hope you find something here that sparks your curiosity and passion for technology.</p>
+      
+      <blockquote>
+        <p>"YOLO"<br />
+        — Author Unknown</p>
+      </blockquote>
+
+      <h3>Why This Site?</h3>
+      <p>With so much information out there, websites can become overwhelming and bloated with unnecessary distractions. My aim here is to keep things simple, fast, and optimized for the content that matters—technical knowledge and creative insights. I use <strong>Astro</strong> with <strong>Tailwind CSS</strong> to keep the site lightweight, so you can browse without distractions.</p>
+
+      <h3>What You'll Find Here</h3>
+      <p>This blog website showcases my thoughts. Explore the blog for deep dives into tech topics. You'll find your comfort place to sit and relax while reading about the latest tech trends and my thoughts on them.</p>
+
+      <hr />
+
+      <p>Thank you for visiting! I hope you find something here that sparks your curiosity and passion for technology.</p>
+
+      <p>Made with 💙 by <a href="https://github.com/1mangesh1">Mangesh</a>.</p>
+    </div>
+
+    <!-- Quick navigation to blog and portfolio -->
+    <div class="grid md:grid-cols-2 gap-8 mt-12 pt-12 border-t border-gray-200 dark:border-gray-700">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold mb-4">Latest Blog Posts</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Thoughts on tech, development, and more</p>
+        <a href="/blog" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+          View Blog
+        </a>
+      </div>
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold mb-4">Portfolio</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Projects and work showcase</p>
+        <a href="/portfolio" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors">
+          View Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
