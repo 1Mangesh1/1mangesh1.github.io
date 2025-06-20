@@ -1,0 +1,21 @@
+{
+  "name": "Mangesh Bide - Software Developer",
+  "short_name": "by mangesh",
+  "description": "Personal website and blog of Mangesh Bide, Software Developer specializing in Python, Django, and Machine Learning",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "technology", "developer"],
+  "lang": "en",
+  "scope": "/"
+}
