@@ -33,7 +33,7 @@
 
 <script>
   // Easter Egg 1: Konami Code (↑↑↓↓←→←→BA)
-  let konamiCode = [];
+  let konamiCode: string[] = [];
   const konamiSequence = [
     'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
     'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
@@ -88,10 +88,10 @@
   const clickEmojis = ['✨', '🎉', '💫', '⭐', '🌟', '💥', '🎊', '🔥'];
   let clickCount = 0;
 
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', (_e) => {
     // Random chance for emoji on click
     if (Math.random() < 0.1) {
-      createFloatingEmoji(e.clientX, e.clientY);
+      createFloatingEmoji(_e.clientX, _e.clientY);
     }
     
     // Special effect on rapid clicks
