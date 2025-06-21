@@ -10,7 +10,7 @@ const { title, url, description = '' } = Astro.props;
 // Encode for URL sharing
 const encodedTitle = encodeURIComponent(title);
 const encodedUrl = encodeURIComponent(url);
-const encodedDescription = encodeURIComponent(description);
+
 
 // Social sharing URLs
 const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;

@@ -314,7 +314,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // Share meme function
-  (window as any).shareMeme = async (postLink: string, title: string, index: number) => {
+  (window as any).shareMeme = async (postLink: string, title: string, _index: number) => {
     try {
       if (navigator.share) {
         await navigator.share({
