@@ -1,0 +1,182 @@
+---
+export interface Props {
+  headings: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
+
+const { headings } = Astro.props;
+
+// Filter out h1 (title) and only show h2-h6
+const tocHeadings = headings.filter(heading => heading.depth > 1 && heading.depth <= 4);
+---
+
+{tocHeadings.length > 0 && (
+  <!-- Floating TOC -->
+  <div 
+    id="floating-toc"
+    class="fixed right-2 md:right-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 opacity-30 hover:opacity-100"
+  >
+    <!-- TOC Toggle Button -->
+    <button
+      id="toc-toggle"
+      class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200 mb-2"
+      aria-label="Toggle Table of Contents"
+    >
+      <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+      </svg>
+    </button>
+    
+    <!-- TOC Panel -->
+    <div 
+      id="toc-panel"
+      class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-4 w-64 sm:w-72 max-h-96 overflow-y-auto transform transition-all duration-300 origin-top-right scale-0 opacity-0"
+    >
+      <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+        </svg>
+        Contents
+      </h3>
+      
+      <nav class="space-y-1">
+        {tocHeadings.map((heading) => (
+          <a
+            href={`#${heading.slug}`}
+            class={`block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link ${
+              heading.depth === 2 ? 'font-medium' : 
+              heading.depth === 3 ? 'pl-3' : 
+              'pl-6'
+            }`}
+            data-heading={heading.slug}
+          >
+            {heading.text}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+)}
+
+<style>
+  .toc-link.active {
+    @apply text-blue-600 dark:text-blue-400 font-medium;
+  }
+  
+  .toc-link.active::before {
+    content: '';
+    @apply absolute -ml-3 mt-2 w-1 h-4 bg-blue-600 rounded-full;
+  }
+  
+  .toc-link {
+    @apply relative;
+  }
+</style>
+
+<script>
+  // Floating TOC functionality
+  const tocToggle = document.getElementById('toc-toggle');
+  const tocPanel = document.getElementById('toc-panel');
+  const tocLinks = document.querySelectorAll('.toc-link');
+  let isOpen = false;
+  
+  if (tocToggle && tocPanel) {
+    // Toggle TOC panel
+    tocToggle.addEventListener('click', () => {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        tocPanel.classList.remove('scale-0', 'opacity-0');
+        tocPanel.classList.add('scale-100', 'opacity-100');
+      } else {
+        tocPanel.classList.add('scale-0', 'opacity-0');
+        tocPanel.classList.remove('scale-100', 'opacity-100');
+      }
+    });
+    
+    // Close TOC when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as Element;
+      if (isOpen && !tocToggle.contains(target) && !tocPanel.contains(target)) {
+        isOpen = false;
+        tocPanel.classList.add('scale-0', 'opacity-0');
+        tocPanel.classList.remove('scale-100', 'opacity-100');
+      }
+    });
+  }
+  
+  if (tocLinks.length > 0) {
+    // Get all headings in the content
+    const headings = Array.from(document.querySelectorAll('h2, h3, h4, h5, h6'))
+      .filter(heading => heading.id);
+    
+    // Smooth scroll for TOC links
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.slice(1);
+        const targetElement = document.getElementById(targetId || '');
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          
+          // Close TOC after navigation
+          if (isOpen) {
+            isOpen = false;
+            tocPanel?.classList.add('scale-0', 'opacity-0');
+            tocPanel?.classList.remove('scale-100', 'opacity-100');
+          }
+        }
+      });
+    });
+    
+    // Highlight current section
+    const updateActiveSection = () => {
+      const scrollTop = window.scrollY;
+      
+      // Find current active heading
+      let activeHeading = null;
+      
+      for (let i = headings.length - 1; i >= 0; i--) {
+        const heading = headings[i];
+        const headingTop = heading.offsetTop - 100;
+        
+        if (scrollTop >= headingTop) {
+          activeHeading = heading;
+          break;
+        }
+      }
+      
+      // Update active TOC link
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        const targetId = link.getAttribute('href')?.slice(1);
+        
+        if (activeHeading && targetId === activeHeading.id) {
+          link.classList.add('active');
+        }
+      });
+    };
+    
+    // Throttled scroll listener for performance
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    updateActiveSection();
+  }
+</script> 
