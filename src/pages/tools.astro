@@ -1,0 +1,757 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Developer Tools - Mangesh" description="Essential developer utilities including QR code generator, color picker, JSON formatter, and more">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        🛠️ Developer Tools
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Essential utilities for developers - all in one place, no sign-up required, works offline!
+      </p>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- QR Code Generator -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl mr-3">📱</span>
+          <h2 class="text-xl font-bold">QR Code Generator</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div>
+            <label for="qr-input" class="block text-sm font-medium mb-2">Enter text or URL</label>
+            <textarea 
+              id="qr-input" 
+              rows="3" 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="https://mangeshbide.tech or any text..."
+            ></textarea>
+          </div>
+          
+          <button 
+            onclick="generateQR()" 
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Generate QR Code
+          </button>
+          
+          <div id="qr-result" class="text-center hidden">
+            <div id="qr-code" class="bg-white p-4 rounded-lg inline-block"></div>
+            <button 
+              onclick="downloadQR()" 
+              class="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+            >
+              Download PNG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Palette Generator -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl mr-3">🎨</span>
+          <h2 class="text-xl font-bold">Color Palette</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div>
+            <label for="base-color" class="block text-sm font-medium mb-2">Base Color</label>
+            <input 
+              type="color" 
+              id="base-color" 
+              value="#3b82f6" 
+              class="w-full h-12 border border-gray-300 dark:border-gray-600 rounded-md cursor-pointer"
+            >
+          </div>
+          
+          <button 
+            onclick="generatePalette()" 
+            class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Generate Palette
+          </button>
+          
+          <div id="color-palette" class="grid grid-cols-5 gap-2 mt-4">
+            <!-- Palette will be generated here -->
+          </div>
+          
+          <div id="color-codes" class="space-y-1 text-xs font-mono">
+            <!-- Color codes will appear here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Lorem Ipsum Generator -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl mr-3">📝</span>
+          <h2 class="text-xl font-bold">Lorem Ipsum</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="lorem-type" class="block text-sm font-medium mb-2">Type</label>
+              <select 
+                id="lorem-type" 
+                class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              >
+                <option value="words">Words</option>
+                <option value="sentences">Sentences</option>
+                <option value="paragraphs" selected>Paragraphs</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="lorem-count" class="block text-sm font-medium mb-2">Count</label>
+              <input 
+                type="number" 
+                id="lorem-count" 
+                value="3" 
+                min="1" 
+                max="50"
+                class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              >
+            </div>
+          </div>
+          
+          <button 
+            onclick="generateLorem()" 
+            class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Generate Text
+          </button>
+          
+          <div class="relative">
+            <textarea 
+              id="lorem-output" 
+              rows="6" 
+              readonly 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm"
+              placeholder="Generated text will appear here..."
+            ></textarea>
+            <button 
+              onclick="copyToClipboard('lorem-output')" 
+              class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password Generator -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl mr-3">🔐</span>
+          <h2 class="text-xl font-bold">Password Generator</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div>
+            <label for="password-length" class="block text-sm font-medium mb-2">Length: <span id="length-display">16</span></label>
+            <input 
+              type="range" 
+              id="password-length" 
+              min="8" 
+              max="64" 
+              value="16" 
+              class="w-full"
+              oninput="document.getElementById('length-display').textContent = this.value"
+            >
+          </div>
+          
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" id="include-uppercase" checked class="mr-2">
+              <span class="text-sm">Uppercase (A-Z)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" id="include-lowercase" checked class="mr-2">
+              <span class="text-sm">Lowercase (a-z)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" id="include-numbers" checked class="mr-2">
+              <span class="text-sm">Numbers (0-9)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" id="include-symbols" class="mr-2">
+              <span class="text-sm">Symbols (!@#$%^&*)</span>
+            </label>
+          </div>
+          
+          <button 
+            onclick="generatePassword()" 
+            class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Generate Password
+          </button>
+          
+          <div class="relative">
+            <input 
+              type="text" 
+              id="password-output" 
+              readonly 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono"
+              placeholder="Generated password will appear here..."
+            >
+            <button 
+              onclick="copyToClipboard('password-output')" 
+              class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Base64 Encoder/Decoder -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl mr-3">🔄</span>
+          <h2 class="text-xl font-bold">Base64 Encoder</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="flex space-x-2">
+            <button 
+              onclick="setBase64Mode('encode')" 
+              id="encode-btn"
+              class="flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors"
+            >
+              Encode
+            </button>
+            <button 
+              onclick="setBase64Mode('decode')" 
+              id="decode-btn"
+              class="flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Decode
+            </button>
+          </div>
+          
+          <div>
+            <label for="base64-input" class="block text-sm font-medium mb-2" id="base64-label">Text to Encode</label>
+            <textarea 
+              id="base64-input" 
+              rows="4" 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="Enter your text here..."
+            ></textarea>
+          </div>
+          
+          <button 
+            onclick="processBase64()" 
+            class="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors"
+            id="base64-process-btn"
+          >
+            Encode Text
+          </button>
+          
+          <div class="relative">
+            <textarea 
+              id="base64-output" 
+              rows="4" 
+              readonly 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono text-sm"
+              placeholder="Result will appear here..."
+            ></textarea>
+            <button 
+              onclick="copyToClipboard('base64-output')" 
+              class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- JSON Formatter -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl mr-3">📋</span>
+          <h2 class="text-xl font-bold">JSON Formatter</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div>
+            <label for="json-input" class="block text-sm font-medium mb-2">JSON Input</label>
+            <textarea 
+              id="json-input" 
+              rows="6" 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono text-sm"
+              placeholder='{"name":"John","age":30,"city":"New York"}'
+            ></textarea>
+          </div>
+          
+          <div class="flex space-x-2">
+            <button 
+              onclick="formatJSON()" 
+              class="flex-1 bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+            >
+              Format
+            </button>
+            <button 
+              onclick="minifyJSON()" 
+              class="flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Minify
+            </button>
+            <button 
+              onclick="validateJSON()" 
+              class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Validate
+            </button>
+          </div>
+          
+          <div id="json-status" class="text-sm hidden"></div>
+          
+          <div class="relative">
+            <textarea 
+              id="json-output" 
+              rows="6" 
+              readonly 
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono text-sm"
+              placeholder="Formatted JSON will appear here..."
+            ></textarea>
+            <button 
+              onclick="copyToClipboard('json-output')" 
+              class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Usage Stats -->
+    <div class="mt-12 text-center">
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
+        <h3 class="text-lg font-semibold mb-4">🎯 Quick Stats</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div>
+            <div class="text-2xl font-bold text-blue-600" id="tools-used">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Tools Used</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-purple-600" id="items-generated">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Items Generated</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-green-600" id="copies-made">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Copies Made</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="mt-8 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-6 border border-yellow-200 dark:border-yellow-800">
+      <h3 class="font-semibold mb-3 text-yellow-800 dark:text-yellow-200">💡 Pro Tips</h3>
+      <ul class="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
+        <li>• All tools work offline - no data is sent to external servers</li>
+        <li>• Use Ctrl+A to select all text in output areas</li>
+        <li>• Bookmark this page for quick access to your favorite tools</li>
+        <li>• Right-click on QR codes to save them directly</li>
+        <li>• JSON formatter supports both objects and arrays</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- No external libraries needed - using API fallback -->
+
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Statistics tracking
+      let stats = {
+        toolsUsed: 0,
+        itemsGenerated: 0,
+        copiesMade: 0
+      };
+
+      // Load stats from localStorage
+      if (localStorage.getItem('devToolsStats')) {
+        stats = JSON.parse(localStorage.getItem('devToolsStats'));
+        updateStatsDisplay();
+      }
+
+      function updateStats(type) {
+        stats[type]++;
+        localStorage.setItem('devToolsStats', JSON.stringify(stats));
+        updateStatsDisplay();
+      }
+
+      function updateStatsDisplay() {
+        const toolsUsedEl = document.getElementById('tools-used');
+        const itemsGeneratedEl = document.getElementById('items-generated');
+        const copiesMadeEl = document.getElementById('copies-made');
+        
+        if (toolsUsedEl) toolsUsedEl.textContent = stats.toolsUsed;
+        if (itemsGeneratedEl) itemsGeneratedEl.textContent = stats.itemsGenerated;
+        if (copiesMadeEl) copiesMadeEl.textContent = stats.copiesMade;
+      }
+
+      // QR Code Generator (API-based)
+      window.generateQR = function() {
+        const input = document.getElementById('qr-input').value.trim();
+        if (!input) {
+          alert('Please enter some text or URL');
+          return;
+        }
+
+        const qrContainer = document.getElementById('qr-code');
+        qrContainer.innerHTML = 'Generating QR code...';
+        
+        // Create QR code using API
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(input)}`;
+        const img = document.createElement('img');
+        img.src = qrUrl;
+        img.alt = 'QR Code';
+        img.className = 'border rounded';
+        
+        img.onload = function() {
+          qrContainer.innerHTML = '';
+          qrContainer.appendChild(img);
+          document.getElementById('qr-result').classList.remove('hidden');
+          updateStats('itemsGenerated');
+          updateStats('toolsUsed');
+        };
+        
+        img.onerror = function() {
+          qrContainer.innerHTML = 'Error loading QR code. Please try again.';
+        };
+      };
+
+      window.downloadQR = function() {
+        const canvas = document.querySelector('#qr-code canvas');
+        const img = document.querySelector('#qr-code img');
+        
+        if (canvas) {
+          // Download from canvas
+          const link = document.createElement('a');
+          link.download = 'qrcode.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        } else if (img) {
+          // Download from image (fallback method)
+          const link = document.createElement('a');
+          link.download = 'qrcode.png';
+          link.href = img.src;
+          link.click();
+        } else {
+          alert('No QR code to download. Please generate one first.');
+        }
+      };
+
+      // Color Palette Generator
+      window.generatePalette = function() {
+        const baseColor = document.getElementById('base-color').value;
+        const palette = generateColorPalette(baseColor);
+        
+        const paletteContainer = document.getElementById('color-palette');
+        const codesContainer = document.getElementById('color-codes');
+        
+        paletteContainer.innerHTML = '';
+        codesContainer.innerHTML = '';
+        
+        palette.forEach((color, index) => {
+          // Color swatch
+          const swatch = document.createElement('div');
+          swatch.className = 'h-12 rounded cursor-pointer hover:scale-105 transition-transform';
+          swatch.style.backgroundColor = color;
+          swatch.title = color;
+          swatch.onclick = () => copyToClipboard(null, color);
+          paletteContainer.appendChild(swatch);
+          
+          // Color code
+          const code = document.createElement('div');
+          code.className = 'text-gray-600 dark:text-gray-400 cursor-pointer hover:text-blue-600';
+          code.textContent = color.toUpperCase();
+          code.onclick = () => copyToClipboard(null, color);
+          codesContainer.appendChild(code);
+        });
+        
+        updateStats('itemsGenerated');
+        updateStats('toolsUsed');
+      };
+
+      function generateColorPalette(baseColor) {
+        const hsl = hexToHsl(baseColor);
+        const palette = [];
+        
+        // Generate 5 colors with different lightness and saturation
+        for (let i = 0; i < 5; i++) {
+          const lightness = Math.max(10, Math.min(90, hsl.l + (i - 2) * 20));
+          const saturation = Math.max(10, Math.min(100, hsl.s + (i - 2) * 10));
+          palette.push(hslToHex(hsl.h, saturation, lightness));
+        }
+        
+        return palette;
+      }
+
+      function hexToHsl(hex) {
+        const r = parseInt(hex.slice(1, 3), 16) / 255;
+        const g = parseInt(hex.slice(3, 5), 16) / 255;
+        const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+
+        if (max === min) {
+          h = s = 0;
+        } else {
+          const d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+          }
+          h /= 6;
+        }
+
+        return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+      }
+
+      function hslToHex(h, s, l) {
+        l /= 100;
+        const a = s * Math.min(l, 1 - l) / 100;
+        const f = n => {
+          const k = (n + h / 30) % 12;
+          const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+          return Math.round(255 * color).toString(16).padStart(2, '0');
+        };
+        return `#${f(0)}${f(8)}${f(4)}`;
+      }
+
+      // Lorem Ipsum Generator
+      const loremWords = [
+        'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
+        'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore',
+        'magna', 'aliqua', 'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud',
+        'exercitation', 'ullamco', 'laboris', 'nisi', 'aliquip', 'ex', 'ea', 'commodo',
+        'consequat', 'duis', 'aute', 'irure', 'in', 'reprehenderit', 'voluptate',
+        'velit', 'esse', 'cillum', 'fugiat', 'nulla', 'pariatur', 'excepteur', 'sint',
+        'occaecat', 'cupidatat', 'non', 'proident', 'sunt', 'culpa', 'qui', 'officia',
+        'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum'
+      ];
+
+      window.generateLorem = function() {
+        const type = document.getElementById('lorem-type').value;
+        const count = parseInt(document.getElementById('lorem-count').value);
+        let result = '';
+
+        if (type === 'words') {
+          const words = [];
+          for (let i = 0; i < count; i++) {
+            words.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+          }
+          result = words.join(' ');
+        } else if (type === 'sentences') {
+          const sentences = [];
+          for (let i = 0; i < count; i++) {
+            const wordCount = Math.floor(Math.random() * 10) + 5;
+            const words = [];
+            for (let j = 0; j < wordCount; j++) {
+              words.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+            }
+            sentences.push(words.join(' ').charAt(0).toUpperCase() + words.join(' ').slice(1) + '.');
+          }
+          result = sentences.join(' ');
+        } else if (type === 'paragraphs') {
+          const paragraphs = [];
+          for (let i = 0; i < count; i++) {
+            const sentenceCount = Math.floor(Math.random() * 5) + 3;
+            const sentences = [];
+            for (let j = 0; j < sentenceCount; j++) {
+              const wordCount = Math.floor(Math.random() * 10) + 5;
+              const words = [];
+              for (let k = 0; k < wordCount; k++) {
+                words.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+              }
+              sentences.push(words.join(' ').charAt(0).toUpperCase() + words.join(' ').slice(1) + '.');
+            }
+            paragraphs.push(sentences.join(' '));
+          }
+          result = paragraphs.join('\n\n');
+        }
+
+        document.getElementById('lorem-output').value = result;
+        updateStats('itemsGenerated');
+        updateStats('toolsUsed');
+      };
+
+      // Password Generator
+      window.generatePassword = function() {
+        const length = parseInt(document.getElementById('password-length').value);
+        const includeUppercase = document.getElementById('include-uppercase').checked;
+        const includeLowercase = document.getElementById('include-lowercase').checked;
+        const includeNumbers = document.getElementById('include-numbers').checked;
+        const includeSymbols = document.getElementById('include-symbols').checked;
+
+        let charset = '';
+        if (includeUppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (includeLowercase) charset += 'abcdefghijklmnopqrstuvwxyz';
+        if (includeNumbers) charset += '0123456789';
+        if (includeSymbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+        if (!charset) {
+          alert('Please select at least one character type');
+          return;
+        }
+
+        let password = '';
+        for (let i = 0; i < length; i++) {
+          password += charset.charAt(Math.floor(Math.random() * charset.length));
+        }
+
+        document.getElementById('password-output').value = password;
+        updateStats('itemsGenerated');
+        updateStats('toolsUsed');
+      };
+
+      // Base64 Encoder/Decoder
+      let base64Mode = 'encode';
+
+      window.setBase64Mode = function(mode) {
+        base64Mode = mode;
+        const encodeBtn = document.getElementById('encode-btn');
+        const decodeBtn = document.getElementById('decode-btn');
+        const label = document.getElementById('base64-label');
+        const processBtn = document.getElementById('base64-process-btn');
+
+        if (mode === 'encode') {
+          encodeBtn.className = 'flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors';
+          decodeBtn.className = 'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors';
+          label.textContent = 'Text to Encode';
+          processBtn.textContent = 'Encode Text';
+        } else {
+          encodeBtn.className = 'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors';
+          decodeBtn.className = 'flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors';
+          label.textContent = 'Base64 to Decode';
+          processBtn.textContent = 'Decode Text';
+        }
+      };
+
+      window.processBase64 = function() {
+        const input = document.getElementById('base64-input').value;
+        const output = document.getElementById('base64-output');
+
+        try {
+          if (base64Mode === 'encode') {
+            output.value = btoa(input);
+          } else {
+            output.value = atob(input);
+          }
+          updateStats('itemsGenerated');
+          updateStats('toolsUsed');
+        } catch (error) {
+          alert('Error: Invalid input for ' + base64Mode);
+        }
+      };
+
+      // JSON Formatter
+      window.formatJSON = function() {
+        const input = document.getElementById('json-input').value;
+        const output = document.getElementById('json-output');
+
+        try {
+          const parsed = JSON.parse(input);
+          output.value = JSON.stringify(parsed, null, 2);
+          showStatus('✅ Valid JSON formatted successfully', 'text-green-600');
+          updateStats('itemsGenerated');
+          updateStats('toolsUsed');
+        } catch (error) {
+          showStatus('❌ Invalid JSON: ' + error.message, 'text-red-600');
+        }
+      };
+
+      window.minifyJSON = function() {
+        const input = document.getElementById('json-input').value;
+        const output = document.getElementById('json-output');
+
+        try {
+          const parsed = JSON.parse(input);
+          output.value = JSON.stringify(parsed);
+          showStatus('✅ JSON minified successfully', 'text-green-600');
+          updateStats('itemsGenerated');
+          updateStats('toolsUsed');
+        } catch (error) {
+          showStatus('❌ Invalid JSON: ' + error.message, 'text-red-600');
+        }
+      };
+
+      window.validateJSON = function() {
+        const input = document.getElementById('json-input').value;
+
+        try {
+          JSON.parse(input);
+          showStatus('✅ Valid JSON!', 'text-green-600');
+          updateStats('toolsUsed');
+        } catch (error) {
+          showStatus('❌ Invalid JSON: ' + error.message, 'text-red-600');
+        }
+      };
+
+      function showStatus(message, className) {
+        const status = document.getElementById('json-status');
+        status.textContent = message;
+        status.className = `text-sm ${className}`;
+        status.classList.remove('hidden');
+      }
+
+      // Copy to Clipboard Utility
+      window.copyToClipboard = async function(elementId, text) {
+        const textToCopy = text || document.getElementById(elementId).value;
+        
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          updateStats('copiesMade');
+          
+          // Show feedback
+          const btn = event.target;
+          const originalText = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.className = btn.className.replace('bg-gray-600', 'bg-green-600');
+          
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.className = btn.className.replace('bg-green-600', 'bg-gray-600');
+          }, 1000);
+        } catch (err) {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = textToCopy;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          updateStats('copiesMade');
+        }
+      };
+
+      // Initialize
+      updateStatsDisplay();
+      
+      // Generate initial palette after a short delay to ensure DOM is ready
+      setTimeout(() => {
+        if (typeof window.generatePalette === 'function') {
+          window.generatePalette();
+        }
+      }, 100);
+    });
+  </script>
+</Layout>
