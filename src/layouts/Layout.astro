@@ -113,12 +113,71 @@ const imageURL = new URL(image, siteConfig.url);
               <div class="hidden md:flex space-x-6">
                 <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Blog</a>
                 <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</a>
-                <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
-                <a href="/uses" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Uses</a>
+                
+                <!-- Fun Dropdown -->
+                <div class="relative group">
+                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+                    Fun
+                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="py-2">
+                      <a href="/games" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        🎮 Games
+                      </a>
+                      <a href="/fun" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        🌟 Life & Hobbies
+                      </a>
+                      <a href="/meme" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        🤣 Memes
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- About Dropdown -->
+                <div class="relative group">
+                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+                    About
+                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="py-2">
+                      <a href="/about" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        👨‍💻 About Me
+                      </a>
+                      <a href="/uses" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        ⚡ My Stack
+                      </a>
+                      <a href="/resume" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        📄 Resume
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
                 <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
-                <a href="/resume" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Resume</a>
-                <a href="/meme" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Memes</a>
-                <a href="/credits" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Credits</a>
+                
+                <!-- More Dropdown -->
+                <div class="relative group">
+                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+                    More
+                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="py-2">
+                      <a href="/credits" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        🙏 Credits
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -166,21 +225,52 @@ const imageURL = new URL(image, siteConfig.url);
               <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Portfolio
               </a>
-              <a href="/meme" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
-                <span>Memes</span>
+              
+              <!-- Fun Section -->
+              <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Fun
+              </div>
+              <a href="/games" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <span>🎮</span>
+                <span>Games</span>
+              </a>
+              <a href="/fun" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <span>🌟</span>
+                <span>Life & Hobbies</span>
+              </a>
+              <a href="/meme" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
                 <span>🤣</span>
+                <span>Memes</span>
               </a>
-              <a href="/about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              
+              <!-- About Section -->
+              <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
                 About
+              </div>
+              <a href="/about" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <span>👨‍💻</span>
+                <span>About Me</span>
               </a>
-              <a href="/uses" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                Uses
+              <a href="/uses" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <span>⚡</span>
+                <span>My Stack</span>
               </a>
-              <a href="/contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <a href="/resume" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <span>📄</span>
+                <span>Resume</span>
+              </a>
+              
+              <a href="/contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors mt-4">
                 Contact
               </a>
-              <a href="/resume" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                Resume
+              
+              <!-- More Section -->
+              <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+                More
+              </div>
+              <a href="/credits" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <span>🙏</span>
+                <span>Credits</span>
               </a>
             </div>
           </div>
