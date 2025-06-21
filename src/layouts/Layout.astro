@@ -14,7 +14,7 @@ export interface Props {
 const { 
   title, 
   description = "Software Developer | Python | Django | Machine Learning | Web Development", 
-  image = "/me.jpg",
+  image = "/og-image.png",
   canonical,
   noindex = false
 } = Astro.props;
@@ -70,7 +70,7 @@ const imageURL = new URL(image, siteConfig.url);
         "@type": "Person",
         "name": "Mangesh Bide",
         "url": "https://mangeshbide.tech",
-        "image": "https://mangeshbide.tech/me.jpg",
+        "image": "https://mangeshbide.tech/og-image.png",
         "jobTitle": "Software Developer",
         "worksFor": {
           "@type": "Organization",
