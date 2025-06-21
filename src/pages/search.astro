@@ -45,6 +45,17 @@ import Layout from '../layouts/Layout.astro';
     <!-- Search Results -->
     <div id="search-results" class="hidden">
       <h2 class="text-2xl font-bold mb-6">Search Results</h2>
+      
+      <!-- Loading State -->
+      <div id="search-loading" class="hidden">
+        <div class="flex items-center justify-center py-12">
+          <div class="flex items-center space-x-3">
+            <div class="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent"></div>
+            <span class="text-gray-600 dark:text-gray-400">Searching...</span>
+          </div>
+        </div>
+      </div>
+      
       <div id="results-container" class="space-y-6">
         <!-- Results will be populated by JavaScript -->
       </div>
@@ -142,6 +153,7 @@ import Layout from '../layouts/Layout.astro';
 
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     const searchResults = document.getElementById('search-results') as HTMLElement;
+    const searchLoading = document.getElementById('search-loading') as HTMLElement;
     const resultsContainer = document.getElementById('results-container') as HTMLElement;
     const noResults = document.getElementById('no-results') as HTMLElement;
     const popularSearches = document.getElementById('popular-searches') as HTMLElement;
@@ -149,6 +161,7 @@ import Layout from '../layouts/Layout.astro';
     const searchSuggestions = document.querySelectorAll('.search-suggestion');
 
     let currentFilter = 'all';
+    let searchTimeout: NodeJS.Timeout;
 
     function performSearch(query: string) {
       if (!query.trim()) {
@@ -157,37 +170,62 @@ import Layout from '../layouts/Layout.astro';
         return;
       }
 
+      // Clear previous timeout
+      clearTimeout(searchTimeout);
+
+      // Show loading state
       popularSearches?.classList.add('hidden');
       searchResults?.classList.remove('hidden');
+      searchLoading?.classList.remove('hidden');
+      resultsContainer?.classList.add('hidden');
+      noResults?.classList.add('hidden');
 
-      const filteredData = searchData.filter(item => {
-        const matchesQuery = item.title.toLowerCase().includes(query.toLowerCase()) ||
-                           item.excerpt.toLowerCase().includes(query.toLowerCase());
-        const matchesFilter = currentFilter === 'all' || item.type === currentFilter;
-        return matchesQuery && matchesFilter;
-      });
+      // Simulate search delay for better UX
+      searchTimeout = setTimeout(() => {
+        const filteredData = searchData.filter(item => {
+          const matchesQuery = item.title.toLowerCase().includes(query.toLowerCase()) ||
+                             item.excerpt.toLowerCase().includes(query.toLowerCase());
+          const matchesFilter = currentFilter === 'all' || item.type === currentFilter;
+          return matchesQuery && matchesFilter;
+        });
 
-      if (filteredData.length === 0) {
-        if (resultsContainer) resultsContainer.innerHTML = '';
-        noResults?.classList.remove('hidden');
-      } else {
-        noResults?.classList.add('hidden');
-        if (resultsContainer) {
-          resultsContainer.innerHTML = filteredData.map(item => `
-            <div class="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-              <div class="flex items-start justify-between mb-2">
-                <h3 class="font-semibold text-lg">
-                  <a href="${item.url}" class="text-blue-600 dark:text-blue-400 hover:underline">${item.title}</a>
-                </h3>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded capitalize">
-                  ${item.type}
-                </span>
+        // Hide loading state
+        searchLoading?.classList.add('hidden');
+        resultsContainer?.classList.remove('hidden');
+
+        if (filteredData.length === 0) {
+          if (resultsContainer) resultsContainer.innerHTML = '';
+          noResults?.classList.remove('hidden');
+        } else {
+          noResults?.classList.add('hidden');
+          if (resultsContainer) {
+            resultsContainer.innerHTML = filteredData.map(item => `
+              <div class="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 opacity-0 animate-fade-in">
+                <div class="flex items-start justify-between mb-2">
+                  <h3 class="font-semibold text-lg">
+                    <a href="${item.url}" class="text-blue-600 dark:text-blue-400 hover:underline">${item.title}</a>
+                  </h3>
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded capitalize">
+                    ${item.type}
+                  </span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">${item.excerpt}</p>
               </div>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">${item.excerpt}</p>
-            </div>
-          `).join('');
+            `).join('');
+
+            // Trigger fade-in animation
+            setTimeout(() => {
+              const results = resultsContainer.querySelectorAll('.animate-fade-in');
+              results.forEach((result, index) => {
+                setTimeout(() => {
+                  result.classList.remove('opacity-0');
+                  result.classList.add('opacity-100');
+                }, index * 100);
+              });
+            }, 50);
+          }
         }
-      }
+      }, 300); // 300ms delay to show loading state
     }
 
     searchInput?.addEventListener('input', (e) => {
@@ -234,4 +272,10 @@ import Layout from '../layouts/Layout.astro';
       }
     });
   </script>
+
+  <style>
+    .animate-fade-in {
+      transition: opacity 0.3s ease-in-out;
+    }
+  </style>
 </Layout> 
