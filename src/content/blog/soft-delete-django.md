@@ -70,6 +70,3 @@ Now you can use the `delete` and `restore` methods on instances of the `Post` mo
 
 That's it! You have successfully implemented soft delete in Django. I hope you found this post helpful. If you have any questions or feedback, feel free to dm me on [X](https://x.com/Mangesh_Bide) mail me at [gmail](mailto:mangeshsbide@gmail.com]).
 
-```
-
-```
