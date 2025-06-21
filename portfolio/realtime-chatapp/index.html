@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Chat platform with private messaging, room-based communication, and activity logging using WebSockets."><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><meta name="generator" content="Astro v5.10.0"><!-- Primary Meta Tags --><title>Real-time ChatApp - Portfolio</title><meta name="title" content="Real-time ChatApp - Portfolio"><meta name="description" content="Chat platform with private messaging, room-based communication, and activity logging using WebSockets."><meta name="author" content="Mangesh Bide"><link rel="canonical" href="https://mangeshbide.tech/portfolio/realtime-chatapp/"><!-- Robots --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://mangeshbide.tech/portfolio/realtime-chatapp/"><meta property="og:title" content="Real-time ChatApp - Portfolio"><meta property="og:description" content="Chat platform with private messaging, room-based communication, and activity logging using WebSockets."><meta property="og:image" content="https://mangeshbide.tech/me.jpg"><meta property="og:site_name" content="Mangesh Bide"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://mangeshbide.tech/portfolio/realtime-chatapp/"><meta property="twitter:title" content="Real-time ChatApp - Portfolio"><meta property="twitter:description" content="Chat platform with private messaging, room-based communication, and activity logging using WebSockets."><meta property="twitter:image" content="https://mangeshbide.tech/me.jpg"><meta property="twitter:creator" content="@Mangesh_Bide"><!-- Additional SEO --><meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog"><meta name="theme-color" content="#3b82f6"><!-- Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mangesh Bide",
+        "url": "https://mangeshbide.tech",
+        "image": "https://mangeshbide.tech/me.jpg",
+        "jobTitle": "Software Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Houseworks Technologies"
+        },
+        "alumniOf": "Savitribai Phule Pune University",
+        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+        "sameAs": [
+          "https://github.com/1mangesh1",
+          "https://x.com/Mangesh_Bide",
+          "https://linkedin.com/in/mangesh-bide/"
+        ]
+      }
+    </script><link rel="stylesheet" href="/assets/about.Dm3Mz9vv.css"></head> <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200"> <div class="min-h-screen flex flex-col"> <header class="border-b border-gray-200 dark:border-gray-700"> <nav class="max-w-4xl mx-auto px-4 py-6"> <!-- Desktop Navigation --> <div class="flex justify-between items-center"> <div class="flex items-center space-x-8"> <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+by mangesh
+</a> <div class="hidden md:flex space-x-6"> <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Blog</a> <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</a> <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a> <a href="/uses" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Uses</a> <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a> <a href="/resume" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Resume</a> </div> </div> <div class="flex items-center space-x-2"> <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Search"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> </svg> </a> <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle theme"> <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path> </svg> <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"> <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path> </svg> </button> <!-- Mobile menu button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle mobile menu"> <svg id="menu-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> <svg id="menu-close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden"> <div class="pt-4 pb-2 space-y-1 border-t border-gray-200 dark:border-gray-700 mt-4"> <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Blog
+</a> <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Portfolio
+</a> <a href="/about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+About
+</a> <a href="/uses" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Uses
+</a> <a href="/contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Contact
+</a> <a href="/resume" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Resume
+</a> </div> </div> </nav> </header> <main class="flex-1">  <article class="max-w-4xl mx-auto px-4 py-12"> <header class="mb-8"> <h1 class="text-4xl font-bold mb-4">Real-time ChatApp</h1> <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">Chat platform with private messaging, room-based communication, and activity logging using WebSockets.</p> <div class="flex flex-wrap gap-4 items-center text-sm text-gray-600 dark:text-gray-400"> <time> July 10, 2024 </time> <div class="flex flex-wrap gap-2"> <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs"> Node.js </span><span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs"> Express </span><span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs"> Socket.io </span><span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs"> WebSockets </span><span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs"> JavaScript </span><span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs"> Real-time Communication </span> </div> </div> </header> <div class="prose prose-lg dark:prose-invert max-w-none"> <h1 id="real-time-chatapp">Real-time ChatApp</h1>
+<p>A feature-rich real-time chat application built with Node.js and Socket.io, supporting private messaging, room-based communication, and comprehensive activity logging for seamless user interactions.</p>
+<h2 id="project-overview">Project Overview</h2>
+<p>This chat application provides a modern messaging experience with real-time communication capabilities. Users can engage in private conversations, join themed chat rooms, and benefit from a responsive interface that updates instantly across all connected clients.</p>
+<h2 id="key-features">Key Features</h2>
+<h3 id="real-time-communication">Real-time Communication</h3>
+<ul>
+<li><strong>Instant Messaging</strong>: Messages delivered instantly using WebSocket connections</li>
+<li><strong>Typing Indicators</strong>: Real-time typing status updates</li>
+<li><strong>Online Status</strong>: Live user presence tracking</li>
+<li><strong>Message Acknowledgments</strong>: Delivery and read receipts</li>
+</ul>
+<h3 id="communication-modes">Communication Modes</h3>
+<ul>
+<li><strong>Private Messaging</strong>: One-on-one conversations with message encryption</li>
+<li><strong>Room-based Chat</strong>: Public and private chat rooms with topic-based discussions</li>
+<li><strong>Group Messaging</strong>: Multi-user conversations with admin controls</li>
+<li><strong>Broadcast Messages</strong>: System-wide announcements and notifications</li>
+</ul>
+<h3 id="user-management">User Management</h3>
+<ul>
+<li><strong>User Authentication</strong>: Secure login and registration system</li>
+<li><strong>Profile Management</strong>: Customizable user profiles with avatars</li>
+<li><strong>Friend Lists</strong>: Contact management and user discovery</li>
+<li><strong>Blocking/Reporting</strong>: User moderation and safety features</li>
+</ul>
+<h3 id="activity-logging">Activity Logging</h3>
+<ul>
+<li><strong>Message History</strong>: Persistent chat history with search capabilities</li>
+<li><strong>User Activity Tracking</strong>: Login/logout timestamps and session management</li>
+<li><strong>Room Analytics</strong>: Message statistics and user engagement metrics</li>
+<li><strong>Audit Logs</strong>: Administrative activity tracking for moderation</li>
+</ul>
+<h2 id="technical-implementation">Technical Implementation</h2>
+<h3 id="backend-architecture">Backend Architecture</h3>
+<ul>
+<li><strong>Node.js Runtime</strong>: High-performance JavaScript server environment</li>
+<li><strong>Express Framework</strong>: RESTful API endpoints for user management</li>
+<li><strong>Socket.io Integration</strong>: WebSocket handling for real-time communication</li>
+<li><strong>Session Management</strong>: User session persistence and authentication</li>
+</ul>
+<h3 id="real-time-features">Real-time Features</h3>
+<ul>
+<li><strong>Event-driven Architecture</strong>: Socket.io event handlers for different message types</li>
+<li><strong>Connection Management</strong>: Handling user connections, disconnections, and reconnections</li>
+<li><strong>Room Management</strong>: Dynamic room creation, joining, and leaving</li>
+<li><strong>Message Broadcasting</strong>: Efficient message distribution to relevant clients</li>
+</ul>
+<h3 id="data-management">Data Management</h3>
+<ul>
+<li><strong>Message Storage</strong>: Persistent chat history with indexing for fast retrieval</li>
+<li><strong>User Data</strong>: Profile information and preferences storage</li>
+<li><strong>Room Metadata</strong>: Room settings, member lists, and permissions</li>
+<li><strong>Activity Logs</strong>: Comprehensive logging for analytics and moderation</li>
+</ul>
+<h2 id="technology-stack">Technology Stack</h2>
+<ul>
+<li><strong>Backend</strong>: Node.js with Express.js framework</li>
+<li><strong>Real-time Communication</strong>: Socket.io for WebSocket management</li>
+<li><strong>Frontend</strong>: HTML5, CSS3, and vanilla JavaScript</li>
+<li><strong>Database</strong>: MongoDB for data persistence (if implemented)</li>
+<li><strong>Authentication</strong>: JWT tokens or session-based authentication</li>
+<li><strong>Deployment</strong>: PM2 process manager for production deployment</li>
+</ul>
+<h2 id="technical-highlights">Technical Highlights</h2>
+<ul>
+<li><strong>Scalable Architecture</strong>: Designed to handle multiple concurrent users</li>
+<li><strong>Cross-platform Compatibility</strong>: Works across different browsers and devices</li>
+<li><strong>Error Handling</strong>: Robust error handling and connection recovery</li>
+<li><strong>Performance Optimization</strong>: Efficient message queuing and delivery</li>
+<li><strong>Security Features</strong>: Input validation and XSS protection</li>
+</ul>
+<p>This project demonstrates proficiency in real-time web technologies, WebSocket programming, and building interactive user experiences with modern JavaScript frameworks.</p> </div> <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700"> <h3 class="text-lg font-semibold mb-4">Project Links</h3> <div class="flex gap-4"> <a href="https://github.com/1Mangesh1/chat-app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-80 transition-opacity">
+GitHub
+</a> <a href="https://chat-app-rhlw.onrender.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+Live Demo
+</a> </div> </div> <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"> <a href="/portfolio" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+← Back to portfolio
+</a> </div> </article>  </main> <footer class="border-t border-gray-200 dark:border-gray-700 mt-16"> <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400"> <p>Made with 💙 by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-blue-400 hover:underline">Mangesh</a></p> </div> </footer> </div> <script type="module">const o=document.getElementById("theme-toggle"),d=document.documentElement,l=localStorage.getItem("theme")||"light";l==="dark"&&d.classList.add("dark");o?.addEventListener("click",()=>{d.classList.toggle("dark");const t=d.classList.contains("dark");localStorage.setItem("theme",t?"dark":"light")});const c=document.getElementById("mobile-menu-btn"),e=document.getElementById("mobile-menu"),n=document.getElementById("menu-open-icon"),s=document.getElementById("menu-close-icon");c?.addEventListener("click",()=>{e?.classList.contains("hidden")?(e?.classList.remove("hidden"),n?.classList.add("hidden"),s?.classList.remove("hidden")):(e?.classList.add("hidden"),n?.classList.remove("hidden"),s?.classList.add("hidden"))});const a=e?.querySelectorAll("a");a?.forEach(t=>{t.addEventListener("click",()=>{e?.classList.add("hidden"),n?.classList.remove("hidden"),s?.classList.add("hidden")})});document.addEventListener("click",t=>{const i=t.target;!e?.contains(i)&&!c?.contains(i)&&(e?.classList.add("hidden"),n?.classList.remove("hidden"),s?.classList.add("hidden"))});</script> </body> </html>
