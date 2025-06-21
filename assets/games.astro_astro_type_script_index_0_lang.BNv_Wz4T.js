@@ -1,44 +1,29 @@
-function d(t){const r=document.getElementById("game-container"),o=document.getElementById("game-title");if(!(!r||!o)){if(document.querySelectorAll(".game-content").forEach(e=>{e.classList.add("hidden")}),t==="pixel-drawer"){o.textContent="🎨 Pixel Sandbox / ASCII Drawer";const e=document.getElementById("pixel-drawer-game");if(!e)return;e.innerHTML=`
+function s(t){const a=document.getElementById("game-container"),r=document.getElementById("game-title");if(!(!a||!r)){if(document.querySelectorAll(".game-content").forEach(e=>{e.classList.add("hidden")}),t==="pixel-drawer"){r.textContent="🎨 Pixel Sandbox / ASCII Drawer";const e=document.getElementById("pixel-drawer-game");if(!e)return;e.innerHTML=`
           <!-- Game Controls -->
           <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
             <div class="grid md:grid-cols-4 gap-4 mb-6">
               <div>
-                <label for="grid-size" class="block text-sm font-medium mb-2">Grid Size</label>
-                <select id="grid-size" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                  <option value="16">16x16</option>
-                  <option value="24">24x24</option>
-                  <option value="32" selected>32x32</option>
-                  <option value="48">48x48</option>
-                </select>
+                <label class="flex items-center space-x-2">
+                  <input type="checkbox" id="mode-toggle" class="form-checkbox">
+                  <span class="text-sm font-medium">ASCII Mode</span>
+                </label>
               </div>
               
               <div>
-                <label for="drawing-mode" class="block text-sm font-medium mb-2">Mode</label>
-                <select id="drawing-mode" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                  <option value="pixel">Pixel Art</option>
-                  <option value="ascii">ASCII Art</option>
-                </select>
+                <label for="grid-size" class="block text-sm font-medium mb-2">Grid Size</label>
+                <input type="range" id="grid-size" min="16" max="48" value="32" class="w-full">
+                <span id="grid-size-value" class="text-sm text-gray-600">32×32</span>
               </div>
 
-              <div id="color-picker-container">
+              <div>
                 <label for="color-picker" class="block text-sm font-medium mb-2">Color</label>
-                <input type="color" id="color-picker" value="#3b82f6" class="w-full h-10 border border-gray-300 dark:border-gray-600 rounded-md">
+                <input type="color" id="color-picker" value="#000000" class="w-full h-10 border border-gray-300 dark:border-gray-600 rounded-md">
               </div>
 
-              <div id="char-picker-container" class="hidden">
-                <label for="char-picker" class="block text-sm font-medium mb-2">Character</label>
-                <select id="char-picker" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                  <option value="█">█ (Block)</option>
-                  <option value="▓">▓ (Dark Shade)</option>
-                  <option value="▒">▒ (Medium Shade)</option>
-                  <option value="░">░ (Light Shade)</option>
-                  <option value="*">* (Asterisk)</option>
-                  <option value="#"># (Hash)</option>
-                  <option value="@">@ (At)</option>
-                  <option value="+">+ (Plus)</option>
-                  <option value="-">- (Dash)</option>
-                  <option value=".">. (Dot)</option>
-                  <option value=" ">  (Space)</option>
+              <div>
+                <label for="char-selector" class="block text-sm font-medium mb-2">Character</label>
+                <select id="char-selector" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700">
+                  <!-- Options will be populated by JavaScript -->
                 </select>
               </div>
             </div>
@@ -56,8 +41,11 @@ function d(t){const r=document.getElementById("game-container"),o=document.getEl
               <button id="export-code-btn" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
                 Export Code
               </button>
-              <button id="download-image-btn" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+              <button id="download-png-btn" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
                 Download PNG
+              </button>
+              <button id="copy-ascii-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                Copy ASCII
               </button>
             </div>
           </div>
@@ -65,21 +53,19 @@ function d(t){const r=document.getElementById("game-container"),o=document.getEl
           <!-- Drawing Canvas -->
           <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
             <div class="flex justify-center">
-              <div id="drawing-grid" class="inline-block border-2 border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-900">
-                <!-- Grid will be generated here -->
-              </div>
+              <canvas id="pixel-canvas" class="border-2 border-gray-400 dark:border-gray-600 bg-white cursor-crosshair"></canvas>
             </div>
           </div>
 
           <!-- ASCII Output -->
-          <div id="ascii-output-container" class="hidden bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-            <h3 class="text-lg font-semibold mb-4">ASCII Output</h3>
-            <pre id="ascii-output" class="font-mono text-sm bg-white dark:bg-gray-900 p-4 rounded border overflow-auto max-h-64"></pre>
-            <button id="copy-ascii-btn" class="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
-              Copy ASCII
-            </button>
+          <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">ASCII Preview</h3>
+            <pre id="ascii-preview" class="font-mono text-sm bg-white dark:bg-gray-900 p-4 rounded border overflow-auto max-h-64 whitespace-pre"></pre>
           </div>
-        `,e.classList.remove("hidden"),a("/game-scripts/pixel-drawer.js",()=>{window.PixelDrawer&&new window.PixelDrawer})}else if(t==="hangman"){o.textContent="🎯 Hangman Game";const e=document.getElementById("hangman-game");if(!e)return;e.innerHTML=`
+
+          <!-- Hidden file input for loading -->
+          <input type="file" id="json-file-input" accept=".json" style="display: none;">
+        `,e.classList.remove("hidden"),d("/game-scripts/pixel-drawer.js",()=>{window.PixelDrawer&&new window.PixelDrawer})}else if(t==="hangman"){r.textContent="🎯 Hangman Game";const e=document.getElementById("hangman-game");if(!e)return;e.innerHTML=`
           <!-- Game Stats -->
           <div class="grid md:grid-cols-3 gap-4 mb-6">
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center">
@@ -141,4 +127,4 @@ function d(t){const r=document.getElementById("game-container"),o=document.getEl
               <li>• Use the hint button if you're stuck (reveals a random letter)</li>
             </ul>
           </div>
-        `,e.classList.remove("hidden"),a("/game-scripts/hangman.js",()=>{window.HangmanGame&&setTimeout(()=>{new window.HangmanGame},100)})}r.classList.remove("hidden"),r.scrollIntoView({behavior:"smooth"})}}function i(){const t=document.getElementById("game-container");t&&t.classList.add("hidden")}function a(t,r){const o=document.createElement("script");o.src=t,o.onload=r,o.onerror=()=>console.error(`Failed to load script: ${t}`),document.head.appendChild(o)}window.showGame=d;window.hideGame=i;
+        `,e.classList.remove("hidden"),d("/game-scripts/hangman.js",()=>{window.HangmanGame&&setTimeout(()=>{new window.HangmanGame},100)})}a.classList.remove("hidden"),a.scrollIntoView({behavior:"smooth"})}}function o(){const t=document.getElementById("game-container");t&&t.classList.add("hidden")}function d(t,a){const r=document.createElement("script");r.src=t,r.onload=a,r.onerror=()=>console.error(`Failed to load script: ${t}`),document.head.appendChild(r)}window.showGame=s;window.hideGame=o;
