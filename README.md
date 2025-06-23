@@ -32,6 +32,8 @@ A modern, comprehensive personal website built with Astro, featuring blog, portf
 - **📊 Dynamic Content**: RSS feeds, tag-based navigation, and content collections
 - **🎨 Interactive Elements**: Color magic, text scramblers, and visual effects
 - **🛠️ Maintenance Mode**: Toggle-able maintenance page with custom messaging
+- **🔧 Developer Tools**: Comprehensive collection of developer utilities (QR codes, colors, password generator, Base64, JSON formatter)
+- **📷 Social Media Integration**: Optimized Open Graph images for enhanced social sharing
 
 ## 🛠️ Tech Stack
 
@@ -121,6 +123,7 @@ src/
 │   ├── search.astro     # Search functionality
 │   ├── secret.astro     # Hidden easter egg page
 │   ├── speaking.astro   # Speaking engagements
+│   ├── tools.astro      # Developer utilities and tools
 │   └── uses.astro       # Tools and development setup
 ├── utils/               # Utility functions
 │   ├── reading-time.ts  # Calculate reading time
@@ -131,6 +134,7 @@ public/
 │   └── pixel-drawer.js  # Pixel art creation tool
 ├── favicon.svg          # Site favicon
 ├── me.jpg              # Profile photo
+├── og-image.png        # Open Graph image for social sharing
 ├── Resume.pdf          # Downloadable resume
 ├── robots.txt          # SEO configuration
 └── CNAME               # Custom domain config
@@ -144,6 +148,15 @@ scripts/
 
 - **Pixel Sandbox**: Create pixel art or ASCII art with multiple grid sizes, color picker, save/load functionality, and export options (PNG, JSON, code snippets)
 - **Hangman**: Programming-themed word guessing game with visual hangman drawing, sound effects, score tracking, and hint system
+
+### Developer Tools
+
+- **QR Code Generator**: Convert text or URLs to downloadable QR codes
+- **Color Palette Generator**: Create harmonious color schemes from a base color
+- **Lorem Ipsum Generator**: Generate placeholder text (words, sentences, paragraphs)
+- **Password Generator**: Create secure passwords with customizable options
+- **Base64 Encoder/Decoder**: Encode and decode text to/from Base64
+- **JSON Formatter**: Format, minify, and validate JSON with syntax highlighting
 
 ### Easter Eggs & Fun
 
@@ -283,6 +296,7 @@ theme: {
 - **Portfolio**: Showcase of projects and work
 - **Speaking**: Talks and presentations
 - **Uses**: Development tools and setup
+- **Tools**: Developer utilities for everyday tasks
 - **Contact**: Professional contact form
 
 ### Personal & Fun
