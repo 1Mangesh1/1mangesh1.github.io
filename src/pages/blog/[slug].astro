@@ -120,9 +120,12 @@ const formatDate = (date: Date) => {
               {relatedPost.data.tags && (
                 <div class="flex flex-wrap gap-1">
                   {relatedPost.data.tags.slice(0, 3).map((tag) => (
-                    <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded">
+                    <a
+                      href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                      class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                    >
                       {tag}
-                    </span>
+                    </a>
                   ))}
                   {relatedPost.data.tags.length > 3 && (
                     <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">

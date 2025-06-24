@@ -1,46 +1,115 @@
 ---
-// Back to Top Button Component
+// Back to Top Button Component with Enhanced Animations
 ---
 
 <button
   id="back-to-top"
-  class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible translate-y-4 z-50"
+  class="fixed bottom-8 right-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible translate-y-4 z-50 hover-lift group"
   aria-label="Back to top"
 >
-  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+  </svg>
+  <!-- Progress ring -->
+  <svg class="absolute inset-0 w-full h-full -rotate-90 opacity-30" viewBox="0 0 36 36">
+    <path
+      id="progress-ring"
+      class="stroke-current text-white"
+      stroke-width="2"
+      fill="transparent"
+      stroke-dasharray="100, 100"
+      stroke-dashoffset="100"
+      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+    />
   </svg>
 </button>
 
 <script>
-  // Back to Top functionality
+  // Enhanced Back to Top functionality with scroll progress
   const backToTopButton = document.getElementById('back-to-top');
+  const progressRing = document.getElementById('progress-ring');
   
-  if (backToTopButton) {
-    // Show/hide button based on scroll position
-    const toggleButton = () => {
-      if (window.scrollY > 300) {
+  if (backToTopButton && progressRing) {
+    let ticking = false;
+    
+    // Calculate scroll progress and update button
+    const updateButton = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Calculate scroll percentage
+      const scrollPercent = Math.min(100, Math.max(0, (scrollTop / (documentHeight - windowHeight)) * 100));
+      
+      // Update progress ring
+      const circumference = 100;
+      const strokeDashoffset = circumference - (scrollPercent * circumference) / 100;
+      progressRing.style.strokeDashoffset = strokeDashoffset.toString();
+      
+      // Show/hide button with enhanced animation
+      if (scrollTop > 300) {
         backToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-4');
         backToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
       } else {
         backToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-4');
         backToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
       }
+      
+      ticking = false;
     };
 
-    // Smooth scroll to top
+    // Throttled scroll handler
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateButton);
+        ticking = true;
+      }
+    };
+
+    // Enhanced smooth scroll to top with visual feedback
     const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      // Add click animation
+      backToTopButton.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        backToTopButton.style.transform = '';
+      }, 150);
+      
+      // Smooth scroll with easing
+      const startPosition = window.scrollY;
+      const startTime = performance.now();
+      const duration = 800; // ms
+      
+      const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
+      
+      const scroll = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutCubic(progress);
+        
+        window.scrollTo(0, startPosition * (1 - easedProgress));
+        
+        if (progress < 1) {
+          requestAnimationFrame(scroll);
+        }
+      };
+      
+      requestAnimationFrame(scroll);
     };
 
     // Event listeners
-    window.addEventListener('scroll', toggleButton);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     backToTopButton.addEventListener('click', scrollToTop);
 
-    // Initial check
-    toggleButton();
+    // Initial update
+    updateButton();
+    
+    // Add hover effects for better UX
+    backToTopButton.addEventListener('mouseenter', () => {
+      progressRing.style.opacity = '0.6';
+    });
+    
+    backToTopButton.addEventListener('mouseleave', () => {
+      progressRing.style.opacity = '0.3';
+    });
   }
 </script> 
