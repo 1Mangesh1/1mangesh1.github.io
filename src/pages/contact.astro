@@ -13,7 +13,11 @@ import Layout from '../layouts/Layout.astro';
       <!-- Contact Form -->
       <div>
         <h2 class="text-2xl font-semibold mb-6">Send a Message</h2>
-        <form class="space-y-6" action="https://formsubmit.co/d168ebee760fd0a9a7d5df7cece8391c" method="POST">
+        <form id="contact-form" class="space-y-6" action="https://usebasin.com/f/a244a812de55" method="POST">
+          <!-- FormSubmit configuration fields -->
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          
           <div>
             <label for="name" class="block text-sm font-medium mb-2">Name</label>
             <input 
@@ -21,9 +25,11 @@ import Layout from '../layouts/Layout.astro';
               id="name" 
               name="name" 
               required
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+              minlength="2"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 transition-colors"
               placeholder="Your Name"
             />
+            <div class="text-red-600 dark:text-red-400 text-sm mt-1 hidden" id="name-error"></div>
           </div>
           
           <div>
@@ -33,10 +39,12 @@ import Layout from '../layouts/Layout.astro';
               id="email" 
               name="email" 
               required
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 transition-colors"
               placeholder="your.email@example.com"
             />
+            <div class="text-red-600 dark:text-red-400 text-sm mt-1 hidden" id="email-error"></div>
           </div>
+          
           <div>
             <label for="message" class="block text-sm font-medium mb-2">Message</label>
             <textarea 
@@ -44,14 +52,19 @@ import Layout from '../layouts/Layout.astro';
               name="message" 
               rows="6"
               required
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 transition-colors resize-vertical"
               placeholder="Your message..."
             ></textarea>
+            <div class="text-red-600 dark:text-red-400 text-sm mt-1 hidden" id="message-error"></div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+              <span id="char-count">0</span> characters
+            </div>
           </div>
           
           <button 
             type="submit"
-            class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            id="submit-btn"
+            class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send Message
           </button>
@@ -107,7 +120,150 @@ import Layout from '../layouts/Layout.astro';
             feel free to reach out on Twitter for a faster response.
           </p>
         </div>
+
+        <!-- Form Tips -->
+        <div class="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+          <h3 class="font-medium mb-2 text-blue-800 dark:text-blue-200">💡 Quick Tips</h3>
+          <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+            <li>• Be specific about what you'd like to discuss</li>
+            <li>• Include relevant links or context if applicable</li>
+            <li>• For collaborations, mention your timeline</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</Layout> 
+</Layout>
+
+<script>
+  // Form validation only (no AJAX submission)
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  // Form inputs
+  const nameInput = document.getElementById('name') as HTMLInputElement;
+  const emailInput = document.getElementById('email') as HTMLInputElement;
+  const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+  const charCount = document.getElementById('char-count') as HTMLElement;
+
+  // Error elements
+  const nameError = document.getElementById('name-error') as HTMLElement;
+  const emailError = document.getElementById('email-error') as HTMLElement;
+  const messageError = document.getElementById('message-error') as HTMLElement;
+
+  // Character counter for message
+  messageInput?.addEventListener('input', () => {
+    const count = messageInput.value.length;
+    if (charCount) {
+      charCount.textContent = count.toString();
+      charCount.className = count > 1000 ? 'text-red-500' : 'text-gray-500 dark:text-gray-400';
+    }
+  });
+
+  // Real-time validation
+  function validateField(input: HTMLInputElement | HTMLTextAreaElement, errorEl: HTMLElement): boolean {
+    const value = input.value.trim();
+    let isValid = true;
+    let errorMsg = '';
+
+    // Clear previous error
+    errorEl.classList.add('hidden');
+    input.classList.remove('border-red-500');
+
+    if (input.type === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!value) {
+        errorMsg = 'Email is required';
+        isValid = false;
+      } else if (!emailRegex.test(value)) {
+        errorMsg = 'Please enter a valid email address';
+        isValid = false;
+      }
+    } else if (input.name === 'name') {
+      if (!value) {
+        errorMsg = 'Name is required';
+        isValid = false;
+      } else if (value.length < 2) {
+        errorMsg = 'Name must be at least 2 characters';
+        isValid = false;
+      }
+    } else if (input.name === 'message') {
+      if (!value) {
+        errorMsg = 'Message is required';
+        isValid = false;
+      }
+    }
+
+    if (!isValid) {
+      errorEl.textContent = errorMsg;
+      errorEl.classList.remove('hidden');
+      input.classList.add('border-red-500');
+    }
+
+    return isValid;
+  }
+
+  // Add real-time validation listeners
+  nameInput?.addEventListener('blur', () => validateField(nameInput, nameError));
+  emailInput?.addEventListener('blur', () => validateField(emailInput, emailError));
+  messageInput?.addEventListener('blur', () => validateField(messageInput, messageError));
+
+  // Form submission validation (before form submits normally)
+  form?.addEventListener('submit', (e) => {
+    // Validate all fields
+    const isNameValid = validateField(nameInput, nameError);
+    const isEmailValid = validateField(emailInput, emailError);
+    const isMessageValid = validateField(messageInput, messageError);
+
+    if (!isNameValid || !isEmailValid || !isMessageValid) {
+      e.preventDefault(); // Prevent form submission if validation fails
+      return false;
+    }
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    
+    // Clear draft on successful submission
+    localStorage.removeItem('contact-form-draft');
+    
+    // Form will submit normally to FormSubmit
+    return true;
+  });
+
+  // Add form enhancement: Save draft to localStorage
+  function saveDraft() {
+    const draft = {
+      name: nameInput?.value || '',
+      email: emailInput?.value || '',
+      message: messageInput?.value || ''
+    };
+    localStorage.setItem('contact-form-draft', JSON.stringify(draft));
+  }
+
+  function loadDraft() {
+    try {
+      const draft = localStorage.getItem('contact-form-draft');
+      if (draft) {
+        const data = JSON.parse(draft);
+        if (nameInput && !nameInput.value) nameInput.value = data.name || '';
+        if (emailInput && !emailInput.value) emailInput.value = data.email || '';
+        if (messageInput && !messageInput.value) {
+          messageInput.value = data.message || '';
+          // Update character count
+          if (charCount) charCount.textContent = messageInput.value.length.toString();
+        }
+      }
+    } catch (error) {
+      console.log('Could not load draft:', error);
+    }
+  }
+
+  // Load draft on page load
+  loadDraft();
+
+  // Save draft on input
+  [nameInput, emailInput, messageInput].forEach(input => {
+    input?.addEventListener('input', saveDraft);
+  });
+</script> 
