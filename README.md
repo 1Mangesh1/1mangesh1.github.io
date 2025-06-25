@@ -44,6 +44,7 @@ A modern, comprehensive personal website built with Astro, featuring blog, portf
 - **Content**: [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/) with TypeScript validation
 - **Interactive Features**: Vanilla JavaScript with Canvas API, Web Audio API, File API
 - **Deployment**: GitHub Pages via GitHub Actions with Yarn package management
+- **CDN & Performance**: Cloudflare (Free Plan) for global CDN, caching, and performance optimization
 - **Language**: TypeScript with strict type checking
 - **Performance**: Optimized external CSS, efficient animations, and lazy loading
 
