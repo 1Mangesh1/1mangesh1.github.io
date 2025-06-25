@@ -14,9 +14,7 @@ import Layout from '../layouts/Layout.astro';
       <div>
         <h2 class="text-2xl font-semibold mb-6">Send a Message</h2>
         <form id="contact-form" class="space-y-6" action="https://usebasin.com/f/a244a812de55" method="POST">
-          <!-- FormSubmit configuration fields -->
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
+
           
           <div>
             <label for="name" class="block text-sm font-medium mb-2">Name</label>
@@ -224,10 +222,7 @@ import Layout from '../layouts/Layout.astro';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
     
-    // Clear draft on successful submission
     localStorage.removeItem('contact-form-draft');
-    
-    // Form will submit normally to FormSubmit
     return true;
   });
 
