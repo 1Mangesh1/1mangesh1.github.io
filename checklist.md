@@ -63,7 +63,7 @@
 - [ ] Lighthouse score >90 (performance/accessibility)
 - [ ] HTTPS enabled
 - [ ] HTML meta tags for title, description, and social previews
-- [ ] Contact form backend (Formsubmit, AWS Lambda, etc.)
+- [ ] Contact form backend (usebasin, AWS Lambda, etc.)
 
 ---
 
