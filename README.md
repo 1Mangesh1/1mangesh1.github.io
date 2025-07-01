@@ -368,3 +368,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ---
 
 Made with 💙 by [Mangesh](https://github.com/1mangesh1) • Featuring interactive games, dynamic content, clean design, and optimized performance! 🎮✨
+
+> 📌 **Note:** This project is open-source under the MIT license for code use.  
+Please do **not** reuse personal content, images, name, or profile data from the original site (mangeshbide.tech).
+
