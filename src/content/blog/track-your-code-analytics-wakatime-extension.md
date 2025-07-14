@@ -133,9 +133,11 @@ It's a great way to build habits, stay consistent, or even prepare for hackathon
 ## ✅ Final Thoughts
 
 WakaTime gives you the power of data—without interrupting your workflow. Once set up, it’s fully automatic and helps you understand your programming habits better over time.
-
 If you’ve ever wondered where your time goes, WakaTime has the answer.
 
 Feel free to DM me on [X](https://x.com/Mangesh_Bide) or email me at [mangeshsbide@gmail.com](mailto:mangeshsbide@gmail.com) if you have questions or want help setting it up!
+
+Thanks to my colleague for suggesting this tool!
+Happy coding! 🚀
 
 ---
