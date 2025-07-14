@@ -65,6 +65,12 @@ WakaTime automatically tracks your coding time in the background. After coding f
   }
 }
 ```
+# WakaTime Dashboard Examples
+
+[![WakaTime Dashboard Example](https://mangeshbide.tech/images/blog/wakatime/dashboard1.png)](https://mangeshbide.tech/images/blog/wakatime/dashboard1.png)
+
+[![WakaTime Dashboard Example](https://mangeshbide.tech/images/blog/wakatime/dashboard2.png)](https://mangeshbide.tech/images/blog/wakatime/dashboard2.png)
+
 
 ## Pro Tips
 
