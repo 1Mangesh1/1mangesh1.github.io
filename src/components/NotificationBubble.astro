@@ -52,9 +52,28 @@ const typeIcons = {
 };
 ---
 
+<style>
+  .notification-bubble {
+    max-width: 100vw;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+  @media (max-width: 640px) {
+    .notification-bubble {
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: calc(100vw - 2rem);
+      max-width: 95vw;
+      min-width: 0;
+      top: 1rem !important;
+    }
+  }
+</style>
+
 <div 
   id={id}
-  class={`fixed ${positionClasses[position]} z-50 max-w-sm w-full bg-white dark:bg-gray-800 border rounded-lg shadow-lg p-4 ${typeClasses[type]} transform transition-all duration-300 opacity-0 scale-95 pointer-events-none`}
+  class={`fixed notification-bubble ${positionClasses[position]} z-50 max-w-sm w-full bg-white dark:bg-gray-800 border rounded-lg shadow-lg p-4 ${typeClasses[type]} transform transition-all duration-300 opacity-0 scale-95 pointer-events-none`}
   data-duration={duration}
   data-dismissible={dismissible}
   data-target-element={targetElement}
