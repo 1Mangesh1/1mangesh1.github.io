@@ -5,9 +5,12 @@ export function getRelatedPosts(
   allPosts: CollectionEntry<"blog">[],
   maxResults: number = 3
 ): CollectionEntry<"blog">[] {
+  // Filter out drafts from allPosts
+  const publishedPosts = allPosts.filter((post) => post.data.draft !== true);
+
   if (!currentPost.data.tags || currentPost.data.tags.length === 0) {
     // If no tags, return most recent posts (excluding current)
-    return allPosts
+    return publishedPosts
       .filter((post) => post.slug !== currentPost.slug)
       .sort(
         (a, b) =>
@@ -22,7 +25,7 @@ export function getRelatedPosts(
   );
 
   // Calculate relevance score for each post
-  const scoredPosts = allPosts
+  const scoredPosts = publishedPosts
     .filter((post) => post.slug !== currentPost.slug) // Exclude current post
     .map((post) => {
       let score = 0;
@@ -63,9 +66,9 @@ export function getRelatedPosts(
     .slice(0, maxResults)
     .map((item) => item.post);
 
-  // If we don't have enough related posts, fill with recent posts
+  // If we don't have enough related posts, fill with recent published posts
   if (relatedPosts.length < maxResults) {
-    const recentPosts = allPosts
+    const recentPosts = publishedPosts
       .filter(
         (post) =>
           post.slug !== currentPost.slug &&
