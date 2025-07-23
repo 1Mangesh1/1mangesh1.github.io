@@ -324,4 +324,4 @@ This hot reload implementation provides a productive development environment for
 
 By correctly configuring Docker volumes, Gunicorn, Django settings, and Traefik, changes to the codebase are immediately reflected in the running application, with special handling for database schema changes through Django's migration system.
 
-That's it! You have successfully implemented hot reloading for Django in a Docker staging environment. I hope you found this post helpful. If you have any questions or feedback, feel free to dm me on [X](https://x.com/Mangesh_Bide) or mail me at [gmail](mailto:mangeshsbide@gmail.com).
+That's it! You have successfully implemented hot reloading for Django in a Docker staging environment. I hope you found this post helpful. If you have any questions or feedback, feel free to dm me on [X](https://x.com/Mangesh_Bide) or mail me at [hello@mangeshbide.tech](mailto:hello@mangeshbide.tech).

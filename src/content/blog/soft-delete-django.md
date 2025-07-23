@@ -68,5 +68,4 @@ class Post(SoftDeletableModel):
 
 Now you can use the `delete` and `restore` methods on instances of the `Post` model to soft delete and restore records.
 
-That's it! You have successfully implemented soft delete in Django. I hope you found this post helpful. If you have any questions or feedback, feel free to dm me on [X](https://x.com/Mangesh_Bide) mail me at [gmail](mailto:mangeshsbide@gmail.com]).
-
+That's it! You have successfully implemented soft delete in Django. I hope you found this post helpful. If you have any questions or feedback, feel free to dm me on [X](https://x.com/Mangesh_Bide) mail me at [hello@mangeshbide.tech](mailto:hello@mangeshbide.tech]).

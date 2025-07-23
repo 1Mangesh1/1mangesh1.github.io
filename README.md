@@ -360,7 +360,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ## 📧 Contact
 
-- **Email**: [mangeshsbide@gmail.com](mailto:mangeshsbide@gmail.com)
+- **Email**: [hello@mangeshbide.tech](mailto:hello@mangeshbide.tech)
 - **Twitter**: [@Mangesh_Bide](https://x.com/Mangesh_Bide)
 - **GitHub**: [@1mangesh1](https://github.com/1mangesh1)
 - **LinkedIn**: [mangesh-bide](https://linkedin.com/in/mangesh-bide/)
@@ -370,5 +370,4 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 Made with 💙 by [Mangesh](https://github.com/1mangesh1) • Featuring interactive games, dynamic content, clean design, and optimized performance! 🎮✨
 
 > 📌 **Note:** This project is open-source under the MIT license for code use.  
-Please do **not** reuse personal content, images, name, or profile data from the original site (mangeshbide.tech).
-
+> Please do **not** reuse personal content, images, name, or profile data from the original site (mangeshbide.tech).

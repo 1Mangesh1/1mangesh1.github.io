@@ -7,7 +7,7 @@ export const siteConfig = {
   description: "Software Developer | Python | Django | Machine Learning",
   url: "https://mangeshbide.tech",
   author: "Mangesh Bide",
-  email: "mangeshsbide@gmail.com",
+  email: "hello@mangeshbide.tech",
 
   // Social links
   social: {
