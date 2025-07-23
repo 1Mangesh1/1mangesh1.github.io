@@ -13,10 +13,10 @@ Whether you're a hobbyist or a full-time engineer, tracking your development hab
 
 ## 🧠 Why Track Your Coding Time?
 
-* 🔄 **Measure your progress** – Know how consistent you are day-to-day or week-to-week.
-* 🧠 **Understand your focus** – See which projects and languages you're investing most time in.
-* ⏳ **Avoid burnout** – Spot days where you’re overworking or under-working.
-* 🎯 **Stay accountable** – Track progress toward learning goals or freelance commitments.
+- 🔄 **Measure your progress** – Know how consistent you are day-to-day or week-to-week.
+- 🧠 **Understand your focus** – See which projects and languages you're investing most time in.
+- ⏳ **Avoid burnout** – Spot days where you’re overworking or under-working.
+- 🎯 **Stay accountable** – Track progress toward learning goals or freelance commitments.
 
 ---
 
@@ -47,10 +47,10 @@ WakaTime supports over 100 editors! Here's how to install it on popular ones:
 
 ### Other supported editors:
 
-* IntelliJ IDEA, PyCharm, WebStorm
-* Sublime Text, Atom, Vim, Neovim
-* Android Studio, Xcode
-* Emacs, Eclipse, NetBeans, and more
+- IntelliJ IDEA, PyCharm, WebStorm
+- Sublime Text, Atom, Vim, Neovim
+- Android Studio, Xcode
+- Emacs, Eclipse, NetBeans, and more
 
 Full list: [wakatime.com/plugins](https://wakatime.com/plugins)
 
@@ -74,11 +74,11 @@ WakaTime will now start logging your coding time automatically.
 
 As you work, WakaTime records your activity in real time. Head to your [WakaTime dashboard](https://wakatime.com/dashboard) to explore:
 
-* ⏱️ **Daily coding time** breakdowns
-* 🧪 **Languages used** with percentage stats
-* 🗂️ **Project-level insights** by file/folder
-* 🖥️ **Editor and OS tracking**
-* 📈 **Weekly productivity trends** and historical graphs
+- ⏱️ **Daily coding time** breakdowns
+- 🧪 **Languages used** with percentage stats
+- 🗂️ **Project-level insights** by file/folder
+- 🖥️ **Editor and OS tracking**
+- 📈 **Weekly productivity trends** and historical graphs
 
 ```json
 // Sample Dashboard Overview
@@ -86,7 +86,7 @@ As you work, WakaTime records your activity in real time. Head to your [WakaTime
   "today": "2h 34m",
   "languages": {
     "JavaScript": "45%",
-    "Python": "30%", 
+    "Python": "30%",
     "TypeScript": "25%"
   },
   "projects": {
@@ -115,18 +115,18 @@ It's a great way to build habits, stay consistent, or even prepare for hackathon
 ## 📸 WakaTime Dashboard Preview
 
 ![WakaTime Dashboard 1](/images/blogs/wakatime/dashboard1.png)
-*Overview of daily coding stats*
+_Overview of daily coding stats_
 
 ![WakaTime Dashboard 2](/images/blogs/wakatime/dashboard2.png)
-*Project and language insights*
+_Project and language insights_
 
 ---
 
 ## 🔐 Bonus Tips
 
-* **Control privacy**: Mark sensitive projects as private
-* **Team dashboards**: Collaborate and track productivity with teammates
-* **Export data**: Download reports as CSV for offline tracking or journaling
+- **Control privacy**: Mark sensitive projects as private
+- **Team dashboards**: Collaborate and track productivity with teammates
+- **Export data**: Download reports as CSV for offline tracking or journaling
 
 ---
 
@@ -135,7 +135,7 @@ It's a great way to build habits, stay consistent, or even prepare for hackathon
 WakaTime gives you the power of data—without interrupting your workflow. Once set up, it’s fully automatic and helps you understand your programming habits better over time.
 If you’ve ever wondered where your time goes, WakaTime has the answer.
 
-Feel free to DM me on [X](https://x.com/Mangesh_Bide) or email me at [mangeshsbide@gmail.com](mailto:mangeshsbide@gmail.com) if you have questions or want help setting it up!
+Feel free to DM me on [X](https://x.com/Mangesh_Bide) or email me at [hello@mangeshbide.tech](mailto:hello@mangeshbide.tech) if you have questions or want help setting it up!
 
 Thanks to my colleague for suggesting this tool!
 Happy coding! 🚀
