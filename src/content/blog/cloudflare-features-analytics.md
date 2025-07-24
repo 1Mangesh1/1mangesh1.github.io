@@ -4,7 +4,7 @@ description: "Explore the analytics, security, and performance tools included in
 pubDate: 2025-07-24T00:00:00Z
 tags: ["Cloudflare", "Analytics", "Features", "Review"]
 ogImage: "/images/blogs/cloudflare/overview.png"
-draft: true
+draft: false
 ---
 
 This guide explores the powerful analytics, security, and performance tools included in Cloudflare’s free plan. **If you haven’t connected your domain yet, start with our [step-by-step setup guide](./cloudflare-setup-guide.md) to get up and running first.**

@@ -56,9 +56,6 @@ _Cloudflare dashboard overview_
 
 Congratulations, your website is now running on Cloudflare! But setting it up is just the beginning. In Part 2, we explore the powerful free features you’ve just unlocked—from privacy-first analytics to advanced security.
 
-Part 2 is coming soon.
-
-<!--
-👉 **Read Part 2 now: [Unlocking the Full Power of Cloudflare’s Free Plan](./cloudflare-features-analytics)** -->
+👉 **Read Part 2 now: [Unlocking the Full Power of Cloudflare’s Free Plan](./cloudflare-features-analytics)**
 
 ---
