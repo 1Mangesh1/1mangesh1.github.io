@@ -20,7 +20,7 @@ Once your domain is active on Cloudflare, you unlock a suite of analytics and mo
 ![Cloudflare Overview](/images/blogs/cloudflare/overview.png)
 _Cloudflare dashboard overview_
 
-> **What it shows:** The main dashboard gives you a quick summary of your domain’s status, recent traffic, and security events. It’s your launchpad for all Cloudflare features.
+> **What it shows:** The main dashboard gives you a quick summary of your domain’s status, recent traffic, and cache status. It’s your launchpad for all Cloudflare features.
 
 2. Navigate to the **Analytics & Logs** section
 
