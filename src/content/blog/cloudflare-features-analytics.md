@@ -112,4 +112,4 @@ If you have questions or want help setting up Cloudflare, feel free to DM me on 
 
 ---
 
-**Haven’t set up Cloudflare yet? [Read the setup guide first.](./cloudflare-setup-guide.md)**
+**Haven’t set up Cloudflare yet? [Read the setup guide first.](./cloudflare-setup-guide)**
