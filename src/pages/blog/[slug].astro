@@ -5,6 +5,7 @@ import { calculateReadingTime, formatReadingTime } from '../../utils/reading-tim
 import { getRelatedPosts } from '../../utils/related-posts';
 import SocialShare from '../../components/SocialShare.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
+import VisitorCounter from '../../components/VisitorCounter.astro';
 
 import { siteConfig } from '../../config/site';
 
@@ -58,6 +59,8 @@ const formatDate = (date: Date) => {
             </time>
             <span class="mx-2">•</span>
             <span>{formatReadingTime(readingTime)}</span>
+            <span class="mx-2">•</span>
+            <VisitorCounter />
           </div>
           
           {post.data.description && (
