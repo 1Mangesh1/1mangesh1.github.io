@@ -9,7 +9,7 @@
   // Clean visitor counter using JSON API
   function initCleanCounter() {
     // Wait for GoatCounter to load
-    if (typeof window.goatcounter === 'undefined') {
+    if (typeof (window as any).goatcounter === 'undefined') {
       setTimeout(initCleanCounter, 100);
       return;
     }
