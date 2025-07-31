@@ -5,7 +5,7 @@ import { calculateReadingTime, formatReadingTime } from '../../utils/reading-tim
 import { getRelatedPosts } from '../../utils/related-posts';
 import SocialShare from '../../components/SocialShare.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
-import PageViews from '../../components/PageViews.astro';
+
 import { siteConfig } from '../../config/site';
 
 export async function getStaticPaths() {
@@ -58,8 +58,6 @@ const formatDate = (date: Date) => {
             </time>
             <span class="mx-2">•</span>
             <span>{formatReadingTime(readingTime)}</span>
-            <span class="mx-2">•</span>
-            <PageViews />
           </div>
           
           {post.data.description && (
