@@ -1,22 +1,14 @@
 ---
 // src/components/PageViews.astro
 ---
-<div id="page-views" class="text-sm text-gray-600 dark:text-gray-400">
-  <span class="goatcounter-count" data-goatcounter-path={Astro.url.pathname}></span>
-  <span class="hidden"> reads</span>
-</div>
-
+<div id="page-views-count" class="text-sm text-gray-600 dark:text-gray-400"></div>
 <script is:inline>
-  window.addEventListener('goatcounter:update', function(event) {
-    const countEl = document.querySelector('.goatcounter-count');
-    if (countEl && event.detail.count && event.detail.count.total) {
-      const count = event.detail.count.total;
-      countEl.textContent = count;
-      // Show "reads" text only when count is available
-      const readsText = countEl.nextElementSibling;
-      if (readsText) {
-        readsText.classList.remove('hidden');
-      }
+  var t = setInterval(function() {
+    if (window.goatcounter && window.goatcounter.visit_count) {
+      clearInterval(t);
+      window.goatcounter.visit_count({append: "#page-views-count", no_branding: true});
     }
+  }, 100);
+</script>
   });
 </script>
