@@ -31,9 +31,9 @@
   <div id="rainbow-mode" class="hidden"></div>
 </div>
 
-<script>
+<script defer>
   // Easter Egg 1: Konami Code (↑↑↓↓←→←→BA)
-  let konamiCode: string[] = [];
+  let konamiCode = [];
   const konamiSequence = [
     'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
     'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
@@ -104,7 +104,7 @@
     }
   });
 
-  function createFloatingEmoji(x: number, y: number, emoji?: string) {
+  function createFloatingEmoji(x, y, emoji) {
     const container = document.getElementById('floating-emojis');
     if (!container) return;
     
@@ -168,7 +168,7 @@
 
   // Easter Egg 4: Simple Keyboard Shortcuts
   let keySequence = '';
-  let keyTimeout: NodeJS.Timeout;
+  let keyTimeout;
   
   document.addEventListener('keydown', (e) => {
     // Only trigger on letter keys when not typing in input fields
@@ -267,11 +267,11 @@
         // Comic Sans transformation
         const text = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div');
         text.forEach(el => {
-          const original = (el as HTMLElement).style.fontFamily;
-          (el as HTMLElement).style.fontFamily = 'Comic Sans MS, cursive';
-          (el as HTMLElement).style.transition = 'font-family 0.3s ease';
+          const original = el.style.fontFamily;
+          el.style.fontFamily = 'Comic Sans MS, cursive';
+          el.style.transition = 'font-family 0.3s ease';
           setTimeout(() => {
-            (el as HTMLElement).style.fontFamily = original;
+            el.style.fontFamily = original;
           }, 3000);
         });
       },
@@ -346,13 +346,13 @@
       document.addEventListener('click', countClicks);
       
       // Store cleanup function
-      (window as any).cleanupDevMode = () => {
+      window.cleanupDevMode = () => {
         document.removeEventListener('click', countClicks);
         document.getElementById('debug-info')?.remove();
         document.getElementById('click-counter')?.remove();
       };
     } else {
-      (window as any).cleanupDevMode?.();
+      window.cleanupDevMode?.();
     }
   }
 
@@ -440,7 +440,7 @@
       `;
       
       memeNotification.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement;
+        const target = e.target;
         if (target.textContent === '×') {
           memeNotification.remove();
         } else {
