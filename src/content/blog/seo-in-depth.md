@@ -87,6 +87,20 @@ Off-page SEO focuses on building your site’s reputation and authority.
 - Add Open Graph and Twitter Card meta tags for better social sharing.
 - Use HTTPS for security and trust.
 
+--- 
+
+## 🤖 Next-Gen SEO: AEO & GEO
+
+**AEO (Answer Engine Optimization):**
+- Structure your content to directly answer user questions.
+- Use clear headings, FAQs, and concise explanations.
+- Helps your site appear in featured snippets and be cited by AI assistants.
+
+**GEO (Generative Engine Optimization):**
+- Create authoritative, trustworthy content that AI models can reference.
+- Use schema markup and rich metadata for better machine understanding.
+- Position your site as a reliable source for generative AI tools like ChatGPT and Gemini.
+
 ---
 
 ## ✅ Final Thoughts
