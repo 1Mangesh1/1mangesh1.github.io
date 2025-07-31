@@ -3,50 +3,90 @@
 ---
 <div id="page-views-count" class="text-sm text-gray-600 dark:text-gray-400"></div>
 <script is:inline>
-  // Wait for GoatCounter to load and then display visitor count
-  var t = setInterval(function() {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-      clearInterval(t);
-      try {
-        window.goatcounter.visit_count({
-          append: "#page-views-count", 
-          no_branding: true,
-          type: "html",
-          style: `
-            div { 
-              border-color: #d1d5db; 
-              background-color: transparent; 
-              color: #6b7280; 
-              font-size: 0.875rem;
-            }
-            div:hover { 
-              color: #374151; 
-            }
-            .dark div { 
-              border-color: #4b5563; 
-              color: #9ca3af; 
-            }
-            .dark div:hover { 
-              color: #d1d5db; 
-            }
-          `
-        });
-      } catch (error) {
-        console.log('GoatCounter visitor count error:', error);
-        // Fallback: show a simple message
-        document.getElementById('page-views-count').innerHTML = '<span class="text-gray-500">Views: Loading...</span>';
-      }
+  // Initialize visitor count with better error handling
+  function initVisitorCount() {
+    // Check if GoatCounter is available
+    if (typeof window.goatcounter === 'undefined') {
+      console.log('GoatCounter not loaded yet, retrying...');
+      return false;
     }
-  }, 100);
 
-  // Timeout after 5 seconds to prevent infinite waiting
-  setTimeout(function() {
-    if (t) {
-      clearInterval(t);
-      console.log('GoatCounter visitor count timeout');
-      document.getElementById('page-views-count').innerHTML = '<span class="text-gray-500">Views: --</span>';
+    if (typeof window.goatcounter.visit_count !== 'function') {
+      console.log('GoatCounter visit_count function not available');
+      return false;
     }
-  }, 5000);
+
+    try {
+      // Get current path for better debugging
+      const currentPath = window.location.pathname;
+      console.log('Loading visitor count for path:', currentPath);
+
+      window.goatcounter.visit_count({
+        append: "#page-views-count", 
+        no_branding: true,
+        type: "html",
+        path: currentPath,
+        style: `
+          div { 
+            border-color: #d1d5db; 
+            background-color: transparent; 
+            color: #6b7280; 
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            border: 1px solid;
+          }
+          div:hover { 
+            color: #374151; 
+            border-color: #9ca3af;
+          }
+          .dark div { 
+            border-color: #4b5563; 
+            color: #9ca3af; 
+          }
+          .dark div:hover { 
+            color: #d1d5db; 
+            border-color: #6b7280;
+          }
+        `
+      });
+      
+      console.log('GoatCounter visitor count initialized successfully');
+      return true;
+    } catch (error) {
+      console.error('GoatCounter visitor count error:', error);
+      return false;
+    }
+  }
+
+  // Try to initialize immediately
+  if (!initVisitorCount()) {
+    // If not ready, poll with exponential backoff
+    let attempts = 0;
+    const maxAttempts = 10;
+    const baseDelay = 200;
+    
+    function pollForGoatCounter() {
+      attempts++;
+      
+      if (initVisitorCount()) {
+        console.log('GoatCounter initialized on attempt', attempts);
+        return;
+      }
+      
+      if (attempts >= maxAttempts) {
+        console.log('GoatCounter visitor count failed after', maxAttempts, 'attempts');
+        document.getElementById('page-views-count').innerHTML = '<span class="text-gray-500">Views: --</span>';
+        return;
+      }
+      
+      // Exponential backoff: 200ms, 400ms, 800ms, etc.
+      const delay = baseDelay * Math.pow(2, attempts - 1);
+      setTimeout(pollForGoatCounter, delay);
+    }
+    
+    setTimeout(pollForGoatCounter, baseDelay);
+  }
 </script>
 
 <style>
