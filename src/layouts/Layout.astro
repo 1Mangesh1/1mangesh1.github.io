@@ -69,6 +69,9 @@ const imageURL = new URL(image, siteConfig.url);
     <meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog" />
     <meta name="theme-color" content="#3b82f6" />
     
+    <!-- Content Security Policy for GoatCounter -->
+    <meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at;" />
+    
     <!-- LinkedIn specific -->
     <meta property="article:author" content="Mangesh Bide" />
     <meta name="image" content={imageURL} />
