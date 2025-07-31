@@ -30,7 +30,7 @@ Google uses bots (crawlers) to scan the web, following links and reading pages. 
 
 Here's a screenshot showing my site at the top of Google search results for relevant queries, thanks to proper SEO configuration:
 
-![My site ranking #1 for SEO](/images/blogs/seo/seo.png)
+![My site ranking #1 for SEO](/images/blogs/seo/SEO-Optimization-Guide.png)
 
 This result demonstrates the effectiveness of technical, on-page, and off-page SEO strategies described in this guide. With the right setup, you can achieve top rankings too!
 
