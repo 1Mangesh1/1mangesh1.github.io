@@ -27,11 +27,38 @@
     }
 
     try {
-      // Use the official GoatCounter visitor counter API
+      // Use the official GoatCounter visitor counter API with custom styling
       window.goatcounter.visit_count!({
         append: "#visitor-counter",
         no_branding: true,
-        type: "html"
+        type: "html",
+        style: `
+          div {
+            border: 1px solid #d1d5db !important;
+            background-color: transparent !important;
+            color: #6b7280 !important;
+            font-size: 0.875rem !important;
+            padding: 0.25rem 0.5rem !important;
+            border-radius: 0.375rem !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            display: inline-block !important;
+            margin-left: 0.5rem !important;
+          }
+          div:hover {
+            border-color: #9ca3af !important;
+            color: #374151 !important;
+          }
+          .dark div {
+            border-color: #4b5563 !important;
+            color: #9ca3af !important;
+          }
+          .dark div:hover {
+            border-color: #6b7280 !important;
+            color: #d1d5db !important;
+          }
+        `
       });
     } catch (error) {
       console.log('Visitor counter error:', error);
