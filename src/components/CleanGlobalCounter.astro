@@ -18,11 +18,11 @@
 </div>
 
 <script>
-  // Clean global counter using JSON API
+  // Clean global counter using JSON API with fallback
   function initCleanGlobalCounter() {
     try {
-      // Fetch total site views using JSON API
-      fetch('https://mangeshbide.goatcounter.com/counter//.json')
+      // Try JSON API first
+      fetch('https://mangeshbide.goatcounter.com/counter/TOTAL.json')
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -38,10 +38,57 @@
           }
         })
         .catch(error => {
-          console.log('Clean global counter error:', error);
-          const viewsElement = document.getElementById('clean-global-views');
-          if (viewsElement) {
-            viewsElement.textContent = '∞';
+          console.log('JSON API failed, trying JavaScript API:', error);
+          // Fallback to JavaScript API
+          try {
+            if (typeof (window as any).goatcounter !== 'undefined' && typeof (window as any).goatcounter.visit_count === 'function') {
+              (window as any).goatcounter.visit_count!({
+                append: "#clean-global-views",
+                no_branding: true,
+                type: "html",
+                path: "TOTAL",
+                style: `
+                  div {
+                    border: none !important;
+                    background-color: transparent !important;
+                    color: #3b82f6 !important;
+                    font-size: inherit !important;
+                    padding: 0 !important;
+                    border-radius: 0 !important;
+                    font-family: inherit !important;
+                    font-weight: inherit !important;
+                    line-height: inherit !important;
+                    display: inline !important;
+                    margin: 0 !important;
+                    box-shadow: none !important;
+                  }
+                  .dark div {
+                    color: #60a5fa !important;
+                  }
+                  #gcvc-for {
+                    display: none !important;
+                  }
+                  #gcvc-by {
+                    display: none !important;
+                  }
+                  #gcvc-views {
+                    color: #3b82f6 !important;
+                    font-weight: 600 !important;
+                  }
+                  .dark #gcvc-views {
+                    color: #60a5fa !important;
+                  }
+                `
+              });
+            } else {
+              throw new Error('GoatCounter not available');
+            }
+          } catch (jsError) {
+            console.log('JavaScript API also failed:', jsError);
+            const viewsElement = document.getElementById('clean-global-views');
+            if (viewsElement) {
+              viewsElement.textContent = '∞';
+            }
           }
         });
     } catch (error) {

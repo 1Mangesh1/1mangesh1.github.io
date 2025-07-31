@@ -6,7 +6,7 @@
 </div>
 
 <script>
-  // Clean visitor counter using JSON API
+  // Clean visitor counter using JSON API with fallback
   function initCleanCounter() {
     // Wait for GoatCounter to load
     if (typeof (window as any).goatcounter === 'undefined') {
@@ -15,11 +15,11 @@
     }
 
     try {
-      // Get current path
-      const currentPath = window.location.pathname;
+      // Get current path - ensure it starts with /
+      const currentPath = window.location.pathname || '/';
       
-      // Fetch visitor count using JSON API
-      fetch(`https://mangeshbide.goatcounter.com/counter/${encodeURIComponent(currentPath)}.json`)
+      // Try JSON API first
+      fetch(`https://mangeshbide.goatcounter.com/counter${currentPath}.json`)
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -35,10 +35,52 @@
           }
         })
         .catch(error => {
-          console.log('Clean counter error:', error);
-          const viewsElement = document.getElementById('clean-views');
-          if (viewsElement) {
-            viewsElement.textContent = '--';
+          console.log('JSON API failed, trying JavaScript API:', error);
+          // Fallback to JavaScript API
+          try {
+            (window as any).goatcounter.visit_count!({
+              append: "#clean-views",
+              no_branding: true,
+              type: "html",
+              style: `
+                div {
+                  border: none !important;
+                  background-color: transparent !important;
+                  color: #3b82f6 !important;
+                  font-size: inherit !important;
+                  padding: 0 !important;
+                  border-radius: 0 !important;
+                  font-family: inherit !important;
+                  font-weight: inherit !important;
+                  line-height: inherit !important;
+                  display: inline !important;
+                  margin: 0 !important;
+                  box-shadow: none !important;
+                }
+                .dark div {
+                  color: #60a5fa !important;
+                }
+                #gcvc-for {
+                  display: none !important;
+                }
+                #gcvc-by {
+                  display: none !important;
+                }
+                #gcvc-views {
+                  color: #3b82f6 !important;
+                  font-weight: 600 !important;
+                }
+                .dark #gcvc-views {
+                  color: #60a5fa !important;
+                }
+              `
+            });
+          } catch (jsError) {
+            console.log('JavaScript API also failed:', jsError);
+            const viewsElement = document.getElementById('clean-views');
+            if (viewsElement) {
+              viewsElement.textContent = '--';
+            }
           }
         });
     } catch (error) {
