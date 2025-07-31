@@ -1,0 +1,54 @@
+---
+// Simple visitor counter component using GoatCounter
+---
+<div id="visitor-counter" class="text-sm text-gray-600 dark:text-gray-400"></div>
+
+<script>
+  // Type declaration for GoatCounter
+  declare global {
+    interface Window {
+      goatcounter?: {
+        visit_count?: (options: any) => void;
+      };
+    }
+  }
+
+  // Simple visitor counter implementation
+  function initVisitorCounter() {
+    // Wait for GoatCounter to load
+    if (typeof window.goatcounter === 'undefined') {
+      setTimeout(initVisitorCounter, 100);
+      return;
+    }
+
+    if (typeof window.goatcounter.visit_count !== 'function') {
+      console.log('GoatCounter visit_count not available');
+      return;
+    }
+
+    try {
+      // Use the official GoatCounter visitor counter API
+      window.goatcounter.visit_count!({
+        append: "#visitor-counter",
+        no_branding: true,
+        type: "html"
+      });
+    } catch (error) {
+      console.log('Visitor counter error:', error);
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initVisitorCounter);
+  } else {
+    initVisitorCounter();
+  }
+</script>
+
+<style>
+  #visitor-counter {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+</style> 
