@@ -1,0 +1,62 @@
+---
+// Clean visitor counter using JSON API for better styling control
+---
+<div id="clean-visitor-counter" class="text-sm text-gray-600 dark:text-gray-400">
+  <span id="clean-views">--</span> views
+</div>
+
+<script>
+  // Clean visitor counter using JSON API
+  function initCleanCounter() {
+    // Wait for GoatCounter to load
+    if (typeof window.goatcounter === 'undefined') {
+      setTimeout(initCleanCounter, 100);
+      return;
+    }
+
+    try {
+      // Get current path
+      const currentPath = window.location.pathname;
+      
+      // Fetch visitor count using JSON API
+      fetch(`https://mangeshbide.goatcounter.com/counter/${encodeURIComponent(currentPath)}.json`)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(`HTTP ${response.status}`);
+          }
+        })
+        .then(data => {
+          const viewsElement = document.getElementById('clean-views');
+          if (viewsElement) {
+            viewsElement.textContent = data.count;
+            viewsElement.className = 'text-blue-600 dark:text-blue-400 font-semibold';
+          }
+        })
+        .catch(error => {
+          console.log('Clean counter error:', error);
+          const viewsElement = document.getElementById('clean-views');
+          if (viewsElement) {
+            viewsElement.textContent = '--';
+          }
+        });
+    } catch (error) {
+      console.log('Clean counter error:', error);
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCleanCounter);
+  } else {
+    initCleanCounter();
+  }
+</script>
+
+<style>
+  #clean-visitor-counter {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+</style> 

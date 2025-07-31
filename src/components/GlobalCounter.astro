@@ -39,12 +39,34 @@
         type: "html",
         path: "TOTAL", // Special path for total site views
         style: `
-          span {
+          div {
+            border: none !important;
+            background-color: transparent !important;
+            color: #3b82f6 !important;
+            font-size: inherit !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            display: inline !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+          }
+          .dark div {
+            color: #60a5fa !important;
+          }
+          #gcvc-for {
+            display: none !important;
+          }
+          #gcvc-by {
+            display: none !important;
+          }
+          #gcvc-views {
             color: #3b82f6 !important;
             font-weight: 600 !important;
-            font-family: inherit !important;
           }
-          .dark span {
+          .dark #gcvc-views {
             color: #60a5fa !important;
           }
         `
