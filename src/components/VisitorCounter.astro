@@ -34,29 +34,40 @@
         type: "html",
         style: `
           div {
-            border: 1px solid #d1d5db !important;
+            border: none !important;
             background-color: transparent !important;
             color: #6b7280 !important;
             font-size: 0.875rem !important;
-            padding: 0.25rem 0.5rem !important;
-            border-radius: 0.375rem !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
             font-family: inherit !important;
             font-weight: inherit !important;
             line-height: inherit !important;
-            display: inline-block !important;
-            margin-left: 0.5rem !important;
+            display: inline !important;
+            margin: 0 !important;
+            box-shadow: none !important;
           }
           div:hover {
-            border-color: #9ca3af !important;
             color: #374151 !important;
           }
           .dark div {
-            border-color: #4b5563 !important;
             color: #9ca3af !important;
           }
           .dark div:hover {
-            border-color: #6b7280 !important;
             color: #d1d5db !important;
+          }
+          #gcvc-for {
+            display: none !important;
+          }
+          #gcvc-by {
+            display: none !important;
+          }
+          #gcvc-views {
+            color: #3b82f6 !important;
+            font-weight: 600 !important;
+          }
+          .dark #gcvc-views {
+            color: #60a5fa !important;
           }
         `
       });
