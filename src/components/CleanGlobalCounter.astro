@@ -1,0 +1,90 @@
+---
+// Clean global counter using JSON API for better styling control
+---
+<div id="clean-global-counter" class="fixed bottom-4 left-4 z-50">
+  <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-lg backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90">
+    <div class="flex items-center gap-2">
+      <div class="text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+        </svg>
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">
+        <span id="clean-global-views">--</span> views
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Clean global counter using JSON API
+  function initCleanGlobalCounter() {
+    try {
+      // Fetch total site views using JSON API
+      fetch('https://mangeshbide.goatcounter.com/counter//.json')
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(`HTTP ${response.status}`);
+          }
+        })
+        .then(data => {
+          const viewsElement = document.getElementById('clean-global-views');
+          if (viewsElement) {
+            viewsElement.textContent = data.count;
+            viewsElement.className = 'text-blue-600 dark:text-blue-400 font-semibold';
+          }
+        })
+        .catch(error => {
+          console.log('Clean global counter error:', error);
+          const viewsElement = document.getElementById('clean-global-views');
+          if (viewsElement) {
+            viewsElement.textContent = '∞';
+          }
+        });
+    } catch (error) {
+      console.log('Clean global counter error:', error);
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCleanGlobalCounter);
+  } else {
+    initCleanGlobalCounter();
+  }
+
+  // Add hover effect
+  document.addEventListener('DOMContentLoaded', function() {
+    const counter = document.getElementById('clean-global-counter');
+    if (counter) {
+      counter.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+        this.style.transition = 'transform 0.2s ease';
+      });
+      
+      counter.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+      });
+    }
+  });
+</script>
+
+<style>
+  #clean-global-counter {
+    transition: all 0.3s ease;
+  }
+  
+  #clean-global-counter:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Hide on mobile for better UX */
+  @media (max-width: 768px) {
+    #clean-global-counter {
+      display: none;
+    }
+  }
+</style> 
