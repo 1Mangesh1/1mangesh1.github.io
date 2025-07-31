@@ -4,11 +4,36 @@
 ---
 <div id="page-views-direct" class="text-sm text-gray-600 dark:text-gray-400">
   <iframe 
-    src="https://mangeshbide.goatcounter.com/counter//.html?no_branding=1&style=border-color:%23d1d5db;background-color:transparent;color:%236b7280;font-size:0.875rem;"
-    style="border: none; height: 20px; width: auto;"
+    src="https://mangeshbide.goatcounter.com/counter//.html?no_branding=1&style=border-color:%23d1d5db;background-color:transparent;color:%236b7280;font-size:0.875rem;padding:0.25rem%200.5rem;border-radius:0.375rem;border:1px%20solid;"
+    style="border: none; height: 24px; width: auto;"
     title="Page Views"
+    loading="lazy"
   ></iframe>
 </div>
+
+<style>
+  #page-views-direct {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+  
+  #page-views-direct iframe {
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+  }
+  
+  /* Dark mode styling for iframe */
+  @media (prefers-color-scheme: dark) {
+    #page-views-direct iframe {
+      filter: invert(1) hue-rotate(180deg) brightness(0.8);
+    }
+  }
+  
+  /* For manual dark mode toggle */
+  .dark #page-views-direct iframe {
+    filter: invert(1) hue-rotate(180deg) brightness(0.8);
+  }
+</style>
 
 <style>
   #page-views-direct {
