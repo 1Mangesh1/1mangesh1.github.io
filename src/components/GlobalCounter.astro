@@ -1,0 +1,100 @@
+---
+// Global visitor counter component - shows total site views
+---
+<div id="global-counter" class="fixed bottom-4 left-4 z-50">
+  <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-lg backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90">
+    <div class="flex items-center gap-2">
+      <div class="text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+        </svg>
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">
+        <span id="global-views">--</span> views
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Global visitor counter implementation
+  function initGlobalCounter() {
+    // Wait for GoatCounter to load
+    if (typeof window.goatcounter === 'undefined') {
+      setTimeout(initGlobalCounter, 100);
+      return;
+    }
+
+    if (typeof window.goatcounter.visit_count !== 'function') {
+      console.log('GoatCounter visit_count not available');
+      return;
+    }
+
+    try {
+      // Get total site views using the special "TOTAL" path
+      window.goatcounter.visit_count!({
+        append: "#global-views",
+        no_branding: true,
+        type: "html",
+        path: "TOTAL", // Special path for total site views
+        style: `
+          span {
+            color: #3b82f6 !important;
+            font-weight: 600 !important;
+            font-family: inherit !important;
+          }
+          .dark span {
+            color: #60a5fa !important;
+          }
+        `
+      });
+    } catch (error) {
+      console.log('Global counter error:', error);
+      // Fallback: show a simple number
+      const globalViews = document.getElementById('global-views');
+      if (globalViews) {
+        globalViews.textContent = '∞';
+      }
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGlobalCounter);
+  } else {
+    initGlobalCounter();
+  }
+
+  // Add hover effect
+  document.addEventListener('DOMContentLoaded', function() {
+    const counter = document.getElementById('global-counter');
+    if (counter) {
+      counter.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+        this.style.transition = 'transform 0.2s ease';
+      });
+      
+      counter.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+      });
+    }
+  });
+</script>
+
+<style>
+  #global-counter {
+    transition: all 0.3s ease;
+  }
+  
+  #global-counter:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Hide on mobile for better UX */
+  @media (max-width: 768px) {
+    #global-counter {
+      display: none;
+    }
+  }
+</style> 
