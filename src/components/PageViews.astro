@@ -3,17 +3,81 @@
 ---
 <div id="page-views-count" class="text-sm text-gray-600 dark:text-gray-400"></div>
 <script is:inline>
+  // Wait for GoatCounter to load and then display visitor count
   var t = setInterval(function() {
     if (window.goatcounter && window.goatcounter.visit_count) {
       clearInterval(t);
-      window.goatcounter.visit_count({append: "#page-views-count", no_branding: true});
+      try {
+        window.goatcounter.visit_count({
+          append: "#page-views-count", 
+          no_branding: true,
+          type: "html",
+          style: `
+            div { 
+              border-color: #d1d5db; 
+              background-color: transparent; 
+              color: #6b7280; 
+              font-size: 0.875rem;
+            }
+            div:hover { 
+              color: #374151; 
+            }
+            .dark div { 
+              border-color: #4b5563; 
+              color: #9ca3af; 
+            }
+            .dark div:hover { 
+              color: #d1d5db; 
+            }
+          `
+        });
+      } catch (error) {
+        console.log('GoatCounter visitor count error:', error);
+        // Fallback: show a simple message
+        document.getElementById('page-views-count').innerHTML = '<span class="text-gray-500">Views: Loading...</span>';
+      }
     }
   }, 100);
+
+  // Timeout after 5 seconds to prevent infinite waiting
+  setTimeout(function() {
+    if (t) {
+      clearInterval(t);
+      console.log('GoatCounter visitor count timeout');
+      document.getElementById('page-views-count').innerHTML = '<span class="text-gray-500">Views: --</span>';
+    }
+  }, 5000);
 </script>
 
 <style>
   #page-views-count {
     display: inline-block;
     margin-left: 0.5rem;
+  }
+  
+  /* Custom styling for GoatCounter widget */
+  #page-views-count div {
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+    font-size: 0.875rem;
+    color: #6b7280;
+    transition: all 0.2s ease;
+  }
+  
+  .dark #page-views-count div {
+    border-color: #4b5563;
+    color: #9ca3af;
+  }
+  
+  #page-views-count div:hover {
+    border-color: #9ca3af;
+    color: #374151;
+  }
+  
+  .dark #page-views-count div:hover {
+    border-color: #6b7280;
+    color: #d1d5db;
   }
 </style>
