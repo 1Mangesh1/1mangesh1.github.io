@@ -56,6 +56,45 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- Useless Machine Game Card -->
+      <div class="bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-xl border border-red-200 dark:border-red-800 overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <span class="text-3xl mr-3">🤖</span>
+            <h2 class="text-2xl font-bold">Useless Machine</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            An incredibly advanced useless machine with particle effects, sound, thought bubbles, and endless personality! Watch it run away from your cursor, teleport, dance, have tantrums, and perform other delightfully pointless actions.
+          </p>
+          
+          <!-- Technologies -->
+          <div class="mb-4">
+            <h3 class="text-sm font-semibold mb-2 text-red-900 dark:text-red-100">Technologies:</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-red-600 text-white text-xs rounded-full">JavaScript ES6</span>
+              <span class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full">Canvas 2D</span>
+              <span class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full">Physics</span>
+              <span class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full">Animation</span>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold mb-2 text-red-900 dark:text-red-100">Features:</h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• Particle effects & sound system</li>
+              <li>• Thought bubbles & mood changes</li>
+              <li>• Teleport, dance, tantrums & more</li>
+              <li>• Energy system & enhanced physics</li>
+            </ul>
+          </div>
+
+          <button onclick="showGame('useless-machine')" class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
+            🤖 Start Pointless Fun
+          </button>
+        </div>
+      </div>
+
       <!-- Hangman Game Card -->
       <div class="bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl border border-green-200 dark:border-green-800 overflow-hidden">
         <div class="p-6">
@@ -95,6 +134,45 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- Wack a Bug Game Card -->
+      <div class="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800 overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <span class="text-3xl mr-3">🐛</span>
+            <h2 class="text-2xl font-bold">Wack a Bug</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            A simple, cute, and minimal bug whacking game! Click the bugs as they appear to score points. Perfect for quick fun breaks!
+          </p>
+          
+          <!-- Technologies -->
+          <div class="mb-4">
+            <h3 class="text-sm font-semibold mb-2 text-yellow-900 dark:text-yellow-100">Technologies:</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-yellow-600 text-white text-xs rounded-full">JavaScript ES6</span>
+              <span class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full">Canvas 2D</span>
+              <span class="px-2 py-1 bg-green-600 text-white text-xs rounded-full">Simple Physics</span>
+              <span class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full">Click Detection</span>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold mb-2 text-yellow-900 dark:text-yellow-100">Features:</h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• Simple one-click gameplay</li>
+              <li>• Cute bug designs and animations</li>
+              <li>• Score tracking and high scores</li>
+              <li>• Increasing difficulty levels</li>
+            </ul>
+          </div>
+
+          <button onclick="showGame('wack-a-bug')" class="w-full bg-yellow-600 text-white py-3 rounded-lg hover:bg-yellow-700 transition-colors font-medium">
+            🐛 Start Wacking
+          </button>
+        </div>
+      </div>
+
     </div>
 
     <!-- Game Container -->
@@ -112,6 +190,70 @@ import Layout from '../layouts/Layout.astro';
         
         <!-- Hangman Game -->
         <div id="hangman-game" class="game-content hidden"></div>
+
+        <!-- Useless Machine Game -->
+        <div id="useless-machine-game" class="game-content hidden">
+          <style>
+            #useless-machine-canvas {
+              box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+              transition: all 0.3s ease;
+            }
+            
+            #useless-machine-canvas:hover {
+              box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+            }
+            
+            #status {
+              font-family: 'Courier New', monospace;
+              font-weight: bold;
+              min-height: 3rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            
+            .useless-machine-controls button {
+              transition: all 0.2s ease;
+              transform: scale(1);
+            }
+            
+            .useless-machine-controls button:hover {
+              transform: scale(1.05);
+            }
+            
+            .useless-machine-controls button:active {
+              transform: scale(0.95);
+            }
+          </style>
+        </div>
+
+        <!-- Wack a Bug Game -->
+        <div id="wack-a-bug-game" class="game-content hidden">
+          <style>
+            #wack-a-bug-canvas {
+              box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+              transition: all 0.3s ease;
+              cursor: crosshair;
+            }
+            
+            #wack-a-bug-canvas:hover {
+              box-shadow: 0 0 30px rgba(255, 193, 7, 0.2);
+            }
+            
+            .wack-a-bug-controls button {
+              transition: all 0.2s ease;
+              transform: scale(1);
+            }
+            
+            .wack-a-bug-controls button:hover {
+              transform: scale(1.05);
+            }
+            
+            .wack-a-bug-controls button:active {
+              transform: scale(0.95);
+            }
+          </style>
+        </div>
       </div>
     </div>
 
@@ -134,9 +276,9 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-sm text-gray-600 dark:text-gray-400">Test your memory with patterns</p>
           </div>
           <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-            <div class="text-2xl mb-2">🧮</div>
-            <h3 class="font-semibold">Wack a bug</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Wack a programming bug with a hammer</p>
+            <div class="text-2xl mb-2">🐛</div>
+            <h3 class="font-semibold">Wack a Bug</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Simple and cute bug whacking fun!</p>
           </div>
         </div>
       </div>
@@ -158,6 +300,8 @@ import Layout from '../layouts/Layout.astro';
         hideGame: () => void;
         PixelDrawer: any;
         HangmanGame: any;
+        UselessMachine: any;
+        WackABug: any; // Added for the wack a bug game
       }
     }
 
@@ -254,6 +398,192 @@ import Layout from '../layouts/Layout.astro';
           }
         });
         
+      } else if (gameType === 'useless-machine') {
+        gameTitle.textContent = '🤖 Useless Machine';
+        const gameContent = document.getElementById('useless-machine-game');
+        if (!gameContent) return;
+        
+        gameContent.innerHTML = `
+          <!-- Game Area -->
+          <div class="flex flex-col items-center">
+            <!-- Useless Machine Drawing -->
+            <div class="mb-6">
+              <canvas id="useless-machine-canvas" width="500" height="350" class="border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-900 cursor-crosshair"></canvas>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="w-full max-w-md">
+              <h3 class="text-lg font-semibold mb-4 text-center">Click to interact:</h3>
+              <div class="flex flex-wrap justify-center gap-2 mb-4 useless-machine-controls">
+                <button id="start-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  🚀 Start
+                </button>
+                <button id="stop-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                  ⏹️ Stop
+                </button>
+                <button id="reset-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                  ↩️ Reset
+                </button>
+              </div>
+              
+              <!-- Status Display -->
+              <div id="status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
+                Ready to be useless!
+              </div>
+              
+              <!-- Energy Display -->
+              <div class="text-center mb-4">
+                <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Energy Level</div>
+                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
+                  <div id="energy-bar" class="bg-green-500 h-3 rounded-full transition-all duration-300" style="width: 100%"></div>
+                </div>
+                <div id="energy-text" class="text-xs text-gray-500 dark:text-gray-400 mt-1">100%</div>
+              </div>
+              
+              <!-- Emotion Buttons -->
+              <div class="mb-4">
+                <h4 class="text-sm font-semibold mb-2 text-center">Force Emotions:</h4>
+                <div class="grid grid-cols-4 gap-2">
+                  <button id="emotion-happy" class="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 transition-colors">
+                    😊 Happy
+                  </button>
+                  <button id="emotion-sad" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition-colors">
+                    😢 Sad
+                  </button>
+                  <button id="emotion-angry" class="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors">
+                    😠 Angry
+                  </button>
+                  <button id="emotion-confused" class="px-2 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition-colors">
+                    😵 Confused
+                  </button>
+                </div>
+                <div class="grid grid-cols-4 gap-2 mt-2">
+                  <button id="emotion-scared" class="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 transition-colors">
+                    😨 Scared
+                  </button>
+                  <button id="emotion-tired" class="px-2 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600 transition-colors">
+                    😴 Tired
+                  </button>
+                  <button id="emotion-neutral" class="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500 transition-colors">
+                    😐 Neutral
+                  </button>
+                  <button id="emotion-random" class="px-2 py-1 bg-pink-500 text-white text-xs rounded hover:bg-pink-600 transition-colors">
+                    🎲 Random
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Enhanced Instructions -->
+              <div class="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-4">
+                <p><strong>🎮 Controls:</strong></p>
+                <ul class="space-y-1 ml-4">
+                  <li>• <strong>Click</strong> to trigger random useless actions</li>
+                  <li>• <strong>Double-click</strong> to trigger a tantrum!</li>
+                  <li>• <strong>Move mouse</strong> near the machine to watch it run away</li>
+                  <li>• <strong>Watch</strong> for thought bubbles and mood changes</li>
+                  <li>• <strong>Use emotion buttons</strong> to force specific moods</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <h3 class="font-semibold mb-2">🎯 What This Machine Does (Absolutely Nothing Useful!):</h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• <strong>Runs away</strong> from your mouse cursor like a scared robot</li>
+              <li>• <strong>Turns itself off</strong> when you try to interact with it</li>
+              <li>• <strong>Performs random actions:</strong> spin, bounce, shake, hide, teleport, dance, shrink, grow, sleep, protest, malfunction, and more!</li>
+              <li>• <strong>Changes mood and color</strong> based on its current state</li>
+              <li>• <strong>Shows thought bubbles</strong> with amusing messages</li>
+              <li>• <strong>Creates particle effects</strong> for visual flair</li>
+              <li>• <strong>Has an energy system</strong> that affects its behavior</li>
+              <li>• <strong>Completely pointless</strong> but endlessly entertaining!</li>
+            </ul>
+          </div>
+        `;
+        gameContent.classList.remove('hidden');
+        
+        // Load and initialize useless machine
+        loadScript('/game-scripts/useless-machine.js', () => {
+          if (window.UselessMachine) {
+            // Add a slight delay to ensure DOM is fully ready
+            setTimeout(() => {
+              currentGame = new window.UselessMachine();
+            }, 100);
+          }
+        });
+      } else if (gameType === 'wack-a-bug') {
+        gameTitle.textContent = '🐛 Wack a Bug';
+        const gameContent = document.getElementById('wack-a-bug-game');
+        if (!gameContent) return;
+        
+        gameContent.innerHTML = `
+          <!-- Game Area -->
+          <div class="flex flex-col items-center">
+            <!-- Wack a Bug Canvas -->
+            <div class="mb-6">
+              <canvas id="wack-a-bug-canvas" width="500" height="400" class="border border-gray-300 dark:border-gray-600 rounded-lg bg-gradient-to-b from-green-50 to-green-100 dark:from-green-900 dark:to-green-800"></canvas>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="w-full max-w-md">
+              <h3 class="text-lg font-semibold mb-4 text-center">🐛 Bug Wacking Fun!</h3>
+              
+              <!-- Score Display -->
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="text-center p-3 bg-yellow-100 dark:bg-yellow-900/20 rounded-lg">
+                  <div class="text-2xl font-bold text-yellow-600" id="score">0</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Score</div>
+                </div>
+                <div class="text-center p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                  <div class="text-2xl font-bold text-blue-600" id="high-score">0</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">High Score</div>
+                </div>
+              </div>
+              
+              <!-- Game Controls -->
+              <div class="flex flex-wrap justify-center gap-2 mb-4 wack-a-bug-controls">
+                <button id="start-game-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                  🚀 Start Game
+                </button>
+                <button id="pause-game-btn" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors">
+                  ⏸️ Pause
+                </button>
+                <button id="reset-game-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                  🔄 Reset
+                </button>
+              </div>
+              
+              <!-- Game Status -->
+              <div id="game-status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
+                Click Start Game to begin!
+              </div>
+              
+              <!-- Instructions -->
+              <div class="text-sm text-gray-600 dark:text-gray-400 space-y-2 text-center">
+                <p><strong>🎯 How to Play:</strong></p>
+                <ul class="space-y-1">
+                  <li>• Click bugs as they appear to score points</li>
+                  <li>• Bigger bugs = more points</li>
+                  <li>• Don't let bugs escape!</li>
+                  <li>• Try to beat your high score!</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+        gameContent.classList.remove('hidden');
+        
+        // Load and initialize wack a bug
+        loadScript('/game-scripts/wack-a-bug.js', () => {
+          if (window.WackABug) {
+            // Add a slight delay to ensure DOM is fully ready
+            setTimeout(() => {
+              currentGame = new window.WackABug();
+            }, 100);
+          }
+        });
       } else if (gameType === 'hangman') {
         gameTitle.textContent = '🎯 Hangman Game';
         const gameContent = document.getElementById('hangman-game');
