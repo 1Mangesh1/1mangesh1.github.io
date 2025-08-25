@@ -279,7 +279,7 @@ html {
 }
 
 /* Custom gradient styles */
-.custom-gradient-bg {
+/* .custom-gradient-bg {
   background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
   background: -moz-linear-gradient(
     135deg,
@@ -293,22 +293,67 @@ html {
     #a78bfa 50%,
     #f472b6 100%
   );
+} */
+
+/* .custom-gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+  background: -moz-linear-gradient(
+    135deg,
+    #60a5fa 0%,
+    #a78bfa 50%,
+    #f472b6 100%
+  );
+  background: -webkit-linear-gradient(
+    135deg,
+    #60a5fa 0%,
+    #a78bfa 50%,
+    #f472b6 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+} */
+
+/* Warm golden gradient */
+.custom-gradient-bg {
+  background: hsla(51, 89%, 61%, 1);
+  background: linear-gradient(
+    90deg,
+    hsla(51, 89%, 61%, 1) 0%,
+    hsla(25, 83%, 57%, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(51, 89%, 61%, 1) 0%,
+    hsla(25, 83%, 57%, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(51, 89%, 61%, 1) 0%,
+    hsla(25, 83%, 57%, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#F4D941", endColorstr="#EC8235", GradientType=1);
 }
 
 .custom-gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+  background: hsla(51, 89%, 61%, 1);
+  background: linear-gradient(
+    90deg,
+    hsla(51, 89%, 61%, 1) 0%,
+    hsla(25, 83%, 57%, 1) 100%
+  );
   background: -moz-linear-gradient(
-    135deg,
-    #60a5fa 0%,
-    #a78bfa 50%,
-    #f472b6 100%
+    90deg,
+    hsla(51, 89%, 61%, 1) 0%,
+    hsla(25, 83%, 57%, 1) 100%
   );
   background: -webkit-linear-gradient(
-    135deg,
-    #60a5fa 0%,
-    #a78bfa 50%,
-    #f472b6 100%
+    90deg,
+    hsla(51, 89%, 61%, 1) 0%,
+    hsla(25, 83%, 57%, 1) 100%
   );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#F4D941", endColorstr="#EC8235", GradientType=1);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
