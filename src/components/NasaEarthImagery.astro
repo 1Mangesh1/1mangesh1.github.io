@@ -57,7 +57,7 @@
 </div>
 
 <script>
-  const API_KEY = "ZHQlfyfHdYSYnzRjUaRhWHMgRRtWo66ourOBYChp";
+  // Famous locations for random selection
   
   // Famous locations for random selection
   const famousLocations = [
@@ -114,58 +114,66 @@
       date.setMonth(date.getMonth() - 6);
       const dateString = date.toISOString().split('T')[0];
       
-      // Direct image URL approach to avoid CORS issues
+      // Try direct NASA Earth Imagery API (will work if CORS headers are set)
+      const API_KEY = "ZHQlfyfHdYSYnzRjUaRhWHMgRRtWo66ourOBYChp";
       const imageUrl = `https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${dateString}&dim=0.4&api_key=${API_KEY}`;
       
-      // Create image element to test if it loads
-      const testImg = new Image();
-      testImg.crossOrigin = "anonymous";
+      // Create image element and set source directly (bypass CORS for images)
+      const img = document.createElement('img');
+      img.style.display = 'none';
+      document.body.appendChild(img);
       
-      testImg.onload = function() {
-        container.innerHTML = `
-          <div class="space-y-4">
-            <div class="relative group">
-              <img 
-                src="${imageUrl}" 
-                alt="Earth imagery from NASA"
-                class="w-full h-64 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
-                loading="lazy"
-                crossorigin="anonymous"
-              />
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
-            </div>
-            
-            <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
-              <div class="text-sm">
-                <div class="font-medium mb-1">📍 Location Details</div>
-                <div class="text-gray-600 dark:text-gray-400 space-y-1">
-                  <div>Latitude: ${lat}°</div>
-                  <div>Longitude: ${lon}°</div>
-                  <div>Date: ${dateString}</div>
-                  <div>Resolution: 400m per pixel</div>
-                </div>
+      // Use a promise to handle image loading
+      await new Promise((resolve, reject) => {
+        img.onload = () => {
+          document.body.removeChild(img);
+          resolve(true);
+        };
+        img.onerror = () => {
+          document.body.removeChild(img);
+          reject(new Error('No imagery available for this location'));
+        };
+        img.src = imageUrl;
+      });
+      
+      // If we get here, the image loaded successfully
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="relative group">
+            <img 
+              src="${imageUrl}" 
+              alt="Earth imagery from NASA Landsat satellite"
+              class="w-full h-64 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
+          </div>
+          
+          <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+            <div class="text-sm">
+              <div class="font-medium mb-1">📍 Location Details</div>
+              <div class="text-gray-600 dark:text-gray-400 space-y-1">
+                <div>Latitude: ${lat}°</div>
+                <div>Longitude: ${lon}°</div>
+                <div>Date: ${dateString}</div>
+                <div>Resolution: 400m per pixel</div>
+                <div>Source: NASA Landsat</div>
               </div>
             </div>
-            
-            <div class="text-center">
-              <button 
-                onclick="fetchEarthImagery()" 
-                class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors duration-200"
-              >
-                🔄 Refresh Image
-              </button>
-            </div>
           </div>
-        `;
-        button.disabled = false;
-        button.textContent = '📡 Get Satellite View';
-      };
-      
-      testImg.onerror = function() {
-        throw new Error('No imagery available for this location');
-      };
-      
-      testImg.src = imageUrl;
+          
+          <div class="text-center">
+            <button 
+              onclick="fetchEarthImagery()" 
+              class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors duration-200"
+            >
+              🔄 Refresh Image
+            </button>
+          </div>
+        </div>
+      `;
+      button.disabled = false;
+      button.textContent = '📡 Get Satellite View';
     } catch (error) {
       console.error('Error fetching Earth imagery:', error);
       container.innerHTML = `
