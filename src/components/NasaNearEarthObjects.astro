@@ -1,0 +1,122 @@
+---
+// NASA Near Earth Objects component
+---
+
+<div class="nasa-neo-container">
+  <div class="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-lg p-6 border border-yellow-200 dark:border-yellow-800">
+    <h3 class="font-semibold text-lg mb-4 text-yellow-900 dark:text-yellow-100 flex items-center">
+      <span class="mr-2">☄️</span>
+      Near Earth Objects
+    </h3>
+    
+    <div class="mb-4">
+      <button 
+        id="fetch-neo-btn" 
+        class="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm rounded-md transition-colors duration-200"
+      >
+        🔍 Check Today's Asteroids
+      </button>
+    </div>
+    
+    <div id="neo-content" class="space-y-4">
+      <div class="text-center py-8">
+        <div class="text-4xl mb-2">☄️</div>
+        <p class="text-gray-600 dark:text-gray-400">Click the button above to see asteroids near Earth today!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_KEY = "ZHQlfyfHdYSYnzRjUaRhWHMgRRtWo66ourOBYChp";
+  
+  async function fetchNearEarthObjects() {
+    const container = document.getElementById('neo-content');
+    const button = document.getElementById('fetch-neo-btn') as HTMLButtonElement;
+    
+    if (!container || !button) return;
+    
+    // Show loading state
+    button.disabled = true;
+    button.textContent = '🔄 Loading...';
+    
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${API_KEY}`);
+      const data = await response.json();
+      
+      if (data.near_earth_objects && data.near_earth_objects[today]) {
+        const asteroids = data.near_earth_objects[today];
+        const hazardousCount = asteroids.filter((asteroid: any) => asteroid.is_potentially_hazardous_asteroid).length;
+        
+        container.innerHTML = `
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+                <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">${asteroids.length}</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Total Asteroids</div>
+              </div>
+              <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+                <div class="text-2xl font-bold text-red-600 dark:text-red-400">${hazardousCount}</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Potentially Hazardous</div>
+              </div>
+            </div>
+            
+            <div class="space-y-3 max-h-64 overflow-y-auto">
+              ${asteroids.slice(0, 5).map((asteroid: any) => `
+                <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3 border-l-4 ${asteroid.is_potentially_hazardous_asteroid ? 'border-red-500' : 'border-green-500'}">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-sm">${asteroid.name}</div>
+                      <div class="text-xs text-gray-600 dark:text-gray-400">
+                        Size: ${asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(1)} - ${asteroid.estimated_diameter.meters.estimated_diameter_max.toFixed(1)}m
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-xs font-medium ${asteroid.is_potentially_hazardous_asteroid ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}">
+                        ${asteroid.is_potentially_hazardous_asteroid ? '⚠️ Hazardous' : '✅ Safe'}
+                      </div>
+                      <div class="text-xs text-gray-600 dark:text-gray-400">
+                        ${(asteroid.close_approach_data[0]?.miss_distance.kilometers / 1000).toFixed(1)}k km away
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            
+            ${asteroids.length > 5 ? `
+              <div class="text-center text-xs text-gray-500 dark:text-gray-500">
+                Showing 5 of ${asteroids.length} asteroids
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <div class="text-4xl mb-2">☄️</div>
+            <p class="text-gray-600 dark:text-gray-400">No asteroids detected near Earth today!</p>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error('Error fetching NEO data:', error);
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <div class="text-4xl mb-2">🚀</div>
+          <p class="text-gray-600 dark:text-gray-400">Unable to load asteroid data. Try again later!</p>
+        </div>
+      `;
+    } finally {
+      button.disabled = false;
+      button.textContent = '🔍 Check Today\'s Asteroids';
+    }
+  }
+  
+  // Add event listener
+  const fetchBtn = document.getElementById('fetch-neo-btn');
+  if (fetchBtn) {
+    fetchBtn.addEventListener('click', fetchNearEarthObjects);
+  }
+</script>
