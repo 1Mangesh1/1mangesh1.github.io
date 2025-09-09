@@ -43,7 +43,7 @@
       </div>
       
       <div class="text-xs text-gray-600 dark:text-gray-400">
-        Try: Grand Canyon (36.0986, -112.0978) or Mount Everest (27.9881, 86.9250)
+        Examples: New York (40.7128, -74.0060) • London (51.5074, -0.1278) • Tokyo (35.6762, 139.6503)
       </div>
     </div>
     
@@ -63,12 +63,14 @@
   const famousLocations = [
     { name: "Grand Canyon", lat: 36.0986, lon: -112.0978 },
     { name: "Mount Everest", lat: 27.9881, lon: 86.9250 },
-    { name: "Great Wall of China", lat: 40.4319, lon: 116.5704 },
-    { name: "Machu Picchu", lat: -13.1631, lon: -72.5450 },
+    { name: "New York City", lat: 40.7128, lon: -74.0060 },
+    { name: "London", lat: 51.5074, lon: -0.1278 },
+    { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
+    { name: "Sydney Opera House", lat: -33.8568, lon: 151.2153 },
     { name: "Sahara Desert", lat: 23.8061, lon: 11.2888 },
     { name: "Amazon Rainforest", lat: -3.4653, lon: -62.2159 },
-    { name: "Antarctica", lat: -82.8628, lon: 135.0000 },
-    { name: "Hawaii", lat: 19.8968, lon: -155.5828 }
+    { name: "Niagara Falls", lat: 43.0799, lon: -79.0747 },
+    { name: "Las Vegas", lat: 36.1699, lon: -115.1398 }
   ];
   
   function setRandomLocation() {
@@ -109,23 +111,26 @@
     try {
       // Use a date from a few months ago for better image availability
       const date = new Date();
-      date.setMonth(date.getMonth() - 3);
+      date.setMonth(date.getMonth() - 6);
       const dateString = date.toISOString().split('T')[0];
       
-      const response = await fetch(`https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${dateString}&api_key=${API_KEY}`);
+      // Direct image URL approach to avoid CORS issues
+      const imageUrl = `https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${dateString}&dim=0.4&api_key=${API_KEY}`;
       
-      if (response.ok) {
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
-        
+      // Create image element to test if it loads
+      const testImg = new Image();
+      testImg.crossOrigin = "anonymous";
+      
+      testImg.onload = function() {
         container.innerHTML = `
           <div class="space-y-4">
             <div class="relative group">
               <img 
                 src="${imageUrl}" 
                 alt="Earth imagery from NASA"
-                class="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
+                class="w-full h-64 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
                 loading="lazy"
+                crossorigin="anonymous"
               />
               <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
             </div>
@@ -137,6 +142,7 @@
                   <div>Latitude: ${lat}°</div>
                   <div>Longitude: ${lon}°</div>
                   <div>Date: ${dateString}</div>
+                  <div>Resolution: 400m per pixel</div>
                 </div>
               </div>
             </div>
@@ -151,18 +157,29 @@
             </div>
           </div>
         `;
-      } else {
+        button.disabled = false;
+        button.textContent = '📡 Get Satellite View';
+      };
+      
+      testImg.onerror = function() {
         throw new Error('No imagery available for this location');
-      }
+      };
+      
+      testImg.src = imageUrl;
     } catch (error) {
       console.error('Error fetching Earth imagery:', error);
       container.innerHTML = `
         <div class="text-center py-8">
           <div class="text-4xl mb-2">🌍</div>
-          <p class="text-gray-600 dark:text-gray-400">No satellite imagery available for these coordinates. Try a different location!</p>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">No satellite imagery available for these coordinates.</p>
+          <p class="text-sm text-gray-500 dark:text-gray-500">Try coordinates like:</p>
+          <div class="text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
+            <div>• Grand Canyon: 36.0986, -112.0978</div>
+            <div>• Mount Everest: 27.9881, 86.9250</div>
+            <div>• New York City: 40.7128, -74.0060</div>
+          </div>
         </div>
       `;
-    } finally {
       button.disabled = false;
       button.textContent = '📡 Get Satellite View';
     }
@@ -192,4 +209,12 @@
       if (e.key === 'Enter') fetchEarthImagery();
     });
   }
+
+  // Load a default location on page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      setRandomLocation();
+      fetchEarthImagery();
+    }, 1000);
+  });
 </script>
