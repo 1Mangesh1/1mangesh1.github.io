@@ -73,6 +73,81 @@
     { name: "Las Vegas", lat: 36.1699, lon: -115.1398 }
   ];
   
+  function getLocationInfo(lat, lon) {
+    // Determine location characteristics based on coordinates
+    const absLat = Math.abs(lat);
+    const absLon = Math.abs(lon);
+    
+    // Check for specific famous locations first
+    for (const location of famousLocations) {
+      const latDiff = Math.abs(lat - location.lat);
+      const lonDiff = Math.abs(lon - location.lon);
+      if (latDiff < 0.1 && lonDiff < 0.1) {
+        return {
+          name: location.name,
+          region: getRegionName(lat, lon),
+          features: getFeaturesForLocation(location.name),
+          climate: getClimateInfo(lat)
+        };
+      }
+    }
+    
+    // Generate generic location info
+    return {
+      name: getGenericLocationName(lat, lon),
+      region: getRegionName(lat, lon),
+      features: getGenericFeatures(lat, lon),
+      climate: getClimateInfo(lat)
+    };
+  }
+  
+  function getRegionName(lat, lon) {
+    if (lat > 60) return "Arctic Region";
+    if (lat < -60) return "Antarctic Region";
+    if (lat > 23.5) return "Northern Temperate Zone";
+    if (lat < -23.5) return "Southern Temperate Zone";
+    return "Tropical Zone";
+  }
+  
+  function getGenericLocationName(lat, lon) {
+    const hemisphere = lat >= 0 ? "Northern" : "Southern";
+    const longitude = lon >= 0 ? "Eastern" : "Western";
+    return `${hemisphere} ${longitude} Region`;
+  }
+  
+  function getFeaturesForLocation(name) {
+    const features = {
+      "Grand Canyon": "Deep canyon formations, layered rock structures, Colorado River",
+      "Mount Everest": "High altitude peaks, snow coverage, glacial formations",
+      "New York City": "Urban development, skyscrapers, harbor areas",
+      "London": "Dense urban area, Thames River, historic architecture",
+      "Tokyo": "Mega-city development, bay area, high-density population",
+      "Sydney Opera House": "Coastal city, harbor bridge, urban waterfront",
+      "Sahara Desert": "Sand dunes, arid landscape, minimal vegetation",
+      "Amazon Rainforest": "Dense forest canopy, river networks, biodiversity",
+      "Niagara Falls": "Waterfalls, river systems, mist formations",
+      "Las Vegas": "Desert city, urban development in arid region"
+    };
+    return features[name] || "Varied topographical features, natural landscape";
+  }
+  
+  function getGenericFeatures(lat, lon) {
+    const absLat = Math.abs(lat);
+    if (absLat > 60) return "Ice sheets, polar landscape, minimal vegetation";
+    if (absLat > 45) return "Forests, mountains, seasonal variations";
+    if (absLat > 23.5) return "Mixed terrain, agricultural areas, urban development";
+    return "Tropical vegetation, warm climate features";
+  }
+  
+  function getClimateInfo(lat) {
+    const absLat = Math.abs(lat);
+    if (absLat > 66.5) return "Polar climate - very cold temperatures year-round";
+    if (absLat > 60) return "Subarctic climate - cold winters, cool summers";
+    if (absLat > 45) return "Continental climate - warm summers, cold winters";
+    if (absLat > 23.5) return "Temperate climate - moderate seasonal variations";
+    return "Tropical climate - warm temperatures year-round";
+  }
+  
   function setRandomLocation() {
     const randomLocation = famousLocations[Math.floor(Math.random() * famousLocations.length)];
     const latInput = document.getElementById('latitude') as HTMLInputElement;
@@ -109,66 +184,77 @@
     button.textContent = '🔄 Loading...';
     
     try {
-      // Use a date from a few months ago for better image availability
+      // Since NASA API has CORS restrictions, we'll use an alternative approach
+      // We'll use a tile-based approach with OpenStreetMap satellite imagery
+      // or provide educational content about the location
+      
       const date = new Date();
       date.setMonth(date.getMonth() - 6);
       const dateString = date.toISOString().split('T')[0];
       
-      // Try direct NASA Earth Imagery API (will work if CORS headers are set)
-      const API_KEY = "ZHQlfyfHdYSYnzRjUaRhWHMgRRtWo66ourOBYChp";
-      const imageUrl = `https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${dateString}&dim=0.4&api_key=${API_KEY}`;
+      // Generate educational satellite imagery information
+      const locationInfo = getLocationInfo(parseFloat(lat), parseFloat(lon));
       
-      // Create image element and set source directly (bypass CORS for images)
-      const img = document.createElement('img');
-      img.style.display = 'none';
-      document.body.appendChild(img);
-      
-      // Use a promise to handle image loading
-      await new Promise((resolve, reject) => {
-        img.onload = () => {
-          document.body.removeChild(img);
-          resolve(true);
-        };
-        img.onerror = () => {
-          document.body.removeChild(img);
-          reject(new Error('No imagery available for this location'));
-        };
-        img.src = imageUrl;
-      });
-      
-      // If we get here, the image loaded successfully
+      // Create a demonstration of what satellite imagery would show
       container.innerHTML = `
         <div class="space-y-4">
-          <div class="relative group">
-            <img 
-              src="${imageUrl}" 
-              alt="Earth imagery from NASA Landsat satellite"
-              class="w-full h-64 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
+          <div class="relative group bg-gradient-to-br from-blue-900 via-green-800 to-brown-600 rounded-lg h-64 flex items-center justify-center text-white overflow-hidden">
+            <!-- Simulated satellite view with location pin -->
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/20 to-green-500/20"></div>
+            <div class="absolute top-4 left-4 bg-black/50 rounded px-2 py-1 text-xs">
+              📡 Satellite View Simulation
+            </div>
+            <div class="text-center z-10">
+              <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-2 animate-pulse">
+                📍
+              </div>
+              <div class="text-lg font-semibold">${locationInfo.name}</div>
+              <div class="text-sm opacity-80">${lat}°, ${lon}°</div>
+            </div>
+            <!-- Decorative elements to simulate satellite imagery -->
+            <div class="absolute top-8 right-8 w-16 h-16 border-2 border-white/30 rounded-full"></div>
+            <div class="absolute bottom-12 left-12 w-4 h-4 bg-white/40 rounded"></div>
+            <div class="absolute bottom-20 right-16 w-6 h-6 bg-white/20 rounded-full"></div>
           </div>
           
-          <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+          <div class="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-lg p-4">
             <div class="text-sm">
-              <div class="font-medium mb-1">📍 Location Details</div>
-              <div class="text-gray-600 dark:text-gray-400 space-y-1">
-                <div>Latitude: ${lat}°</div>
-                <div>Longitude: ${lon}°</div>
-                <div>Date: ${dateString}</div>
-                <div>Resolution: 400m per pixel</div>
-                <div>Source: NASA Landsat</div>
+              <div class="font-medium mb-2 text-blue-800 dark:text-blue-300">📍 Location Information</div>
+              <div class="space-y-2 text-gray-700 dark:text-gray-300">
+                <div><strong>Location:</strong> ${locationInfo.name}</div>
+                <div><strong>Coordinates:</strong> ${lat}°N, ${lon}°${lat.includes('-') ? 'S' : ''}${lon.includes('-') ? 'W' : 'E'}</div>
+                <div><strong>Region:</strong> ${locationInfo.region}</div>
+                <div><strong>Features:</strong> ${locationInfo.features}</div>
+                <div><strong>Climate:</strong> ${locationInfo.climate}</div>
               </div>
             </div>
           </div>
           
-          <div class="text-center">
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
+            <div class="flex items-start space-x-2">
+              <div class="text-yellow-600 dark:text-yellow-400 text-lg">💡</div>
+              <div class="text-sm text-yellow-800 dark:text-yellow-300">
+                <div class="font-medium mb-1">About Satellite Imagery</div>
+                <div>Real NASA satellite imagery requires server-side access due to API restrictions. This demonstration shows the type of location data and satellite view information that would be available.</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center space-x-2">
             <button 
               onclick="fetchEarthImagery()" 
               class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors duration-200"
             >
-              🔄 Refresh Image
+              🔄 Try Another Location
             </button>
+            <a 
+              href="https://earthengine.google.com/timelapse/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors duration-200"
+            >
+              🌍 View Real Satellite Imagery
+            </a>
           </div>
         </div>
       `;
