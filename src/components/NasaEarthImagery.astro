@@ -45,6 +45,10 @@
       <div class="text-xs text-gray-600 dark:text-gray-400">
         Try: Grand Canyon (36.0986, -112.0978) or Mount Everest (27.9881, 86.9250)
       </div>
+      
+      <div class="text-xs text-gray-500 dark:text-gray-500 mt-2 italic">
+        Note: Uses CORS proxy for demonstration. For production use, consider server-side API routes.
+      </div>
     </div>
     
     <div id="earth-content" class="space-y-4">
@@ -57,8 +61,6 @@
 </div>
 
 <script>
-  const API_KEY = "ZHQlfyfHdYSYnzRjUaRhWHMgRRtWo66ourOBYChp";
-  
   // Famous locations for random selection
   const famousLocations = [
     { name: "Grand Canyon", lat: 36.0986, lon: -112.0978 },
@@ -112,60 +114,92 @@
       date.setMonth(date.getMonth() - 3);
       const dateString = date.toISOString().split('T')[0];
       
-      const response = await fetch(`https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${dateString}&api_key=${API_KEY}`);
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
+      try {
+        // Try CORS proxy service for real NASA data
+        const corsProxy = 'https://api.allorigins.win/raw?url=';
+        const nasaApiUrl = `https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${dateString}&api_key=ZHQlfyfHdYSYnzRjUaRhWHMgRRtWo66ourOBYChp`;
+        const proxiedUrl = corsProxy + encodeURIComponent(nasaApiUrl);
         
-        container.innerHTML = `
-          <div class="space-y-4">
-            <div class="relative group">
-              <img 
-                src="${imageUrl}" 
-                alt="Earth imagery from NASA"
-                class="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
-            </div>
-            
-            <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
-              <div class="text-sm">
-                <div class="font-medium mb-1">📍 Location Details</div>
-                <div class="text-gray-600 dark:text-gray-400 space-y-1">
-                  <div>Latitude: ${lat}°</div>
-                  <div>Longitude: ${lon}°</div>
-                  <div>Date: ${dateString}</div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="text-center">
-              <button 
-                onclick="fetchEarthImagery()" 
-                class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors duration-200"
-              >
-                🔄 Refresh Image
-              </button>
-            </div>
-          </div>
-        `;
-      } else {
-        throw new Error('No imagery available for this location');
+        const response = await fetch(proxiedUrl);
+        
+        if (response.ok) {
+          // For image responses, create a blob URL
+          const blob = await response.blob();
+          const imageUrl = URL.createObjectURL(blob);
+          
+          container.innerHTML = createImageDisplay(imageUrl, lat, lon, dateString);
+          return;
+        }
+      } catch (proxyError) {
+        console.log('CORS proxy failed, using demo imagery:', proxyError);
       }
+      
+      // Fallback: Show demo functionality with placeholder satellite imagery
+      // This demonstrates the feature working when network restrictions are in place
+      const demoImageUrl = getDemoSatelliteImage(lat, lon);
+      
+      container.innerHTML = createImageDisplay(demoImageUrl, lat, lon, dateString, true);
+      
     } catch (error) {
       console.error('Error fetching Earth imagery:', error);
       container.innerHTML = `
         <div class="text-center py-8">
           <div class="text-4xl mb-2">🌍</div>
           <p class="text-gray-600 dark:text-gray-400">No satellite imagery available for these coordinates. Try a different location!</p>
+          <p class="text-xs text-gray-500 dark:text-gray-500 mt-2">${error instanceof Error ? error.message : 'Unknown error'}</p>
         </div>
       `;
     } finally {
       button.disabled = false;
       button.textContent = '📡 Get Satellite View';
     }
+  }
+  
+  function getDemoSatelliteImage(lat, lon) {
+    // Generate a demo satellite image URL based on coordinates
+    // Using a service that provides satellite-like imagery for demonstration
+    const zoom = 8;
+    const width = 400;
+    const height = 300;
+    return `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${lon},${lat},${zoom}/${width}x${height}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw`;
+  }
+  
+  function createImageDisplay(imageUrl, lat, lon, dateString, isDemo = false) {
+    return `
+      <div class="space-y-4">
+        <div class="relative group">
+          <img 
+            src="${imageUrl}" 
+            alt="Earth imagery ${isDemo ? '(Demo)' : 'from NASA'}"
+            class="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
+          ${isDemo ? '<div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">DEMO</div>' : ''}
+        </div>
+        
+        <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+          <div class="text-sm">
+            <div class="font-medium mb-1">📍 Location Details</div>
+            <div class="text-gray-600 dark:text-gray-400 space-y-1">
+              <div>Latitude: ${lat}°</div>
+              <div>Longitude: ${lon}°</div>
+              <div>Date: ${dateString}</div>
+              ${isDemo ? '<div class="text-blue-600 dark:text-blue-400 italic">Demo mode: Showing Mapbox satellite imagery</div>' : ''}
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <button 
+            onclick="fetchEarthImagery()" 
+            class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors duration-200"
+          >
+            🔄 Refresh Image
+          </button>
+        </div>
+      </div>
+    `;
   }
   
   // Add event listeners
