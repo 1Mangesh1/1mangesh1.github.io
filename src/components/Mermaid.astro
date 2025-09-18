@@ -1,0 +1,73 @@
+---
+export interface Props {
+  chart: string;
+  id?: string;
+}
+
+const { chart, id = `mermaid-${Math.random().toString(36).substring(2, 11)}` } = Astro.props;
+---
+
+<div class="mermaid-container my-6">
+  <div id={id} class="mermaid" data-chart={chart}>
+    {chart}
+  </div>
+</div>
+
+<script>
+  import mermaid from 'mermaid';
+
+  // Initialize Mermaid
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      primaryColor: '#3b82f6',
+      primaryTextColor: '#ffffff',
+      primaryBorderColor: '#1e40af',
+      lineColor: '#6b7280',
+      secondaryColor: '#1f2937',
+      tertiaryColor: '#111827',
+      background: '#0f172a',
+      mainBkg: '#1e293b',
+      secondBkg: '#334155',
+      tertiaryBkg: '#475569'
+    },
+    flowchart: {
+      useMaxWidth: true,
+      htmlLabels: true
+    },
+    sequence: {
+      useMaxWidth: true,
+      wrap: true
+    }
+  });
+
+  // Render all Mermaid diagrams on the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const mermaidElements = document.querySelectorAll('.mermaid[data-chart]');
+    mermaidElements.forEach((element) => {
+      const chart = element.getAttribute('data-chart');
+      const id = element.id;
+      if (chart && id) {
+        mermaid.render(`${id}-svg`, chart).then(({ svg }) => {
+          element.innerHTML = svg;
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .mermaid-container {
+    @apply rounded-lg border border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800;
+  }
+  
+  .mermaid {
+    @apply text-center;
+  }
+  
+  /* Ensure Mermaid diagrams are responsive */
+  .mermaid svg {
+    @apply max-w-full h-auto;
+  }
+</style>
