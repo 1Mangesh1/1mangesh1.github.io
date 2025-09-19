@@ -1,7 +1,7 @@
 ---
 title: "Multi-Tenant SaaS Architecture: Patterns, Security, Scaling, and Best Practices"
 description: "Learn how to design, implement, and scale multi-tenant systems with real-world examples, patterns, and best practices for modern SaaS applications."
-pubDate: 2025-09-18T00:00:00Z
+pubDate: 2025-09-16T00:00:00Z
 tags:
   [
     "Architecture",
@@ -287,7 +287,7 @@ def get_tenant_users(tenant_id):
 
 ## Security Considerations
 
-![Tenant Aware Request Lifecycle](/images/blogs/architecture/multi-tenant/Tenant%20Aware%20Request%20Lifecycle.png)
+![Tenant-Aware Request Lifecycle](/images/blogs/architecture/multi-tenant/Tenant-Aware%20Request%20Lifecycle.png)
 _Figure 2: Sequence diagram showing the flow of a tenant-aware request from client to database_
 
 ### 1. Data Isolation
@@ -434,7 +434,7 @@ engine = create_engine(
 
 ## Scaling Strategies
 
-![Database Sharding Tenant ID](/images/blogs/architecture/multi-tenant/Database%20Sharding%20Tenant%20ID.png)
+![Database Sharding by Tenant ID](/images/blogs/architecture/multi-tenant/Database%20Sharding%20by%20Tenant%20ID.png)
 _Figure 3: How tenant data is distributed across multiple database shards for horizontal scaling_
 
 ### 1. Horizontal Scaling
@@ -613,7 +613,7 @@ class TenantMetricsMiddleware:
 
 ## Monitoring and Analytics
 
-![Monitoring Pipeline per Tenant](/images/blogs/architecture/multi-tenant/Monitoring%20Pipeline.png)
+![Monitoring Pipeline per Tenant](/images/blogs/architecture/multi-tenant/Monitoring%20Pipeline%20per%20Tenant.png)
 _Figure 4: Monitoring and observability pipeline for multi-tenant applications_
 
 ### 1. Tenant-Specific Metrics
@@ -798,6 +798,9 @@ class User(TenantAwareModel):
 
 ## Tenant Offboarding and Deletion
 
+![Tenant Offboarding Lifecycle](/images/blogs/architecture/multi-tenant/Tenant%20Offboarding%20Lifecycle.png)
+_Figure 5: Complete tenant offboarding process from request to data deletion_
+
 Choose an approach that aligns with your isolation pattern and compliance posture.
 
 ### Shared Schema (tenant_id column)
@@ -839,6 +842,9 @@ DROP DATABASE tenant_123;
 
 ## Multi-Tenant Testing Strategies
 
+![Isolation Testing Workflow](/images/blogs/architecture/multi-tenant/Isolation%20Testing%20Workflow.png)
+_Figure 6: Comprehensive testing workflow for multi-tenant applications including isolation, migration, and load testing_
+
 - **Isolation tests**: verify tenant A never sees tenant B data (API and DB levels)
 - **Migration tests**: run schema/data migrations across many tenants
 - **Load tests per cohort**: S/M/L tenant mixes and noisy neighbor scenarios
@@ -863,6 +869,21 @@ def test_isolation(client, tenant_a_token, tenant_b_id):
 Tip: create quick visuals with Excalidraw, or embed Mermaid if your stack supports it.
 
 ---
+
+### Data Isolation Patterns
+
+![Data Isolation Patterns](/images/blogs/architecture/data-isolation-patterns.png)
+_Figure 1: Three main multi-tenant data isolation patterns - Database per Tenant, Schema per Tenant, and Shared Schema_
+
+### Tenant‑Aware Request Lifecycle
+
+![Request Lifecycle](/images/blogs/architecture/request-lifecycle.png)
+_Figure 2: Sequence diagram showing the flow of a tenant-aware request from client to database_
+
+### Monitoring Pipeline per Tenant
+
+![Monitoring Pipeline](/images/blogs/architecture/monitoring-pipeline.png)
+_Figure 3: Monitoring and observability pipeline for multi-tenant applications_
 
 ## Future Considerations
 
@@ -911,11 +932,9 @@ async function handleRequest(request) {
 
 ## Wrapping Up
 
-Multi-tenant architecture isn't just about squeezing more users onto fewer servers — it's about making your app scalable, secure, and sustainable.
+Multi-tenant architecture is essential for building scalable SaaS applications. The key is to start simple with a shared database approach and evolve your architecture as your application grows. Focus on data isolation, security, and performance from the beginning, and always consider the trade-offs between different patterns.
 
-Whether you go with a shared schema or dedicated databases per tenant, the goal remains the same: protect customer data, ensure performance doesn't degrade over time, and make it easy for your team to maintain and evolve the product.
-
-Here's a quick recap:
+Remember:
 
 - Start **simple** — shared schema works for most early-stage SaaS
 - Design for **data isolation** from day one (even if it's just a `tenant_id`)
