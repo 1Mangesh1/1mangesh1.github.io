@@ -626,11 +626,22 @@ import Layout from "../layouts/Layout.astro";
 
   <script>
     // Game management functions
-    let currentGame = null;
+    let currentGame: any = null;
 
     // Extend window interface for global functions
+    interface GameWindow extends Window {
+      PixelStudio?: any;
+      ChaosMachine?: any;
+      BugBlaster?: any;
+      CodeSnake?: any;
+      DevMemory?: any;
+      CodeTyper?: any;
+      CodeHangman?: any;
+      showGame?: (gameType: string) => void;
+      hideGame?: () => void;
+    }
 
-    function showGame(gameType) {
+    function showGame(gameType: string) {
       const gameContainer = document.getElementById("game-container");
       const gameTitle = document.getElementById("game-title");
 
@@ -734,12 +745,13 @@ import Layout from "../layouts/Layout.astro";
         gameContent.classList.remove("hidden");
 
         // Load and initialize pixel studio
-        if (window["PixelStudio"]) {
-          currentGame = new window["PixelStudio"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.PixelStudio) {
+          currentGame = new gameWindow.PixelStudio();
         } else {
           loadScript("/game-scripts/pixel-drawer.js", () => {
-            if (window["PixelStudio"]) {
-              currentGame = new window["PixelStudio"]();
+            if (gameWindow.PixelStudio) {
+              currentGame = new gameWindow.PixelStudio();
             }
           });
         }
@@ -850,14 +862,15 @@ import Layout from "../layouts/Layout.astro";
         gameContent.classList.remove("hidden");
 
         // Load and initialize chaos machine
-        if (window["ChaosMachine"]) {
-          currentGame = new window["ChaosMachine"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.ChaosMachine) {
+          currentGame = new gameWindow.ChaosMachine();
         } else {
           loadScript("/game-scripts/useless-machine.js", () => {
-            if (window["ChaosMachine"]) {
+            if (gameWindow.ChaosMachine) {
               // Add a slight delay to ensure DOM is fully ready
               setTimeout(() => {
-                currentGame = new window["ChaosMachine"]();
+                currentGame = new gameWindow.ChaosMachine();
               }, 100);
             }
           });
@@ -925,14 +938,15 @@ import Layout from "../layouts/Layout.astro";
         gameContent.classList.remove("hidden");
 
         // Load and initialize bug blaster
-        if (window["BugBlaster"]) {
-          currentGame = new window["BugBlaster"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.BugBlaster) {
+          currentGame = new gameWindow.BugBlaster();
         } else {
           loadScript("/game-scripts/wack-a-bug.js", () => {
-            if (window["BugBlaster"]) {
+            if (gameWindow.BugBlaster) {
               // Add a slight delay to ensure DOM is fully ready
               setTimeout(() => {
-                currentGame = new window["BugBlaster"]();
+                currentGame = new gameWindow.BugBlaster();
               }, 100);
             }
           });
@@ -1004,13 +1018,14 @@ import Layout from "../layouts/Layout.astro";
           </div>
         `;
         gameContent.classList.remove("hidden");
-        if (window["CodeSnake"]) {
-          currentGame = new window["CodeSnake"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.CodeSnake) {
+          currentGame = new gameWindow.CodeSnake();
         } else {
           loadScript("/game-scripts/code-snake.js", () => {
-            if (window["CodeSnake"]) {
+            if (gameWindow.CodeSnake) {
               setTimeout(() => {
-                currentGame = new window["CodeSnake"]();
+                currentGame = new gameWindow.CodeSnake();
               }, 100);
             }
           });
@@ -1110,13 +1125,14 @@ import Layout from "../layouts/Layout.astro";
           </div>
         `;
         gameContent.classList.remove("hidden");
-        if (window["DevMemory"]) {
-          currentGame = new window["DevMemory"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.DevMemory) {
+          currentGame = new gameWindow.DevMemory();
         } else {
           loadScript("/game-scripts/dev-memory.js", () => {
-            if (window["DevMemory"]) {
+            if (gameWindow.DevMemory) {
               setTimeout(() => {
-                currentGame = new window["DevMemory"]();
+                currentGame = new gameWindow.DevMemory();
               }, 100);
             }
           });
@@ -1215,13 +1231,14 @@ import Layout from "../layouts/Layout.astro";
           </div>
         `;
         gameContent.classList.remove("hidden");
-        if (window["CodeTyper"]) {
-          currentGame = new window["CodeTyper"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.CodeTyper) {
+          currentGame = new gameWindow.CodeTyper();
         } else {
           loadScript("/game-scripts/code-typer.js", () => {
-            if (window["CodeTyper"]) {
+            if (gameWindow.CodeTyper) {
               setTimeout(() => {
-                currentGame = new window["CodeTyper"]();
+                currentGame = new gameWindow.CodeTyper();
               }, 100);
             }
           });
@@ -1297,14 +1314,14 @@ import Layout from "../layouts/Layout.astro";
         gameContent.classList.remove("hidden");
 
         // Load and initialize code hangman
-        // Load and initialize code hangman
-        if (window["CodeHangman"]) {
-          currentGame = new window["CodeHangman"]();
+        const gameWindow = window as GameWindow;
+        if (gameWindow.CodeHangman) {
+          currentGame = new gameWindow.CodeHangman();
         } else {
           loadScript("/game-scripts/hangman.js", () => {
-            if (window["CodeHangman"]) {
+            if (gameWindow.CodeHangman) {
               setTimeout(() => {
-                currentGame = new window["CodeHangman"]();
+                currentGame = new gameWindow.CodeHangman();
               }, 100);
             }
           });
@@ -1328,7 +1345,7 @@ import Layout from "../layouts/Layout.astro";
       currentGame = null;
     }
 
-    function loadScript(src, callback) {
+    function loadScript(src: string, callback: () => void) {
       const script = document.createElement("script");
       script.src = src;
       script.onload = callback;
@@ -1337,7 +1354,8 @@ import Layout from "../layouts/Layout.astro";
     }
 
     // Make functions globally available
-    window["showGame"] = showGame;
-    window["hideGame"] = hideGame;
+    const gameWindow = window as GameWindow;
+    gameWindow.showGame = showGame;
+    gameWindow.hideGame = hideGame;
   </script>
 </Layout>
