@@ -1,0 +1,528 @@
+let r=null;function n(o){const a=document.getElementById("game-container"),s=document.getElementById("game-title");if(!(!a||!s)){if(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),document.querySelectorAll(".game-content").forEach(t=>{t.classList.add("hidden")}),o==="pixel-drawer"){s.textContent="🎨 Pixel Sandbox / ASCII Drawer";const t=document.getElementById("pixel-drawer-game");if(!t)return;t.innerHTML=`
+          <!-- Game Controls -->
+          <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+            <div class="grid md:grid-cols-4 gap-4 mb-6">
+              <div>
+                <label class="flex items-center space-x-2">
+                  <input type="checkbox" id="mode-toggle" class="form-checkbox">
+                  <span class="text-sm font-medium">ASCII Mode</span>
+                </label>
+              </div>
+              
+              <div>
+                <label for="grid-size" class="block text-sm font-medium mb-2">Grid Size</label>
+                <input type="range" id="grid-size" min="16" max="48" value="32" class="w-full">
+                <span id="grid-size-value" class="text-sm text-gray-600">32×32</span>
+              </div>
+
+              <div>
+                <label for="color-picker" class="block text-sm font-medium mb-2">Color</label>
+                <input type="color" id="color-picker" value="#000000" class="w-full h-10 border border-gray-300 dark:border-gray-600 rounded-md">
+              </div>
+
+              <div>
+                <label for="char-selector" class="block text-sm font-medium mb-2">Character</label>
+                <select id="char-selector" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700">
+                  <!-- Options will be populated by JavaScript -->
+                </select>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <div class="flex gap-2 mr-2">
+                <button id="tool-brush" class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors active ring-2 ring-offset-2 ring-blue-500">
+                  🖌️ Brush
+                </button>
+                <button id="tool-bucket" class="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+                  🪣 Fill
+                </button>
+                <button id="tool-eraser" class="px-3 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                  🧹 Eraser
+                </button>
+              </div>
+              <button id="clear-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                Clear
+              </button>
+              <button id="save-json-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                Save
+              </button>
+              <button id="load-json-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                Load
+              </button>
+              <button id="export-code-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+                Code
+              </button>
+              <button id="download-png-btn" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+                PNG
+              </button>
+              <button id="copy-ascii-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                ASCII
+              </button>
+            </div>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+            <div class="flex justify-center">
+              <canvas id="pixel-canvas" class="border-2 border-gray-400 dark:border-gray-600 bg-white cursor-crosshair"></canvas>
+            </div>
+          </div>
+
+          <!-- ASCII Output -->
+          <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">ASCII Preview</h3>
+            <pre id="ascii-preview" class="font-mono text-sm bg-white dark:bg-gray-900 p-4 rounded border overflow-auto max-h-64 whitespace-pre"></pre>
+          </div>
+
+          <!-- Hidden file input for loading -->
+          <input type="file" id="json-file-input" accept=".json" style="display: none;">
+        `,t.classList.remove("hidden");const e=window;e.PixelStudio?r=new e.PixelStudio:d("/game-scripts/pixel-drawer.js",()=>{e.PixelStudio&&(r=new e.PixelStudio)})}else if(o==="useless-machine"){s.textContent="🤖 Useless Machine";const t=document.getElementById("useless-machine-game");if(!t)return;t.innerHTML=`
+          <!-- Game Area -->
+          <div class="flex flex-col items-center">
+            <!-- Useless Machine Drawing -->
+            <div class="mb-6">
+              <canvas id="useless-machine-canvas" width="500" height="350" class="border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-900 cursor-crosshair"></canvas>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="w-full max-w-md">
+              <h3 class="text-lg font-semibold mb-4 text-center">Click to interact:</h3>
+              <div class="flex flex-wrap justify-center gap-2 mb-4 useless-machine-controls">
+                <button id="start-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  🚀 Start
+                </button>
+                <button id="stop-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                  ⏹️ Stop
+                </button>
+                <button id="reset-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                  ↩️ Reset
+                </button>
+              </div>
+              
+              <!-- Status Display -->
+              <div id="status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
+                Ready to be useless!
+              </div>
+              
+              <!-- Energy Display -->
+              <div class="text-center mb-4">
+                <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Energy Level</div>
+                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
+                  <div id="energy-bar" class="bg-green-500 h-3 rounded-full transition-all duration-300" style="width: 100%"></div>
+                </div>
+                <div id="energy-text" class="text-xs text-gray-500 dark:text-gray-400 mt-1">100%</div>
+              </div>
+              
+              <!-- Emotion Buttons -->
+              <div class="mb-4">
+                <h4 class="text-sm font-semibold mb-2 text-center">Force Emotions:</h4>
+                <div class="grid grid-cols-4 gap-2">
+                  <button id="emotion-happy" class="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 transition-colors">
+                    😊 Happy
+                  </button>
+                  <button id="emotion-sad" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition-colors">
+                    😢 Sad
+                  </button>
+                  <button id="emotion-angry" class="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors">
+                    😠 Angry
+                  </button>
+                  <button id="emotion-confused" class="px-2 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition-colors">
+                    😵 Confused
+                  </button>
+                </div>
+                <div class="grid grid-cols-4 gap-2 mt-2">
+                  <button id="emotion-scared" class="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 transition-colors">
+                    😨 Scared
+                  </button>
+                  <button id="emotion-tired" class="px-2 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600 transition-colors">
+                    😴 Tired
+                  </button>
+                  <button id="emotion-neutral" class="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500 transition-colors">
+                    😐 Neutral
+                  </button>
+                  <button id="emotion-random" class="px-2 py-1 bg-pink-500 text-white text-xs rounded hover:bg-pink-600 transition-colors">
+                    🎲 Random
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Enhanced Instructions -->
+              <div class="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-4">
+                <p><strong>🎮 Controls:</strong></p>
+                <ul class="space-y-1 ml-4">
+                  <li>• <strong>Click</strong> to trigger random useless actions</li>
+                  <li>• <strong>Double-click</strong> to trigger a tantrum!</li>
+                  <li>• <strong>Move mouse</strong> near the machine to watch it run away</li>
+                  <li>• <strong>Watch</strong> for thought bubbles and mood changes</li>
+                  <li>• <strong>Use emotion buttons</strong> to force specific moods</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <h3 class="font-semibold mb-2">🎯 What This Machine Does (Absolutely Nothing Useful!):</h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• <strong>Runs away</strong> from your mouse cursor like a scared robot</li>
+              <li>• <strong>Turns itself off</strong> when you try to interact with it</li>
+              <li>• <strong>Performs random actions:</strong> spin, bounce, shake, hide, teleport, dance, shrink, grow, sleep, protest, malfunction, glitch, gravity switch, and more!</li>
+              <li>• <strong>Changes mood and color</strong> based on its current state</li>
+              <li>• <strong>Shows thought bubbles</strong> with amusing messages</li>
+              <li>• <strong>Creates particle effects</strong> for visual flair</li>
+              <li>• <strong>Has an energy system</strong> that affects its behavior</li>
+              <li>• <strong>Completely pointless</strong> but endlessly entertaining!</li>
+            </ul>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.ChaosMachine?r=new e.ChaosMachine:d("/game-scripts/useless-machine.js",()=>{e.ChaosMachine&&setTimeout(()=>{r=new e.ChaosMachine},100)})}else if(o==="wack-a-bug"){s.textContent="🐛 Wack a Bug";const t=document.getElementById("wack-a-bug-game");if(!t)return;t.innerHTML=`
+          <!-- Game Area -->
+          <div class="flex flex-col items-center">
+            <!-- Wack a Bug Canvas -->
+            <div class="mb-6">
+              <canvas id="wack-a-bug-canvas" width="500" height="400" class="border border-gray-300 dark:border-gray-600 rounded-lg bg-gradient-to-b from-green-50 to-green-100 dark:from-green-900 dark:to-green-800"></canvas>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="w-full max-w-md">
+              <h3 class="text-lg font-semibold mb-4 text-center">🐛 Bug Wacking Fun!</h3>
+              
+              <!-- Score Display -->
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="text-center p-3 bg-yellow-100 dark:bg-yellow-900/20 rounded-lg">
+                  <div class="text-2xl font-bold text-yellow-600" id="score">0</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Score</div>
+                </div>
+                <div class="text-center p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                  <div class="text-2xl font-bold text-blue-600" id="high-score">0</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">High Score</div>
+                </div>
+              </div>
+              
+              <!-- Game Controls -->
+              <div class="flex flex-wrap justify-center gap-2 mb-4 wack-a-bug-controls">
+                <button id="start-game-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                  🚀 Start Game
+                </button>
+                <button id="pause-game-btn" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors">
+                  ⏸️ Pause
+                </button>
+                <button id="reset-game-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                  🔄 Reset
+                </button>
+              </div>
+              
+              <!-- Game Status -->
+              <div id="game-status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
+                Click Start Game to begin!
+              </div>
+              
+              <!-- Instructions -->
+              <div class="text-sm text-gray-600 dark:text-gray-400 space-y-2 text-center">
+                <p><strong>🎯 How to Play:</strong></p>
+                <ul class="space-y-1">
+                  <li>• Click bugs as they appear to score points</li>
+                  <li>• <strong>Golden Bugs</strong> give bonus points!</li>
+                  <li>• <strong>Avoid Trap Bugs</strong> (dark grey) or lose health!</li>
+                  <li>• Defeat the Boss every 5 waves!</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.BugBlaster?r=new e.BugBlaster:d("/game-scripts/wack-a-bug.js",()=>{e.BugBlaster&&setTimeout(()=>{r=new e.BugBlaster},100)})}else if(o==="code-snake"){s.textContent="🐍 Code Snake: Matrix Edition";const t=document.getElementById("code-snake-game");if(!t)return;t.innerHTML=`
+          <div class="flex flex-col items-center">
+            <canvas id="snake-canvas" width="500" height="500" class="border-2 border-green-600 dark:border-green-400 rounded-lg shadow-2xl mb-6"></canvas>
+
+            <div class="w-full max-w-2xl">
+              <!-- Stats -->
+              <div class="grid grid-cols-4 gap-3 mb-4">
+                <div class="text-center p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                  <div class="text-xl font-bold text-green-600" id="snake-score">0</div>
+                  <div class="text-xs text-gray-600 dark:text-gray-400">Score</div>
+                </div>
+                <div class="text-center p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                  <div class="text-xl font-bold text-blue-600" id="snake-high-score">0</div>
+                  <div class="text-xs text-gray-600 dark:text-gray-400">High Score</div>
+                </div>
+                <div class="text-center p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                  <div class="text-xl font-bold text-purple-600" id="snake-level">1</div>
+                  <div class="text-xs text-gray-600 dark:text-gray-400">Level</div>
+                </div>
+                <div class="text-center p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                  <div class="text-xl font-bold text-orange-600" id="snake-length">5</div>
+                  <div class="text-xs text-gray-600 dark:text-gray-400">Length</div>
+                </div>
+              </div>
+
+              <!-- Controls -->
+              <div class="flex flex-wrap justify-center gap-2 mb-4">
+                <button id="start-snake-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">🚀 Start</button>
+                <button id="pause-snake-btn" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">⏸️ Pause</button>
+                <button id="reset-snake-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">🔄 Reset</button>
+              </div>
+
+              <!-- Arrow Controls for Mobile -->
+              <div class="flex justify-center mb-4">
+                <div class="grid grid-cols-3 gap-1 w-32">
+                  <div></div>
+                  <button id="snake-up" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded">↑</button>
+                  <div></div>
+                  <button id="snake-left" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded">←</button>
+                  <div></div>
+                  <button id="snake-right" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded">→</button>
+                  <div></div>
+                  <button id="snake-down" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded">↓</button>
+                  <div></div>
+                </div>
+              </div>
+
+              <div id="snake-status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">Press SPACE or click Start to begin!</div>
+
+              <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
+                <p class="font-semibold mb-2">🎮 How to Play:</p>
+                <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+                  <li>• Use arrow keys, WASD, or buttons to move</li>
+                  <li>• Eat code snippets to grow and score points</li>
+                  <li>• Collect power-ups: Speed ⚡, Ghost 👻, Portals 🌀</li>
+                  <li>• Build combos for bonus points!</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.CodeSnake?r=new e.CodeSnake:d("/game-scripts/code-snake.js",()=>{e.CodeSnake&&setTimeout(()=>{r=new e.CodeSnake},100)})}else if(o==="dev-memory"){s.textContent="🧠 Dev Memory: Code Match";const t=document.getElementById("dev-memory-game");if(!t)return;t.innerHTML=`
+          <style>
+            .memory-grid { display: grid; gap: 1rem; margin: 2rem auto; max-width: 600px; }
+            .memory-grid-easy { grid-template-columns: repeat(3, 1fr); }
+            .memory-grid-medium { grid-template-columns: repeat(4, 1fr); }
+            .memory-grid-hard { grid-template-columns: repeat(4, 1fr); }
+
+            .memory-card { aspect-ratio: 1; cursor: pointer; perspective: 1000px; }
+            .memory-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+            .memory-card.flipped .memory-card-inner { transform: rotateY(180deg); }
+            .memory-card.matched .memory-card-inner { opacity: 0.7; transform: scale(0.95); }
+
+            .memory-card-front, .memory-card-back {
+              position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+              border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+              box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .memory-card-front { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            .memory-card-back { transform: rotateY(180deg); }
+            .card-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1;
+              background: repeating-linear-gradient(45deg, transparent, transparent 10px, white 10px, white 20px); }
+            .card-logo { font-size: 2rem; color: white; font-weight: bold; }
+            .card-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
+            .card-content { font-size: 0.75rem; font-weight: bold; color: white; text-align: center; }
+
+            .memory-particle {
+              position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none;
+              animation: particle-float 1s ease-out forwards;
+            }
+
+            @keyframes particle-float {
+              to { transform: translate(var(--vx), var(--vy)); opacity: 0; }
+            }
+
+            .active { ring: 2px; ring-color: blue; background-color: blue !important; }
+          </style>
+
+          <div class="max-w-4xl mx-auto">
+            <!-- Stats -->
+            <div class="grid grid-cols-5 gap-3 mb-4">
+              <div class="text-center p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                <div class="text-xl font-bold text-purple-600" id="memory-score">0</div>
+                <div class="text-xs">Score</div>
+              </div>
+              <div class="text-center p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                <div class="text-xl font-bold text-blue-600" id="memory-moves">0</div>
+                <div class="text-xs">Moves</div>
+              </div>
+              <div class="text-center p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                <div class="text-xl font-bold text-green-600" id="memory-matches">0/0</div>
+                <div class="text-xs">Matches</div>
+              </div>
+              <div class="text-center p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                <div class="text-xl font-bold text-orange-600" id="memory-streak">0</div>
+                <div class="text-xs">Streak</div>
+              </div>
+              <div class="text-center p-3 bg-pink-100 dark:bg-pink-900/20 rounded-lg">
+                <div class="text-xl font-bold text-pink-600" id="memory-time">--</div>
+                <div class="text-xs">Time</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              <div class="flex gap-2">
+                <button data-difficulty="easy" class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">Easy</button>
+                <button data-difficulty="medium" class="px-3 py-1 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 text-sm active">Medium</button>
+                <button data-difficulty="hard" class="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">Hard</button>
+              </div>
+              <div class="flex gap-2">
+                <button data-theme="languages" class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm active">Languages</button>
+                <button data-theme="concepts" class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm">Concepts</button>
+                <button data-theme="tools" class="px-3 py-1 bg-pink-600 text-white rounded-md hover:bg-pink-700 text-sm">Tools</button>
+              </div>
+              <div class="flex gap-2 ml-auto">
+                <button id="start-memory-btn" class="px-4 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">🚀 Start</button>
+                <button id="reset-memory-btn" class="px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">🔄 Reset</button>
+              </div>
+            </div>
+
+            <!-- Game Container -->
+            <div id="memory-game-container" style="position: relative; min-height: 400px;"></div>
+
+            <div id="memory-status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm mt-4">
+              Select difficulty and theme to start!
+            </div>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.DevMemory?r=new e.DevMemory:d("/game-scripts/dev-memory.js",()=>{e.DevMemory&&setTimeout(()=>{r=new e.DevMemory},100)})}else if(o==="code-typer"){s.textContent="⌨️ Code Typer: Speed Challenge";const t=document.getElementById("code-typer-game");if(!t)return;t.innerHTML=`
+          <style>
+            #code-display {
+              font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; padding: 1.5rem;
+              background: #1e293b; color: #e2e8f0; border-radius: 8px; min-height: 120px;
+              overflow-wrap: break-word; word-wrap: break-word;
+            }
+            #code-display span { transition: all 0.1s; }
+            #code-display .correct { color: #10b981; }
+            #code-display .incorrect { color: #ef4444; background: #7f1d1d; }
+            #code-display .current { background: #3b82f6; color: white; }
+            #code-display .syntax-keyword { color: #c084fc; font-weight: bold; }
+            #code-display .syntax-string { color: #fbbf24; }
+            #code-display .syntax-number { color: #60a5fa; }
+            #code-display .syntax-operator { color: #fb923c; }
+            #code-display .syntax-bracket { color: #a78bfa; }
+
+            #typing-input {
+              font-family: 'Courier New', monospace; font-size: 16px; padding: 1rem;
+              border: 2px solid #3b82f6; border-radius: 8px; width: 100%;
+              background: #0f172a; color: #e2e8f0;
+            }
+            #typing-input:focus { outline: none; border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+
+            .typing-confetti {
+              position: absolute; width: 8px; height: 8px; border-radius: 50%;
+              animation: confetti-fall 2s ease-out forwards; pointer-events: none;
+            }
+            @keyframes confetti-fall {
+              to { transform: translateY(400px) rotate(360deg); opacity: 0; }
+            }
+          </style>
+
+          <div class="max-w-4xl mx-auto typing-container" style="position: relative;">
+            <!-- Stats -->
+            <div class="grid grid-cols-5 gap-3 mb-4">
+              <div class="text-center p-3 bg-cyan-100 dark:bg-cyan-900/20 rounded-lg">
+                <div class="text-xl font-bold text-cyan-600" id="typer-wpm">0</div>
+                <div class="text-xs">WPM</div>
+              </div>
+              <div class="text-center p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                <div class="text-xl font-bold text-green-600" id="typer-accuracy">100%</div>
+                <div class="text-xs">Accuracy</div>
+              </div>
+              <div class="text-center p-3 bg-red-100 dark:bg-red-900/20 rounded-lg">
+                <div class="text-xl font-bold text-red-600" id="typer-errors">0</div>
+                <div class="text-xs">Errors</div>
+              </div>
+              <div class="text-center p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                <div class="text-xl font-bold text-purple-600" id="typer-time">0.0s</div>
+                <div class="text-xs">Time</div>
+              </div>
+              <div class="text-center p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                <div class="text-xl font-bold text-orange-600" id="typer-best">0</div>
+                <div class="text-xs">Best WPM</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              <div class="flex gap-2">
+                <button data-language="javascript" class="px-3 py-1 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 text-sm active">JavaScript</button>
+                <button data-language="python" class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">Python</button>
+                <button data-language="typescript" class="px-3 py-1 bg-blue-700 text-white rounded-md hover:bg-blue-800 text-sm">TypeScript</button>
+              </div>
+              <div class="flex gap-2">
+                <button data-diff="easy" class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">Easy</button>
+                <button data-diff="medium" class="px-3 py-1 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 text-sm active">Medium</button>
+                <button data-diff="hard" class="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">Hard</button>
+              </div>
+              <div class="flex gap-2 ml-auto">
+                <button id="new-snippet-btn" class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm">🔄 New</button>
+                <button id="start-typer-btn" class="px-4 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">🚀 Start</button>
+                <button id="reset-typer-btn" class="px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">↩️ Reset</button>
+              </div>
+            </div>
+
+            <!-- Code Display -->
+            <div id="code-display" class="mb-4"></div>
+
+            <!-- Input Area -->
+            <textarea id="typing-input" rows="3" placeholder="Focus here to start typing..." disabled></textarea>
+
+            <div id="typer-status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm mt-4">
+              Click Start or focus input to begin!
+            </div>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.CodeTyper?r=new e.CodeTyper:d("/game-scripts/code-typer.js",()=>{e.CodeTyper&&setTimeout(()=>{r=new e.CodeTyper},100)})}else if(o==="hangman"){s.textContent="🎯 Hangman Game";const t=document.getElementById("hangman-game");if(!t)return;t.innerHTML=`
+          <!-- Game Stats -->
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center">
+              <div class="text-2xl font-bold" id="score">Wins: 0 | Losses: 0</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">Score</div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center">
+              <div class="text-2xl font-bold" id="wrong-guesses">0/6</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">Wrong Guesses</div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center">
+              <div class="text-sm" id="guessed-letters">None</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">Guessed Letters</div>
+            </div>
+          </div>
+
+          <!-- Game Status -->
+          <div class="text-center mb-6">
+            <div id="game-status" class="text-lg mb-4">⚠️ SYSTEM FAILURE IMMINENT. RESTORE PASSWORD.</div>
+            <div id="word-display" class="text-4xl font-mono font-bold tracking-widest mb-6">_ _ _ _ _</div>
+          </div>
+
+          <!-- Game Area -->
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Hangman Drawing -->
+            <div class="flex justify-center">
+              <canvas id="hangman-canvas" width="300" height="250" class="border border-gray-300 dark:border-gray-600 rounded-lg bg-black"></canvas>
+            </div>
+
+            <!-- Keyboard -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Click letters to guess:</h3>
+              <div id="keyboard" class="flex flex-wrap justify-center gap-1 mb-6">
+                <!-- Keyboard will be generated here -->
+              </div>
+
+              <!-- Game Controls -->
+              <div class="flex flex-wrap gap-3">
+                <button id="new-game-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  🎮 New Game
+                </button>
+                <button id="hint-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                  💡 Hint
+                </button>
+                <button id="reset-score-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                  🔄 Reset Score
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <h3 class="font-semibold mb-2">How to Play:</h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• Guess letters by clicking the buttons or using your keyboard</li>
+              <li>• You have 6 wrong guesses before the game ends</li>
+              <li>• Words are programming and technology related</li>
+              <li>• Use the hint button if you're stuck (reveals a random letter)</li>
+            </ul>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.CodeHangman?r=new e.CodeHangman:d("/game-scripts/hangman.js",()=>{e.CodeHangman&&setTimeout(()=>{r=new e.CodeHangman},100)})}a.classList.remove("hidden"),a.scrollIntoView({behavior:"smooth"})}}function l(){const o=document.getElementById("game-container");o&&(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),o.classList.add("hidden"),r=null)}function d(o,a){const s=document.createElement("script");s.src=o,s.onload=a,s.onerror=()=>console.error(`Failed to load script: ${o}`),document.head.appendChild(s)}const i=window;i.showGame=n;i.hideGame=l;
