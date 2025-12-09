@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Filter drafts in production, show all in development
+  const books = await getCollection('books', ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+  return books.map((book) => ({
+    params: { slug: book.slug },
+    props: { book },
+  }));
+}
+
+const { book } = Astro.props;
+const { Content } = await book.render();
+
+const renderStars = (rating: number | undefined) => {
+  if (!rating) return '';
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+};
+
+const formatDate = (date: Date | undefined) => {
+  if (!date) return '';
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+  }).format(date);
+};
+
+const statusLabels: Record<string, string> = {
+  reading: 'Currently Reading',
+  completed: 'Completed',
+  'want-to-read': 'Want to Read',
+  abandoned: 'Abandoned',
+};
+---
+
+<Layout title={`${book.data.title} - Books`}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <a href="/books" class="text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block">
+      ← Back to Books
+    </a>
+
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-2">
+        {book.data.favorite && <span class="text-red-500 mr-2">❤️</span>}
+        {book.data.title}
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">by {book.data.author}</p>
+
+      <div class="flex flex-wrap items-center gap-4 mb-4">
+        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-sm">
+          {statusLabels[book.data.status]}
+        </span>
+
+        {book.data.rating && (
+          <span class="text-yellow-500 text-lg">{renderStars(book.data.rating)}</span>
+        )}
+      </div>
+
+      <div class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+        {book.data.startDate && (
+          <p>Started: {formatDate(book.data.startDate)}</p>
+        )}
+        {book.data.finishDate && (
+          <p>Finished: {formatDate(book.data.finishDate)}</p>
+        )}
+      </div>
+    </div>
+
+    {book.data.tags && (
+      <div class="flex flex-wrap gap-2 mb-8">
+        {book.data.tags.map((tag) => (
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm rounded">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <article class="prose dark:prose-invert prose-lg max-w-none">
+      <Content />
+    </article>
+  </div>
+</Layout>
