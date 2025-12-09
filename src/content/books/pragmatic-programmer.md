@@ -5,7 +5,7 @@ rating: 5
 status: "want-to-read"
 finishDate: 2025-11-15T00:00:00Z
 tags: ["programming", "career", "best-practices"]
-favorite: true
+favorite: false
 ---
 
 A timeless classic that shaped how I think about software development. The 20th anniversary edition updates the original wisdom for modern contexts.

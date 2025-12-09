@@ -5,7 +5,7 @@ rating: 5
 status: "want-to-read"
 finishDate: 2025-06-10T00:00:00Z
 tags: ["systems", "databases", "distributed-systems"]
-favorite: true
+favorite: false
 ---
 
 The definitive guide to data systems. Dense but incredibly rewarding. I refer back to it constantly.
