@@ -212,5 +212,6 @@ Start small with a single collection and expand as your site grows. The investme
 ---
 
 **Resources:**
+- [My own astro based portfolio site repo](https://github.com/1mangesh1/1mangesh1.github.io)
 - [Official Astro Content Collections Docs](https://docs.astro.build/en/guides/content-collections/)
 - [Zod Schema Validation](https://zod.dev/)
