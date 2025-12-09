@@ -6,6 +6,7 @@ status: "completed"
 finishDate: 2025-10-20T00:00:00Z
 tags: ["programming", "best-practices", "craftsmanship"]
 favorite: true
+draft: true
 ---
 
 A handbook of agile software craftsmanship. While some examples feel dated (Java-heavy), the principles are timeless.

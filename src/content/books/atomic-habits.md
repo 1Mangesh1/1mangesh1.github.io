@@ -6,6 +6,7 @@ status: "want-to-read"
 finishDate: 2025-08-15T00:00:00Z
 tags: ["productivity", "self-improvement", "habits"]
 favorite: false
+draft: true
 ---
 
 The most practical book on habit formation I've read. Changed how I approach personal and professional growth.

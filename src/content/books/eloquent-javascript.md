@@ -6,6 +6,7 @@ status: "want-to-read"
 finishDate: 2025-05-20T00:00:00Z
 tags: ["javascript", "programming", "beginner"]
 favorite: false
+draft: true
 ---
 
 The book that taught me JavaScript properly. Free online, but worth buying physical.
