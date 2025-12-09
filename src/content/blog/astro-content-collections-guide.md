@@ -194,12 +194,322 @@ const links = defineCollection({
 
 ---
 
+## Working with Images
+
+Astro can validate and optimize images in your content. Use the `image()` helper for local images:
+
+```typescript
+import { defineCollection, z } from "astro:content";
+import { image } from "astro:content";
+
+const blog = defineCollection({
+  type: "content",
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    heroImage: image().optional(),
+    // Or reference images from public folder
+    ogImage: z.string().optional(),
+  }),
+});
+```
+
+In your frontmatter, reference images relative to the content file:
+
+```markdown
+---
+title: "Post with Hero Image"
+heroImage: "./images/hero.png"
+---
+```
+
+Astro will automatically optimize these images at build time.
+
+---
+
+## Using MDX Components
+
+Content Collections work seamlessly with MDX, allowing you to use components in your content:
+
+### 1. Enable MDX in Your Config
+
+```javascript
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+
+export default defineConfig({
+  integrations: [mdx()],
+});
+```
+
+### 2. Create Reusable Components
+
+```astro
+---
+// src/components/Callout.astro
+const { type = "info" } = Astro.props;
+const colors = {
+  info: "bg-blue-100 border-blue-500",
+  warning: "bg-yellow-100 border-yellow-500",
+  error: "bg-red-100 border-red-500",
+};
+---
+
+<div class={`p-4 border-l-4 ${colors[type]}`}>
+  <slot />
+</div>
+```
+
+### 3. Use in MDX Files
+
+```mdx
+---
+title: "Post with Components"
+---
+import Callout from '../../components/Callout.astro';
+
+# My Post
+
+<Callout type="warning">
+  This is an important note!
+</Callout>
+
+Regular markdown continues here...
+```
+
+---
+
+## References Between Collections
+
+You can create relationships between collections using slugs or IDs:
+
+```typescript
+const blog = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    // Reference related posts by slug
+    relatedPosts: z.array(z.string()).optional(),
+    // Reference author from another collection
+    author: z.string(),
+  }),
+});
+
+const authors = defineCollection({
+  type: "data", // JSON/YAML collection
+  schema: z.object({
+    name: z.string(),
+    bio: z.string(),
+    avatar: z.string(),
+  }),
+});
+```
+
+Then resolve references when querying:
+
+```typescript
+import { getCollection, getEntry } from "astro:content";
+
+const post = await getEntry("blog", "my-post");
+const author = await getEntry("authors", post.data.author);
+
+// Get related posts
+const relatedPosts = await Promise.all(
+  post.data.relatedPosts?.map((slug) => getEntry("blog", slug)) ?? []
+);
+```
+
+---
+
+## Real-World Example: This Site
+
+This very site uses Content Collections extensively. Here's how it's structured:
+
+### Multiple Collection Types
+
+```typescript
+// src/content/config.ts - Actual config from this site
+const blog = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.date(),
+    updatedDate: z.date().optional(),
+    heroImage: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    draft: z.boolean().optional(),
+    ogImage: z.string().optional(),
+  }),
+});
+
+const portfolio = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    image: z.string(),
+    tech: z.array(z.string()),
+    github: z.string().optional(),
+    demo: z.string().optional(),
+    featured: z.boolean().default(false),
+    date: z.date(),
+  }),
+});
+
+const now = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    location: z.string().optional(),
+    mood: z.string().optional(),
+    currentlyReading: z.array(z.string()).optional(),
+    currentlyWatching: z.array(z.string()).optional(),
+    currentlyLearning: z.array(z.string()).optional(),
+    currentlyBuilding: z.array(z.string()).optional(),
+  }),
+});
+```
+
+### Tag-Based Navigation
+
+Tags automatically generate pages without manual configuration:
+
+```astro
+---
+// src/pages/blog/tags/[tag].astro
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  // Extract all unique tags
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: posts.filter((post) => post.data.tags?.includes(tag)),
+    },
+  }));
+}
+---
+```
+
+### Filtering Draft Posts in Production
+
+```typescript
+const publishedPosts = await getCollection("blog", ({ data }) => {
+  // Show drafts in dev, hide in production
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+```
+
+---
+
+## Troubleshooting
+
+### Error: "Collection not found"
+
+**Cause**: The collection folder doesn't exist or the name doesn't match `config.ts`.
+
+**Fix**: Ensure folder name matches exactly:
+```
+src/content/blog/     ← folder name
+export const collections = { blog };  ← must match
+```
+
+### Error: "Invalid frontmatter"
+
+**Cause**: Content doesn't match the schema.
+
+**Fix**: Run `astro check` to see detailed validation errors:
+```bash
+yarn astro check
+```
+
+Common issues:
+- Missing required fields
+- Wrong date format (use `2025-12-09T00:00:00Z`)
+- Type mismatches (string vs array)
+
+### Error: "Cannot find module 'astro:content'"
+
+**Cause**: TypeScript can't find Astro's generated types.
+
+**Fix**: Run the dev server or build to generate types:
+```bash
+yarn dev
+# or
+yarn astro sync
+```
+
+### Content Not Updating
+
+**Cause**: Astro caches content during development.
+
+**Fix**: Restart the dev server or clear the cache:
+```bash
+rm -rf node_modules/.astro
+yarn dev
+```
+
+### Migration from Glob Imports
+
+If you're migrating from `import.meta.glob()`:
+
+**Before:**
+```typescript
+const posts = await Astro.glob("../content/blog/*.md");
+```
+
+**After:**
+```typescript
+import { getCollection } from "astro:content";
+const posts = await getCollection("blog");
+```
+
+Key differences:
+- `post.frontmatter` → `post.data`
+- `post.url` → `/blog/${post.slug}`
+- `post.Content` → `const { Content } = await post.render()`
+
+---
+
+## Performance Tips
+
+1. **Filter Early**: Use the filter callback in `getCollection()` instead of filtering after
+   ```typescript
+   // Good - filters during fetch
+   const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+   // Less efficient - fetches all, then filters
+   const all = await getCollection("blog");
+   const posts = all.filter((p) => !p.data.draft);
+   ```
+
+2. **Limit Renders**: Only call `render()` when you need the content body
+   ```typescript
+   // For listing pages, you often only need metadata
+   const posts = await getCollection("blog");
+   // Don't render here, just use post.data
+   ```
+
+3. **Cache Related Posts**: Compute relationships at build time, not runtime
+
+4. **Use Data Collections**: For JSON/YAML data that doesn't need rendering, use `type: "data"` for faster processing
+
+---
+
 ## Common Gotchas
 
 1. **Date Format**: Use ISO 8601 format (`2025-12-09T00:00:00Z`) for dates
 2. **Collection Names**: Folder name must match the export name in `config.ts`
 3. **Type Checking**: Run `astro check` to validate schemas before building
 4. **Draft Posts**: Filter them out in production but show in development
+5. **Slug Conflicts**: Each file in a collection must have a unique slug (filename)
+6. **Nested Folders**: Files in subfolders include the path in their slug (`folder/post` not `post`)
 
 ---
 
