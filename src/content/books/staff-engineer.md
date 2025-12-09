@@ -5,6 +5,7 @@ status: "want-to-read"
 startDate: 2025-11-20T00:00:00Z
 tags: ["career", "leadership", "engineering"]
 favorite: false
+draft: true
 ---
 
 Currently reading this guide to technical leadership beyond the senior level.
