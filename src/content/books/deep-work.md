@@ -4,6 +4,7 @@ author: "Cal Newport"
 status: "want-to-read"
 tags: ["productivity", "focus", "career"]
 favorite: false
+draft: true
 ---
 
 On my reading list based on multiple recommendations. About cultivating the ability to focus without distraction.

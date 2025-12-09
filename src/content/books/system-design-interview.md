@@ -6,6 +6,7 @@ status: "want-to-read"
 finishDate: 2025-09-05T00:00:00Z
 tags: ["interviews", "systems", "architecture"]
 favorite: false
+draft: true
 ---
 
 Practical guide for system design interviews with step-by-step walkthroughs.
