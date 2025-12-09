@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Filter drafts in production, show all in development
+const allTils = await getCollection('til', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const sortedTils = allTils.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  }).format(date);
+};
+
+const categoryColors: Record<string, string> = {
+  javascript: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+  python: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+  css: 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200',
+  devops: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+  git: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+  linux: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+  general: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+};
+---
+
+<Layout title="TIL - Today I Learned">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-4">Today I Learned</h1>
+      <p class="text-gray-600 dark:text-gray-400">Quick snippets of things I learn every day</p>
+    </div>
+
+    <div class="space-y-6">
+      {sortedTils.map(async (til) => {
+        const { Content } = await til.render();
+        return (
+          <article class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <time class="text-sm text-gray-500 dark:text-gray-400" datetime={til.data.date.toISOString()}>
+                {formatDate(til.data.date)}
+              </time>
+              {til.data.category && (
+                <span class={`px-2 py-1 text-xs rounded ${categoryColors[til.data.category] || categoryColors.general}`}>
+                  {til.data.category}
+                </span>
+              )}
+            </div>
+
+            <h2 class="text-xl font-semibold mb-3">{til.data.title}</h2>
+
+            <div class="prose dark:prose-invert prose-sm max-w-none">
+              <Content />
+            </div>
+
+            {til.data.tags && (
+              <div class="flex flex-wrap gap-2 mt-4">
+                {til.data.tags.map((tag) => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</Layout>

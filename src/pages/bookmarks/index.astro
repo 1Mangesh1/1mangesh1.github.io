@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Filter drafts in production, show all in development
+const allBookmarks = await getCollection('bookmarks', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const sortedBookmarks = allBookmarks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const featuredBookmarks = sortedBookmarks.filter(b => b.data.featured);
+const regularBookmarks = sortedBookmarks.filter(b => !b.data.featured);
+
+const categoryColors: Record<string, string> = {
+  article: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+  tool: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+  video: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+  podcast: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+  repo: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+  tutorial: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+  other: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+};
+
+const categoryIcons: Record<string, string> = {
+  article: '📄',
+  tool: '🔧',
+  video: '🎥',
+  podcast: '🎙️',
+  repo: '💻',
+  tutorial: '📚',
+  other: '🔗',
+};
+---
+
+<Layout title="Bookmarks">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-4">Bookmarks</h1>
+      <p class="text-gray-600 dark:text-gray-400">Curated links to articles, tools, and resources I find valuable</p>
+    </div>
+
+    {featuredBookmarks.length > 0 && (
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6">Featured</h2>
+        <div class="grid gap-4">
+          {featuredBookmarks.map((bookmark) => (
+            <a
+              href={bookmark.data.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block border-2 border-yellow-300 dark:border-yellow-600 rounded-lg p-6 hover:shadow-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-all"
+            >
+              <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">{categoryIcons[bookmark.data.category]}</span>
+                <span class={`px-2 py-1 text-xs rounded ${categoryColors[bookmark.data.category]}`}>
+                  {bookmark.data.category}
+                </span>
+                <span class="text-yellow-600 dark:text-yellow-400 text-sm">★ Featured</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">{bookmark.data.title}</h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-2">{bookmark.data.description}</p>
+              <span class="text-blue-600 dark:text-blue-400 text-sm">{new URL(bookmark.data.url).hostname} →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="grid gap-4">
+      {regularBookmarks.map((bookmark) => (
+        <a
+          href={bookmark.data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition-all"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-lg">{categoryIcons[bookmark.data.category]}</span>
+            <span class={`px-2 py-1 text-xs rounded ${categoryColors[bookmark.data.category]}`}>
+              {bookmark.data.category}
+            </span>
+          </div>
+          <h3 class="text-lg font-semibold mb-1">{bookmark.data.title}</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{bookmark.data.description}</p>
+          <div class="flex items-center justify-between">
+            <span class="text-blue-600 dark:text-blue-400 text-sm">{new URL(bookmark.data.url).hostname} →</span>
+            {bookmark.data.tags && (
+              <div class="flex gap-1">
+                {bookmark.data.tags.slice(0, 3).map((tag) => (
+                  <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
