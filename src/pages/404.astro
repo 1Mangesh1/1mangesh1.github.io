@@ -3,18 +3,30 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="404 - Page Not Found" description="The page you're looking for doesn't exist." noindex={true}>
-  <div class="max-w-4xl mx-auto px-4 py-16 text-center">
-    <div class="mb-8">
-      <h1 class="text-9xl font-bold text-gray-300 dark:text-gray-700 mb-4">404</h1>
-      <h2 class="text-3xl font-bold mb-4">Page Not Found</h2>
-      <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-        Sorry, the page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.
+  <div class="max-w-4xl mx-auto px-4 py-8 text-center">
+    <div class="mb-6">
+      <h1 class="text-6xl font-bold text-gray-300 dark:text-gray-700 mb-2">404</h1>
+      <h2 class="text-2xl font-bold mb-2">Page Not Found</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">
+        While you're here, why not play a quick game?
       </p>
     </div>
 
-    <div class="space-y-4 mb-12">
-      <a 
-        href="/" 
+    <!-- Game Canvas -->
+    <div class="mb-6">
+      <canvas id="game-canvas" width="600" height="300" class="mx-auto rounded-lg bg-gray-900 cursor-pointer max-w-full border-2 border-gray-700"></canvas>
+    </div>
+
+    <!-- Game Controls -->
+    <div class="mb-6 space-y-2">
+      <p id="game-status" class="text-lg font-mono text-gray-600 dark:text-gray-400">Press SPACE or click to jump!</p>
+      <p class="text-sm text-gray-500">High Score: <span id="high-score">0</span></p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="space-y-4 mb-8">
+      <a
+        href="/"
         class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mr-4"
       >
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,9 +34,9 @@ import Layout from '../layouts/Layout.astro';
         </svg>
         Go Home
       </a>
-      
-      <a 
-        href="/blog" 
+
+      <a
+        href="/blog"
         class="inline-flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
       >
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,14 +46,268 @@ import Layout from '../layouts/Layout.astro';
       </a>
     </div>
 
-    <div class="text-gray-500 dark:text-gray-400">
-      <p class="mb-4">Here are some helpful links:</p>
-      <div class="flex flex-wrap justify-center gap-4 text-sm">
+    <div class="text-gray-500 dark:text-gray-400 text-sm">
+      <div class="flex flex-wrap justify-center gap-4">
         <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</a>
-        <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+        <a href="/games" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">More Games</a>
         <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
         <a href="/search" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Search</a>
       </div>
     </div>
   </div>
-</Layout> 
+</Layout>
+
+<script>
+  const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const statusEl = document.getElementById('game-status')!;
+  const highScoreEl = document.getElementById('high-score')!;
+
+  // Game state
+  let gameRunning = false;
+  let score = 0;
+  let highScore = parseInt(localStorage.getItem('404_high_score') || '0');
+  highScoreEl.textContent = highScore.toString();
+
+  // Player (404 character)
+  const player = {
+    x: 80,
+    y: 200,
+    width: 40,
+    height: 50,
+    velocityY: 0,
+    jumping: false,
+    grounded: true
+  };
+
+  // Obstacles (bugs)
+  interface Obstacle {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    type: 'bug' | 'error';
+  }
+
+  let obstacles: Obstacle[] = [];
+  let obstacleTimer = 0;
+  const groundY = 250;
+  const gravity = 0.8;
+  const jumpForce = -15;
+
+  // Particles for effects
+  interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    life: number;
+    color: string;
+  }
+
+  let particles: Particle[] = [];
+
+  function reset() {
+    player.y = groundY - player.height;
+    player.velocityY = 0;
+    player.jumping = false;
+    player.grounded = true;
+    obstacles = [];
+    particles = [];
+    score = 0;
+    obstacleTimer = 0;
+    gameRunning = true;
+    statusEl.textContent = 'Score: 0';
+  }
+
+  function jump() {
+    if (!gameRunning) {
+      reset();
+      return;
+    }
+    if (player.grounded) {
+      player.velocityY = jumpForce;
+      player.jumping = true;
+      player.grounded = false;
+    }
+  }
+
+  function spawnObstacle() {
+    const type = Math.random() > 0.7 ? 'error' : 'bug';
+    obstacles.push({
+      x: canvas.width,
+      y: type === 'bug' ? groundY - 30 : groundY - 40,
+      width: type === 'bug' ? 30 : 50,
+      height: type === 'bug' ? 30 : 40,
+      type
+    });
+  }
+
+  function addParticles(x: number, y: number, color: string) {
+    for (let i = 0; i < 10; i++) {
+      particles.push({
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 8,
+        vy: (Math.random() - 0.5) * 8,
+        life: 30,
+        color
+      });
+    }
+  }
+
+  function update() {
+    if (!gameRunning) return;
+
+    // Player physics
+    player.velocityY += gravity;
+    player.y += player.velocityY;
+
+    if (player.y >= groundY - player.height) {
+      player.y = groundY - player.height;
+      player.velocityY = 0;
+      player.grounded = true;
+      player.jumping = false;
+    }
+
+    // Spawn obstacles
+    obstacleTimer++;
+    const spawnRate = Math.max(60, 120 - score * 2);
+    if (obstacleTimer >= spawnRate) {
+      spawnObstacle();
+      obstacleTimer = 0;
+    }
+
+    // Update obstacles
+    const speed = 5 + Math.min(score * 0.1, 5);
+    obstacles = obstacles.filter(obs => {
+      obs.x -= speed;
+
+      // Collision detection
+      if (
+        player.x < obs.x + obs.width &&
+        player.x + player.width > obs.x &&
+        player.y < obs.y + obs.height &&
+        player.y + player.height > obs.y
+      ) {
+        gameOver();
+        return false;
+      }
+
+      // Score when passed
+      if (obs.x + obs.width < player.x && !('scored' in obs)) {
+        (obs as any).scored = true;
+        score++;
+        addParticles(player.x + player.width, player.y + player.height / 2, '#10b981');
+      }
+
+      return obs.x > -obs.width;
+    });
+
+    // Update particles
+    particles = particles.filter(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life--;
+      return p.life > 0;
+    });
+
+    statusEl.textContent = `Score: ${score}`;
+  }
+
+  function gameOver() {
+    gameRunning = false;
+    addParticles(player.x + player.width / 2, player.y + player.height / 2, '#ef4444');
+
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem('404_high_score', highScore.toString());
+      highScoreEl.textContent = highScore.toString();
+      statusEl.textContent = `Game Over! New High Score: ${score}! Press SPACE to restart`;
+    } else {
+      statusEl.textContent = `Game Over! Score: ${score}. Press SPACE to restart`;
+    }
+  }
+
+  function draw() {
+    // Clear
+    ctx.fillStyle = '#111827';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Ground
+    ctx.fillStyle = '#374151';
+    ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+
+    // Ground line
+    ctx.strokeStyle = '#4b5563';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, groundY);
+    ctx.lineTo(canvas.width, groundY);
+    ctx.stroke();
+
+    // Player (404 text character)
+    ctx.fillStyle = '#3b82f6';
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 12px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('404', player.x + player.width / 2, player.y + player.height / 2 + 4);
+
+    // Obstacles
+    obstacles.forEach(obs => {
+      if (obs.type === 'bug') {
+        ctx.fillStyle = '#ef4444';
+        ctx.beginPath();
+        ctx.arc(obs.x + obs.width / 2, obs.y + obs.height / 2, obs.width / 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 14px sans-serif';
+        ctx.fillText('BUG', obs.x + obs.width / 2, obs.y + obs.height / 2 + 5);
+      } else {
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+        ctx.fillStyle = '#000';
+        ctx.font = 'bold 10px monospace';
+        ctx.fillText('ERROR', obs.x + obs.width / 2, obs.y + obs.height / 2 + 4);
+      }
+    });
+
+    // Particles
+    particles.forEach(p => {
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.life / 30;
+      ctx.fillRect(p.x - 3, p.y - 3, 6, 6);
+    });
+    ctx.globalAlpha = 1;
+
+    // Score display on canvas
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '16px monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(`Score: ${score}`, canvas.width - 20, 30);
+  }
+
+  function gameLoop() {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+  }
+
+  // Controls
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' || e.code === 'ArrowUp') {
+      e.preventDefault();
+      jump();
+    }
+  });
+
+  canvas.addEventListener('click', jump);
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    jump();
+  });
+
+  // Start
+  gameLoop();
+</script>

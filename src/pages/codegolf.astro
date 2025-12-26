@@ -1,0 +1,319 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Code Golf - Mangesh Bide" description="Solve coding challenges in the fewest characters possible">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">Code Golf</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Solve challenges in the fewest characters. Less is more!
+      </p>
+    </header>
+
+    <!-- Challenge Selection -->
+    <div class="mb-8">
+      <label class="block text-sm font-medium mb-2">Select Challenge:</label>
+      <select id="challenge-select" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800">
+        <option value="0">1. FizzBuzz (1-100)</option>
+        <option value="1">2. Reverse a String</option>
+        <option value="2">3. Check Palindrome</option>
+        <option value="3">4. Sum of Array</option>
+        <option value="4">5. Factorial</option>
+        <option value="5">6. Fibonacci (nth number)</option>
+        <option value="6">7. Count Vowels</option>
+        <option value="7">8. Find Maximum</option>
+      </select>
+    </div>
+
+    <!-- Challenge Details -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mb-6">
+      <div class="flex justify-between items-start mb-4">
+        <h2 id="challenge-title" class="text-xl font-bold">FizzBuzz</h2>
+        <div class="flex gap-2">
+          <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm">
+            Best: <span id="best-score">--</span> chars
+          </span>
+          <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+            Your: <span id="your-score">--</span> chars
+          </span>
+        </div>
+      </div>
+      <p id="challenge-description" class="text-gray-600 dark:text-gray-400 mb-4">
+        Print numbers 1-100. For multiples of 3, print "Fizz". For multiples of 5, print "Buzz". For both, print "FizzBuzz".
+      </p>
+      <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+        <p class="text-sm font-medium mb-2">Expected Output (sample):</p>
+        <pre id="expected-output" class="text-sm font-mono text-gray-700 dark:text-gray-300 overflow-x-auto">1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz...</pre>
+      </div>
+    </div>
+
+    <!-- Code Editor -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <label class="text-sm font-medium">Your Solution (JavaScript):</label>
+        <div class="flex items-center gap-4">
+          <span class="text-sm text-gray-500">
+            Characters: <span id="char-count" class="font-bold text-blue-600">0</span>
+          </span>
+        </div>
+      </div>
+      <textarea
+        id="code-input"
+        rows="8"
+        class="w-full p-4 font-mono text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+        placeholder="// Write your solution here
+// Your code should define a function or expression that solves the challenge
+// Example: const solve = (n) => n * 2;"
+      ></textarea>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex flex-wrap gap-4 mb-6">
+      <button id="run-btn" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+        Run Code
+      </button>
+      <button id="test-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+        Test Solution
+      </button>
+      <button id="hint-btn" class="px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors font-medium">
+        Show Hint
+      </button>
+      <button id="reset-btn" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+        Reset
+      </button>
+    </div>
+
+    <!-- Output -->
+    <div class="bg-gray-900 rounded-xl p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-white font-medium">Output:</h3>
+        <span id="status" class="text-sm"></span>
+      </div>
+      <pre id="output" class="text-green-400 font-mono text-sm overflow-x-auto max-h-64">// Output will appear here</pre>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+      <h3 class="text-xl font-bold mb-4">Your Best Scores</h3>
+      <div id="leaderboard" class="space-y-2">
+        <!-- Scores will be populated here -->
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  interface Challenge {
+    title: string;
+    description: string;
+    expected: string;
+    test: (fn: any) => boolean;
+    hint: string;
+    bestKnown: number;
+  }
+
+  const challenges: Challenge[] = [
+    {
+      title: 'FizzBuzz',
+      description: 'Return an array of 1-100 where multiples of 3 are "Fizz", multiples of 5 are "Buzz", and multiples of both are "FizzBuzz".',
+      expected: '[1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", ...]',
+      test: (fn) => {
+        const result = fn();
+        if (!Array.isArray(result) || result.length !== 100) return false;
+        return result[2] === 'Fizz' && result[4] === 'Buzz' && result[14] === 'FizzBuzz' && result[0] === 1;
+      },
+      hint: 'Try using Array.from() or [...Array(100)] and ternary operators.',
+      bestKnown: 54
+    },
+    {
+      title: 'Reverse a String',
+      description: 'Create a function that reverses a string. solve("hello") → "olleh"',
+      expected: 'solve("hello") → "olleh"',
+      test: (fn) => fn('hello') === 'olleh' && fn('world') === 'dlrow' && fn('') === '',
+      hint: 'split("").reverse().join("") works, but can you do better?',
+      bestKnown: 22
+    },
+    {
+      title: 'Check Palindrome',
+      description: 'Create a function that returns true if a string is a palindrome. solve("racecar") → true',
+      expected: 'solve("racecar") → true, solve("hello") → false',
+      test: (fn) => fn('racecar') === true && fn('hello') === false && fn('a') === true,
+      hint: 'Compare the string with its reverse.',
+      bestKnown: 27
+    },
+    {
+      title: 'Sum of Array',
+      description: 'Create a function that returns the sum of all numbers in an array. solve([1,2,3]) → 6',
+      expected: 'solve([1, 2, 3, 4, 5]) → 15',
+      test: (fn) => fn([1, 2, 3]) === 6 && fn([1, 2, 3, 4, 5]) === 15 && fn([]) === 0,
+      hint: 'reduce() is your friend.',
+      bestKnown: 19
+    },
+    {
+      title: 'Factorial',
+      description: 'Create a function that returns n!. solve(5) → 120',
+      expected: 'solve(5) → 120, solve(0) → 1',
+      test: (fn) => fn(5) === 120 && fn(0) === 1 && fn(1) === 1 && fn(10) === 3628800,
+      hint: 'Recursion or reduce can work.',
+      bestKnown: 25
+    },
+    {
+      title: 'Fibonacci',
+      description: 'Create a function that returns the nth Fibonacci number (0-indexed). solve(6) → 8',
+      expected: 'solve(0) → 0, solve(1) → 1, solve(6) → 8',
+      test: (fn) => fn(0) === 0 && fn(1) === 1 && fn(6) === 8 && fn(10) === 55,
+      hint: 'Think recursively or use memoization.',
+      bestKnown: 38
+    },
+    {
+      title: 'Count Vowels',
+      description: 'Create a function that counts vowels in a string. solve("hello") → 2',
+      expected: 'solve("hello world") → 3',
+      test: (fn) => fn('hello') === 2 && fn('aeiou') === 5 && fn('xyz') === 0,
+      hint: 'Try using match() with a regex.',
+      bestKnown: 29
+    },
+    {
+      title: 'Find Maximum',
+      description: 'Create a function that finds the max number in an array. solve([1,5,3]) → 5',
+      expected: 'solve([1, 5, 3, 9, 2]) → 9',
+      test: (fn) => fn([1, 5, 3]) === 5 && fn([1, 5, 3, 9, 2]) === 9 && fn([-1, -5]) === -1,
+      hint: 'Math.max with spread operator.',
+      bestKnown: 18
+    }
+  ];
+
+  const codeInput = document.getElementById('code-input') as HTMLTextAreaElement;
+  const charCount = document.getElementById('char-count')!;
+  const challengeSelect = document.getElementById('challenge-select') as HTMLSelectElement;
+  const output = document.getElementById('output')!;
+  const status = document.getElementById('status')!;
+  const leaderboard = document.getElementById('leaderboard')!;
+
+  let currentChallenge = 0;
+
+  function loadChallenge(index: number) {
+    const challenge = challenges[index];
+    document.getElementById('challenge-title')!.textContent = challenge.title;
+    document.getElementById('challenge-description')!.textContent = challenge.description;
+    document.getElementById('expected-output')!.textContent = challenge.expected;
+    document.getElementById('best-score')!.textContent = challenge.bestKnown.toString();
+
+    const saved = localStorage.getItem(`codegolf_${index}`);
+    document.getElementById('your-score')!.textContent = saved || '--';
+
+    codeInput.value = '';
+    charCount.textContent = '0';
+    output.textContent = '// Output will appear here';
+    status.textContent = '';
+    currentChallenge = index;
+    updateLeaderboard();
+  }
+
+  function countChars(code: string): number {
+    // Remove whitespace for golf scoring
+    return code.replace(/\s/g, '').length;
+  }
+
+  codeInput.addEventListener('input', () => {
+    const count = countChars(codeInput.value);
+    charCount.textContent = count.toString();
+  });
+
+  challengeSelect.addEventListener('change', () => {
+    loadChallenge(parseInt(challengeSelect.value));
+  });
+
+  document.getElementById('run-btn')!.addEventListener('click', () => {
+    try {
+      const code = codeInput.value;
+      const result = eval(`(function() { ${code}; return typeof solve !== 'undefined' ? solve : null; })()`);
+
+      if (typeof result === 'function') {
+        // Test with sample input
+        const testResult = currentChallenge === 0 ? result() : result([1, 2, 3]);
+        output.textContent = JSON.stringify(testResult, null, 2);
+        status.textContent = '';
+        status.className = 'text-sm';
+      } else {
+        output.textContent = JSON.stringify(result, null, 2);
+      }
+    } catch (e: any) {
+      output.textContent = `Error: ${e.message}`;
+      status.textContent = 'Error';
+      status.className = 'text-sm text-red-500';
+    }
+  });
+
+  document.getElementById('test-btn')!.addEventListener('click', () => {
+    try {
+      const code = codeInput.value;
+      const fn = eval(`(function() { ${code}; return solve; })()`);
+
+      const challenge = challenges[currentChallenge];
+      const passed = challenge.test(fn);
+
+      if (passed) {
+        const chars = countChars(code);
+        output.textContent = `All tests passed!\n\nYour solution: ${chars} characters\nBest known: ${challenge.bestKnown} characters`;
+        status.textContent = 'Passed!';
+        status.className = 'text-sm text-green-500';
+
+        // Save score
+        const saved = localStorage.getItem(`codegolf_${currentChallenge}`);
+        if (!saved || chars < parseInt(saved)) {
+          localStorage.setItem(`codegolf_${currentChallenge}`, chars.toString());
+          document.getElementById('your-score')!.textContent = chars.toString();
+          updateLeaderboard();
+        }
+      } else {
+        output.textContent = 'Tests failed. Check your logic.';
+        status.textContent = 'Failed';
+        status.className = 'text-sm text-red-500';
+      }
+    } catch (e: any) {
+      output.textContent = `Error: ${e.message}`;
+      status.textContent = 'Error';
+      status.className = 'text-sm text-red-500';
+    }
+  });
+
+  document.getElementById('hint-btn')!.addEventListener('click', () => {
+    output.textContent = `Hint: ${challenges[currentChallenge].hint}`;
+    status.textContent = '';
+  });
+
+  document.getElementById('reset-btn')!.addEventListener('click', () => {
+    codeInput.value = '';
+    charCount.textContent = '0';
+    output.textContent = '// Output will appear here';
+    status.textContent = '';
+  });
+
+  function updateLeaderboard() {
+    const scores = challenges.map((c, i) => {
+      const saved = localStorage.getItem(`codegolf_${i}`);
+      return {
+        title: c.title,
+        best: c.bestKnown,
+        yours: saved ? parseInt(saved) : null
+      };
+    });
+
+    leaderboard.innerHTML = scores.map(s => `
+      <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <span class="font-medium">${s.title}</span>
+        <div class="flex gap-4 text-sm">
+          <span class="text-gray-500">Best: ${s.best}</span>
+          <span class="${s.yours && s.yours <= s.best ? 'text-green-600 font-bold' : 'text-blue-600'}">
+            You: ${s.yours || '--'}
+          </span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Initialize
+  loadChallenge(0);
+</script>

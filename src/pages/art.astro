@@ -1,0 +1,378 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Generative Art - Mangesh Bide" description="Interactive generative art experiments">
+  <div class="min-h-screen bg-gray-900">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold mb-4 text-white">Generative Art</h1>
+        <p class="text-gray-400">
+          Click anywhere to regenerate. Each visit creates unique art.
+        </p>
+      </header>
+
+      <!-- Art Canvas -->
+      <div class="flex justify-center mb-8">
+        <canvas
+          id="art-canvas"
+          width="800"
+          height="600"
+          class="rounded-xl border-2 border-gray-700 cursor-pointer max-w-full"
+        ></canvas>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <select id="art-style" class="px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700">
+          <option value="flow-field">Flow Field</option>
+          <option value="circles">Concentric Circles</option>
+          <option value="particles">Particle System</option>
+          <option value="waves">Wave Patterns</option>
+          <option value="maze">Recursive Maze</option>
+          <option value="tree">Fractal Tree</option>
+        </select>
+        <button id="regenerate-btn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          Regenerate
+        </button>
+        <button id="download-btn" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+          Download PNG
+        </button>
+        <button id="animate-btn" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+          Animate
+        </button>
+      </div>
+
+      <!-- Color Palette -->
+      <div class="flex justify-center gap-2 mb-8">
+        <span class="text-gray-400 text-sm self-center mr-2">Palette:</span>
+        <button class="palette-btn w-8 h-8 rounded-full border-2 border-white" data-palette="neon" style="background: linear-gradient(135deg, #ff00ff, #00ffff)"></button>
+        <button class="palette-btn w-8 h-8 rounded-full border-2 border-transparent" data-palette="sunset" style="background: linear-gradient(135deg, #ff6b6b, #feca57)"></button>
+        <button class="palette-btn w-8 h-8 rounded-full border-2 border-transparent" data-palette="ocean" style="background: linear-gradient(135deg, #0077b6, #90e0ef)"></button>
+        <button class="palette-btn w-8 h-8 rounded-full border-2 border-transparent" data-palette="forest" style="background: linear-gradient(135deg, #2d6a4f, #95d5b2)"></button>
+        <button class="palette-btn w-8 h-8 rounded-full border-2 border-transparent" data-palette="monochrome" style="background: linear-gradient(135deg, #000, #fff)"></button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const canvas = document.getElementById('art-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const styleSelect = document.getElementById('art-style') as HTMLSelectElement;
+  const regenerateBtn = document.getElementById('regenerate-btn')!;
+  const downloadBtn = document.getElementById('download-btn')!;
+  const animateBtn = document.getElementById('animate-btn')!;
+  const paletteBtns = document.querySelectorAll('.palette-btn');
+
+  let animationId: number | null = null;
+  let isAnimating = false;
+
+  const palettes: Record<string, string[]> = {
+    neon: ['#ff00ff', '#00ffff', '#ff6b6b', '#feca57', '#48dbfb'],
+    sunset: ['#ff6b6b', '#feca57', '#ff9ff3', '#f368e0', '#ff9f43'],
+    ocean: ['#0077b6', '#00b4d8', '#90e0ef', '#caf0f8', '#03045e'],
+    forest: ['#2d6a4f', '#40916c', '#52b788', '#74c69d', '#95d5b2'],
+    monochrome: ['#000000', '#333333', '#666666', '#999999', '#ffffff']
+  };
+
+  let currentPalette = 'neon';
+
+  function random(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
+
+  function getColor(): string {
+    const colors = palettes[currentPalette];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  // Flow Field
+  function drawFlowField() {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const scale = 20;
+    const cols = Math.ceil(canvas.width / scale);
+    const rows = Math.ceil(canvas.height / scale);
+    const zoff = random(0, 1000);
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const angle = noise(x * 0.1, y * 0.1, zoff) * Math.PI * 4;
+        const length = scale * 0.8;
+
+        ctx.save();
+        ctx.translate(x * scale + scale / 2, y * scale + scale / 2);
+        ctx.rotate(angle);
+        ctx.strokeStyle = getColor();
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(-length / 2, 0);
+        ctx.lineTo(length / 2, 0);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+  }
+
+  // Simple noise function
+  function noise(x: number, y: number, z: number): number {
+    return (Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453) % 1;
+  }
+
+  // Concentric Circles
+  function drawCircles() {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const numCircles = Math.floor(random(5, 15));
+
+    for (let i = 0; i < numCircles; i++) {
+      const cx = random(100, canvas.width - 100);
+      const cy = random(100, canvas.height - 100);
+      const maxRadius = random(50, 200);
+      const rings = Math.floor(random(5, 20));
+
+      for (let r = rings; r > 0; r--) {
+        const radius = (r / rings) * maxRadius;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = getColor();
+        ctx.lineWidth = random(1, 4);
+        ctx.globalAlpha = random(0.3, 0.8);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Particles
+  let particles: { x: number; y: number; vx: number; vy: number; color: string; size: number }[] = [];
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < 200; i++) {
+      particles.push({
+        x: random(0, canvas.width),
+        y: random(0, canvas.height),
+        vx: random(-2, 2),
+        vy: random(-2, 2),
+        color: getColor(),
+        size: random(2, 6)
+      });
+    }
+  }
+
+  function drawParticles() {
+    ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.8;
+      ctx.fill();
+
+      if (isAnimating) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      }
+    });
+
+    // Draw connections
+    ctx.globalAlpha = 0.2;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 80) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = particles[i].color;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  // Waves
+  function drawWaves() {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const numWaves = Math.floor(random(5, 15));
+
+    for (let w = 0; w < numWaves; w++) {
+      const amplitude = random(20, 100);
+      const frequency = random(0.005, 0.02);
+      const yOffset = (canvas.height / (numWaves + 1)) * (w + 1);
+      const phase = random(0, Math.PI * 2);
+
+      ctx.beginPath();
+      ctx.moveTo(0, yOffset);
+
+      for (let x = 0; x <= canvas.width; x += 2) {
+        const y = yOffset + Math.sin(x * frequency + phase) * amplitude;
+        ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = getColor();
+      ctx.lineWidth = random(2, 5);
+      ctx.globalAlpha = 0.7;
+      ctx.stroke();
+    }
+  }
+
+  // Maze
+  function drawMaze() {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const cellSize = 20;
+    const cols = Math.floor(canvas.width / cellSize);
+    const rows = Math.floor(canvas.height / cellSize);
+
+    ctx.strokeStyle = getColor();
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.8;
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const px = x * cellSize;
+        const py = y * cellSize;
+
+        ctx.beginPath();
+        if (Math.random() > 0.5) {
+          ctx.moveTo(px, py);
+          ctx.lineTo(px + cellSize, py + cellSize);
+        } else {
+          ctx.moveTo(px + cellSize, py);
+          ctx.lineTo(px, py + cellSize);
+        }
+        ctx.strokeStyle = getColor();
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Fractal Tree
+  function drawTree() {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    function branch(x: number, y: number, len: number, angle: number, depth: number) {
+      if (depth === 0 || len < 2) return;
+
+      const endX = x + Math.cos(angle) * len;
+      const endY = y + Math.sin(angle) * len;
+
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(endX, endY);
+      ctx.strokeStyle = getColor();
+      ctx.lineWidth = depth * 0.5;
+      ctx.globalAlpha = 0.8;
+      ctx.stroke();
+
+      const newLen = len * random(0.6, 0.8);
+      const angleSpread = random(0.3, 0.6);
+
+      branch(endX, endY, newLen, angle - angleSpread, depth - 1);
+      branch(endX, endY, newLen, angle + angleSpread, depth - 1);
+    }
+
+    branch(canvas.width / 2, canvas.height, 120, -Math.PI / 2, 10);
+  }
+
+  function generate() {
+    ctx.globalAlpha = 1;
+    const style = styleSelect.value;
+
+    switch (style) {
+      case 'flow-field':
+        drawFlowField();
+        break;
+      case 'circles':
+        drawCircles();
+        break;
+      case 'particles':
+        initParticles();
+        drawParticles();
+        break;
+      case 'waves':
+        drawWaves();
+        break;
+      case 'maze':
+        drawMaze();
+        break;
+      case 'tree':
+        drawTree();
+        break;
+    }
+  }
+
+  function animate() {
+    if (!isAnimating) return;
+
+    if (styleSelect.value === 'particles') {
+      drawParticles();
+    }
+
+    animationId = requestAnimationFrame(animate);
+  }
+
+  // Event listeners
+  canvas.addEventListener('click', generate);
+  regenerateBtn.addEventListener('click', generate);
+
+  downloadBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = `generative-art-${Date.now()}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  animateBtn.addEventListener('click', () => {
+    isAnimating = !isAnimating;
+    animateBtn.textContent = isAnimating ? 'Stop' : 'Animate';
+
+    if (isAnimating) {
+      if (styleSelect.value !== 'particles') {
+        styleSelect.value = 'particles';
+        initParticles();
+      }
+      animate();
+    } else if (animationId) {
+      cancelAnimationFrame(animationId);
+    }
+  });
+
+  styleSelect.addEventListener('change', () => {
+    if (isAnimating && styleSelect.value !== 'particles') {
+      isAnimating = false;
+      animateBtn.textContent = 'Animate';
+      if (animationId) cancelAnimationFrame(animationId);
+    }
+    generate();
+  });
+
+  paletteBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      paletteBtns.forEach(b => b.classList.remove('border-white'));
+      btn.classList.add('border-white');
+      currentPalette = (btn as HTMLElement).dataset.palette || 'neon';
+      generate();
+    });
+  });
+
+  // Initial generation
+  generate();
+</script>
