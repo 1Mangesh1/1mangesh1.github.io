@@ -1,4 +1,4 @@
-let r=null;function n(o){const a=document.getElementById("game-container"),s=document.getElementById("game-title");if(!(!a||!s)){if(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),document.querySelectorAll(".game-content").forEach(t=>{t.classList.add("hidden")}),o==="pixel-drawer"){s.textContent="🎨 Pixel Sandbox / ASCII Drawer";const t=document.getElementById("pixel-drawer-game");if(!t)return;t.innerHTML=`
+let r=null;function n(o){const i=document.getElementById("game-container"),s=document.getElementById("game-title");if(!(!i||!s)){if(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),document.querySelectorAll(".game-content").forEach(t=>{t.classList.add("hidden")}),o==="pixel-drawer"){s.textContent="🎨 Pixel Sandbox / ASCII Drawer";const t=document.getElementById("pixel-drawer-game");if(!t)return;t.innerHTML=`
           <!-- Game Controls -->
           <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
             <div class="grid md:grid-cols-4 gap-4 mb-6">
@@ -525,4 +525,91 @@ let r=null;function n(o){const a=document.getElementById("game-container"),s=doc
               <li>• Use the hint button if you're stuck (reveals a random letter)</li>
             </ul>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.CodeHangman?r=new e.CodeHangman:d("/game-scripts/hangman.js",()=>{e.CodeHangman&&setTimeout(()=>{r=new e.CodeHangman},100)})}a.classList.remove("hidden"),a.scrollIntoView({behavior:"smooth"})}}function l(){const o=document.getElementById("game-container");o&&(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),o.classList.add("hidden"),r=null)}function d(o,a){const s=document.createElement("script");s.src=o,s.onload=a,s.onerror=()=>console.error(`Failed to load script: ${o}`),document.head.appendChild(s)}const i=window;i.showGame=n;i.hideGame=l;
+        `,t.classList.remove("hidden");const e=window;e.CodeHangman?r=new e.CodeHangman:d("/game-scripts/hangman.js",()=>{e.CodeHangman&&setTimeout(()=>{r=new e.CodeHangman},100)})}else if(o==="typing-test"){s.textContent="⌨️ Typing Speed Test";const t=document.getElementById("typing-test-game");if(!t)return;t.innerHTML=`
+          <div class="max-w-4xl mx-auto">
+            <!-- Stats -->
+            <div class="grid grid-cols-4 gap-3 mb-6">
+              <div class="text-center p-3 bg-indigo-100 dark:bg-indigo-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-indigo-600" id="wpm">0</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">WPM</div>
+              </div>
+              <div class="text-center p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-green-600" id="accuracy">100%</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Accuracy</div>
+              </div>
+              <div class="text-center p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-purple-600" id="time">0s</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Time</div>
+              </div>
+              <div class="text-center p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-orange-600" id="best-wpm">0</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Best WPM</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              <button id="new-test-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">New Snippet</button>
+              <button id="reset-test-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">Reset</button>
+              <label class="flex items-center gap-2 ml-4">
+                <input type="checkbox" id="focus-mode" class="form-checkbox">
+                <span class="text-sm">Focus Mode</span>
+              </label>
+            </div>
+
+            <!-- Code Display -->
+            <div id="code-display" class="font-mono text-lg bg-gray-900 text-gray-100 p-6 rounded-lg mb-6 leading-relaxed whitespace-pre-wrap"></div>
+
+            <!-- Input -->
+            <textarea id="typing-input" class="w-full p-4 font-mono text-lg border-2 border-indigo-300 dark:border-indigo-600 rounded-lg bg-white dark:bg-gray-800 focus:border-indigo-500 focus:outline-none" rows="4" placeholder="Start typing here..."></textarea>
+
+            <!-- Status -->
+            <div id="status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg mt-4">
+              Start typing to begin the test!
+            </div>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.TypingTest?r=new e.TypingTest:d("/game-scripts/typing-test.js",()=>{e.TypingTest&&setTimeout(()=>{r=new e.TypingTest},100)})}else if(o==="dev-bingo"){s.textContent="🎯 Developer Bingo";const t=document.getElementById("dev-bingo-game");if(!t)return;t.innerHTML=`
+          <style>
+            .bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 600px; margin: 0 auto; }
+            .bingo-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; text-align: center;
+              padding: 8px; font-size: 11px; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+              background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); border: 2px solid #d1d5db; }
+            .dark .bingo-cell { background: linear-gradient(135deg, #374151 0%, #1f2937 100%); border-color: #4b5563; color: #f3f4f6; }
+            .bingo-cell:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+            .bingo-cell.marked { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #047857; color: white; }
+            .bingo-cell.free { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-color: #6d28d9; color: white; cursor: default; }
+            .bingo-cell.winning { animation: pulse-win 0.5s ease-in-out infinite alternate; }
+            @keyframes pulse-win { from { transform: scale(1); } to { transform: scale(1.05); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); } }
+          </style>
+
+          <div class="max-w-2xl mx-auto">
+            <!-- Status -->
+            <div id="bingo-status" class="text-center p-4 bg-pink-100 dark:bg-pink-900/20 rounded-lg mb-6">
+              <div class="text-xl font-bold text-pink-600" id="bingo-message">Click squares that apply to you!</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Marked: <span id="marked-count">0</span>/25 | Lines: <span id="lines-count">0</span>
+              </div>
+            </div>
+
+            <!-- Bingo Grid -->
+            <div id="bingo-grid" class="bingo-grid mb-6"></div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap justify-center gap-3">
+              <button id="new-card-btn" class="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700">New Card</button>
+              <button id="reset-bingo-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">Reset Marks</button>
+              <button id="share-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Share Card</button>
+            </div>
+
+            <!-- Instructions -->
+            <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
+              <p class="font-semibold mb-2">How to Play:</p>
+              <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+                <li>• Click any square that describes something you've experienced</li>
+                <li>• Get 5 in a row (horizontal, vertical, or diagonal) to win!</li>
+                <li>• The center square is a FREE space</li>
+                <li>• Share your card with friends to compare!</li>
+              </ul>
+            </div>
+          </div>
+        `,t.classList.remove("hidden");const e=window;e.DevBingo?r=new e.DevBingo:d("/game-scripts/dev-bingo.js",()=>{e.DevBingo&&setTimeout(()=>{r=new e.DevBingo},100)})}i.classList.remove("hidden"),i.scrollIntoView({behavior:"smooth"})}}function l(){const o=document.getElementById("game-container");o&&(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),o.classList.add("hidden"),r=null)}function d(o,i){const s=document.createElement("script");s.src=o,s.onload=i,s.onerror=()=>console.error(`Failed to load script: ${o}`),document.head.appendChild(s)}const a=window;a.showGame=n;a.hideGame=l;
