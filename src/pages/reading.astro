@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const books = await getCollection('books');
+
+// Calculate stats
+const completed = books.filter(b => b.data.status === 'completed');
+const reading = books.filter(b => b.data.status === 'reading');
+const wantToRead = books.filter(b => b.data.status === 'want-to-read');
+const favorites = books.filter(b => b.data.favorite);
+
+// Calculate average rating
+const ratedBooks = completed.filter(b => b.data.rating);
+const avgRating = ratedBooks.length > 0
+  ? (ratedBooks.reduce((sum, b) => sum + (b.data.rating || 0), 0) / ratedBooks.length).toFixed(1)
+  : 'N/A';
+
+// Group by year completed
+const booksByYear: Record<string, typeof completed> = {};
+completed.forEach(book => {
+  const year = book.data.finishDate
+    ? new Date(book.data.finishDate).getFullYear().toString()
+    : 'Unknown';
+  if (!booksByYear[year]) booksByYear[year] = [];
+  booksByYear[year].push(book);
+});
+---
+
+<Layout title="Reading Dashboard - Mangesh Bide" description="My reading progress and book collection">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">Reading Dashboard</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Tracking my reading journey and book recommendations
+      </p>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="text-3xl font-bold text-blue-600">{books.length}</div>
+        <div class="text-sm text-gray-500">Total Books</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="text-3xl font-bold text-green-600">{completed.length}</div>
+        <div class="text-sm text-gray-500">Completed</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="text-3xl font-bold text-yellow-600">{reading.length}</div>
+        <div class="text-sm text-gray-500">Reading</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="text-3xl font-bold text-purple-600">{wantToRead.length}</div>
+        <div class="text-sm text-gray-500">Want to Read</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="text-3xl font-bold text-orange-600">{avgRating}</div>
+        <div class="text-sm text-gray-500">Avg Rating</div>
+      </div>
+    </div>
+
+    <!-- Currently Reading -->
+    {reading.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Currently Reading</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {reading.map(book => (
+            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-yellow-200 dark:border-yellow-800">
+              <div class="flex gap-4">
+                {book.data.cover && (
+                  <img src={book.data.cover} alt={book.data.title} class="w-20 h-28 object-cover rounded-lg shadow" />
+                )}
+                <div>
+                  <h3 class="font-bold text-gray-900 dark:text-gray-100">{book.data.title}</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">{book.data.author}</p>
+                  {book.data.startDate && (
+                    <p class="text-xs text-gray-500 mt-2">
+                      Started: {new Date(book.data.startDate).toLocaleDateString()}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Favorites -->
+    {favorites.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Favorites</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {favorites.map(book => (
+            <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-pink-200 dark:border-pink-800">
+              <div class="flex gap-4">
+                {book.data.cover && (
+                  <img src={book.data.cover} alt={book.data.title} class="w-20 h-28 object-cover rounded-lg shadow" />
+                )}
+                <div>
+                  <h3 class="font-bold text-gray-900 dark:text-gray-100">{book.data.title}</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">{book.data.author}</p>
+                  {book.data.rating && (
+                    <div class="flex gap-1 mt-2">
+                      {[1, 2, 3, 4, 5].map(star => (
+                        <span class={star <= book.data.rating! ? 'text-yellow-500' : 'text-gray-300'}>
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Books by Year -->
+    {Object.keys(booksByYear).length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Reading History</h2>
+        {Object.entries(booksByYear)
+          .sort(([a], [b]) => b.localeCompare(a))
+          .map(([year, yearBooks]) => (
+            <div class="mb-8">
+              <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">
+                {year} ({yearBooks.length} books)
+              </h3>
+              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {yearBooks.map(book => (
+                  <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 text-sm mb-1 line-clamp-2">
+                      {book.data.title}
+                    </h4>
+                    <p class="text-xs text-gray-500">{book.data.author}</p>
+                    {book.data.rating && (
+                      <div class="flex gap-0.5 mt-2">
+                        {[1, 2, 3, 4, 5].map(star => (
+                          <span class={`text-xs ${star <= book.data.rating! ? 'text-yellow-500' : 'text-gray-300'}`}>
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+      </section>
+    )}
+
+    <!-- Want to Read -->
+    {wantToRead.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Want to Read</h2>
+        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {wantToRead.map(book => (
+            <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+              <h4 class="font-medium text-gray-900 dark:text-gray-100 text-sm mb-1">
+                {book.data.title}
+              </h4>
+              <p class="text-xs text-gray-500">{book.data.author}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Empty State -->
+    {books.length === 0 && (
+      <div class="text-center py-16">
+        <p class="text-4xl mb-4">📚</p>
+        <p class="text-gray-500">No books added yet. Check back soon!</p>
+      </div>
+    )}
+  </div>
+</Layout>

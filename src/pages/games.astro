@@ -474,6 +474,124 @@ import Layout from "../layouts/Layout.astro";
           </button>
         </div>
       </div>
+
+      <!-- Typing Speed Test Card -->
+      <div
+        class="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800 overflow-hidden"
+      >
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <span class="text-3xl mr-3">⌨️</span>
+            <h2 class="text-2xl font-bold">Typing Speed Test</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Test your typing speed with real code snippets! Track your WPM,
+            accuracy, and compete against your best scores.
+          </p>
+
+          <div class="mb-4">
+            <h3
+              class="text-sm font-semibold mb-2 text-indigo-900 dark:text-indigo-100"
+            >
+              Technologies:
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-2 py-1 bg-indigo-600 text-white text-xs rounded-full"
+                >JavaScript</span
+              >
+              <span
+                class="px-2 py-1 bg-violet-600 text-white text-xs rounded-full"
+                >Real-time Tracking</span
+              >
+              <span
+                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
+                >LocalStorage</span
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3
+              class="text-sm font-semibold mb-2 text-indigo-900 dark:text-indigo-100"
+            >
+              Features:
+            </h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• 20+ code snippets in various languages</li>
+              <li>• WPM and accuracy tracking</li>
+              <li>• Focus mode for distraction-free typing</li>
+              <li>• Personal best score tracking</li>
+            </ul>
+          </div>
+
+          <button
+            onclick="showGame('typing-test')"
+            class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+          >
+            ⌨️ Start Typing
+          </button>
+        </div>
+      </div>
+
+      <!-- Dev Bingo Card -->
+      <div
+        class="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-xl border border-pink-200 dark:border-pink-800 overflow-hidden"
+      >
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <span class="text-3xl mr-3">🎯</span>
+            <h2 class="text-2xl font-bold">Developer Bingo</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            The classic bingo game with a developer twist! Mark off relatable
+            dev experiences and share your card with friends.
+          </p>
+
+          <div class="mb-4">
+            <h3
+              class="text-sm font-semibold mb-2 text-pink-900 dark:text-pink-100"
+            >
+              Technologies:
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-2 py-1 bg-pink-600 text-white text-xs rounded-full"
+                >JavaScript</span
+              >
+              <span
+                class="px-2 py-1 bg-rose-600 text-white text-xs rounded-full"
+                >CSS Grid</span
+              >
+              <span
+                class="px-2 py-1 bg-red-600 text-white text-xs rounded-full"
+                >LocalStorage</span
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3
+              class="text-sm font-semibold mb-2 text-pink-900 dark:text-pink-100"
+            >
+              Features:
+            </h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>• 45+ relatable developer situations</li>
+              <li>• Win detection for rows, columns, diagonals</li>
+              <li>• Share your bingo card</li>
+              <li>• Progress saved automatically</li>
+            </ul>
+          </div>
+
+          <button
+            onclick="showGame('dev-bingo')"
+            class="w-full bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition-colors font-medium"
+          >
+            🎯 Play Bingo
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Game Container -->
@@ -569,6 +687,12 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- Code Typer Game -->
         <div id="code-typer-game" class="game-content hidden"></div>
+
+        <!-- Typing Test Game -->
+        <div id="typing-test-game" class="game-content hidden"></div>
+
+        <!-- Dev Bingo Game -->
+        <div id="dev-bingo-game" class="game-content hidden"></div>
       </div>
     </div>
 
@@ -577,7 +701,7 @@ import Layout from "../layouts/Layout.astro";
       <div
         class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg p-8 border border-yellow-200 dark:border-yellow-800"
       >
-        <h2 class="text-2xl font-bold mb-4">🎮 7 Games Available!</h2>
+        <h2 class="text-2xl font-bold mb-4">🎮 9 Games Available!</h2>
         <p class="text-gray-600 dark:text-gray-400 mb-4">
           From coding challenges to creative tools - each game features unique
           mechanics, beautiful animations, and hours of fun!
@@ -637,6 +761,8 @@ import Layout from "../layouts/Layout.astro";
       DevMemory?: any;
       CodeTyper?: any;
       CodeHangman?: any;
+      TypingTest?: any;
+      DevBingo?: any;
       showGame?: (gameType: string) => void;
       hideGame?: () => void;
     }
@@ -1322,6 +1448,133 @@ import Layout from "../layouts/Layout.astro";
             if (gameWindow.CodeHangman) {
               setTimeout(() => {
                 currentGame = new gameWindow.CodeHangman();
+              }, 100);
+            }
+          });
+        }
+      } else if (gameType === "typing-test") {
+        gameTitle.textContent = "⌨️ Typing Speed Test";
+        const gameContent = document.getElementById("typing-test-game");
+        if (!gameContent) return;
+
+        gameContent.innerHTML = `
+          <div class="max-w-4xl mx-auto">
+            <!-- Stats -->
+            <div class="grid grid-cols-4 gap-3 mb-6">
+              <div class="text-center p-3 bg-indigo-100 dark:bg-indigo-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-indigo-600" id="wpm">0</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">WPM</div>
+              </div>
+              <div class="text-center p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-green-600" id="accuracy">100%</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Accuracy</div>
+              </div>
+              <div class="text-center p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-purple-600" id="time">0s</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Time</div>
+              </div>
+              <div class="text-center p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                <div class="text-2xl font-bold text-orange-600" id="best-wpm">0</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Best WPM</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              <button id="new-test-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">New Snippet</button>
+              <button id="reset-test-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">Reset</button>
+              <label class="flex items-center gap-2 ml-4">
+                <input type="checkbox" id="focus-mode" class="form-checkbox">
+                <span class="text-sm">Focus Mode</span>
+              </label>
+            </div>
+
+            <!-- Code Display -->
+            <div id="code-display" class="font-mono text-lg bg-gray-900 text-gray-100 p-6 rounded-lg mb-6 leading-relaxed whitespace-pre-wrap"></div>
+
+            <!-- Input -->
+            <textarea id="typing-input" class="w-full p-4 font-mono text-lg border-2 border-indigo-300 dark:border-indigo-600 rounded-lg bg-white dark:bg-gray-800 focus:border-indigo-500 focus:outline-none" rows="4" placeholder="Start typing here..."></textarea>
+
+            <!-- Status -->
+            <div id="status" class="text-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg mt-4">
+              Start typing to begin the test!
+            </div>
+          </div>
+        `;
+        gameContent.classList.remove("hidden");
+
+        const gameWindow = window as GameWindow;
+        if (gameWindow.TypingTest) {
+          currentGame = new gameWindow.TypingTest();
+        } else {
+          loadScript("/game-scripts/typing-test.js", () => {
+            if (gameWindow.TypingTest) {
+              setTimeout(() => {
+                currentGame = new gameWindow.TypingTest();
+              }, 100);
+            }
+          });
+        }
+      } else if (gameType === "dev-bingo") {
+        gameTitle.textContent = "🎯 Developer Bingo";
+        const gameContent = document.getElementById("dev-bingo-game");
+        if (!gameContent) return;
+
+        gameContent.innerHTML = `
+          <style>
+            .bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 600px; margin: 0 auto; }
+            .bingo-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; text-align: center;
+              padding: 8px; font-size: 11px; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+              background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); border: 2px solid #d1d5db; }
+            .dark .bingo-cell { background: linear-gradient(135deg, #374151 0%, #1f2937 100%); border-color: #4b5563; color: #f3f4f6; }
+            .bingo-cell:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+            .bingo-cell.marked { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #047857; color: white; }
+            .bingo-cell.free { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-color: #6d28d9; color: white; cursor: default; }
+            .bingo-cell.winning { animation: pulse-win 0.5s ease-in-out infinite alternate; }
+            @keyframes pulse-win { from { transform: scale(1); } to { transform: scale(1.05); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); } }
+          </style>
+
+          <div class="max-w-2xl mx-auto">
+            <!-- Status -->
+            <div id="bingo-status" class="text-center p-4 bg-pink-100 dark:bg-pink-900/20 rounded-lg mb-6">
+              <div class="text-xl font-bold text-pink-600" id="bingo-message">Click squares that apply to you!</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Marked: <span id="marked-count">0</span>/25 | Lines: <span id="lines-count">0</span>
+              </div>
+            </div>
+
+            <!-- Bingo Grid -->
+            <div id="bingo-grid" class="bingo-grid mb-6"></div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap justify-center gap-3">
+              <button id="new-card-btn" class="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700">New Card</button>
+              <button id="reset-bingo-btn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">Reset Marks</button>
+              <button id="share-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Share Card</button>
+            </div>
+
+            <!-- Instructions -->
+            <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
+              <p class="font-semibold mb-2">How to Play:</p>
+              <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+                <li>• Click any square that describes something you've experienced</li>
+                <li>• Get 5 in a row (horizontal, vertical, or diagonal) to win!</li>
+                <li>• The center square is a FREE space</li>
+                <li>• Share your card with friends to compare!</li>
+              </ul>
+            </div>
+          </div>
+        `;
+        gameContent.classList.remove("hidden");
+
+        const gameWindow = window as GameWindow;
+        if (gameWindow.DevBingo) {
+          currentGame = new gameWindow.DevBingo();
+        } else {
+          loadScript("/game-scripts/dev-bingo.js", () => {
+            if (gameWindow.DevBingo) {
+              setTimeout(() => {
+                currentGame = new gameWindow.DevBingo();
               }, 100);
             }
           });
