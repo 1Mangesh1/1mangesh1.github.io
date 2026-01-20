@@ -14,13 +14,13 @@
     "maintenance:off": "node -e \"const fs=require('fs'); let c=fs.readFileSync('src/config/site.ts','utf8'); c=c.replace('maintenanceMode: true','maintenanceMode: false'); fs.writeFileSync('src/config/site.ts',c); console.log('✅ Maintenance mode OFF');\""
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^4.3.4",
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.5.1",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.2",
     "@tailwindcss/typography": "^0.5.16",
-    "astro": "^5.13.3",
+    "astro": "^5.16.11",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
