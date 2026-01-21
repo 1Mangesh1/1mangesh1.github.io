@@ -16,14 +16,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'yarn'
 
       - name: Enable Corepack (for Yarn)
         run: corepack enable
 
-      - name: Install dependencies with Yarn
-        run: |
-          rm -rf node_modules package-lock.json yarn.lock
-          yarn install
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Build site
         run: yarn build
