@@ -125,6 +125,68 @@ The maintainers review PRs regularly. Within hours to a few days:
 
 ---
 
+## ⚡ Automate It with AI (2-Minute Version)
+
+Don't want to do this manually? Copy the prompt below and paste it into Claude, ChatGPT, or any AI agent. It will guide you through the entire process and generate your JSON file.
+
+### Copy This Prompt
+
+```
+I want to register a free .is-a.dev subdomain for my developer portfolio. 
+Help me through the process:
+
+My details:
+- GitHub username: [YOUR_GITHUB_USERNAME]
+- Email: [YOUR_EMAIL]
+- Desired subdomain: [YOUR_SUBDOMAIN] (e.g., john, portfolio, myblog)
+- Hosting type: GitHub Pages
+
+Please help me:
+1. Check if the subdomain is available (suggest alternatives if taken)
+2. Generate the exact JSON configuration file I need to create
+3. Walk me through forking the repository
+4. Create the domain file content I should use
+5. Explain what to write in my pull request
+6. Tell me what to expect after submission
+
+Make it super simple and copy-paste ready.
+```
+
+### How to Use It
+
+**Option 1: Use Claude (Recommended)**
+1. Go to [claude.ai](https://claude.ai)
+2. Paste the prompt above (fill in your details)
+3. Claude will generate your exact JSON file
+4. Claude will guide you through each step
+5. Copy the JSON directly from Claude into your GitHub file
+
+**Option 2: Use ChatGPT**
+1. Go to [chat.openai.com](https://chat.openai.com)
+2. Paste the prompt (fill in your details)
+3. Follow the step-by-step instructions GPT provides
+4. Copy the JSON configuration it generates
+
+**Option 3: Use Any AI Assistant**
+The prompt works with Gemini, Copilot, or any LLM. The AI will:
+- Generate your exact configuration file
+- Tell you exactly what to write in your PR
+- Handle all the formatting details
+- Say when DNS propagation completes
+
+### What the AI Will Do For You
+
+✅ Generate your valid JSON configuration  
+✅ Suggest alternative subdomains if yours is taken  
+✅ Write the pull request description  
+✅ Explain GitHub forking (if you're new)  
+✅ Tell you what to expect next  
+✅ Provide DNS propagation timeline  
+
+**Time saved:** ~20 minutes → ~2 minutes
+
+---
+
 ## Real-World Use Cases
 
 ### Portfolio Site
