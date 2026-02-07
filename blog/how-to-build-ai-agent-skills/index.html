@@ -1,0 +1,1371 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices."><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><meta name="generator" content="Astro v5.16.11"><!-- Primary Meta Tags --><title>The Complete Guide to Building AI Agent Skills: From Zero to Production - Mangesh&#39;s Blog</title><meta name="title" content="The Complete Guide to Building AI Agent Skills: From Zero to Production - Mangesh's Blog"><meta name="description" content="Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices."><meta name="author" content="Mangesh Bide"><link rel="canonical" href="https://mangeshbide.tech/blog/how-to-build-ai-agent-skills/"><!-- Robots --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://mangeshbide.tech/blog/how-to-build-ai-agent-skills/"><meta property="og:title" content="The Complete Guide to Building AI Agent Skills: From Zero to Production - Mangesh's Blog"><meta property="og:description" content="Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices."><meta property="og:image" content="https://mangeshbide.tech/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:logo" content="https://mangeshbide.tech/me.jpg"><meta property="og:site_name" content="Mangesh Bide"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://mangeshbide.tech/blog/how-to-build-ai-agent-skills/"><meta property="twitter:title" content="The Complete Guide to Building AI Agent Skills: From Zero to Production - Mangesh's Blog"><meta property="twitter:description" content="Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices."><meta property="twitter:image" content="https://mangeshbide.tech/og-image.png"><meta property="twitter:image:width" content="1200"><meta property="twitter:image:height" content="630"><meta property="twitter:creator" content="@Mangesh_Bide"><!-- Additional SEO --><meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog"><meta name="theme-color" content="#3b82f6"><!-- Content Security Policy for GoatCounter --><meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at;"><!-- LinkedIn specific --><meta property="article:author" content="Mangesh Bide"><meta name="image" content="https://mangeshbide.tech/og-image.png"><!-- Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mangesh Bide",
+        "url": "https://mangeshbide.tech",
+        "image": "https://mangeshbide.tech/og-image.png",
+        "photo": "https://mangeshbide.tech/me.jpg",
+        "jobTitle": "Software Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Houseworks Technologies"
+        },
+        "alumniOf": "https://www.rcpit.ac.in",
+        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+        "sameAs": [
+          "https://github.com/1mangesh1",
+          "https://x.com/Mangesh_Bide",
+          "https://linkedin.com/in/mangesh-bide/"
+        ]
+      }
+    </script><!-- GoatCounter Analytics --><script data-goatcounter="https://mangeshbide.goatcounter.com/count" data-goatcounter-settings="{&quot;allow_local&quot;: true}" async src="//gc.zgo.at/count.js"></script><!-- Animation Styles --><link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/animations.css"></noscript><link rel="stylesheet" href="/assets/about.Bst9RmKs.css">
+<style>@keyframes rainbow{0%{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}@keyframes fall{to{transform:translateY(100vh) rotate(360deg)}}#dancing-cat[data-astro-cid-mei435rj]{animation:dance .5s infinite alternate}@keyframes dance{0%{transform:rotate(-10deg) scale(1)}to{transform:rotate(10deg) scale(1.1)}}
+.notification-bubble[data-astro-cid-nbvelyww]{max-width:100vw;box-sizing:border-box;margin:0 auto}@media (max-width: 640px){.notification-bubble[data-astro-cid-nbvelyww]{left:50%!important;right:auto!important;transform:translate(-50%)!important;width:calc(100vw - 2rem);max-width:95vw;min-width:0;top:1rem!important}}.toc-link[data-astro-cid-xvrfupwn].active{font-weight:500;--tw-text-opacity: 1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn].active:is(.dark *){--tw-text-opacity: 1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn].active:before{content:"";position:absolute;left:0;top:50%;height:1rem;width:.25rem;--tw-translate-y: -50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));border-radius:9999px;--tw-bg-opacity: 1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn]{position:relative;padding-left:1rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="2"]{padding-left:1rem;font-weight:500}.toc-link[data-astro-cid-xvrfupwn][data-depth="3"]{padding-left:1.5rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="4"]{padding-left:2rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="5"]{padding-left:2.5rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="6"]{padding-left:3rem}
+</style></head> <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"> <!-- Reading Progress Bar --> <div id="reading-progress" class="fixed top-0 left-0 h-1 custom-gradient-bg z-50 transition-all duration-300" style="width: 0%"></div> <div class="min-h-screen flex flex-col page-enter"> <header id="navbar" class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-all duration-300 sticky top-0 z-40 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90"> <nav class="max-w-4xl mx-auto px-4 py-6"> <!-- Desktop Navigation --> <div class="flex justify-between items-center"> <div class="flex items-center space-x-8"> <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll slide-left">
+by mangesh
+</a> <div class="hidden md:flex space-x-6"> <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll stagger-1">Blog</a> <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll stagger-2">Portfolio</a> <!-- Fun Dropdown --> <div class="relative group animate-on-scroll stagger-3"> <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+Fun
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/games" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Games
+</a> <a href="/fun" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Life & Hobbies
+</a> <a href="/meme" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Memes
+</a> </div> </div> </div> <!-- About Dropdown --> <div class="relative group animate-on-scroll stagger-4"> <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+About
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/about" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Me
+</a> <a href="/uses" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+My Stack
+</a> <a href="/resume" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Resume
+</a> <a href="/now" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Now
+</a> <a href="/guestbook" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Guestbook
+</a> </div> </div> </div> <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll stagger-5">Contact</a> <!-- More Dropdown --> <div class="relative group animate-on-scroll stagger-5"> <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+More
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/til" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+TIL
+</a> <a href="/snippets" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Snippets
+</a> <a href="/bookmarks" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Bookmarks
+</a> <a href="/books" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Books
+</a> <a href="/random" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Random
+</a> <!-- <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div> --> <a href="/tools" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Dev Tools
+</a> <a href="/credits" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Credits
+</a> </div> </div> </div> </div> </div> <div class="flex items-center space-x-2"> <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 hover-lift animate-on-scroll slide-right" aria-label="Search"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> </svg> </a> <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 theme-toggle animate-on-scroll slide-right stagger-1" aria-label="Toggle theme"> <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path> </svg> <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors hover-lift" aria-label="Toggle mobile menu"> <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> </div> <!-- Mobile Menu --> <div id="mobile-menu" class="hidden md:hidden mt-4 mobile-menu-enter"> <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-lg hover-lift"> <!-- Main Links --> <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Blog
+</a> <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Portfolio
+</a> <!-- Fun Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+Fun
+</div> <a href="/games" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Games
+</a> <a href="/fun" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Life & Hobbies
+</a> <a href="/meme" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Memes
+</a> <!-- About Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+About
+</div> <a href="/about" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+About Me
+</a> <a href="/uses" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+My Stack
+</a> <a href="/resume" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Resume
+</a> <a href="/guestbook" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Guestbook
+</a> <a href="/contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors mt-4">
+Contact
+</a> <!-- More Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+More
+</div> <a href="/til" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+TIL
+</a> <a href="/snippets" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Snippets
+</a> <a href="/bookmarks" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Bookmarks
+</a> <a href="/books" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Books
+</a> <a href="/random" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Random
+</a> <a href="/tools" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Dev Tools
+</a> <a href="/credits" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Credits
+</a> </div> </div> </nav> </header> <main class="flex-1">  <article class="max-w-4xl mx-auto px-4 py-12"> <header class="mb-8"> <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4"> <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400">Blog</a> <span class="mx-2">/</span> <span class="text-gray-900 dark:text-gray-100">The Complete Guide to Building AI Agent Skills: From Zero to Production</span> </nav> <h1 class="text-4xl font-bold mb-4">The Complete Guide to Building AI Agent Skills: From Zero to Production</h1> <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4"> <time datetime="2026-02-07T00:00:00.000Z"> February 7, 2026 </time> <span class="mx-2">•</span> <span>5 min read</span> <span class="mx-2">•</span> <!-- <CleanVisitorCounter /> --> </div> <p class="text-lg text-gray-700 dark:text-gray-300 mb-6"> Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices. </p> <div class="flex flex-wrap gap-2 mb-8"> <a href="/blog/tags/ai-agents" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> AI Agents </a><a href="/blog/tags/claude" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Claude </a><a href="/blog/tags/agent-skills" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Agent Skills </a><a href="/blog/tags/ai-automation" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> AI Automation </a><a href="/blog/tags/developer-tools" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Developer Tools </a><a href="/blog/tags/ai-engineering" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> AI Engineering </a><a href="/blog/tags/prompt-engineering" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Prompt Engineering </a><a href="/blog/tags/workflow-automation" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Workflow Automation </a> </div> </header> <!-- Social Share --> <div class="mb-8"> <div class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"> <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Share this post:</span> <div class="flex items-center gap-2"> <!-- Twitter --> <a href="https://twitter.com/intent/tweet?text=The%20Complete%20Guide%20to%20Building%20AI%20Agent%20Skills%3A%20From%20Zero%20to%20Production&url=https%3A%2F%2Fmangeshbide.tech%2Fblog%2Fhow-to-build-ai-agent-skills" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" aria-label="Share on Twitter"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path> </svg> </a> <!-- LinkedIn --> <a href="https://linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmangeshbide.tech%2Fblog%2Fhow-to-build-ai-agent-skills" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" aria-label="Share on LinkedIn"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <!-- Facebook --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmangeshbide.tech%2Fblog%2Fhow-to-build-ai-agent-skills" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" aria-label="Share on Facebook"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path> </svg> </a> <!-- Copy Link --> <button id="copy-link-btn" data-url="https://mangeshbide.tech/blog/how-to-build-ai-agent-skills" class="p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors" aria-label="Copy link"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path> </svg> </button> </div> </div> <!-- Toast notification for copy success --> <div id="copy-toast" class="fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 invisible transition-all duration-300 z-50">
+Link copied to clipboard!
+</div> <script type="module">const i=document.getElementById("copy-link-btn"),t=document.getElementById("copy-toast");i&&t&&i.addEventListener("click",async()=>{const o=i.getAttribute("data-url");try{await navigator.clipboard.writeText(o||window.location.href),t.classList.remove("opacity-0","invisible"),t.classList.add("opacity-100","visible"),setTimeout(()=>{t.classList.add("opacity-0","invisible"),t.classList.remove("opacity-100","visible")},3e3)}catch{const e=document.createElement("textarea");e.value=o||window.location.href,document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),t.classList.remove("opacity-0","invisible"),t.classList.add("opacity-100","visible"),setTimeout(()=>{t.classList.add("opacity-0","invisible"),t.classList.remove("opacity-100","visible")},3e3)}});</script> </div> <div class="prose prose-lg dark:prose-invert max-w-none"> <p>Here’s the reality: <strong>prompts are instructions. Skills are superpowers.</strong></p>
+<p>For the past 18 months, I’ve watched teams build sophisticated AI systems using the old way:</p>
+<ul>
+<li>Copy-paste long instructions into every prompt</li>
+<li>Maintain 5 different versions of the same workflow</li>
+<li>Watch consistency break as instructions drift</li>
+<li>Rebuild the same logic for different AI models</li>
+<li>Spend more time managing prompts than solving problems</li>
+</ul>
+<p>Then they discovered <strong>AI Skills</strong>.</p>
+<p>Everything changed.</p>
+<p>Instead of repeating instructions → they reference a skill.
+Instead of hoping AI remembers context → it loads exactly what it needs.
+Instead of managing chaos → they built systems that scale.</p>
+<p>This guide shows you <em>exactly</em> how to build AI skills that work. Not theoretical. Not complex. <strong>Real skills you can deploy today.</strong></p>
+<hr>
+<h2 id="what-is-an-ai-skill-the-real-definition">What Is an AI Skill? (The Real Definition)</h2>
+<p>An <strong>AI Skill</strong> is a standalone, reusable package that teaches an AI agent how to do a specific job.</p>
+<p><strong>That’s it.</strong></p>
+<p>But the power is <em>massive</em>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Prompt</th><th>Skill</th></tr></thead><tbody><tr><td>Lives inside the chat</td><td>Lives outside the chat</td></tr><tr><td>Written fresh each time</td><td>Written once, loaded when needed</td></tr><tr><td>Prone to drift and inconsistency</td><td>Consistent across all uses</td></tr><tr><td>Hard to version or update</td><td>Easy to version and improve</td></tr><tr><td>Isolated to one conversation</td><td>Works across agents, models, teams</td></tr><tr><td>Gets lost in chat history</td><td>Persists and compounds knowledge</td></tr></tbody></table>
+<p><strong>Example contrast:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># OLD WAY (Prompt Engineering)</span></span>
+<span class="line"><span>"Hey Claude, I need you to:</span></span>
+<span class="line"><span>1. Read this code</span></span>
+<span class="line"><span>2. Find security issues</span></span>
+<span class="line"><span>3. Suggest fixes</span></span>
+<span class="line"><span>4. Explain the risk</span></span>
+<span class="line"><span>5. Rate severity</span></span>
+<span class="line"><span>6. Reference OWASP...</span></span>
+<span class="line"><span>[100 more lines of instructions]"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># NEW WAY (AI Skill)</span></span>
+<span class="line"><span>"Use the SecurityAudit skill to review this code."</span></span>
+<span class="line"><span>[Skill automatically handles all of the above]</span></span></code></pre>
+<p>See the difference? One is asking. One is delegating to a trained system.</p>
+<hr>
+<h2 id="the-anatomy-of-a-perfect-ai-skill">The Anatomy of a Perfect AI Skill</h2>
+<p>Every powerful skill follows this structure:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>my-skill/</span></span>
+<span class="line"><span>├── SKILL.md              # ⭐ The brain of your skill</span></span>
+<span class="line"><span>├── instructions/         # Step-by-step how-to</span></span>
+<span class="line"><span>├── scripts/              # Executable code (optional)</span></span>
+<span class="line"><span>├── templates/            # Resources the skill uses</span></span>
+<span class="line"><span>├── tests/                # Validation (optional but crucial)</span></span>
+<span class="line"><span>└── examples/             # Real use cases</span></span></code></pre>
+<p>Let’s break down each component:</p>
+<h3 id="1-skillmd-the-skill-definition">1. SKILL.md (The Skill Definition)</h3>
+<p>This is <strong>the most important file</strong>. It’s a manifest + documentation combined.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold"># Security Audit Skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## What This Skill Does</span></span>
+<span class="line"><span style="color:#E1E4E8">Scans code for security vulnerabilities using OWASP standards.</span></span>
+<span class="line"><span style="color:#E1E4E8">Returns risk assessment and remediation steps.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## When to Use It</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Code review automation</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Pre-deployment security checks</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Security training for junior devs</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Vulnerability tracking</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## What It Needs</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Source code (any language)</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Optional: severity threshold</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Optional: custom security rules</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## What You Get Back</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Vulnerability list with CVSS scores</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Fix recommendations</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Affected lines and patterns</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Risk level (Low/Medium/High/Critical)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## How It Works</span></span>
+<span class="line"><span style="color:#FFAB70">1.</span><span style="color:#E1E4E8"> Parses code structure</span></span>
+<span class="line"><span style="color:#FFAB70">2.</span><span style="color:#E1E4E8"> Matches against security patterns</span></span>
+<span class="line"><span style="color:#FFAB70">3.</span><span style="color:#E1E4E8"> Assigns risk levels</span></span>
+<span class="line"><span style="color:#FFAB70">4.</span><span style="color:#E1E4E8"> Generates fixes</span></span>
+<span class="line"><span style="color:#FFAB70">5.</span><span style="color:#E1E4E8"> Returns structured JSON</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Who Maintains It</span></span>
+<span class="line"><span style="color:#E1E4E8">@yourusername</span></span>
+<span class="line"><span style="color:#E1E4E8">Version: 2.1.0</span></span>
+<span class="line"><span style="color:#E1E4E8">Last Updated: 2026-02-07</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Dependencies</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> regex engine</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> OWASP knowledge base</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Common Weakness Enumeration (CWE)</span></span></code></pre>
+<p><strong>Key principle:</strong> SKILL.md answers “What does this do?” without any technical jargon.</p>
+<h3 id="2-instructions-the-detailed-how-to">2. Instructions (The Detailed How-To)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold"># Security Audit Skill - Detailed Instructions</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Process Overview</span></span>
+<span class="line"><span style="color:#E1E4E8">The skill follows a 5-step process:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">### Step 1: Code Parsing</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Identify programming language</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Extract function definitions</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Build abstract syntax tree (AST)</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Flag suspicious patterns</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">### Step 2: Pattern Matching</span></span>
+<span class="line"><span style="color:#E1E4E8">For each language, match against known vulnerabilities:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;font-weight:bold">**Python patterns:**</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#79B8FF"> `eval()`</span><span style="color:#E1E4E8"> usage</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> SQL injection via string concatenation</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Hardcoded credentials</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Insecure pickle usage</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;font-weight:bold">**JavaScript patterns:**</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> DOM manipulation without sanitization</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Missing CORS headers</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Hardcoded API keys</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Unvalidated redirect destinations</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">### Step 3: Risk Assessment</span></span>
+<span class="line"><span style="color:#E1E4E8">Assign CVSS score based on:</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Exploitability (Easy/Medium/Hard)</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Impact (Low/High/Critical)</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Affected scope (Local/Network)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">### Step 4: Generate Recommendations</span></span>
+<span class="line"><span style="color:#E1E4E8">For each vulnerability:</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> What the issue is</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Why it matters</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> How to fix it (with code example)</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Additional resources</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">### Step 5: Prepare Output</span></span>
+<span class="line"><span style="color:#E1E4E8">Return structured JSON:</span></span>
+<span class="line"><span style="color:#E1E4E8">```json</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "skill"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SecurityAudit"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "status"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"complete"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "code_analyzed"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1250</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "vulnerabilities_found"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "risk_level"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"HIGH"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "issues"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#79B8FF">      "id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SQL-001"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SQL Injection"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "severity"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"CRITICAL"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "file"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"src/auth.py"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "line"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">42</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "pattern"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"f</span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">SELECT * FROM users WHERE id={user_id}</span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "fix"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Use parameterized queries: cursor.execute('SELECT * FROM users WHERE id=?', (user_id,))"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "owasp_reference"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"A03:2021 Injection"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "cvss_score"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">9.8</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Large files (>10,000 lines) may take longer</li>
+<li>Complex patterns require more processing</li>
+<li>Cache results for repeated scans</li>
+</ul>
+<h2 id="error-handling">Error Handling</h2>
+<p>If code can’t be parsed:</p>
+<ul>
+<li>Return error code with explanation</li>
+<li>Suggest alternative formats</li>
+<li>Skip problematic sections (don’t fail completely)</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
+<span class="line"><span>**Key principle:** Instructions are detailed enough that another developer could implement this skill from scratch.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>### 3. Scripts (The Executable Code)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>These are the *programs* your skill actually runs:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```python</span></span>
+<span class="line"><span># scripts/security_audit.py</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>import re</span></span>
+<span class="line"><span>import json</span></span>
+<span class="line"><span>from typing import Dict, List, Optional</span></span>
+<span class="line"><span>from enum import Enum</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class SeverityLevel(Enum):</span></span>
+<span class="line"><span>    LOW = 1</span></span>
+<span class="line"><span>    MEDIUM = 2</span></span>
+<span class="line"><span>    HIGH = 3</span></span>
+<span class="line"><span>    CRITICAL = 4</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class SecurityAuditor:</span></span>
+<span class="line"><span>    """Main class that performs security audits"""</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __init__(self, code: str, language: str = "auto"):</span></span>
+<span class="line"><span>        self.code = code</span></span>
+<span class="line"><span>        self.language = self._detect_language() if language == "auto" else language</span></span>
+<span class="line"><span>        self.vulnerabilities = []</span></span>
+<span class="line"><span>        self.patterns = self._load_patterns()</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def audit(self) -> Dict:</span></span>
+<span class="line"><span>        """Run the full audit"""</span></span>
+<span class="line"><span>        self._detect_vulnerabilities()</span></span>
+<span class="line"><span>        self._assess_risk()</span></span>
+<span class="line"><span>        return self._format_results()</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def _detect_vulnerabilities(self):</span></span>
+<span class="line"><span>        """Scan code against known patterns"""</span></span>
+<span class="line"><span>        for pattern_name, pattern_regex in self.patterns[self.language].items():</span></span>
+<span class="line"><span>            matches = re.finditer(pattern_regex, self.code)</span></span>
+<span class="line"><span>            </span></span>
+<span class="line"><span>            for match in matches:</span></span>
+<span class="line"><span>                line_num = self.code[:match.start()].count('\n') + 1</span></span>
+<span class="line"><span>                self.vulnerabilities.append({</span></span>
+<span class="line"><span>                    "type": pattern_name,</span></span>
+<span class="line"><span>                    "match": match.group(0),</span></span>
+<span class="line"><span>                    "line": line_num,</span></span>
+<span class="line"><span>                    "column": match.start() - self.code.rfind('\n', 0, match.start())</span></span>
+<span class="line"><span>                })</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def _assess_risk(self):</span></span>
+<span class="line"><span>        """Calculate CVSS scores and risk levels"""</span></span>
+<span class="line"><span>        risk_map = {</span></span>
+<span class="line"><span>            "SQL_INJECTION": {"severity": SeverityLevel.CRITICAL, "cvss": 9.8},</span></span>
+<span class="line"><span>            "HARDCODED_SECRET": {"severity": SeverityLevel.CRITICAL, "cvss": 9.1},</span></span>
+<span class="line"><span>            "EVAL_USAGE": {"severity": SeverityLevel.HIGH, "cvss": 8.2},</span></span>
+<span class="line"><span>            "XXE_INJECTION": {"severity": SeverityLevel.HIGH, "cvss": 8.8},</span></span>
+<span class="line"><span>            "CSRF_MISSING": {"severity": SeverityLevel.MEDIUM, "cvss": 6.5},</span></span>
+<span class="line"><span>        }</span></span>
+<span class="line"><span>        </span></span>
+<span class="line"><span>        for vuln in self.vulnerabilities:</span></span>
+<span class="line"><span>            if vuln["type"] in risk_map:</span></span>
+<span class="line"><span>                vuln.update(risk_map[vuln["type"]])</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def _format_results(self) -> Dict:</span></span>
+<span class="line"><span>        """Return structured results"""</span></span>
+<span class="line"><span>        return {</span></span>
+<span class="line"><span>            "skill": "SecurityAudit",</span></span>
+<span class="line"><span>            "status": "complete",</span></span>
+<span class="line"><span>            "language": self.language,</span></span>
+<span class="line"><span>            "lines_analyzed": len(self.code.split('\n')),</span></span>
+<span class="line"><span>            "vulnerabilities_found": len(self.vulnerabilities),</span></span>
+<span class="line"><span>            "risk_level": self._calculate_overall_risk(),</span></span>
+<span class="line"><span>            "issues": self.vulnerabilities</span></span>
+<span class="line"><span>        }</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def _calculate_overall_risk(self) -> str:</span></span>
+<span class="line"><span>        """Determine overall risk level"""</span></span>
+<span class="line"><span>        if not self.vulnerabilities:</span></span>
+<span class="line"><span>            return "SAFE"</span></span>
+<span class="line"><span>        </span></span>
+<span class="line"><span>        max_severity = max(v.get("severity", SeverityLevel.LOW) for v in self.vulnerabilities)</span></span>
+<span class="line"><span>        </span></span>
+<span class="line"><span>        if max_severity == SeverityLevel.CRITICAL:</span></span>
+<span class="line"><span>            return "CRITICAL"</span></span>
+<span class="line"><span>        elif max_severity == SeverityLevel.HIGH:</span></span>
+<span class="line"><span>            return "HIGH"</span></span>
+<span class="line"><span>        else:</span></span>
+<span class="line"><span>            return "MEDIUM"</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def _load_patterns(self) -> Dict:</span></span>
+<span class="line"><span>        """Load security patterns for each language"""</span></span>
+<span class="line"><span>        return {</span></span>
+<span class="line"><span>            "python": {</span></span>
+<span class="line"><span>                "eval_usage": r"\beval\s*\(",</span></span>
+<span class="line"><span>                "exec_usage": r"\bexec\s*\(",</span></span>
+<span class="line"><span>                "pickle_usage": r"\bpickle\.(loads|load)\(",</span></span>
+<span class="line"><span>                "sql_injection": r"(SELECT|INSERT|UPDATE|DELETE).*['\"].*\+",</span></span>
+<span class="line"><span>                "hardcoded_secret": r"(password|api_key|secret)\s*=\s*['\"][^'\"]+['\"]",</span></span>
+<span class="line"><span>            },</span></span>
+<span class="line"><span>            "javascript": {</span></span>
+<span class="line"><span>                "dom_injection": r"\.(innerHTML|insertAdjacentHTML)\s*=",</span></span>
+<span class="line"><span>                "eval_usage": r"\beval\s*\(",</span></span>
+<span class="line"><span>                "hardcoded_secret": r"(password|apiKey|secret)\s*:\s*['\"][^'\"]+['\"]",</span></span>
+<span class="line"><span>                "missing_cors": r"res\.header\s*\(\s*['\"]Access-Control",</span></span>
+<span class="line"><span>            }</span></span>
+<span class="line"><span>        }</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def _detect_language(self) -> str:</span></span>
+<span class="line"><span>        """Auto-detect programming language"""</span></span>
+<span class="line"><span>        if "import" in self.code or "def " in self.code:</span></span>
+<span class="line"><span>            return "python"</span></span>
+<span class="line"><span>        elif "const " in self.code or "function " in self.code:</span></span>
+<span class="line"><span>            return "javascript"</span></span>
+<span class="line"><span>        return "unknown"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Entry point for agents</span></span>
+<span class="line"><span>def run_skill(code: str, language: str = "auto", **kwargs) -> Dict:</span></span>
+<span class="line"><span>    """Main skill execution - what agents call"""</span></span>
+<span class="line"><span>    try:</span></span>
+<span class="line"><span>        auditor = SecurityAuditor(code, language)</span></span>
+<span class="line"><span>        result = auditor.audit()</span></span>
+<span class="line"><span>        return {"success": True, "data": result}</span></span>
+<span class="line"><span>    except Exception as e:</span></span>
+<span class="line"><span>        return {"success": False, "error": str(e)}</span></span></code></pre>
+<p><strong>Key principle:</strong> Scripts are production-ready code that agents can actually invoke.</p>
+<h3 id="4-templates-resources-your-skill-uses">4. Templates (Resources Your Skill Uses)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#6A737D">// templates/remediation_templates.json</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "SQL_INJECTION"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "vulnerable"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SELECT * FROM users WHERE id = '{id}'"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "fixed"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SELECT * FROM users WHERE id = %s"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "explanation"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Use parameterized queries to prevent SQL injection"</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#79B8FF">  "XSS_VULNERABILITY"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "vulnerable"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"element.innerHTML = userInput"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "fixed"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"element.textContent = userInput; // or use DOMPurify"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "explanation"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Always sanitize user input before rendering"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="5-tests-validation">5. Tests (Validation)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># tests/test_security_auditor.py</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> pytest</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> scripts.security_audit </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> SecurityAuditor</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_detects_sql_injection</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#E1E4E8">    vulnerable_code </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "result = db.execute(f'SELECT * FROM users WHERE id=</span><span style="color:#79B8FF">{user_id}</span><span style="color:#9ECBFF">')"</span></span>
+<span class="line"><span style="color:#E1E4E8">    auditor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SecurityAuditor(vulnerable_code, </span><span style="color:#FFAB70">language</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"python"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> auditor.audit()</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"risk_level"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "CRITICAL"</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">(v[</span><span style="color:#9ECBFF">"type"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "sql_injection"</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"issues"</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_detects_hardcoded_secrets</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#E1E4E8">    vulnerable_code </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'api_key = "sk_live_abc123xyz789"'</span></span>
+<span class="line"><span style="color:#E1E4E8">    auditor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SecurityAuditor(vulnerable_code, </span><span style="color:#FFAB70">language</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"python"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> auditor.audit()</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">(v[</span><span style="color:#9ECBFF">"type"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "hardcoded_secret"</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"issues"</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_passes_safe_code</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#E1E4E8">    safe_code </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> """</span></span>
+<span class="line"><span style="color:#9ECBFF">def safe_query(user_id):</span></span>
+<span class="line"><span style="color:#9ECBFF">    query = "SELECT * FROM users WHERE id = ?"</span></span>
+<span class="line"><span style="color:#9ECBFF">    return db.execute(query, (user_id,))</span></span>
+<span class="line"><span style="color:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#E1E4E8">    auditor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SecurityAuditor(safe_code, </span><span style="color:#FFAB70">language</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"python"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> auditor.audit()</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"risk_level"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "SAFE"</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> len</span><span style="color:#E1E4E8">(result[</span><span style="color:#9ECBFF">"issues"</span><span style="color:#E1E4E8">]) </span><span style="color:#F97583">==</span><span style="color:#79B8FF"> 0</span></span></code></pre>
+<hr>
+<h2 id="why-skills--prompts-hard-facts">Why Skills > Prompts (Hard Facts)</h2>
+<h3 id="1-consistency">1. Consistency</h3>
+<p><strong>Prompts:</strong> Instructions drift. Version 1 vs version 5 diverge.</p>
+<p><strong>Skills:</strong> Same logic, same output, every single time.</p>
+<h3 id="2-reusability">2. Reusability</h3>
+<p><strong>Prompts:</strong> You rewrite for every model, every project.</p>
+<p><strong>Skills:</strong> Write once, use everywhere (Claude, GPT, open models).</p>
+<h3 id="3-versioning">3. Versioning</h3>
+<p><strong>Prompts:</strong> Hard to track what changed. Impossible to rollback.</p>
+<p><strong>Skills:</strong> Git history, semantic versioning, easy rollback.</p>
+<h3 id="4-performance">4. Performance</h3>
+<p><strong>Prompts:</strong> Load 5,000 tokens of instructions every time.</p>
+<p><strong>Skills:</strong> Load only the metadata + required code. Faster execution.</p>
+<h3 id="5-scalability">5. Scalability</h3>
+<p><strong>Prompts:</strong> Managing 50+ prompts becomes chaos.</p>
+<p><strong>Skills:</strong> 50+ skills become a curated library. Discoverable. Organized.</p>
+<h3 id="6-team-coordination">6. Team Coordination</h3>
+<p><strong>Prompts:</strong> “Wait, which version of the audit prompt are we using?”</p>
+<p><strong>Skills:</strong> “Use v2.1.0 of SecurityAudit skill.” Done.</p>
+<hr>
+<h2 id="building-your-first-skill-step-by-step">Building Your First Skill (Step-by-Step)</h2>
+<h3 id="step-1-identify-the-problem">Step 1: Identify the Problem</h3>
+<p>What does your skill solve?</p>
+<p><strong>Good skill ideas:</strong></p>
+<ul>
+<li>✅ Code review automation</li>
+<li>✅ Data validation and cleaning</li>
+<li>✅ Compliance checking (HIPAA, GDPR, etc)</li>
+<li>✅ Document analysis</li>
+<li>✅ Content generation templates</li>
+<li>✅ Testing and QA</li>
+<li>✅ Security scanning</li>
+<li>✅ Deployment validation</li>
+</ul>
+<p><strong>Bad skill ideas:</strong></p>
+<ul>
+<li>❌ “General helper” (too vague)</li>
+<li>❌ “Chat interface” (use agents instead)</li>
+<li>❌ One-off prompt (not reusable enough)</li>
+</ul>
+<h3 id="step-2-define-the-contract">Step 2: Define the Contract</h3>
+<p>What goes IN? What comes OUT?</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold"># My Skill Contract</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Input</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Parameter 1: type, required/optional, description</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Parameter 2: type, required/optional, description</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Output</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Field 1: type, always included</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Field 2: type, conditional on input</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Constraints</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Max input size: 1MB</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Processing time: &#x3C;30 seconds</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Supported languages: Python, JavaScript</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Failure Modes</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> If input invalid: return error with code 400</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> If processing fails: return error with message</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> If timeout: return partial results + timeout flag</span></span></code></pre>
+<h3 id="step-3-create-skillmd">Step 3: Create SKILL.md</h3>
+<p>Write it for a non-technical person. If a business person can understand it, you’ve nailed it.</p>
+<h3 id="step-4-implement-instructions">Step 4: Implement Instructions</h3>
+<p>Step-by-step how the skill works internally. Be specific.</p>
+<h3 id="step-5-write-the-code">Step 5: Write the Code</h3>
+<p>Scripts that actually do the work. Production quality.</p>
+<h3 id="step-6-test-everything">Step 6: Test Everything</h3>
+<ul>
+<li>Unit tests for functions</li>
+<li>Integration tests for full flow</li>
+<li>Edge case tests</li>
+<li>Performance tests on large inputs</li>
+</ul>
+<h3 id="step-7-create-examples">Step 7: Create Examples</h3>
+<p>Show real use cases. Show input/output. Make it obvious how to use.</p>
+<h3 id="step-8-document-everything">Step 8: Document Everything</h3>
+<p>Comment the code. Explain decisions. Help future you (and others).</p>
+<hr>
+<h2 id="publishing-your-skill">Publishing Your Skill</h2>
+<h3 id="local-storage-personal-projects">Local Storage (Personal Projects)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>~/.ai-skills/</span></span>
+<span class="line"><span>├── security-audit/</span></span>
+<span class="line"><span>├── code-formatter/</span></span>
+<span class="line"><span>├── content-validator/</span></span></code></pre>
+<h3 id="github-teamcommunity">GitHub (Team/Community)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/yourusername/ai-skills-library</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ai-skills-library</span></span>
+<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#9ECBFF"> security-audit</span></span>
+<span class="line"><span style="color:#6A737D"># Add SKILL.md, scripts/, etc.</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> push</span></span></code></pre>
+<h3 id="getting-discovered-the-real-way">Getting Discovered (The Real Way)</h3>
+<p>You don’t submit skills to a centralized registry. Instead, <strong>adoption drives discovery</strong>.</p>
+<p><strong>Here’s how it works:</strong></p>
+<ol>
+<li><strong>Publish on GitHub</strong> — Create a public repo with your skill</li>
+<li><strong>Make it Installable</strong> — Users run <code>npx skills add owner/skill-name</code> to install it</li>
+<li><strong>Directories Track Adoption</strong> — Services like <a href="https://skills.sh">skills.sh</a> crawl GitHub and auto-index popular skills</li>
+<li><strong>You Get Discovered</strong> — As developers install your skill, it appears on directories</li>
+<li><strong>Community Rates It</strong> — GitHub stars, forks, feedback drive visibility</li>
+</ol>
+<p><strong>Real-world installation example:</strong></p>
+<p>The open ecosystem uses multiple community CLIs (e.g., <a href="https://github.com/vercel-labs/skills">vercel-labs/skills</a>) that support:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Install via community CLI (syntax varies by tool):</span></span>
+<span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> owner/skill-name</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Direct GitHub repository:</span></span>
+<span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> 1Mangesh1/hipaa-guardian</span></span></code></pre>
+<p><strong>Note:</strong> Exact commands and flags depend on which CLI/marketplace you’re using — test with your target tool.</p>
+<p><strong>Real directories that discover skills:</strong></p>
+<ul>
+<li><a href="https://skills.sh">skills.sh</a> — Community-driven open marketplace</li>
+<li>Platform curators (e.g., Anthropic’s pre-built Agent Skills) — Curated sets for specific platforms</li>
+<li>GitHub trending — Sort by “Skills” topic</li>
+<li>Community channels (Reddit r/AI, Discord servers, etc.)</li>
+</ul>
+<p><strong>How to get noticed:</strong></p>
+<ul>
+<li>✅ Solve a real problem (not a toy feature)</li>
+<li>✅ Write excellent SKILL.md and documentation</li>
+<li>✅ Build in public (share progress)</li>
+<li>✅ Respond to issues and feedback</li>
+<li>✅ Keep it updated and maintained</li>
+<li>✅ Make it discoverable with <code>npx skills find keyword</code></li>
+</ul>
+<hr>
+<h2 id="ai-agents-that-use-skills">AI Agents That Use Skills</h2>
+<p>Skills aren’t Claude-exclusive. Multiple AI agents can invoke and use the same skills.</p>
+<h3 id="claude-anthropic">Claude (Anthropic)</h3>
+<p><strong>How it works:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User: "Use SecurityAudit skill on my code"</span></span>
+<span class="line"><span>Claude: [loads SKILL.md] [invokes skill] [returns results]</span></span></code></pre>
+<p><strong>Configuration:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"claude-3-5-sonnet"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "skills"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">    "hipaa-guardian"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "security-audit"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "content-validator"</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<hr>
+<h3 id="other-ai-agents-that-support-skills">Other AI Agents That Support Skills</h3>
+<h3 id="how-to-make-your-skill-work-everywhere">How to Make Your Skill Work Everywhere</h3>
+<p>To maximize compatibility across all agents:</p>
+<ol>
+<li><strong>Standard SKILL.md</strong> — Follow the format with clear What/When/Input/Output sections</li>
+<li><strong>Structured JSON Output</strong> — Always return valid JSON  (<code>{"success": true, "data": {...}}</code>)</li>
+<li><strong>Language Agnostic</strong> — Python, Go, JavaScript, etc. all work equally</li>
+<li><strong>Fast Execution</strong> — Target &#x3C;5 seconds, max 30 seconds</li>
+<li><strong>Error Handling</strong> — Return structured responses, never crash silently</li>
+<li><strong>Version Everything</strong> — List compatible agents in SKILL.md (Claude, GPT-4, LangChain, AutoGPT, GitHub Copilot, HuggingFace, etc.)</li>
+</ol>
+<hr>
+<h3 id="pointing-agents-to-your-skills">Pointing Agents to Your Skills</h3>
+<p>Different agents discover skills different ways:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Agent</th><th>Discovery Method</th></tr></thead><tbody><tr><td><strong>Claude</strong></td><td><code>@skill name</code> or skill reference in SKILL.md</td></tr><tr><td><strong>GPT-4</strong></td><td>Function calling wrapper or API integration</td></tr><tr><td><strong>LangChain</strong></td><td><code>Tool()</code> registration in agent setup</td></tr><tr><td><strong>AutoGPT</strong></td><td><code>npx skills add owner/skill-name</code></td></tr><tr><td><strong>GitHub Copilot</strong></td><td><code>.copilot/config.json</code> configuration</td></tr><tr><td><strong>HuggingFace</strong></td><td>Community skills registry</td></tr><tr><td><strong>Custom agents</strong></td><td>API endpoint or local import</td></tr></tbody></table>
+<hr>
+<h3 id="real-world-example-security-audit-workflow">Real-World Example: Security Audit Workflow</h3>
+<p><strong>Without skills:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User: "Review my code for security issues"</span></span>
+<span class="line"><span>Claude: [loads 5,000 tokens of security instructions]</span></span>
+<span class="line"><span>Claude: [scans code manually]</span></span>
+<span class="line"><span>Claude: [generates report]</span></span></code></pre>
+<p><strong>With skills:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User: "Review my code for security issues"</span></span>
+<span class="line"><span>Claude: [sees SecurityAudit skill is available]</span></span>
+<span class="line"><span>Claude: [invokes the skill]</span></span>
+<span class="line"><span>SecurityAudit: [runs pattern matching]</span></span>
+<span class="line"><span>SecurityAudit: [returns structured results]</span></span>
+<span class="line"><span>Claude: [presents findings to user]</span></span></code></pre>
+<p>The agent <em>decides</em> when to use the skill. It’s not hardcoded. (Note: exact invocation behavior — synchronous vs. asynchronous, blocking vs. non-blocking — depends on the agent implementation; test with your target agent platform.)</p>
+<hr>
+<h2 id="building-a-skill-real-essentials">Building a Skill: Real Essentials</h2>
+<p>Here’s what actually matters when you build a skill:</p>
+<h3 id="1-skillmd-the-entire-interface">1. <strong>SKILL.md</strong> (The entire interface)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold"># SecurityAudit Skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## What This Skill Does</span></span>
+<span class="line"><span style="color:#E1E4E8">Scans code for security vulnerabilities using OWASP patterns.</span></span>
+<span class="line"><span style="color:#E1E4E8">Returns categorized issues with severity levels and fix recommendations.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## When to Use It</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Pre-deployment code reviews</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Finding vulnerabilities in existing code</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Security compliance checks</span></span>
+<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> Vulnerability tracking</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## What You Give It</span></span></code></pre>
+<p>input: “code_to_scan” (string, required)
+“language” (optional: “python”, “javascript”, “go”, etc)
+“severity_threshold” (optional: “low”, “medium”, “high”, “critical”)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
+<span class="line"><span>## What You Get Back</span></span>
+<span class="line"><span>```json</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>  "skill": "SecurityAudit",</span></span>
+<span class="line"><span>  "version": "2.1.0",</span></span>
+<span class="line"><span>  "vulnerabilities_found": 3,</span></span>
+<span class="line"><span>  "critical_issues": 1,</span></span>
+<span class="line"><span>  "high_issues": 2,</span></span>
+<span class="line"><span>  "issues": [</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>      "type": "SQL_INJECTION",</span></span>
+<span class="line"><span>      "file": "auth.py",</span></span>
+<span class="line"><span>      "line": 42,</span></span>
+<span class="line"><span>      "severity": "CRITICAL",</span></span>
+<span class="line"><span>      "description": "String concatenation in SQL query",</span></span>
+<span class="line"><span>      "fix": "Use parameterized queries"</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  ],</span></span>
+<span class="line"><span>  "meta": {</span></span>
+<span class="line"><span>    "execution_time_ms": 2340,</span></span>
+<span class="line"><span>    "partial_results": false,</span></span>
+<span class="line"><span>    "timeout_occurred": false</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="examples">Examples</h2>
+<p><strong>Example 1: Finding SQL injection</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User input: Code with f-string SQL query</span></span>
+<span class="line"><span>Skill returns: CRITICAL issue with fix recommendation</span></span>
+<span class="line"><span>User action: Apply the suggested parameterized query fix</span></span></code></pre>
+<p><strong>Example 2: Checking third-party code</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User input: Library code they dependency</span></span>
+<span class="line"><span>Skill returns: Medium-severity CORS issues</span></span>
+<span class="line"><span>User action: Evaluate if acceptable for use case</span></span></code></pre>
+<h2 id="performance">Performance</h2>
+<ul>
+<li>Scans up to 50,000 lines of code</li>
+<li>Returns results in &#x3C;5 seconds</li>
+<li>Works with most modern languages</li>
+</ul>
+<h2 id="maintainer">Maintainer</h2>
+<p>@yourusername
+Version: 2.1.0</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
+<span class="line"><span>### 2. **instructions/ folder** (How it works internally)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>This is documentation for developers who want to understand or extend your skill:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```markdown</span></span>
+<span class="line"><span># SecurityAudit - Technical Details</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## How Pattern Detection Works</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**Important note:** Regex-based pattern matching is useful for quick heuristics but will miss context-sensitive vulnerabilities and generate false positives. For production-grade security scanning, use AST/dataflow-based analysis ([Semgrep](https://semgrep.dev/), [CodeQL](https://codeql.github.com/)) or dedicated SAST tools.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>1. Parse code into AST (Abstract Syntax Tree) [recommended]</span></span>
+<span class="line"><span>2. Traverse AST looking for vulnerable patterns</span></span>
+<span class="line"><span>3. Cross-reference against [OWASP Top 10](https://owasp.org/www-project-top-ten/) and [CWE](https://cwe.mitre.org/) weakness database</span></span>
+<span class="line"><span>4. Assign [CVSS scores](https://www.first.org/cvss/v3.1/specification-document) based on exploitability and impact</span></span>
+<span class="line"><span>5. Return structured JSON</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## Supported Languages</span></span>
+<span class="line"><span>- Python: eval, exec, SQL injection, hardcoded secrets</span></span>
+<span class="line"><span>- JavaScript: DOM injection, CORS, eval, secrets</span></span>
+<span class="line"><span>- Go: SQL injection, hardcoded credentials</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## Performance Optimization</span></span>
+<span class="line"><span>- Cache parsed ASTs for repeated scans</span></span>
+<span class="line"><span>- Skip files larger than 10MB (timeout risk)</span></span>
+<span class="line"><span>- Parallel pattern matching for multi-file scans</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## Adding New Patterns</span></span>
+<span class="line"><span>To add a new vulnerability pattern:</span></span>
+<span class="line"><span>1. Define regex in `/patterns/{language}.json`</span></span>
+<span class="line"><span>2. Add rule to CVSS mapping</span></span>
+<span class="line"><span>3. Add test cases</span></span>
+<span class="line"><span>4. Update documentation</span></span></code></pre>
+<h3 id="3-tests-folder-prove-it-works">3. <strong>/tests</strong> folder (Prove it works)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># tests/test_security_audit.py</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_detects_sql_injection</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#9ECBFF">    """Ensure SQL injection vulnerability is caught"""</span></span>
+<span class="line"><span style="color:#E1E4E8">    vulnerable_code </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> """</span></span>
+<span class="line"><span style="color:#9ECBFF">    user_id = request.args['id']</span></span>
+<span class="line"><span style="color:#9ECBFF">    query = f"SELECT * FROM users WHERE id=</span><span style="color:#79B8FF">{user_id}</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> invoke_skill(vulnerable_code, </span><span style="color:#FFAB70">language</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"python"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"critical_issues"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">(issue[</span><span style="color:#9ECBFF">"type"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "SQL_INJECTION"</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> issue </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"issues"</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_passes_safe_code</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#9ECBFF">    """Ensure safe code doesn't raise false positives"""</span></span>
+<span class="line"><span style="color:#E1E4E8">    safe_code </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> """</span></span>
+<span class="line"><span style="color:#9ECBFF">    user_id = request.args['id']</span></span>
+<span class="line"><span style="color:#9ECBFF">    query = "SELECT * FROM users WHERE id=?"</span></span>
+<span class="line"><span style="color:#9ECBFF">    cursor.execute(query, (user_id,))</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> invoke_skill(safe_code, </span><span style="color:#FFAB70">language</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"python"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"critical_issues"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#79B8FF"> 0</span></span></code></pre>
+<hr>
+<h2 id="real-skills-in-action">Real Skills in Action</h2>
+<p>Here’s how your skills get used:</p>
+<p><strong>Scenario 1: A developer finds your skill</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Developer: "I need to audit my code"</span></span>
+<span class="line"><span>Finds: SecurityAudit on skills.sh</span></span>
+<span class="line"><span>Asks Claude: "Use SecurityAudit skill on this code"</span></span>
+<span class="line"><span>Claude: [invokes skill] → [shows results]</span></span></code></pre>
+<p><strong>Scenario 2: Teams add skills to their workflow</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Team policy: "All code must pass SecurityAudit before merge"</span></span>
+<span class="line"><span>CI/CD pipeline: `npx skills check security-audit`</span></span>
+<span class="line"><span>Result: Automatic vetting, consistent standards</span></span></code></pre>
+<p><strong>Scenario 3: Skills get chained</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Claude receives task: "Review code and improve documentation"</span></span>
+<span class="line"><span>Claude thinks: "First use SecurityAudit, then ContentValidator"</span></span>
+<span class="line"><span>[invokes both skills in sequence]</span></span>
+<span class="line"><span>Returns: Security report + documentation improvements</span></span></code></pre>
+<hr>
+<h2 id="publishing-your-skill-1">Publishing Your Skill</h2>
+<p>You only need:</p>
+<ol>
+<li><strong>GitHub repo</strong> with SKILL.md in root</li>
+<li><strong>Clear documentation</strong> (in SKILL.md)</li>
+<li><strong>Tests</strong> (prove it works)</li>
+<li><strong>Examples</strong> (show how to use)</li>
+</ol>
+<p>That’s it. As people install it (<code>npx skills add owner/repo</code>), it gets indexed by skills.sh. Adoption = Visibility.</p>
+<hr>
+<h2 id="best-practices-for-killer-skills">Best Practices for Killer Skills</h2>
+<h3 id="1-single-responsibility">1. Single Responsibility</h3>
+<p>One skill = one job. Don’t try to do everything.</p>
+<h3 id="2-clear-inputoutput">2. Clear Input/Output</h3>
+<p>Document exactly what the skill needs and returns. No surprises.</p>
+<h3 id="3-fail-gracefully">3. Fail Gracefully</h3>
+<p>Always return structured responses. Never crash silently.</p>
+<h3 id="4-performance-matters">4. Performance Matters</h3>
+<p>Agents use skills during active work. If it’s slow, it breaks UX.</p>
+<h3 id="5-test-with-real-data">5. Test with Real Data</h3>
+<p>Don’t just test happy paths. Test edge cases, edge cases, edge cases.</p>
+<h3 id="6-version-everything">6. Version Everything</h3>
+<p>Semantic versioning (1.2.3). Easy rollback. Breaking change warnings.</p>
+<h3 id="7-write-for-non-devs">7. Write for Non-Devs</h3>
+<p>SKILL.md should make sense to anyone. Technical details go in Instructions.</p>
+<h3 id="8-make-it-discoverable">8. Make It Discoverable</h3>
+<p>Clear name, good tags, comprehensive examples.</p>
+<hr>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ol>
+<li><strong>Skills > Prompts</strong> — They’re reusable, versionable, and scalable</li>
+<li><strong>Structure matters</strong> — SKILL.md + Instructions + Code + Tests</li>
+<li><strong>Simplicity wins</strong> — Clear input, clear output, clear purpose</li>
+<li><strong>Test everything</strong> — Edge cases, real data, performance</li>
+<li><strong>Document like hell</strong> — Future you will thank present you</li>
+<li><strong>Build in public</strong> — Share skills, get feedback, improve faster</li>
+<li><strong>Start small</strong> — Your first skill doesn’t need to be perfect</li>
+<li><strong>Think systems</strong> — One skill is cool. A library of skills is powerful</li>
+</ol>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="option-1-build-solo">Option 1: Build Solo</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#9ECBFF"> my-first-skill</span></span>
+<span class="line"><span style="color:#B392F0">touch</span><span style="color:#9ECBFF"> my-first-skill/SKILL.md</span></span>
+<span class="line"><span style="color:#6A737D"># Start writing</span></span></code></pre>
+<h3 id="option-2-learn-from-examples">Option 2: Learn from Examples</h3>
+<ul>
+<li><a href="https://docs.anthropic.com/en/agents/skills/overview">Anthropic’s Official Skills</a></li>
+<li><a href="https://agentskills.io/home">agentskills.io Library</a></li>
+<li><a href="https://github.com/search?q=ai-skill">Community Skills on GitHub</a></li>
+</ul>
+<h3 id="option-3-contribute-to-collections">Option 3: Contribute to Collections</h3>
+<ul>
+<li><a href="https://github.com/1Mangesh1/dev-skills-collection">dev-skills-collection</a></li>
+<li>Open-source skill libraries</li>
+<li>Team repositories</li>
+</ul>
+<hr>
+<h2 id="resources--authoritative-references">Resources &#x26; Authoritative References</h2>
+<p><strong>AI Agent Skills &#x26; Specification:</strong></p>
+<ul>
+<li><a href="https://platform.claude.com/docs/en/agent-sdk/skills">Claude Agent Skills SDK</a> — Anthropic’s implementation</li>
+<li><a href="https://github.com/agentskills/agentskills">Agent Skills Open Specification</a> — Cross-platform spec &#x26; documentation</li>
+<li><a href="https://github.com/vercel-labs/skills">vercel-labs/skills</a> — Open CLI tool for skill management</li>
+<li><a href="https://skills.sh/">skills.sh</a> — Community marketplace for published skills</li>
+</ul>
+<p><strong>Security Standards (for threat/vulnerability references in your skill):</strong></p>
+<ul>
+<li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a> — Web application security risks</li>
+<li><a href="https://cwe.mitre.org/">CWE (Common Weakness Enumeration)</a> — Weakness taxonomy</li>
+<li><a href="https://www.first.org/cvss/v3.1/specification-document">CVSS v3.1</a> — Severity scoring standard</li>
+</ul>
+<p><strong>Static Analysis &#x26; Pattern Detection:</strong></p>
+<ul>
+<li><a href="https://semgrep.dev/">Semgrep</a> — AST-based SAST tool (more robust than regex)</li>
+<li><a href="https://codeql.github.com/">CodeQL</a> — Code analysis for vulnerability detection</li>
+</ul>
+<p><strong>My Skill Collection:</strong></p>
+<ul>
+<li><a href="https://github.com/1Mangesh1/dev-skills-collection">dev-skills-collection</a> — Examples &#x26; reusable skills</li>
+</ul>
+<hr>
+<p><strong>Build skills. Automate workflows. Scale intelligence.</strong></p>
+<p>The future of AI engineering isn’t bigger models. It’s better skills. Start building. 🚀</p> </div> <section class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"> <h2 class="text-2xl font-bold mb-6">Related Posts</h2> <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"> <article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"> <h3 class="text-lg font-semibold mb-2"> <a href="/blog/hipaa-guardian-ai-skills-healthcare" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"> HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically </a> </h3> <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block"> February 5, 2026 </time> <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3"> Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills. </p> <div class="flex flex-wrap gap-1"> <a href="/blog/tags/hipaa" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> HIPAA </a><a href="/blog/tags/healthcare" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Healthcare </a><a href="/blog/tags/ai-agents" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> AI Agents </a> <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
++5 </span> </div> </article><article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"> <h3 class="text-lg font-semibold mb-2"> <a href="/blog/building-ai-agents-practical-guide" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"> Building AI Agents That Actually Work: A Practical Guide for 2026 </a> </h3> <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block"> January 1, 2026 </time> <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3"> Move beyond chatbots to autonomous AI agents. Learn the patterns, pitfalls, and practical implementation strategies for building AI agents that can reason, plan, and execute complex tasks. </p> <div class="flex flex-wrap gap-1"> <a href="/blog/tags/ai" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> AI </a><a href="/blog/tags/ai-agents" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> AI Agents </a><a href="/blog/tags/llm" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> LLM </a> <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
++3 </span> </div> </article><article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"> <h3 class="text-lg font-semibold mb-2"> <a href="/blog/free-dev-domain-is-a-dev-guide" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"> Get a Free .dev Domain for Your Portfolio: The Complete is-a-dev/register Guide </a> </h3> <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block"> February 7, 2026 </time> <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3"> Learn how to claim your free .is-a.dev subdomain in 5 minutes. Perfect for portfolios, blogs, and personal projects. No credit card required, powered by Cloudflare. </p> <div class="flex flex-wrap gap-1"> <a href="/blog/tags/domain" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Domain </a><a href="/blog/tags/free-tools" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Free Tools </a><a href="/blog/tags/developer-tools" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Developer Tools </a> <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
++4 </span> </div> </article> </div> </section> <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"> <a href="/blog" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"> <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path> </svg>
+Back to blog
+</a> </div> </article>  <script type="module">window.notificationQueue=window.notificationQueue||[];function a(i,e={}){const t=document.getElementById(i);if(!t)return;const o={duration:parseInt(t.dataset.duration||"5000"),dismissible:t.dataset.dismissible!=="false",targetElement:t.dataset.targetElement,...e};if(t.classList.remove("opacity-0","scale-95","pointer-events-none"),t.classList.add("opacity-100","scale-100"),o.targetElement){const n=document.querySelector(o.targetElement);if(n){const s=n.getBoundingClientRect();t.style.top=`${s.bottom+10}px`,t.style.left=`${s.left}px`,t.style.position="fixed"}}o.duration>0&&setTimeout(()=>{c(i)},o.duration),window.notificationQueue.push(i)}function c(i){const e=document.getElementById(i);if(!e)return;e.classList.add("opacity-0","scale-95","pointer-events-none"),e.classList.remove("opacity-100","scale-100");const t=window.notificationQueue.indexOf(i);t>-1&&window.notificationQueue.splice(t,1),setTimeout(()=>{e.remove()},300)}window.showNotification=a;window.dismissNotification=c;document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll('[data-auto-show="true"]').forEach(e=>{const t=e.id;t&&a(t)})});</script><button id="mobile-toc-toggle" class="fixed top-20 right-4 z-50 md:hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Toggle Table of Contents" data-astro-cid-xvrfupwn><svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg></button><div id="mobile-toc-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300 opacity-0 pointer-events-none" data-astro-cid-xvrfupwn></div><div id="mobile-toc-sidebar" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 z-50 md:hidden transform transition-transform duration-300 translate-x-full overflow-y-auto" data-astro-cid-xvrfupwn><div class="p-4 border-b border-gray-200 dark:border-gray-700" data-astro-cid-xvrfupwn><div class="flex items-center justify-between" data-astro-cid-xvrfupwn><h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center" data-astro-cid-xvrfupwn><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg>
+Contents
+</h3><button id="mobile-toc-close" class="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="Close Table of Contents" data-astro-cid-xvrfupwn><svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-xvrfupwn></path></svg></button></div></div><nav class="p-4 space-y-2" data-astro-cid-xvrfupwn><a href="#what-is-an-ai-skill-the-real-definition" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-is-an-ai-skill-the-real-definition" data-depth="2" data-astro-cid-xvrfupwn>What Is an AI Skill? (The Real Definition)</a><a href="#the-anatomy-of-a-perfect-ai-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-anatomy-of-a-perfect-ai-skill" data-depth="2" data-astro-cid-xvrfupwn>The Anatomy of a Perfect AI Skill</a><a href="#1-skillmd-the-skill-definition" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-skillmd-the-skill-definition" data-depth="3" data-astro-cid-xvrfupwn>1. SKILL.md (The Skill Definition)</a><a href="#2-instructions-the-detailed-how-to" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-instructions-the-detailed-how-to" data-depth="3" data-astro-cid-xvrfupwn>2. Instructions (The Detailed How-To)</a><a href="#performance-considerations" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="performance-considerations" data-depth="2" data-astro-cid-xvrfupwn>Performance Considerations</a><a href="#error-handling" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="error-handling" data-depth="2" data-astro-cid-xvrfupwn>Error Handling</a><a href="#4-templates-resources-your-skill-uses" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-templates-resources-your-skill-uses" data-depth="3" data-astro-cid-xvrfupwn>4. Templates (Resources Your Skill Uses)</a><a href="#5-tests-validation" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-tests-validation" data-depth="3" data-astro-cid-xvrfupwn>5. Tests (Validation)</a><a href="#why-skills--prompts-hard-facts" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="why-skills--prompts-hard-facts" data-depth="2" data-astro-cid-xvrfupwn>Why Skills &gt; Prompts (Hard Facts)</a><a href="#1-consistency" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-consistency" data-depth="3" data-astro-cid-xvrfupwn>1. Consistency</a><a href="#2-reusability" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-reusability" data-depth="3" data-astro-cid-xvrfupwn>2. Reusability</a><a href="#3-versioning" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-versioning" data-depth="3" data-astro-cid-xvrfupwn>3. Versioning</a><a href="#4-performance" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-performance" data-depth="3" data-astro-cid-xvrfupwn>4. Performance</a><a href="#5-scalability" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-scalability" data-depth="3" data-astro-cid-xvrfupwn>5. Scalability</a><a href="#6-team-coordination" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="6-team-coordination" data-depth="3" data-astro-cid-xvrfupwn>6. Team Coordination</a><a href="#building-your-first-skill-step-by-step" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="building-your-first-skill-step-by-step" data-depth="2" data-astro-cid-xvrfupwn>Building Your First Skill (Step-by-Step)</a><a href="#step-1-identify-the-problem" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-1-identify-the-problem" data-depth="3" data-astro-cid-xvrfupwn>Step 1: Identify the Problem</a><a href="#step-2-define-the-contract" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-2-define-the-contract" data-depth="3" data-astro-cid-xvrfupwn>Step 2: Define the Contract</a><a href="#step-3-create-skillmd" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-3-create-skillmd" data-depth="3" data-astro-cid-xvrfupwn>Step 3: Create SKILL.md</a><a href="#step-4-implement-instructions" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-4-implement-instructions" data-depth="3" data-astro-cid-xvrfupwn>Step 4: Implement Instructions</a><a href="#step-5-write-the-code" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-5-write-the-code" data-depth="3" data-astro-cid-xvrfupwn>Step 5: Write the Code</a><a href="#step-6-test-everything" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-6-test-everything" data-depth="3" data-astro-cid-xvrfupwn>Step 6: Test Everything</a><a href="#step-7-create-examples" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-7-create-examples" data-depth="3" data-astro-cid-xvrfupwn>Step 7: Create Examples</a><a href="#step-8-document-everything" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-8-document-everything" data-depth="3" data-astro-cid-xvrfupwn>Step 8: Document Everything</a><a href="#publishing-your-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="publishing-your-skill" data-depth="2" data-astro-cid-xvrfupwn>Publishing Your Skill</a><a href="#local-storage-personal-projects" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="local-storage-personal-projects" data-depth="3" data-astro-cid-xvrfupwn>Local Storage (Personal Projects)</a><a href="#github-teamcommunity" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="github-teamcommunity" data-depth="3" data-astro-cid-xvrfupwn>GitHub (Team/Community)</a><a href="#getting-discovered-the-real-way" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="getting-discovered-the-real-way" data-depth="3" data-astro-cid-xvrfupwn>Getting Discovered (The Real Way)</a><a href="#ai-agents-that-use-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="ai-agents-that-use-skills" data-depth="2" data-astro-cid-xvrfupwn>AI Agents That Use Skills</a><a href="#claude-anthropic" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="claude-anthropic" data-depth="3" data-astro-cid-xvrfupwn>Claude (Anthropic)</a><a href="#other-ai-agents-that-support-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="other-ai-agents-that-support-skills" data-depth="3" data-astro-cid-xvrfupwn>Other AI Agents That Support Skills</a><a href="#how-to-make-your-skill-work-everywhere" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="how-to-make-your-skill-work-everywhere" data-depth="3" data-astro-cid-xvrfupwn>How to Make Your Skill Work Everywhere</a><a href="#pointing-agents-to-your-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="pointing-agents-to-your-skills" data-depth="3" data-astro-cid-xvrfupwn>Pointing Agents to Your Skills</a><a href="#real-world-example-security-audit-workflow" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="real-world-example-security-audit-workflow" data-depth="3" data-astro-cid-xvrfupwn>Real-World Example: Security Audit Workflow</a><a href="#building-a-skill-real-essentials" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="building-a-skill-real-essentials" data-depth="2" data-astro-cid-xvrfupwn>Building a Skill: Real Essentials</a><a href="#1-skillmd-the-entire-interface" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-skillmd-the-entire-interface" data-depth="3" data-astro-cid-xvrfupwn>1. SKILL.md (The entire interface)</a><a href="#examples" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="examples" data-depth="2" data-astro-cid-xvrfupwn>Examples</a><a href="#performance" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="performance" data-depth="2" data-astro-cid-xvrfupwn>Performance</a><a href="#maintainer" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="maintainer" data-depth="2" data-astro-cid-xvrfupwn>Maintainer</a><a href="#3-tests-folder-prove-it-works" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-tests-folder-prove-it-works" data-depth="3" data-astro-cid-xvrfupwn>3. /tests folder (Prove it works)</a><a href="#real-skills-in-action" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="real-skills-in-action" data-depth="2" data-astro-cid-xvrfupwn>Real Skills in Action</a><a href="#publishing-your-skill-1" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="publishing-your-skill-1" data-depth="2" data-astro-cid-xvrfupwn>Publishing Your Skill</a><a href="#best-practices-for-killer-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="best-practices-for-killer-skills" data-depth="2" data-astro-cid-xvrfupwn>Best Practices for Killer Skills</a><a href="#1-single-responsibility" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-single-responsibility" data-depth="3" data-astro-cid-xvrfupwn>1. Single Responsibility</a><a href="#2-clear-inputoutput" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-clear-inputoutput" data-depth="3" data-astro-cid-xvrfupwn>2. Clear Input/Output</a><a href="#3-fail-gracefully" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-fail-gracefully" data-depth="3" data-astro-cid-xvrfupwn>3. Fail Gracefully</a><a href="#4-performance-matters" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-performance-matters" data-depth="3" data-astro-cid-xvrfupwn>4. Performance Matters</a><a href="#5-test-with-real-data" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-test-with-real-data" data-depth="3" data-astro-cid-xvrfupwn>5. Test with Real Data</a><a href="#6-version-everything" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="6-version-everything" data-depth="3" data-astro-cid-xvrfupwn>6. Version Everything</a><a href="#7-write-for-non-devs" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="7-write-for-non-devs" data-depth="3" data-astro-cid-xvrfupwn>7. Write for Non-Devs</a><a href="#8-make-it-discoverable" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="8-make-it-discoverable" data-depth="3" data-astro-cid-xvrfupwn>8. Make It Discoverable</a><a href="#key-takeaways" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="key-takeaways" data-depth="2" data-astro-cid-xvrfupwn>Key Takeaways</a><a href="#getting-started" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="getting-started" data-depth="2" data-astro-cid-xvrfupwn>Getting Started</a><a href="#option-1-build-solo" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="option-1-build-solo" data-depth="3" data-astro-cid-xvrfupwn>Option 1: Build Solo</a><a href="#option-2-learn-from-examples" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="option-2-learn-from-examples" data-depth="3" data-astro-cid-xvrfupwn>Option 2: Learn from Examples</a><a href="#option-3-contribute-to-collections" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="option-3-contribute-to-collections" data-depth="3" data-astro-cid-xvrfupwn>Option 3: Contribute to Collections</a><a href="#resources--authoritative-references" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="resources--authoritative-references" data-depth="2" data-astro-cid-xvrfupwn>Resources &amp; Authoritative References</a></nav></div><div id="desktop-toc" class="hidden md:block fixed right-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 opacity-30 hover:opacity-100" data-astro-cid-xvrfupwn><!-- TOC Toggle Button --><button id="desktop-toc-toggle" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200 mb-2" aria-label="Toggle Table of Contents" data-astro-cid-xvrfupwn><svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg></button><!-- TOC Panel --><div id="desktop-toc-panel" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-4 w-64 max-h-96 overflow-y-auto transform transition-all duration-300 origin-top-right scale-0 opacity-0" data-astro-cid-xvrfupwn><h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center" data-astro-cid-xvrfupwn><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg>
+Contents
+</h3><nav class="space-y-1" data-astro-cid-xvrfupwn><a href="#what-is-an-ai-skill-the-real-definition" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-is-an-ai-skill-the-real-definition" data-depth="2" data-astro-cid-xvrfupwn>What Is an AI Skill? (The Real Definition)</a><a href="#the-anatomy-of-a-perfect-ai-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-anatomy-of-a-perfect-ai-skill" data-depth="2" data-astro-cid-xvrfupwn>The Anatomy of a Perfect AI Skill</a><a href="#1-skillmd-the-skill-definition" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-skillmd-the-skill-definition" data-depth="3" data-astro-cid-xvrfupwn>1. SKILL.md (The Skill Definition)</a><a href="#2-instructions-the-detailed-how-to" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-instructions-the-detailed-how-to" data-depth="3" data-astro-cid-xvrfupwn>2. Instructions (The Detailed How-To)</a><a href="#performance-considerations" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="performance-considerations" data-depth="2" data-astro-cid-xvrfupwn>Performance Considerations</a><a href="#error-handling" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="error-handling" data-depth="2" data-astro-cid-xvrfupwn>Error Handling</a><a href="#4-templates-resources-your-skill-uses" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-templates-resources-your-skill-uses" data-depth="3" data-astro-cid-xvrfupwn>4. Templates (Resources Your Skill Uses)</a><a href="#5-tests-validation" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-tests-validation" data-depth="3" data-astro-cid-xvrfupwn>5. Tests (Validation)</a><a href="#why-skills--prompts-hard-facts" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="why-skills--prompts-hard-facts" data-depth="2" data-astro-cid-xvrfupwn>Why Skills &gt; Prompts (Hard Facts)</a><a href="#1-consistency" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-consistency" data-depth="3" data-astro-cid-xvrfupwn>1. Consistency</a><a href="#2-reusability" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-reusability" data-depth="3" data-astro-cid-xvrfupwn>2. Reusability</a><a href="#3-versioning" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-versioning" data-depth="3" data-astro-cid-xvrfupwn>3. Versioning</a><a href="#4-performance" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-performance" data-depth="3" data-astro-cid-xvrfupwn>4. Performance</a><a href="#5-scalability" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-scalability" data-depth="3" data-astro-cid-xvrfupwn>5. Scalability</a><a href="#6-team-coordination" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="6-team-coordination" data-depth="3" data-astro-cid-xvrfupwn>6. Team Coordination</a><a href="#building-your-first-skill-step-by-step" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="building-your-first-skill-step-by-step" data-depth="2" data-astro-cid-xvrfupwn>Building Your First Skill (Step-by-Step)</a><a href="#step-1-identify-the-problem" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-1-identify-the-problem" data-depth="3" data-astro-cid-xvrfupwn>Step 1: Identify the Problem</a><a href="#step-2-define-the-contract" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-2-define-the-contract" data-depth="3" data-astro-cid-xvrfupwn>Step 2: Define the Contract</a><a href="#step-3-create-skillmd" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-3-create-skillmd" data-depth="3" data-astro-cid-xvrfupwn>Step 3: Create SKILL.md</a><a href="#step-4-implement-instructions" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-4-implement-instructions" data-depth="3" data-astro-cid-xvrfupwn>Step 4: Implement Instructions</a><a href="#step-5-write-the-code" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-5-write-the-code" data-depth="3" data-astro-cid-xvrfupwn>Step 5: Write the Code</a><a href="#step-6-test-everything" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-6-test-everything" data-depth="3" data-astro-cid-xvrfupwn>Step 6: Test Everything</a><a href="#step-7-create-examples" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-7-create-examples" data-depth="3" data-astro-cid-xvrfupwn>Step 7: Create Examples</a><a href="#step-8-document-everything" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-8-document-everything" data-depth="3" data-astro-cid-xvrfupwn>Step 8: Document Everything</a><a href="#publishing-your-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="publishing-your-skill" data-depth="2" data-astro-cid-xvrfupwn>Publishing Your Skill</a><a href="#local-storage-personal-projects" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="local-storage-personal-projects" data-depth="3" data-astro-cid-xvrfupwn>Local Storage (Personal Projects)</a><a href="#github-teamcommunity" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="github-teamcommunity" data-depth="3" data-astro-cid-xvrfupwn>GitHub (Team/Community)</a><a href="#getting-discovered-the-real-way" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="getting-discovered-the-real-way" data-depth="3" data-astro-cid-xvrfupwn>Getting Discovered (The Real Way)</a><a href="#ai-agents-that-use-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="ai-agents-that-use-skills" data-depth="2" data-astro-cid-xvrfupwn>AI Agents That Use Skills</a><a href="#claude-anthropic" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="claude-anthropic" data-depth="3" data-astro-cid-xvrfupwn>Claude (Anthropic)</a><a href="#other-ai-agents-that-support-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="other-ai-agents-that-support-skills" data-depth="3" data-astro-cid-xvrfupwn>Other AI Agents That Support Skills</a><a href="#how-to-make-your-skill-work-everywhere" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="how-to-make-your-skill-work-everywhere" data-depth="3" data-astro-cid-xvrfupwn>How to Make Your Skill Work Everywhere</a><a href="#pointing-agents-to-your-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="pointing-agents-to-your-skills" data-depth="3" data-astro-cid-xvrfupwn>Pointing Agents to Your Skills</a><a href="#real-world-example-security-audit-workflow" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="real-world-example-security-audit-workflow" data-depth="3" data-astro-cid-xvrfupwn>Real-World Example: Security Audit Workflow</a><a href="#building-a-skill-real-essentials" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="building-a-skill-real-essentials" data-depth="2" data-astro-cid-xvrfupwn>Building a Skill: Real Essentials</a><a href="#1-skillmd-the-entire-interface" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-skillmd-the-entire-interface" data-depth="3" data-astro-cid-xvrfupwn>1. SKILL.md (The entire interface)</a><a href="#examples" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="examples" data-depth="2" data-astro-cid-xvrfupwn>Examples</a><a href="#performance" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="performance" data-depth="2" data-astro-cid-xvrfupwn>Performance</a><a href="#maintainer" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="maintainer" data-depth="2" data-astro-cid-xvrfupwn>Maintainer</a><a href="#3-tests-folder-prove-it-works" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-tests-folder-prove-it-works" data-depth="3" data-astro-cid-xvrfupwn>3. /tests folder (Prove it works)</a><a href="#real-skills-in-action" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="real-skills-in-action" data-depth="2" data-astro-cid-xvrfupwn>Real Skills in Action</a><a href="#publishing-your-skill-1" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="publishing-your-skill-1" data-depth="2" data-astro-cid-xvrfupwn>Publishing Your Skill</a><a href="#best-practices-for-killer-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="best-practices-for-killer-skills" data-depth="2" data-astro-cid-xvrfupwn>Best Practices for Killer Skills</a><a href="#1-single-responsibility" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-single-responsibility" data-depth="3" data-astro-cid-xvrfupwn>1. Single Responsibility</a><a href="#2-clear-inputoutput" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-clear-inputoutput" data-depth="3" data-astro-cid-xvrfupwn>2. Clear Input/Output</a><a href="#3-fail-gracefully" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-fail-gracefully" data-depth="3" data-astro-cid-xvrfupwn>3. Fail Gracefully</a><a href="#4-performance-matters" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-performance-matters" data-depth="3" data-astro-cid-xvrfupwn>4. Performance Matters</a><a href="#5-test-with-real-data" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-test-with-real-data" data-depth="3" data-astro-cid-xvrfupwn>5. Test with Real Data</a><a href="#6-version-everything" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="6-version-everything" data-depth="3" data-astro-cid-xvrfupwn>6. Version Everything</a><a href="#7-write-for-non-devs" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="7-write-for-non-devs" data-depth="3" data-astro-cid-xvrfupwn>7. Write for Non-Devs</a><a href="#8-make-it-discoverable" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="8-make-it-discoverable" data-depth="3" data-astro-cid-xvrfupwn>8. Make It Discoverable</a><a href="#key-takeaways" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="key-takeaways" data-depth="2" data-astro-cid-xvrfupwn>Key Takeaways</a><a href="#getting-started" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="getting-started" data-depth="2" data-astro-cid-xvrfupwn>Getting Started</a><a href="#option-1-build-solo" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="option-1-build-solo" data-depth="3" data-astro-cid-xvrfupwn>Option 1: Build Solo</a><a href="#option-2-learn-from-examples" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="option-2-learn-from-examples" data-depth="3" data-astro-cid-xvrfupwn>Option 2: Learn from Examples</a><a href="#option-3-contribute-to-collections" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="option-3-contribute-to-collections" data-depth="3" data-astro-cid-xvrfupwn>Option 3: Contribute to Collections</a><a href="#resources--authoritative-references" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="resources--authoritative-references" data-depth="2" data-astro-cid-xvrfupwn>Resources &amp; Authoritative References</a></nav></div></div><div id="toc-notification" class="fixed notification-bubble top-4 right-4 z-50 max-w-sm w-full bg-white dark:bg-gray-800 border rounded-lg shadow-lg p-4 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200 transform transition-all duration-300 opacity-0 scale-95 pointer-events-none" data-duration="8000" data-dismissible="true" data-target-element="#mobile-toc-toggle" data-astro-cid-nbvelyww> <div class="flex items-start space-x-3" data-astro-cid-nbvelyww> <div class="flex-shrink-0 mt-0.5" data-astro-cid-nbvelyww> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg> </div> <div class="flex-1 min-w-0" data-astro-cid-nbvelyww> <p class="text-sm font-medium" data-astro-cid-nbvelyww>💡 Use the Table of Contents for quick navigation through this post!</p> </div> <button class="flex-shrink-0 ml-2 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onclick="dismissNotification('toc-notification')" aria-label="Dismiss notification" data-astro-cid-nbvelyww> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-nbvelyww> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-nbvelyww></path> </svg> </button> </div> <div class="absolute w-3 h-3 bg-white dark:bg-gray-800 border-t border-l border-gray-200 dark:border-gray-700 transform rotate-45 -top-1.5 left-6" data-astro-cid-nbvelyww></div> </div> <script type="module">const v=localStorage.getItem("toc-notification-seen"),u=document.getElementById("mobile-toc-toggle"),r=document.getElementById("mobile-toc-sidebar"),a=document.getElementById("mobile-toc-overlay"),y=document.getElementById("mobile-toc-close");let d=!1;if(u&&r&&a&&y){!v&&window.innerWidth<768&&setTimeout(()=>{window.showNotification&&(window.showNotification("toc-notification"),localStorage.setItem("toc-notification-seen","true"))},2e3),u.addEventListener("click",()=>{d=!0,a.classList.remove("opacity-0","pointer-events-none"),r.classList.remove("translate-x-full"),document.body.style.overflow="hidden"});const o=()=>{d=!1,a.classList.add("opacity-0","pointer-events-none"),r.classList.add("translate-x-full"),document.body.style.overflow=""};y.addEventListener("click",o),a.addEventListener("click",o),document.addEventListener("keydown",i=>{i.key==="Escape"&&d&&o()})}const m=document.getElementById("desktop-toc-toggle"),e=document.getElementById("desktop-toc-panel");let c=!1;m&&e&&(!v&&window.innerWidth>=768&&setTimeout(()=>{window.showNotification&&(window.showNotification("toc-notification"),localStorage.setItem("toc-notification-seen","true"))},2e3),m.addEventListener("click",()=>{c=!c,c?(e.classList.remove("scale-0","opacity-0"),e.classList.add("scale-100","opacity-100")):(e.classList.add("scale-0","opacity-0"),e.classList.remove("scale-100","opacity-100"))}),document.addEventListener("click",o=>{const i=o.target;c&&!m.contains(i)&&!e.contains(i)&&(c=!1,e.classList.add("scale-0","opacity-0"),e.classList.remove("scale-100","opacity-100"))}));const g=document.querySelectorAll(".toc-link");if(g.length>0){const o=Array.from(document.querySelectorAll("h2, h3, h4, h5, h6")).filter(n=>n.id);g.forEach(n=>{n.addEventListener("click",l=>{l.preventDefault();const t=n.getAttribute("href")?.slice(1),s=document.getElementById(t||"");s&&(s.scrollIntoView({behavior:"smooth",block:"start"}),d&&(d=!1,a?.classList.add("opacity-0","pointer-events-none"),r?.classList.add("translate-x-full"),document.body.style.overflow=""),c&&(c=!1,e?.classList.add("scale-0","opacity-0"),e?.classList.remove("scale-100","opacity-100")))})});const i=()=>{const n=window.scrollY;let l=null;for(let t=o.length-1;t>=0;t--){const s=o[t],w=s.offsetTop-100;if(n>=w){l=s;break}}g.forEach(t=>{t.classList.remove("active");const s=t.getAttribute("href")?.slice(1);l&&s===l.id&&t.classList.add("active")})};let f=!1;const p=()=>{f||(requestAnimationFrame(()=>{i(),f=!1}),f=!0)};window.addEventListener("scroll",p),i()}</script>  </main> <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll"> <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400"> <p>Built with ❤️ by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Mangesh</a> using <a href="https://astro.build" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Astro</a> & <a href="https://tailwindcss.com" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Tailwind CSS</a></p> <p class="text-xs mt-2 opacity-50 hover:opacity-100 transition-opacity"> <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span> <a href="/secret" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a> </p> </div> </footer> </div> <!-- Back to Top Button --> <button id="back-to-top" class="fixed bottom-8 right-8 custom-gradient-bg hover:from-blue-600 hover:to-purple-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible translate-y-4 z-50 hover-lift group" aria-label="Back to top"> <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path> </svg> <!-- Progress ring --> <svg class="absolute inset-0 w-full h-full -rotate-90 opacity-30" viewBox="0 0 36 36"> <path id="progress-ring" class="stroke-current text-white" stroke-width="2" fill="transparent" stroke-dasharray="100, 100" stroke-dashoffset="100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path> </svg> </button> <script type="module">const t=document.getElementById("back-to-top"),n=document.getElementById("progress-ring");if(t&&n){let i=!1;const l=()=>{const o=window.scrollY,c=window.innerHeight,a=document.documentElement.scrollHeight,r=Math.min(100,Math.max(0,o/(a-c)*100)),e=100,s=e-r*e/100;n.style.strokeDashoffset=s.toString(),o>300?(t.classList.remove("opacity-0","invisible","translate-y-4"),t.classList.add("opacity-100","visible","translate-y-0")):(t.classList.add("opacity-0","invisible","translate-y-4"),t.classList.remove("opacity-100","visible","translate-y-0")),i=!1},m=()=>{i||(requestAnimationFrame(l),i=!0)},u=()=>{t.style.transform="scale(0.95)",setTimeout(()=>{t.style.transform=""},150);const o=window.scrollY,c=performance.now(),a=800,r=s=>1-Math.pow(1-s,3),e=s=>{const p=s-c,d=Math.min(p/a,1),y=r(d);window.scrollTo(0,o*(1-y)),d<1&&requestAnimationFrame(e)};requestAnimationFrame(e)};window.addEventListener("scroll",m,{passive:!0}),t.addEventListener("click",u),l(),t.addEventListener("mouseenter",()=>{n.style.opacity="0.6"}),t.addEventListener("mouseleave",()=>{n.style.opacity="0.3"})}</script> <!-- Easter Eggs --> <!-- Hidden Easter Egg Elements --><div id="easter-eggs" data-astro-cid-mei435rj> <!-- Floating Emojis Container --> <div id="floating-emojis" class="fixed inset-0 pointer-events-none z-50" data-astro-cid-mei435rj></div> <!-- Secret Message Modal --> <div id="secret-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" data-astro-cid-mei435rj> <div class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md mx-4 text-center transform scale-0 transition-transform duration-300" data-astro-cid-mei435rj> <div class="text-6xl mb-4" data-astro-cid-mei435rj>🎉</div> <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100" data-astro-cid-mei435rj>You Found It!</h2> <p class="text-gray-600 dark:text-gray-400 mb-6" data-astro-cid-mei435rj>
+Congratulations! You discovered the Konami code easter egg. 
+        You're clearly a person of culture! 🎮
+</p> <button id="close-secret" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-astro-cid-mei435rj>
+Awesome!
+</button> </div> </div> <!-- Dancing Cat (appears on triple click) --> <div id="dancing-cat" class="fixed bottom-4 right-4 z-40 hidden" data-astro-cid-mei435rj> <div class="text-6xl animate-bounce" data-astro-cid-mei435rj>🐱</div> </div> <!-- Rainbow Mode Toggle --> <div id="rainbow-mode" class="hidden" data-astro-cid-mei435rj></div> </div> <script defer>
+  // Easter Egg 1: Konami Code (↑↑↓↓←→←→BA)
+  let konamiCode = [];
+  const konamiSequence = [
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+  ];
+
+  document.addEventListener('keydown', (e) => {
+    konamiCode.push(e.code);
+    
+    // Keep only the last 10 keys
+    if (konamiCode.length > 10) {
+      konamiCode.shift();
+    }
+    
+    // Check if sequence matches
+    if (konamiCode.length === 10 && 
+        konamiCode.every((key, index) => key === konamiSequence[index])) {
+      triggerKonamiEasterEgg();
+      konamiCode = [];
+    }
+  });
+
+  function triggerKonamiEasterEgg() {
+    const modal = document.getElementById('secret-modal');
+    const content = modal?.querySelector('div');
+    
+    if (modal && content) {
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        content.classList.add('scale-100');
+      }, 100);
+      
+      // Add confetti effect
+      createConfetti();
+    }
+  }
+
+  // Close secret modal
+  document.getElementById('close-secret')?.addEventListener('click', () => {
+    const modal = document.getElementById('secret-modal');
+    const content = modal?.querySelector('div');
+    
+    if (content) {
+      content.classList.remove('scale-100');
+      setTimeout(() => {
+        modal?.classList.add('hidden');
+      }, 300);
+    }
+  });
+
+  // Easter Egg 2: Click Effects (floating emojis)
+  const clickEmojis = ['✨', '🎉', '💫', '⭐', '🌟', '💥', '🎊', '🔥'];
+  let clickCount = 0;
+
+  document.addEventListener('click', (_e) => {
+    // Random chance for emoji on click
+    if (Math.random() < 0.1) {
+      createFloatingEmoji(_e.clientX, _e.clientY);
+    }
+    
+    // Special effect on rapid clicks
+    clickCount++;
+    setTimeout(() => clickCount--, 1000);
+    
+    if (clickCount >= 10) {
+      triggerClickFrenzy();
+      clickCount = 0;
+    }
+  });
+
+  function createFloatingEmoji(x, y, emoji) {
+    const container = document.getElementById('floating-emojis');
+    if (!container) return;
+    
+    const emojiEl = document.createElement('div');
+    emojiEl.textContent = emoji || clickEmojis[Math.floor(Math.random() * clickEmojis.length)];
+    emojiEl.className = 'absolute text-2xl pointer-events-none animate-ping';
+    emojiEl.style.left = x + 'px';
+    emojiEl.style.top = y + 'px';
+    emojiEl.style.transform = 'translate(-50%, -50%)';
+    
+    container.appendChild(emojiEl);
+    
+    // Remove after animation
+    setTimeout(() => {
+      emojiEl.remove();
+    }, 1000);
+  }
+
+  function triggerClickFrenzy() {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        createFloatingEmoji(x, y);
+      }, i * 100);
+    }
+  }
+
+  // Easter Egg 3: Triple Click Dancing Cat
+  let lastClickTime = 0;
+  let clickSequence = 0;
+
+  document.addEventListener('click', (e) => {
+    const now = Date.now();
+    
+    if (now - lastClickTime < 500) {
+      clickSequence++;
+    } else {
+      clickSequence = 1;
+    }
+    
+    lastClickTime = now;
+    
+    if (clickSequence >= 3) {
+      showDancingCat();
+      clickSequence = 0;
+    }
+  });
+
+  function showDancingCat() {
+    const cat = document.getElementById('dancing-cat');
+    if (!cat) return;
+    
+    cat.classList.remove('hidden');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+      cat.classList.add('hidden');
+    }, 3000);
+  }
+
+  // Easter Egg 4: Simple Keyboard Shortcuts
+  let keySequence = '';
+  let keyTimeout;
+  
+  document.addEventListener('keydown', (e) => {
+    // Only trigger on letter keys when not typing in input fields
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      return;
+    }
+    
+    // Clear previous timeout
+    clearTimeout(keyTimeout);
+    
+    // Add key to sequence
+    keySequence += e.key.toLowerCase();
+    
+    // Check for trigger words
+    if (keySequence.includes('rainbow')) {
+      toggleRainbowMode();
+      keySequence = '';
+      return;
+    }
+    
+    if (keySequence.includes('surprise')) {
+      triggerSurprise();
+      keySequence = '';
+      return;
+    }
+    
+    if (keySequence.includes('dev')) {
+      toggleDeveloperMode();
+      keySequence = '';
+      return;
+    }
+    
+    // Reset sequence after 2 seconds of inactivity
+    keyTimeout = setTimeout(() => {
+      keySequence = '';
+    }, 2000);
+    
+    // Keep only last 10 characters to prevent memory issues
+    if (keySequence.length > 10) {
+      keySequence = keySequence.slice(-10);
+    }
+  });
+
+  let rainbowMode = false;
+  function toggleRainbowMode() {
+    rainbowMode = !rainbowMode;
+    const body = document.body;
+    
+    if (rainbowMode) {
+      body.style.animation = 'rainbow 3s infinite';
+      body.style.transition = 'all 0.3s ease';
+      createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '🌈');
+      
+      // Show notification
+      const notification = document.createElement('div');
+      notification.innerHTML = `
+        <div class="text-center">
+          <div class="text-lg">🌈 Rainbow Mode Activated!</div>
+          <div class="text-xs opacity-75 mt-1">Type "rainbow" again to toggle</div>
+        </div>
+      `;
+      notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-6 py-3 rounded-lg z-50 animate-bounce';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+      
+      // Auto-disable after 10 seconds
+      setTimeout(() => {
+        if (rainbowMode) {
+          body.style.animation = '';
+          rainbowMode = false;
+        }
+      }, 10000);
+    } else {
+      body.style.animation = '';
+      body.style.transition = '';
+    }
+  }
+
+  function triggerSurprise() {
+    // Random surprise effects
+    const surprises = [
+      () => {
+        // Wobbly page
+        document.body.style.transform = 'rotate(2deg)';
+        document.body.style.transition = 'transform 0.3s ease';
+        setTimeout(() => {
+          document.body.style.transform = '';
+        }, 2000);
+      },
+      () => createConfetti(),
+      () => showDancingCat(),
+      () => {
+        // Comic Sans transformation
+        const text = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div');
+        text.forEach(el => {
+          const original = el.style.fontFamily;
+          el.style.fontFamily = 'Comic Sans MS, cursive';
+          el.style.transition = 'font-family 0.3s ease';
+          setTimeout(() => {
+            el.style.fontFamily = original;
+          }, 3000);
+        });
+      },
+      () => {
+        // Upside down
+        document.body.style.transform = 'rotate(180deg)';
+        document.body.style.transition = 'transform 1s ease';
+        setTimeout(() => {
+          document.body.style.transform = '';
+        }, 3000);
+      },
+      () => {
+        // Bounce effect
+        document.body.style.animation = 'bounce 1s ease-in-out 3';
+        setTimeout(() => {
+          document.body.style.animation = '';
+        }, 3000);
+      }
+    ];
+    
+    const randomSurprise = surprises[Math.floor(Math.random() * surprises.length)];
+    randomSurprise();
+    
+    // Show notification
+    const notification = document.createElement('div');
+    notification.innerHTML = `
+      <div class="text-center">
+        <div class="text-lg">🎉 Surprise!</div>
+        <div class="text-xs opacity-75 mt-1">Type "surprise" for more surprises</div>
+      </div>
+    `;
+    notification.className = 'fixed top-20 right-4 bg-pink-600 text-white px-4 py-2 rounded-lg z-50 animate-pulse';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 2000);
+  }
+
+  let devMode = false;
+  function toggleDeveloperMode() {
+    devMode = !devMode;
+    
+    if (devMode) {
+      // Add debug info
+      const debugInfo = document.createElement('div');
+      debugInfo.id = 'debug-info';
+      debugInfo.className = 'fixed top-20 left-4 bg-black text-green-400 p-2 rounded font-mono text-xs z-50';
+      debugInfo.innerHTML = `
+        <div>🔧 Developer Mode Active</div>
+        <div>Screen: ${window.innerWidth}x${window.innerHeight}</div>
+        <div>User Agent: ${navigator.userAgent.split(' ')[0]}</div>
+        <div>Theme: ${document.documentElement.classList.contains('dark') ? 'Dark' : 'Light'}</div>
+        <div>Platform: ${navigator.platform}</div>
+        <div class="text-yellow-400 mt-1">Type "dev" to toggle</div>
+      `;
+      document.body.appendChild(debugInfo);
+      
+      // Add click counter
+      let devClicks = 0;
+      const clickCounter = document.createElement('div');
+      clickCounter.id = 'click-counter';
+      clickCounter.className = 'fixed top-20 right-4 bg-black text-green-400 p-2 rounded font-mono text-xs z-50';
+      clickCounter.textContent = `Clicks: ${devClicks}`;
+      document.body.appendChild(clickCounter);
+      
+      const countClicks = () => {
+        devClicks++;
+        clickCounter.textContent = `Clicks: ${devClicks}`;
+      };
+      
+      document.addEventListener('click', countClicks);
+      
+      // Store cleanup function
+      window.cleanupDevMode = () => {
+        document.removeEventListener('click', countClicks);
+        document.getElementById('debug-info')?.remove();
+        document.getElementById('click-counter')?.remove();
+      };
+    } else {
+      window.cleanupDevMode?.();
+    }
+  }
+
+  // Easter Egg 5: Confetti Effect
+  function createConfetti() {
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+    const container = document.getElementById('floating-emojis');
+    if (!container) return;
+    
+    for (let i = 0; i < 50; i++) {
+      setTimeout(() => {
+        const confetti = document.createElement('div');
+        confetti.className = 'absolute w-2 h-2 rounded-full pointer-events-none';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-10px';
+        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+        
+        container.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }, i * 50);
+    }
+  }
+
+  // Easter Egg 6: Secret Navigation
+  let secretPath = '';
+  document.addEventListener('keydown', (e) => {
+    if (e.key.length === 1) {
+      secretPath += e.key.toLowerCase();
+      
+      // Keep only last 10 characters
+      if (secretPath.length > 10) {
+        secretPath = secretPath.slice(-10);
+      }
+      
+      // Check for secret words
+      if (secretPath.includes('mangesh')) {
+        createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '👨‍💻');
+        secretPath = '';
+      } else if (secretPath.includes('hello')) {
+        createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '👋');
+        secretPath = '';
+      } else if (secretPath.includes('awesome')) {
+        triggerClickFrenzy();
+        secretPath = '';
+      }
+    }
+  });
+
+  // Easter Egg 7: Time-based surprises
+  const now = new Date();
+  const hour = now.getHours();
+  
+  // Late night coding mode
+  if (hour >= 23 || hour <= 5) {
+    setTimeout(() => {
+      createFloatingEmoji(window.innerWidth - 100, 100, '🌙');
+    }, 5000);
+  }
+  
+  // Friday celebration
+  if (now.getDay() === 5) {
+    setTimeout(() => {
+      createFloatingEmoji(100, 100, '🎉');
+    }, 3000);
+  }
+
+  // Random meme suggestion (5% chance)
+  if (Math.random() < 0.05) {
+    setTimeout(() => {
+      const memeNotification = document.createElement('div');
+      memeNotification.className = 'fixed bottom-4 left-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 cursor-pointer transform transition-all hover:scale-105';
+      memeNotification.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🤣</span>
+          <div class="text-sm">
+            <div class="font-bold">Need a laugh?</div>
+            <div class="opacity-90">Check out some programming memes!</div>
+          </div>
+          <button class="ml-2 text-white hover:text-gray-200">×</button>
+        </div>
+      `;
+      
+      memeNotification.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.textContent === '×') {
+          memeNotification.remove();
+        } else {
+          window.location.href = '/meme';
+        }
+      });
+      
+      document.body.appendChild(memeNotification);
+      
+      // Auto-remove after 8 seconds
+      setTimeout(() => {
+        if (document.body.contains(memeNotification)) {
+          memeNotification.style.transform = 'translateX(-100%)';
+          setTimeout(() => memeNotification.remove(), 300);
+        }
+      }, 8000);
+    }, Math.random() * 30000 + 10000); // Random delay between 10-40 seconds
+  }
+
+
+</script>  <!-- Global Visitor Counter --> <!-- <CleanGlobalCounter /> --> <script type="module">const l=document.getElementById("theme-toggle"),c=document.documentElement,f=localStorage.getItem("theme")||"light";f==="dark"&&c.classList.add("dark");l?.addEventListener("click",()=>{c.classList.toggle("dark");const e=c.classList.contains("dark");localStorage.setItem("theme",e?"dark":"light"),l.style.transform="scale(0.95)",setTimeout(()=>{l.style.transform=""},150)});const g=document.getElementById("mobile-menu-btn"),t=document.getElementById("mobile-menu"),o=document.getElementById("menu-open-icon"),r=document.getElementById("menu-close-icon");g?.addEventListener("click",()=>{t?.classList.contains("hidden")?(t?.classList.remove("hidden"),t?.classList.add("mobile-menu-enter"),o?.classList.add("hidden"),r?.classList.remove("hidden")):(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const v=t?.querySelectorAll("a");v?.forEach(e=>{e.addEventListener("click",()=>{t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden")})});document.addEventListener("click",e=>{const s=e.target;!t?.contains(s)&&!g?.contains(s)&&(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const m=document.getElementById("reading-progress"),n=document.getElementById("navbar");let h=window.scrollY,d=!1;const u=()=>{const e=window.scrollY,s=window.innerHeight,i=document.documentElement.scrollHeight,a=Math.min(100,Math.max(0,e/(i-s)*100));if(m&&(m.style.width=`${a}%`),n){const L=e>h,y=e>100;L&&y?n.style.transform="translateY(-100%)":n.style.transform="translateY(0)",e>20?n.classList.add("backdrop-blur-md"):n.classList.remove("backdrop-blur-md")}h=e,d=!1},b=()=>{d||(requestAnimationFrame(u),d=!0)},w={threshold:.1,rootMargin:"0px 0px -50px 0px"},p=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&(s.target.classList.add("in-view"),p.unobserve(s.target))})},w),E=document.querySelectorAll(".animate-on-scroll");E.forEach(e=>p.observe(e));const k=document.querySelectorAll("[data-stagger]");k.forEach(e=>{const s=e.children;Array.from(s).forEach((i,a)=>{i.style.animationDelay=`${a*.1}s`})});window.addEventListener("scroll",b);u();console.log(`
+        🎨 Welcome to Mangesh's Blog!
+        
+        ✨ Now with smooth animations and enhanced UX!
+        
+        🔍 Developer Tools Detected!
+        Since you're here, you might enjoy these easter eggs:
+        
+        🎮 Try the Konami Code: ↑↑↓↓←→←→BA
+        🖱️ Triple click anywhere for a surprise
+        ⌨️ Type "rainbow" for rainbow mode
+        ⌨️ Type "surprise" for a random surprise  
+        ⌨️ Type "dev" for developer mode
+        🔤 Type "mangesh", "hello", or "awesome"
+        
+        💡 There might be a secret page somewhere... 👀
+        
+        🎭 Notice the smooth animations? They respect your motion preferences!
+        
+        Happy exploring! 🚀
+      `);</script> </body> </html>
