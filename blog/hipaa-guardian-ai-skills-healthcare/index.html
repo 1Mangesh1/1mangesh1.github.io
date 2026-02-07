@@ -1,0 +1,1154 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills."><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><meta name="generator" content="Astro v5.16.11"><!-- Primary Meta Tags --><title>HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically - Mangesh&#39;s Blog</title><meta name="title" content="HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically - Mangesh's Blog"><meta name="description" content="Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills."><meta name="author" content="Mangesh Bide"><link rel="canonical" href="https://mangeshbide.tech/blog/hipaa-guardian-ai-skills-healthcare/"><!-- Robots --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://mangeshbide.tech/blog/hipaa-guardian-ai-skills-healthcare/"><meta property="og:title" content="HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically - Mangesh's Blog"><meta property="og:description" content="Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills."><meta property="og:image" content="https://mangeshbide.tech/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:logo" content="https://mangeshbide.tech/me.jpg"><meta property="og:site_name" content="Mangesh Bide"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://mangeshbide.tech/blog/hipaa-guardian-ai-skills-healthcare/"><meta property="twitter:title" content="HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically - Mangesh's Blog"><meta property="twitter:description" content="Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills."><meta property="twitter:image" content="https://mangeshbide.tech/og-image.png"><meta property="twitter:image:width" content="1200"><meta property="twitter:image:height" content="630"><meta property="twitter:creator" content="@Mangesh_Bide"><!-- Additional SEO --><meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog"><meta name="theme-color" content="#3b82f6"><!-- Content Security Policy for GoatCounter --><meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at;"><!-- LinkedIn specific --><meta property="article:author" content="Mangesh Bide"><meta name="image" content="https://mangeshbide.tech/og-image.png"><!-- Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mangesh Bide",
+        "url": "https://mangeshbide.tech",
+        "image": "https://mangeshbide.tech/og-image.png",
+        "photo": "https://mangeshbide.tech/me.jpg",
+        "jobTitle": "Software Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Houseworks Technologies"
+        },
+        "alumniOf": "https://www.rcpit.ac.in",
+        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+        "sameAs": [
+          "https://github.com/1mangesh1",
+          "https://x.com/Mangesh_Bide",
+          "https://linkedin.com/in/mangesh-bide/"
+        ]
+      }
+    </script><!-- GoatCounter Analytics --><script data-goatcounter="https://mangeshbide.goatcounter.com/count" data-goatcounter-settings="{&quot;allow_local&quot;: true}" async src="//gc.zgo.at/count.js"></script><!-- Animation Styles --><link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/animations.css"></noscript><link rel="stylesheet" href="/assets/about.Bst9RmKs.css">
+<style>@keyframes rainbow{0%{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}@keyframes fall{to{transform:translateY(100vh) rotate(360deg)}}#dancing-cat[data-astro-cid-mei435rj]{animation:dance .5s infinite alternate}@keyframes dance{0%{transform:rotate(-10deg) scale(1)}to{transform:rotate(10deg) scale(1.1)}}
+.notification-bubble[data-astro-cid-nbvelyww]{max-width:100vw;box-sizing:border-box;margin:0 auto}@media (max-width: 640px){.notification-bubble[data-astro-cid-nbvelyww]{left:50%!important;right:auto!important;transform:translate(-50%)!important;width:calc(100vw - 2rem);max-width:95vw;min-width:0;top:1rem!important}}.toc-link[data-astro-cid-xvrfupwn].active{font-weight:500;--tw-text-opacity: 1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn].active:is(.dark *){--tw-text-opacity: 1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn].active:before{content:"";position:absolute;left:0;top:50%;height:1rem;width:.25rem;--tw-translate-y: -50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));border-radius:9999px;--tw-bg-opacity: 1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn]{position:relative;padding-left:1rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="2"]{padding-left:1rem;font-weight:500}.toc-link[data-astro-cid-xvrfupwn][data-depth="3"]{padding-left:1.5rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="4"]{padding-left:2rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="5"]{padding-left:2.5rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="6"]{padding-left:3rem}
+</style></head> <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"> <!-- Reading Progress Bar --> <div id="reading-progress" class="fixed top-0 left-0 h-1 custom-gradient-bg z-50 transition-all duration-300" style="width: 0%"></div> <div class="min-h-screen flex flex-col page-enter"> <header id="navbar" class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-all duration-300 sticky top-0 z-40 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90"> <nav class="max-w-4xl mx-auto px-4 py-6"> <!-- Desktop Navigation --> <div class="flex justify-between items-center"> <div class="flex items-center space-x-8"> <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll slide-left">
+by mangesh
+</a> <div class="hidden md:flex space-x-6"> <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll stagger-1">Blog</a> <a href="/portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll stagger-2">Portfolio</a> <!-- Fun Dropdown --> <div class="relative group animate-on-scroll stagger-3"> <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+Fun
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/games" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Games
+</a> <a href="/fun" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Life & Hobbies
+</a> <a href="/meme" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Memes
+</a> </div> </div> </div> <!-- About Dropdown --> <div class="relative group animate-on-scroll stagger-4"> <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+About
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/about" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Me
+</a> <a href="/uses" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+My Stack
+</a> <a href="/resume" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Resume
+</a> <a href="/now" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Now
+</a> <a href="/guestbook" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Guestbook
+</a> </div> </div> </div> <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll stagger-5">Contact</a> <!-- More Dropdown --> <div class="relative group animate-on-scroll stagger-5"> <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+More
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/til" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+TIL
+</a> <a href="/snippets" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Snippets
+</a> <a href="/bookmarks" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Bookmarks
+</a> <a href="/books" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Books
+</a> <a href="/random" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Random
+</a> <!-- <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div> --> <a href="/tools" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Dev Tools
+</a> <a href="/credits" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+Credits
+</a> </div> </div> </div> </div> </div> <div class="flex items-center space-x-2"> <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 hover-lift animate-on-scroll slide-right" aria-label="Search"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> </svg> </a> <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 theme-toggle animate-on-scroll slide-right stagger-1" aria-label="Toggle theme"> <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path> </svg> <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors hover-lift" aria-label="Toggle mobile menu"> <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> </div> <!-- Mobile Menu --> <div id="mobile-menu" class="hidden md:hidden mt-4 mobile-menu-enter"> <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-lg hover-lift"> <!-- Main Links --> <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Blog
+</a> <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Portfolio
+</a> <!-- Fun Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+Fun
+</div> <a href="/games" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Games
+</a> <a href="/fun" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Life & Hobbies
+</a> <a href="/meme" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Memes
+</a> <!-- About Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+About
+</div> <a href="/about" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+About Me
+</a> <a href="/uses" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+My Stack
+</a> <a href="/resume" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Resume
+</a> <a href="/guestbook" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Guestbook
+</a> <a href="/contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors mt-4">
+Contact
+</a> <!-- More Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+More
+</div> <a href="/til" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+TIL
+</a> <a href="/snippets" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Snippets
+</a> <a href="/bookmarks" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Bookmarks
+</a> <a href="/books" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Books
+</a> <a href="/random" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Random
+</a> <a href="/tools" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Dev Tools
+</a> <a href="/credits" class="block px-6 py-2 rounded-md text-base font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Credits
+</a> </div> </div> </nav> </header> <main class="flex-1">  <article class="max-w-4xl mx-auto px-4 py-12"> <header class="mb-8"> <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4"> <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400">Blog</a> <span class="mx-2">/</span> <span class="text-gray-900 dark:text-gray-100">HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically</span> </nav> <h1 class="text-4xl font-bold mb-4">HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically</h1> <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4"> <time datetime="2026-02-05T00:00:00.000Z"> February 5, 2026 </time> <span class="mx-2">•</span> <span>7 min read</span> <span class="mx-2">•</span> <!-- <CleanVisitorCounter /> --> </div> <p class="text-lg text-gray-700 dark:text-gray-300 mb-6"> Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills. </p> <div class="flex flex-wrap gap-2 mb-8"> <a href="/blog/tags/hipaa" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> HIPAA </a><a href="/blog/tags/healthcare" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Healthcare </a><a href="/blog/tags/ai-agents" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> AI Agents </a><a href="/blog/tags/compliance" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Compliance </a><a href="/blog/tags/security" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Security </a><a href="/blog/tags/agent-skills" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Agent Skills </a><a href="/blog/tags/python" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Python </a><a href="/blog/tags/healthcare-tech" class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"> Healthcare Tech </a> </div> </header> <!-- Social Share --> <div class="mb-8"> <div class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"> <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Share this post:</span> <div class="flex items-center gap-2"> <!-- Twitter --> <a href="https://twitter.com/intent/tweet?text=HIPAA%20Guardian%3A%20Building%20AI%20Skills%20to%20Detect%20Healthcare%20Data%20Breaches%20Automatically&url=https%3A%2F%2Fmangeshbide.tech%2Fblog%2Fhipaa-guardian-ai-skills-healthcare" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" aria-label="Share on Twitter"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path> </svg> </a> <!-- LinkedIn --> <a href="https://linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmangeshbide.tech%2Fblog%2Fhipaa-guardian-ai-skills-healthcare" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" aria-label="Share on LinkedIn"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <!-- Facebook --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmangeshbide.tech%2Fblog%2Fhipaa-guardian-ai-skills-healthcare" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" aria-label="Share on Facebook"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path> </svg> </a> <!-- Copy Link --> <button id="copy-link-btn" data-url="https://mangeshbide.tech/blog/hipaa-guardian-ai-skills-healthcare" class="p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors" aria-label="Copy link"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path> </svg> </button> </div> </div> <!-- Toast notification for copy success --> <div id="copy-toast" class="fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 invisible transition-all duration-300 z-50">
+Link copied to clipboard!
+</div> <script type="module">const i=document.getElementById("copy-link-btn"),t=document.getElementById("copy-toast");i&&t&&i.addEventListener("click",async()=>{const o=i.getAttribute("data-url");try{await navigator.clipboard.writeText(o||window.location.href),t.classList.remove("opacity-0","invisible"),t.classList.add("opacity-100","visible"),setTimeout(()=>{t.classList.add("opacity-0","invisible"),t.classList.remove("opacity-100","visible")},3e3)}catch{const e=document.createElement("textarea");e.value=o||window.location.href,document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),t.classList.remove("opacity-0","invisible"),t.classList.add("opacity-100","visible"),setTimeout(()=>{t.classList.add("opacity-0","invisible"),t.classList.remove("opacity-100","visible")},3e3)}});</script> </div> <div class="prose prose-lg dark:prose-invert max-w-none"> <p>I’ve been working on healthcare code for the past year.</p>
+<p>As software engineers, we:</p>
+<ul>
+<li>debug fast</li>
+<li>log everything</li>
+<li>deploy fixes quickly</li>
+</ul>
+<p>In most products, if a user log accidentally reaches production, it’s frustrating — but manageable.</p>
+<p>In healthcare, the same mistake can cost <strong>millions</strong>.</p>
+<p>One patient field in logs.
+One PHI value in a message.
+One missed prompt.</p>
+<p>And suddenly it’s not just a bug — it’s a <strong>HIPAA violation</strong>.</p>
+<p>That reality forces you to think differently as an engineer.</p>
+<p>This isn’t just code.
+This is real people’s medical data.</p>
+<p>The hardest part?
+When you’re deep in debugging and shipping fixes, it’s easy to miss small details — even for experienced engineers, even for <strong>AI agents</strong>.</p>
+<p>So I asked myself:</p>
+<p><strong>What if an agent could act as a second pair of eyes and say — “Hold up. This might contain PHI or PII.”</strong></p>
+<p>That idea led me to build <strong>HIPAA Guardian</strong> — an agent skill that helps identify potential HIPAA issues early, before small errors turn into costly problems.</p>
+<p>In healthcare tech, speed matters — but <strong>compliance and safety matter more</strong>.</p>
+<hr>
+<h2 id="what-is-hipaa-and-why-engineers-need-to-care">What Is HIPAA (And Why Engineers Need to Care)</h2>
+<p><strong>HIPAA = Health Insurance Portability and Accountability Act</strong></p>
+<p>It’s not just legal compliance jargon. HIPAA violations carry:</p>
+<ul>
+<li><strong>Fines:</strong> $100 - $50,000+ <em>per violation</em></li>
+<li><strong>Lawsuits:</strong> From patients, regulators, competitors</li>
+<li><strong>Reputation damage:</strong> Can shut down startups</li>
+<li><strong>Criminal liability:</strong> Jail time for intentional violations (yes, really)</li>
+</ul>
+<p><strong>What’s Protected Information (PHI)?</strong></p>
+<p>Any health-related data linked to a person:</p>
+<ul>
+<li>Names + medical record numbers</li>
+<li>Social security numbers</li>
+<li>Insurance information</li>
+<li>Diagnosis codes</li>
+<li>Medication details</li>
+<li>Lab results</li>
+<li>Appointment dates</li>
+<li>Even payment card numbers if tied to healthcare</li>
+</ul>
+<p><strong>The sneaky part?</strong> PHI isn’t just explicit medical data. It’s anything that <em>could</em> identify someone + health information.</p>
+<p><strong>The developer problem:</strong> When you’re debugging, logging, testing, or iterating — it’s easy to accidentally:</p>
+<ul>
+<li>Log PHI with debug statements</li>
+<li>Include patient data in error messages</li>
+<li>Expose medical history in API responses</li>
+<li>Leave test data with real addresses/names</li>
+<li>Have AI agents regurgitating patient info</li>
+</ul>
+<p>Each incident is a violation. Each violation is expensive.</p>
+<hr>
+<h2 id="why-traditional-compliance-tools-fail-and-why-you-need-ai-skills">Why Traditional Compliance Tools Fail (And Why You Need AI Skills)</h2>
+<h3 id="the-old-way-manual-code-review">The Old Way: Manual Code Review</h3>
+<p>Compliance teams manually review code looking for PHI leaks.</p>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>Slow (blocks shipping)</li>
+<li>Incomplete (humans miss patterns)</li>
+<li>Expensive (requires specialized staff)</li>
+<li>Reactive (catches issues after deployment)</li>
+<li>Doesn’t scale with AI agents</li>
+</ul>
+<h3 id="the-new-way-ai-agent-skills">The New Way: AI Agent Skills</h3>
+<p>An <strong>agent skill</strong> is a reusable tool that an AI agent can invoke to perform specific tasks.</p>
+<p>Instead of waiting for humans to review, you give your AI agent <strong>HIPAA Guardian skill</strong> which:</p>
+<ul>
+<li>✅ Scans code for PHI automatically</li>
+<li>✅ Checks logs in real-time</li>
+<li>✅ Validates AI-generated responses</li>
+<li>✅ Flags suspicious patterns before deployment</li>
+<li>✅ Works 24/7 with zero human bottleneck</li>
+</ul>
+<p><strong>The game changer?</strong> Your AI agent can now self-check. When writing code or generating content, the agent can invoke the HIPAA Guardian skill to ask: “Does this output contain PHI?”</p>
+<hr>
+<h2 id="how-hipaa-guardian-works">How HIPAA Guardian Works</h2>
+<h3 id="architecture-overview">Architecture Overview</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Code/Log/API Response</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>HIPAA Guardian Skill</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>Pattern Matching + AI Detection</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>Risk Assessment (Low/Medium/High)</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>Report + Remediation Suggestions</span></span></code></pre>
+<h3 id="what-it-detects">What It Detects</h3>
+<ol>
+<li>
+<p><strong>PII Patterns</strong></p>
+<ul>
+<li>SSN formats (XXX-XX-XXXX)</li>
+<li>Phone numbers</li>
+<li>Email addresses</li>
+<li>Credit card numbers</li>
+</ul>
+</li>
+<li>
+<p><strong>Healthcare-Specific PHI</strong></p>
+<ul>
+<li>Medical record numbers</li>
+<li>Diagnosis codes (ICD-10, CPT)</li>
+<li>Medication names + dosages</li>
+<li>Lab values</li>
+<li>Dates of birth + service dates</li>
+</ul>
+</li>
+<li>
+<p><strong>Context Clues</strong></p>
+<ul>
+<li>Healthcare facility names</li>
+<li>Doctor names + credentials</li>
+<li>Hospital admission records</li>
+<li>Insurance claim details</li>
+</ul>
+</li>
+<li>
+<p><strong>AI Output Validation</strong></p>
+<ul>
+<li>Checks AI-generated responses for leaked data</li>
+<li>Validates prompt injection risks</li>
+<li>Detects information leakage patterns</li>
+</ul>
+</li>
+</ol>
+<h3 id="example-detection-flow">Example Detection Flow</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Input: A log line from debugging</span></span>
+<span class="line"><span style="color:#E1E4E8">log_entry </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "User 123-45-6789 diagnosed with Type 2 Diabetes visited Boston Medical on 01/15/2026"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># HIPAA Guardian analyzes it</span></span>
+<span class="line"><span style="color:#E1E4E8">result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> hipaa_guardian.scan(log_entry)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Returns:</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">    "risk_level"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"CRITICAL"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "violations"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">        {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SSN"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "pattern"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"123-45-6789"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "recommendation"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Remove SSN, use patient ID instead"</span></span>
+<span class="line"><span style="color:#E1E4E8">        },</span></span>
+<span class="line"><span style="color:#E1E4E8">        {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"DIAGNOSIS"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "pattern"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Type 2 Diabetes"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "recommendation"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Store diagnosis in secure database, not logs"</span></span>
+<span class="line"><span style="color:#E1E4E8">        },</span></span>
+<span class="line"><span style="color:#E1E4E8">        {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LOCATION_WITH_DATE"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "pattern"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Boston Medical on 01/15/2026"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "recommendation"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Remove specific dates and facility names from logs"</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<hr>
+<h2 id="understanding-agent-skills-deep-dive">Understanding Agent Skills (Deep Dive)</h2>
+<p>Before building HIPAA Guardian, you need to understand what an <strong>agent skill</strong> is.</p>
+<p>An agent skill is:</p>
+<ul>
+<li><strong>A discrete unit of functionality</strong> that an agent can invoke</li>
+<li><strong>Reusable across agents</strong> (pass between projects)</li>
+<li><strong>Self-documenting</strong> (agent knows inputs/outputs)</li>
+<li><strong>Chainable</strong> (skills can call other skills)</li>
+<li><strong>Version-controlled</strong> (track changes, dependencies)</li>
+</ul>
+<h3 id="the-skill-anatomy">The Skill Anatomy</h3>
+<p>Every skill has:</p>
+<ol>
+<li><strong>Manifest</strong> - Metadata describing the skill</li>
+<li><strong>Entry Point</strong> - Function the agent invokes</li>
+<li><strong>Config Schema</strong> - What the skill needs to run</li>
+<li><strong>Output Schema</strong> - What the skill returns</li>
+</ol>
+<h3 id="simple-skill-example">Simple Skill Example</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># skill_manifest.json</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">    "id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"hipaa-guardian"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"HIPAA Guardian"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Detects PHI/PII in code, logs, and AI outputs"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "author"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1Mangesh1"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "tags"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"healthcare"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"compliance"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"security"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"phi"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"pii"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    "entryPoint"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"scan_for_phi"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "requiredInputs"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">        "content"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"string"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Text to scan for PHI/PII"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "required"</span><span style="color:#E1E4E8">: true</span></span>
+<span class="line"><span style="color:#E1E4E8">        },</span></span>
+<span class="line"><span style="color:#9ECBFF">        "context"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"object"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Optional context (file type, source, etc)"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "required"</span><span style="color:#E1E4E8">: false</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    "outputs"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">        "risk_level"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"string"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "violations"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"array"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "recommendations"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"array"</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># skill_implementation.py</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> re</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> typing </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Dict, List, Optional</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> scan_for_phi</span><span style="color:#E1E4E8">(content: </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">, context: Optional[Dict] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> None</span><span style="color:#E1E4E8">) -> Dict:</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    Main skill entry point - scans content for PHI/PII</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#E1E4E8">    violations </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # Pattern matching for common PHI</span></span>
+<span class="line"><span style="color:#E1E4E8">    patterns </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">        "SSN"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">r</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">\b\d</span><span style="color:#F97583">{3}</span><span style="color:#DBEDFF">-</span><span style="color:#79B8FF">\d</span><span style="color:#F97583">{2}</span><span style="color:#DBEDFF">-</span><span style="color:#79B8FF">\d</span><span style="color:#F97583">{4}</span><span style="color:#79B8FF">\b</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "PHONE"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">r</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">(?:</span><span style="color:#85E89D;font-weight:bold">\+</span><span style="color:#DBEDFF">1</span><span style="color:#F97583">|</span><span style="color:#DBEDFF">1</span><span style="color:#79B8FF">)</span><span style="color:#F97583">?</span><span style="color:#79B8FF">\s</span><span style="color:#F97583">*</span><span style="color:#85E89D;font-weight:bold">\(</span><span style="color:#F97583">?</span><span style="color:#79B8FF">(\d</span><span style="color:#F97583">{3}</span><span style="color:#79B8FF">)</span><span style="color:#85E89D;font-weight:bold">\)</span><span style="color:#F97583">?</span><span style="color:#79B8FF">[-.\s]</span><span style="color:#F97583">?</span><span style="color:#79B8FF">(\d</span><span style="color:#F97583">{3}</span><span style="color:#79B8FF">)[-.\s]</span><span style="color:#F97583">?</span><span style="color:#79B8FF">(\d</span><span style="color:#F97583">{4}</span><span style="color:#79B8FF">)</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "MRN"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">r</span><span style="color:#9ECBFF">"</span><span style="color:#DBEDFF">MRN</span><span style="color:#79B8FF">[:\s]</span><span style="color:#F97583">+</span><span style="color:#79B8FF">(\d</span><span style="color:#F97583">{6,}</span><span style="color:#79B8FF">)</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "ICD_CODE"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">r</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">\b</span><span style="color:#DBEDFF">I</span><span style="color:#79B8FF">[0-9]</span><span style="color:#F97583">{2}</span><span style="color:#79B8FF">(?:</span><span style="color:#85E89D;font-weight:bold">\.</span><span style="color:#79B8FF">[0-9A-Z]</span><span style="color:#F97583">{1,4}</span><span style="color:#79B8FF">)</span><span style="color:#F97583">?</span><span style="color:#79B8FF">\b</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "DOB"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">r</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">\b(</span><span style="color:#DBEDFF">0</span><span style="color:#79B8FF">[1-9]</span><span style="color:#F97583">|</span><span style="color:#DBEDFF">1</span><span style="color:#79B8FF">[0-2])</span><span style="color:#DBEDFF">/</span><span style="color:#79B8FF">(</span><span style="color:#DBEDFF">0</span><span style="color:#79B8FF">[1-9]</span><span style="color:#F97583">|</span><span style="color:#79B8FF">[12]\d</span><span style="color:#F97583">|</span><span style="color:#DBEDFF">3</span><span style="color:#79B8FF">[01])</span><span style="color:#DBEDFF">/</span><span style="color:#79B8FF">(</span><span style="color:#DBEDFF">19</span><span style="color:#F97583">|</span><span style="color:#DBEDFF">20</span><span style="color:#79B8FF">)\d</span><span style="color:#F97583">{2}</span><span style="color:#79B8FF">\b</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> phi_type, pattern </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> patterns.items():</span></span>
+<span class="line"><span style="color:#E1E4E8">        matches </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> re.finditer(pattern, content)</span></span>
+<span class="line"><span style="color:#F97583">        for</span><span style="color:#E1E4E8"> match </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> matches:</span></span>
+<span class="line"><span style="color:#E1E4E8">            violations.append({</span></span>
+<span class="line"><span style="color:#9ECBFF">                "type"</span><span style="color:#E1E4E8">: phi_type,</span></span>
+<span class="line"><span style="color:#9ECBFF">                "pattern"</span><span style="color:#E1E4E8">: match.group(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">                "position"</span><span style="color:#E1E4E8">: match.span(),</span></span>
+<span class="line"><span style="color:#9ECBFF">                "severity"</span><span style="color:#E1E4E8">: get_severity(phi_type)</span></span>
+<span class="line"><span style="color:#E1E4E8">            })</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # Calculate risk level</span></span>
+<span class="line"><span style="color:#E1E4E8">    risk_level </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> calculate_risk(violations)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">        "risk_level"</span><span style="color:#E1E4E8">: risk_level,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "violations"</span><span style="color:#E1E4E8">: violations,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "recommendations"</span><span style="color:#E1E4E8">: get_recommendations(violations),</span></span>
+<span class="line"><span style="color:#9ECBFF">        "scan_metadata"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "scanned_length"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">len</span><span style="color:#E1E4E8">(content),</span></span>
+<span class="line"><span style="color:#9ECBFF">            "patterns_checked"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">len</span><span style="color:#E1E4E8">(patterns),</span></span>
+<span class="line"><span style="color:#9ECBFF">            "violations_found"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">len</span><span style="color:#E1E4E8">(violations)</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> get_severity</span><span style="color:#E1E4E8">(phi_type: </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">) -> </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#9ECBFF">    """Determine severity of PHI type"""</span></span>
+<span class="line"><span style="color:#E1E4E8">    severity_map </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">        "SSN"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"CRITICAL"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "MRN"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"CRITICAL"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "DOB"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"HIGH"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "PHONE"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"MEDIUM"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "ICD_CODE"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"MEDIUM"</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> severity_map.get(phi_type, </span><span style="color:#9ECBFF">"LOW"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> calculate_risk</span><span style="color:#E1E4E8">(violations: List[Dict]) -> </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#9ECBFF">    """Calculate overall risk level"""</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#F97583"> not</span><span style="color:#E1E4E8"> violations:</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#9ECBFF"> "SAFE"</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    critical </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> sum</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> violations </span><span style="color:#F97583">if</span><span style="color:#E1E4E8"> v.get(</span><span style="color:#9ECBFF">"severity"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "CRITICAL"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> critical </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#9ECBFF"> "CRITICAL"</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    high </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> sum</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> violations </span><span style="color:#F97583">if</span><span style="color:#E1E4E8"> v.get(</span><span style="color:#9ECBFF">"severity"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "HIGH"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> high </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#9ECBFF"> "HIGH"</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#9ECBFF"> "MEDIUM"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> get_recommendations</span><span style="color:#E1E4E8">(violations: List[Dict]) -> List[</span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">]:</span></span>
+<span class="line"><span style="color:#9ECBFF">    """Generate remediation recommendations"""</span></span>
+<span class="line"><span style="color:#E1E4E8">    recommendations </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    phi_types </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> set</span><span style="color:#E1E4E8">(v[</span><span style="color:#9ECBFF">"type"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">for</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> violations)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#9ECBFF"> "SSN"</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> phi_types:</span></span>
+<span class="line"><span style="color:#E1E4E8">        recommendations.append(</span><span style="color:#9ECBFF">"Remove SSN. Use patient ID or MRN instead."</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#9ECBFF"> "PHONE"</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> phi_types:</span></span>
+<span class="line"><span style="color:#E1E4E8">        recommendations.append(</span><span style="color:#9ECBFF">"Phone numbers should be encrypted or tokenized."</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#9ECBFF"> "MRN"</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> phi_types </span><span style="color:#F97583">and</span><span style="color:#9ECBFF"> "DOB"</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> phi_types:</span></span>
+<span class="line"><span style="color:#E1E4E8">        recommendations.append(</span><span style="color:#9ECBFF">"Patient identifiers detected. Audit logging access."</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> recommendations</span></span></code></pre>
+<hr>
+<h2 id="building-your-own-healthcare-ai-skill">Building Your Own Healthcare AI Skill</h2>
+<h3 id="step-1-define-the-problem-skill-specification">Step 1: Define the Problem (Skill Specification)</h3>
+<p>Before coding, ask:</p>
+<ul>
+<li>What specific problem does this skill solve?</li>
+<li>What inputs will it receive?</li>
+<li>What outputs does the agent need?</li>
+<li>How will it fail safely?</li>
+</ul>
+<p><strong>Example (HIPAA Guardian):</strong></p>
+<ul>
+<li><strong>Problem:</strong> Detect PHI/PII in text before it reaches logs or deployment</li>
+<li><strong>Inputs:</strong> String content, optional context metadata</li>
+<li><strong>Outputs:</strong> Risk level, violation list, recommendations</li>
+<li><strong>Safe failure:</strong> Return <code>"SAFE"</code> if content can’t be parsed (assume safe)</li>
+</ul>
+<h3 id="step-2-create-the-skill-manifest">Step 2: Create the Skill Manifest</h3>
+<p>This tells agents what your skill does:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">    "id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-skill-id"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Human-Readable Skill Name"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Single sentence describing what it does"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "author"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Your Name"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "repository"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"https://github.com/username/skill-repo"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "tags"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"category"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"use-case"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"domain"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">    "entryPoint"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"function_name"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "requiredInputs"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">        "parameter_name"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">            "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"string|object|array|number|boolean"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">            "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"What this parameter does"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">            "required"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#FDAEB7;font-style:italic">|</span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#79B8FF">    "outputs"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">        "field_name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"type"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">        "explanation"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"What this field means"</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#79B8FF">    "dependencies"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"other-skill-id"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">    "rateLimit"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">        "max_calls"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">        "per_seconds"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">60</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="step-3-implement-the-skill-logic">Step 3: Implement the Skill Logic</h3>
+<p>Use a structured approach:</p>
+<ol>
+<li><strong>Validate inputs</strong> - Check what you received matches spec</li>
+<li><strong>Core logic</strong> - Do the actual work</li>
+<li><strong>Error handling</strong> - Fail gracefully</li>
+<li><strong>Return structured output</strong> - Match your manifest exactly</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> main_skill_function</span><span style="color:#E1E4E8">(required_param: </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">, optional_param: </span><span style="color:#79B8FF">str</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> None</span><span style="color:#E1E4E8">) -> Dict:</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    Main entry point that agents will call.</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Args:</span></span>
+<span class="line"><span style="color:#9ECBFF">        required_param: Description</span></span>
+<span class="line"><span style="color:#9ECBFF">        optional_param: Optional parameter with smart default</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Returns:</span></span>
+<span class="line"><span style="color:#9ECBFF">        dict: Structured output matching manifest</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#6A737D">    # Input validation</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#F97583"> not</span><span style="color:#E1E4E8"> required_param </span><span style="color:#F97583">or</span><span style="color:#F97583"> not</span><span style="color:#79B8FF"> isinstance</span><span style="color:#E1E4E8">(required_param, </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> {</span><span style="color:#9ECBFF">"error"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Invalid input"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"status"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"FAILED"</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">        # Core logic here</span></span>
+<span class="line"><span style="color:#E1E4E8">        result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> process_logic(required_param)</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#6A737D">        # Return structured output</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "status"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"SUCCESS"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "data"</span><span style="color:#E1E4E8">: result,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "metadata"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">                "input_length"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">len</span><span style="color:#E1E4E8">(required_param),</span></span>
+<span class="line"><span style="color:#9ECBFF">                "processed_at"</span><span style="color:#E1E4E8">: datetime.now().isoformat()</span></span>
+<span class="line"><span style="color:#E1E4E8">            }</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    except</span><span style="color:#79B8FF"> Exception</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> e:</span></span>
+<span class="line"><span style="color:#6A737D">        # Safe failure</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">            "status"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"FAILED"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            "error"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">str</span><span style="color:#E1E4E8">(e),</span></span>
+<span class="line"><span style="color:#9ECBFF">            "data"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">None</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span></code></pre>
+<h3 id="step-4-test-your-skill">Step 4: Test Your Skill</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># test_skill.py</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> pytest</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> skill_implementation </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> scan_for_phi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_detects_ssn</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> scan_for_phi(</span><span style="color:#9ECBFF">"Patient SSN 123-45-6789 admitted"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"risk_level"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">!=</span><span style="color:#9ECBFF"> "SAFE"</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">(v[</span><span style="color:#9ECBFF">"type"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "SSN"</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"violations"</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_safe_content</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> scan_for_phi(</span><span style="color:#9ECBFF">"The weather is nice today"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"risk_level"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "SAFE"</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> len</span><span style="color:#E1E4E8">(result[</span><span style="color:#9ECBFF">"violations"</span><span style="color:#E1E4E8">]) </span><span style="color:#F97583">==</span><span style="color:#79B8FF"> 0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> test_multiple_phi</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> scan_for_phi(</span><span style="color:#9ECBFF">"John Doe 123-45-6789 DOB 01/15/1990"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"risk_level"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "CRITICAL"</span></span>
+<span class="line"><span style="color:#F97583">    assert</span><span style="color:#79B8FF"> len</span><span style="color:#E1E4E8">(result[</span><span style="color:#9ECBFF">"violations"</span><span style="color:#E1E4E8">]) </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 2</span></span></code></pre>
+<hr>
+<h2 id="integrating-with-dev-skills-collection">Integrating with dev-skills-collection</h2>
+<p><a href="https://github.com/1Mangesh1/dev-skills-collection">dev-skills-collection</a> is a central repository for reusable AI skills.</p>
+<h3 id="why-publish-your-skill">Why Publish Your Skill?</h3>
+<p>✅ Other developers can use your skill<br>
+✅ Get feedback and improvements<br>
+✅ Build reputation in the AI agent ecosystem<br>
+✅ Reduce duplication across projects<br>
+✅ Create a portfolio of working code</p>
+<h3 id="publishing-steps">Publishing Steps</h3>
+<ol>
+<li>
+<p><strong>Organize Your Skill</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/skills/hipaa-guardian/</span></span>
+<span class="line"><span>├── manifest.json</span></span>
+<span class="line"><span>├── skill.py</span></span>
+<span class="line"><span>├── requirements.txt</span></span>
+<span class="line"><span>├── tests/</span></span>
+<span class="line"><span>│   └── test_skill.py</span></span>
+<span class="line"><span>└── README.md</span></span></code></pre>
+</li>
+<li>
+<p><strong>Add to dev-skills-collection</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/1Mangesh1/dev-skills-collection</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> dev-skills-collection</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#79B8FF"> -r</span><span style="color:#9ECBFF"> ~/hipaa-guardian</span><span style="color:#9ECBFF"> skills/</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> skills/hipaa-guardian/</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> commit</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> "feat: add HIPAA Guardian skill for PHI detection"</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> push</span><span style="color:#9ECBFF"> origin</span><span style="color:#9ECBFF"> feature/hipaa-guardian</span></span>
+<span class="line"><span style="color:#6A737D"># Create PR</span></span></code></pre>
+</li>
+<li>
+<p><strong>Update Registry</strong>
+The collection maintains a <code>skills-registry.json</code> with metadata for discovery:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">    "id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"hipaa-guardian"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"HIPAA Guardian"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "category"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"healthcare"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "downloads"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1500</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "rating"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">4.8</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "maintainer"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1Mangesh1"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Document Everything</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold"># HIPAA Guardian Skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Usage</span></span>
+<span class="line"><span style="color:#E1E4E8">```python</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> skills.hipaa_guardian </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> scan_for_phi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> scan_for_phi(</span><span style="color:#9ECBFF">"Patient data here"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> result[</span><span style="color:#9ECBFF">"risk_level"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "CRITICAL"</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    alert_compliance_team()</span></span></code></pre>
+<h2 id="what-it-detects-1">What It Detects</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" checked disabled> SSN patterns</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Medical record numbers</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Diagnosis codes
+…</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="real-world-example-using-hipaa-guardian-in-your-cicd">Real-World Example: Using HIPAA Guardian in Your CI/CD</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># .github/workflows/hipaa-check.yml</span></span>
+<span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">HIPAA Compliance Check</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">on</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">pull_request</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">jobs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  scan</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v2</span></span>
+<span class="line"><span style="color:#E1E4E8">      </span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Install HIPAA Guardian</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">pip install hipaa-guardian</span></span>
+<span class="line"><span style="color:#E1E4E8">      </span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Scan code for PHI</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#9ECBFF">          hipaa-guardian scan \</span></span>
+<span class="line"><span style="color:#9ECBFF">            --target src/ \</span></span>
+<span class="line"><span style="color:#9ECBFF">            --output report.json \</span></span>
+<span class="line"><span style="color:#9ECBFF">            --fail-on CRITICAL</span></span>
+<span class="line"><span style="color:#9ECBFF">      </span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Upload report</span></span>
+<span class="line"><span style="color:#85E89D">        if</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">always()</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/upload-artifact@v2</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">hipaa-scan-report</span></span>
+<span class="line"><span style="color:#85E89D">          path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">report.json</span></span>
+<span class="line"><span style="color:#E1E4E8">      </span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Comment on PR</span></span>
+<span class="line"><span style="color:#85E89D">        if</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">failure()</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/github-script@v6</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          script</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#9ECBFF">            github.rest.issues.createComment({</span></span>
+<span class="line"><span style="color:#9ECBFF">              issue_number: context.issue.number,</span></span>
+<span class="line"><span style="color:#9ECBFF">              owner: context.repo.owner,</span></span>
+<span class="line"><span style="color:#9ECBFF">              repo: context.repo.repo,</span></span>
+<span class="line"><span style="color:#9ECBFF">              body: '⚠️ HIPAA violations detected. Review report.'</span></span>
+<span class="line"><span style="color:#9ECBFF">            })</span></span></code></pre>
+<hr>
+<h2 id="key-lessons-for-building-healthcare-ai-skills">Key Lessons for Building Healthcare AI Skills</h2>
+<h3 id="1-assume-worst-case-scenario">1. <strong>Assume Worst-Case Scenario</strong></h3>
+<p>When in doubt, flag it. False positives are better than compliance violations.</p>
+<h3 id="2-make-errors-visible">2. <strong>Make Errors Visible</strong></h3>
+<p>Don’t silently skip checks. Log what your skill found, even if it’s safe.</p>
+<h3 id="3-keep-it-fast">3. <strong>Keep It Fast</strong></h3>
+<p>Skills run during development. If it’s slow, engineers will disable it.</p>
+<h3 id="4-provide-fixes-not-just-warnings">4. <strong>Provide Fixes, Not Just Warnings</strong></h3>
+<p>“You have PHI here” → Agents stop. “Remove SSN, use patient ID instead” → Agents can fix it.</p>
+<h3 id="5-be-specific-about-patterns">5. <strong>Be Specific About Patterns</strong></h3>
+<p>Generic “don’t expose data” rules fail. Specific regex patterns for SSN, MRN, etc. work.</p>
+<h3 id="6-test-with-real-data-anonymized">6. <strong>Test with Real Data (Anonymized)</strong></h3>
+<p>Pattern matching tools are great, but test with actual healthcare formats.</p>
+<hr>
+<h2 id="the-future-ai-powered-healthcare-engineering">The Future: AI-Powered Healthcare Engineering</h2>
+<p>As AI agents take on more coding and audit responsibilities, skills like HIPAA Guardian become foundational.</p>
+<p><strong>What’s coming:</strong></p>
+<ul>
+<li>🔍 Real-time agent monitoring for compliance violations</li>
+<li>🤖 Agents that auto-remediate PHI leaks before deployment</li>
+<li>📊 Dashboards showing which agents handle sensitive data best</li>
+<li>🔐 Skills ecosystem where healthcare companies rate and share compliance tools</li>
+<li>🌐 Industry standards for healthcare AI safety (similar to GDPR compliance)</li>
+</ul>
+<p><strong>The opportunity:</strong> If you’re building in healthcare tech, creating compliance skills now positions you as someone who understands both engineering and trust. That’s rare. That’s valuable.</p>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<ol>
+<li>
+<p><strong>Explore HIPAA Guardian</strong></p>
+<ul>
+<li>GitHub: <a href="https://github.com/1Mangesh1/hipaa-guardian">1Mangesh1/hipaa-guardian</a></li>
+<li>Try it: <code>pip install hipaa-guardian</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Learn AI Skills</strong></p>
+<ul>
+<li>Repo: <a href="https://github.com/1Mangesh1/dev-skills-collection">1Mangesh1/dev-skills-collection</a></li>
+<li>Browse existing skills for examples</li>
+</ul>
+</li>
+<li>
+<p><strong>Build Your First Skill</strong></p>
+<ul>
+<li>Start small (compliance, validation, parsing)</li>
+<li>Test thoroughly with real scenarios</li>
+<li>Publish to dev-skills-collection</li>
+<li>Iterate based on feedback</li>
+</ul>
+</li>
+<li>
+<p><strong>Connect with Developers</strong></p>
+<ul>
+<li>Join healthcare tech communities</li>
+<li>Open issues for new detection patterns</li>
+<li>Collaborate on improvements</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="final-thought">Final Thought</h2>
+<p>Healthcare code isn’t just code.</p>
+<p>When you log a patient’s diagnosis, you’re not debugging — you’re handling someone’s private medical information.</p>
+<p>When an AI agent generates a response that includes PHI, it’s not a harmless mistake — it’s a violation.</p>
+<p>That responsibility changes how you build. It makes you careful. It makes you think about edge cases.</p>
+<p>And tools like HIPAA Guardian exist to make sure that care doesn’t disappear under deadline pressure.</p>
+<p>If you’re building healthcare tech, use them. If you’re building skills, use healthcare compliance as your testing ground. The stakes are real, and the need is urgent.</p>
+<p><strong>Speed matters in healthcare — but so does never shipping a HIPAA violation.</strong></p>
+<hr>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><strong>HIPAA Guardian</strong>: <a href="https://github.com/1Mangesh1/hipaa-guardian">GitHub Repository</a></li>
+<li><strong>dev-skills-collection</strong>: <a href="https://github.com/1Mangesh1/dev-skills-collection">Repository</a></li>
+<li><strong>HIPAA Compliance Guide</strong>: <a href="https://www.hhs.gov/hipaa/">HHS.gov</a></li>
+<li><strong>AI Skills Framework</strong>: <a href="https://docs.anthropic.com/">Anthropic Docs</a></li>
+<li><strong>Pattern Matching Guide</strong>: <a href="https://regex101.com/">Regex101.com</a></li>
+</ul>
+<hr>
+<p><strong>Questions or want to contribute?</strong> Open an issue on <a href="https://github.com/1Mangesh1/hipaa-guardian">HIPAA Guardian</a> or contribute to <a href="https://github.com/1Mangesh1/dev-skills-collection">dev-skills-collection</a>.</p>
+<p>Healthcare tech desperately needs engineers who care about compliance. Be one of them. 🏥🔒</p> </div> <section class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"> <h2 class="text-2xl font-bold mb-6">Related Posts</h2> <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"> <article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"> <h3 class="text-lg font-semibold mb-2"> <a href="/blog/how-to-build-ai-agent-skills" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"> The Complete Guide to Building AI Agent Skills: From Zero to Production </a> </h3> <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block"> February 7, 2026 </time> <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3"> Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices. </p> <div class="flex flex-wrap gap-1"> <a href="/blog/tags/ai-agents" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> AI Agents </a><a href="/blog/tags/claude" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Claude </a><a href="/blog/tags/agent-skills" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Agent Skills </a> <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
++5 </span> </div> </article><article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"> <h3 class="text-lg font-semibold mb-2"> <a href="/blog/building-ai-agents-practical-guide" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"> Building AI Agents That Actually Work: A Practical Guide for 2026 </a> </h3> <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block"> January 1, 2026 </time> <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3"> Move beyond chatbots to autonomous AI agents. Learn the patterns, pitfalls, and practical implementation strategies for building AI agents that can reason, plan, and execute complex tasks. </p> <div class="flex flex-wrap gap-1"> <a href="/blog/tags/ai" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> AI </a><a href="/blog/tags/ai-agents" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> AI Agents </a><a href="/blog/tags/llm" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> LLM </a> <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
++3 </span> </div> </article><article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"> <h3 class="text-lg font-semibold mb-2"> <a href="/blog/multi-tenant-architecture-complete-guide" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"> Multi-Tenant SaaS Architecture: Patterns, Security, Scaling, and Best Practices </a> </h3> <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block"> September 16, 2025 </time> <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3"> Learn how to design, implement, and scale multi-tenant systems with real-world examples, patterns, and best practices for modern SaaS applications. </p> <div class="flex flex-wrap gap-1"> <a href="/blog/tags/architecture" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Architecture </a><a href="/blog/tags/saas" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> SaaS </a><a href="/blog/tags/multi-tenant" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"> Multi-tenant </a> <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
++3 </span> </div> </article> </div> </section> <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"> <a href="/blog" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"> <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path> </svg>
+Back to blog
+</a> </div> </article>  <script type="module">window.notificationQueue=window.notificationQueue||[];function a(i,e={}){const t=document.getElementById(i);if(!t)return;const o={duration:parseInt(t.dataset.duration||"5000"),dismissible:t.dataset.dismissible!=="false",targetElement:t.dataset.targetElement,...e};if(t.classList.remove("opacity-0","scale-95","pointer-events-none"),t.classList.add("opacity-100","scale-100"),o.targetElement){const n=document.querySelector(o.targetElement);if(n){const s=n.getBoundingClientRect();t.style.top=`${s.bottom+10}px`,t.style.left=`${s.left}px`,t.style.position="fixed"}}o.duration>0&&setTimeout(()=>{c(i)},o.duration),window.notificationQueue.push(i)}function c(i){const e=document.getElementById(i);if(!e)return;e.classList.add("opacity-0","scale-95","pointer-events-none"),e.classList.remove("opacity-100","scale-100");const t=window.notificationQueue.indexOf(i);t>-1&&window.notificationQueue.splice(t,1),setTimeout(()=>{e.remove()},300)}window.showNotification=a;window.dismissNotification=c;document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll('[data-auto-show="true"]').forEach(e=>{const t=e.id;t&&a(t)})});</script><button id="mobile-toc-toggle" class="fixed top-20 right-4 z-50 md:hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Toggle Table of Contents" data-astro-cid-xvrfupwn><svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg></button><div id="mobile-toc-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300 opacity-0 pointer-events-none" data-astro-cid-xvrfupwn></div><div id="mobile-toc-sidebar" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 z-50 md:hidden transform transition-transform duration-300 translate-x-full overflow-y-auto" data-astro-cid-xvrfupwn><div class="p-4 border-b border-gray-200 dark:border-gray-700" data-astro-cid-xvrfupwn><div class="flex items-center justify-between" data-astro-cid-xvrfupwn><h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center" data-astro-cid-xvrfupwn><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg>
+Contents
+</h3><button id="mobile-toc-close" class="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="Close Table of Contents" data-astro-cid-xvrfupwn><svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-xvrfupwn></path></svg></button></div></div><nav class="p-4 space-y-2" data-astro-cid-xvrfupwn><a href="#what-is-hipaa-and-why-engineers-need-to-care" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-is-hipaa-and-why-engineers-need-to-care" data-depth="2" data-astro-cid-xvrfupwn>What Is HIPAA (And Why Engineers Need to Care)</a><a href="#why-traditional-compliance-tools-fail-and-why-you-need-ai-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="why-traditional-compliance-tools-fail-and-why-you-need-ai-skills" data-depth="2" data-astro-cid-xvrfupwn>Why Traditional Compliance Tools Fail (And Why You Need AI Skills)</a><a href="#the-old-way-manual-code-review" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-old-way-manual-code-review" data-depth="3" data-astro-cid-xvrfupwn>The Old Way: Manual Code Review</a><a href="#the-new-way-ai-agent-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-new-way-ai-agent-skills" data-depth="3" data-astro-cid-xvrfupwn>The New Way: AI Agent Skills</a><a href="#how-hipaa-guardian-works" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="how-hipaa-guardian-works" data-depth="2" data-astro-cid-xvrfupwn>How HIPAA Guardian Works</a><a href="#architecture-overview" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="architecture-overview" data-depth="3" data-astro-cid-xvrfupwn>Architecture Overview</a><a href="#what-it-detects" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-it-detects" data-depth="3" data-astro-cid-xvrfupwn>What It Detects</a><a href="#example-detection-flow" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="example-detection-flow" data-depth="3" data-astro-cid-xvrfupwn>Example Detection Flow</a><a href="#understanding-agent-skills-deep-dive" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="understanding-agent-skills-deep-dive" data-depth="2" data-astro-cid-xvrfupwn>Understanding Agent Skills (Deep Dive)</a><a href="#the-skill-anatomy" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-skill-anatomy" data-depth="3" data-astro-cid-xvrfupwn>The Skill Anatomy</a><a href="#simple-skill-example" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="simple-skill-example" data-depth="3" data-astro-cid-xvrfupwn>Simple Skill Example</a><a href="#building-your-own-healthcare-ai-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="building-your-own-healthcare-ai-skill" data-depth="2" data-astro-cid-xvrfupwn>Building Your Own Healthcare AI Skill</a><a href="#step-1-define-the-problem-skill-specification" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-1-define-the-problem-skill-specification" data-depth="3" data-astro-cid-xvrfupwn>Step 1: Define the Problem (Skill Specification)</a><a href="#step-2-create-the-skill-manifest" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-2-create-the-skill-manifest" data-depth="3" data-astro-cid-xvrfupwn>Step 2: Create the Skill Manifest</a><a href="#step-3-implement-the-skill-logic" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-3-implement-the-skill-logic" data-depth="3" data-astro-cid-xvrfupwn>Step 3: Implement the Skill Logic</a><a href="#step-4-test-your-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-4-test-your-skill" data-depth="3" data-astro-cid-xvrfupwn>Step 4: Test Your Skill</a><a href="#integrating-with-dev-skills-collection" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="integrating-with-dev-skills-collection" data-depth="2" data-astro-cid-xvrfupwn>Integrating with dev-skills-collection</a><a href="#why-publish-your-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="why-publish-your-skill" data-depth="3" data-astro-cid-xvrfupwn>Why Publish Your Skill?</a><a href="#publishing-steps" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="publishing-steps" data-depth="3" data-astro-cid-xvrfupwn>Publishing Steps</a><a href="#what-it-detects-1" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-it-detects-1" data-depth="2" data-astro-cid-xvrfupwn>What It Detects</a><a href="#real-world-example-using-hipaa-guardian-in-your-cicd" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="real-world-example-using-hipaa-guardian-in-your-cicd" data-depth="2" data-astro-cid-xvrfupwn>Real-World Example: Using HIPAA Guardian in Your CI/CD</a><a href="#key-lessons-for-building-healthcare-ai-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="key-lessons-for-building-healthcare-ai-skills" data-depth="2" data-astro-cid-xvrfupwn>Key Lessons for Building Healthcare AI Skills</a><a href="#1-assume-worst-case-scenario" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-assume-worst-case-scenario" data-depth="3" data-astro-cid-xvrfupwn>1. Assume Worst-Case Scenario</a><a href="#2-make-errors-visible" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-make-errors-visible" data-depth="3" data-astro-cid-xvrfupwn>2. Make Errors Visible</a><a href="#3-keep-it-fast" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-keep-it-fast" data-depth="3" data-astro-cid-xvrfupwn>3. Keep It Fast</a><a href="#4-provide-fixes-not-just-warnings" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-provide-fixes-not-just-warnings" data-depth="3" data-astro-cid-xvrfupwn>4. Provide Fixes, Not Just Warnings</a><a href="#5-be-specific-about-patterns" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-be-specific-about-patterns" data-depth="3" data-astro-cid-xvrfupwn>5. Be Specific About Patterns</a><a href="#6-test-with-real-data-anonymized" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="6-test-with-real-data-anonymized" data-depth="3" data-astro-cid-xvrfupwn>6. Test with Real Data (Anonymized)</a><a href="#the-future-ai-powered-healthcare-engineering" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-future-ai-powered-healthcare-engineering" data-depth="2" data-astro-cid-xvrfupwn>The Future: AI-Powered Healthcare Engineering</a><a href="#getting-started" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="getting-started" data-depth="2" data-astro-cid-xvrfupwn>Getting Started</a><a href="#final-thought" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="final-thought" data-depth="2" data-astro-cid-xvrfupwn>Final Thought</a><a href="#resources" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="resources" data-depth="2" data-astro-cid-xvrfupwn>Resources</a></nav></div><div id="desktop-toc" class="hidden md:block fixed right-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 opacity-30 hover:opacity-100" data-astro-cid-xvrfupwn><!-- TOC Toggle Button --><button id="desktop-toc-toggle" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200 mb-2" aria-label="Toggle Table of Contents" data-astro-cid-xvrfupwn><svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg></button><!-- TOC Panel --><div id="desktop-toc-panel" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-4 w-64 max-h-96 overflow-y-auto transform transition-all duration-300 origin-top-right scale-0 opacity-0" data-astro-cid-xvrfupwn><h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center" data-astro-cid-xvrfupwn><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xvrfupwn><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" data-astro-cid-xvrfupwn></path></svg>
+Contents
+</h3><nav class="space-y-1" data-astro-cid-xvrfupwn><a href="#what-is-hipaa-and-why-engineers-need-to-care" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-is-hipaa-and-why-engineers-need-to-care" data-depth="2" data-astro-cid-xvrfupwn>What Is HIPAA (And Why Engineers Need to Care)</a><a href="#why-traditional-compliance-tools-fail-and-why-you-need-ai-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="why-traditional-compliance-tools-fail-and-why-you-need-ai-skills" data-depth="2" data-astro-cid-xvrfupwn>Why Traditional Compliance Tools Fail (And Why You Need AI Skills)</a><a href="#the-old-way-manual-code-review" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-old-way-manual-code-review" data-depth="3" data-astro-cid-xvrfupwn>The Old Way: Manual Code Review</a><a href="#the-new-way-ai-agent-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-new-way-ai-agent-skills" data-depth="3" data-astro-cid-xvrfupwn>The New Way: AI Agent Skills</a><a href="#how-hipaa-guardian-works" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="how-hipaa-guardian-works" data-depth="2" data-astro-cid-xvrfupwn>How HIPAA Guardian Works</a><a href="#architecture-overview" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="architecture-overview" data-depth="3" data-astro-cid-xvrfupwn>Architecture Overview</a><a href="#what-it-detects" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-it-detects" data-depth="3" data-astro-cid-xvrfupwn>What It Detects</a><a href="#example-detection-flow" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="example-detection-flow" data-depth="3" data-astro-cid-xvrfupwn>Example Detection Flow</a><a href="#understanding-agent-skills-deep-dive" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="understanding-agent-skills-deep-dive" data-depth="2" data-astro-cid-xvrfupwn>Understanding Agent Skills (Deep Dive)</a><a href="#the-skill-anatomy" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-skill-anatomy" data-depth="3" data-astro-cid-xvrfupwn>The Skill Anatomy</a><a href="#simple-skill-example" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="simple-skill-example" data-depth="3" data-astro-cid-xvrfupwn>Simple Skill Example</a><a href="#building-your-own-healthcare-ai-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="building-your-own-healthcare-ai-skill" data-depth="2" data-astro-cid-xvrfupwn>Building Your Own Healthcare AI Skill</a><a href="#step-1-define-the-problem-skill-specification" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-1-define-the-problem-skill-specification" data-depth="3" data-astro-cid-xvrfupwn>Step 1: Define the Problem (Skill Specification)</a><a href="#step-2-create-the-skill-manifest" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-2-create-the-skill-manifest" data-depth="3" data-astro-cid-xvrfupwn>Step 2: Create the Skill Manifest</a><a href="#step-3-implement-the-skill-logic" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-3-implement-the-skill-logic" data-depth="3" data-astro-cid-xvrfupwn>Step 3: Implement the Skill Logic</a><a href="#step-4-test-your-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="step-4-test-your-skill" data-depth="3" data-astro-cid-xvrfupwn>Step 4: Test Your Skill</a><a href="#integrating-with-dev-skills-collection" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="integrating-with-dev-skills-collection" data-depth="2" data-astro-cid-xvrfupwn>Integrating with dev-skills-collection</a><a href="#why-publish-your-skill" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="why-publish-your-skill" data-depth="3" data-astro-cid-xvrfupwn>Why Publish Your Skill?</a><a href="#publishing-steps" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="publishing-steps" data-depth="3" data-astro-cid-xvrfupwn>Publishing Steps</a><a href="#what-it-detects-1" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="what-it-detects-1" data-depth="2" data-astro-cid-xvrfupwn>What It Detects</a><a href="#real-world-example-using-hipaa-guardian-in-your-cicd" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="real-world-example-using-hipaa-guardian-in-your-cicd" data-depth="2" data-astro-cid-xvrfupwn>Real-World Example: Using HIPAA Guardian in Your CI/CD</a><a href="#key-lessons-for-building-healthcare-ai-skills" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="key-lessons-for-building-healthcare-ai-skills" data-depth="2" data-astro-cid-xvrfupwn>Key Lessons for Building Healthcare AI Skills</a><a href="#1-assume-worst-case-scenario" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="1-assume-worst-case-scenario" data-depth="3" data-astro-cid-xvrfupwn>1. Assume Worst-Case Scenario</a><a href="#2-make-errors-visible" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="2-make-errors-visible" data-depth="3" data-astro-cid-xvrfupwn>2. Make Errors Visible</a><a href="#3-keep-it-fast" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="3-keep-it-fast" data-depth="3" data-astro-cid-xvrfupwn>3. Keep It Fast</a><a href="#4-provide-fixes-not-just-warnings" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="4-provide-fixes-not-just-warnings" data-depth="3" data-astro-cid-xvrfupwn>4. Provide Fixes, Not Just Warnings</a><a href="#5-be-specific-about-patterns" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="5-be-specific-about-patterns" data-depth="3" data-astro-cid-xvrfupwn>5. Be Specific About Patterns</a><a href="#6-test-with-real-data-anonymized" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="6-test-with-real-data-anonymized" data-depth="3" data-astro-cid-xvrfupwn>6. Test with Real Data (Anonymized)</a><a href="#the-future-ai-powered-healthcare-engineering" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="the-future-ai-powered-healthcare-engineering" data-depth="2" data-astro-cid-xvrfupwn>The Future: AI-Powered Healthcare Engineering</a><a href="#getting-started" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="getting-started" data-depth="2" data-astro-cid-xvrfupwn>Getting Started</a><a href="#final-thought" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="final-thought" data-depth="2" data-astro-cid-xvrfupwn>Final Thought</a><a href="#resources" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors toc-link" data-heading="resources" data-depth="2" data-astro-cid-xvrfupwn>Resources</a></nav></div></div><div id="toc-notification" class="fixed notification-bubble top-4 right-4 z-50 max-w-sm w-full bg-white dark:bg-gray-800 border rounded-lg shadow-lg p-4 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200 transform transition-all duration-300 opacity-0 scale-95 pointer-events-none" data-duration="8000" data-dismissible="true" data-target-element="#mobile-toc-toggle" data-astro-cid-nbvelyww> <div class="flex items-start space-x-3" data-astro-cid-nbvelyww> <div class="flex-shrink-0 mt-0.5" data-astro-cid-nbvelyww> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg> </div> <div class="flex-1 min-w-0" data-astro-cid-nbvelyww> <p class="text-sm font-medium" data-astro-cid-nbvelyww>💡 Use the Table of Contents for quick navigation through this post!</p> </div> <button class="flex-shrink-0 ml-2 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onclick="dismissNotification('toc-notification')" aria-label="Dismiss notification" data-astro-cid-nbvelyww> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-nbvelyww> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-nbvelyww></path> </svg> </button> </div> <div class="absolute w-3 h-3 bg-white dark:bg-gray-800 border-t border-l border-gray-200 dark:border-gray-700 transform rotate-45 -top-1.5 left-6" data-astro-cid-nbvelyww></div> </div> <script type="module">const v=localStorage.getItem("toc-notification-seen"),u=document.getElementById("mobile-toc-toggle"),r=document.getElementById("mobile-toc-sidebar"),a=document.getElementById("mobile-toc-overlay"),y=document.getElementById("mobile-toc-close");let d=!1;if(u&&r&&a&&y){!v&&window.innerWidth<768&&setTimeout(()=>{window.showNotification&&(window.showNotification("toc-notification"),localStorage.setItem("toc-notification-seen","true"))},2e3),u.addEventListener("click",()=>{d=!0,a.classList.remove("opacity-0","pointer-events-none"),r.classList.remove("translate-x-full"),document.body.style.overflow="hidden"});const o=()=>{d=!1,a.classList.add("opacity-0","pointer-events-none"),r.classList.add("translate-x-full"),document.body.style.overflow=""};y.addEventListener("click",o),a.addEventListener("click",o),document.addEventListener("keydown",i=>{i.key==="Escape"&&d&&o()})}const m=document.getElementById("desktop-toc-toggle"),e=document.getElementById("desktop-toc-panel");let c=!1;m&&e&&(!v&&window.innerWidth>=768&&setTimeout(()=>{window.showNotification&&(window.showNotification("toc-notification"),localStorage.setItem("toc-notification-seen","true"))},2e3),m.addEventListener("click",()=>{c=!c,c?(e.classList.remove("scale-0","opacity-0"),e.classList.add("scale-100","opacity-100")):(e.classList.add("scale-0","opacity-0"),e.classList.remove("scale-100","opacity-100"))}),document.addEventListener("click",o=>{const i=o.target;c&&!m.contains(i)&&!e.contains(i)&&(c=!1,e.classList.add("scale-0","opacity-0"),e.classList.remove("scale-100","opacity-100"))}));const g=document.querySelectorAll(".toc-link");if(g.length>0){const o=Array.from(document.querySelectorAll("h2, h3, h4, h5, h6")).filter(n=>n.id);g.forEach(n=>{n.addEventListener("click",l=>{l.preventDefault();const t=n.getAttribute("href")?.slice(1),s=document.getElementById(t||"");s&&(s.scrollIntoView({behavior:"smooth",block:"start"}),d&&(d=!1,a?.classList.add("opacity-0","pointer-events-none"),r?.classList.add("translate-x-full"),document.body.style.overflow=""),c&&(c=!1,e?.classList.add("scale-0","opacity-0"),e?.classList.remove("scale-100","opacity-100")))})});const i=()=>{const n=window.scrollY;let l=null;for(let t=o.length-1;t>=0;t--){const s=o[t],w=s.offsetTop-100;if(n>=w){l=s;break}}g.forEach(t=>{t.classList.remove("active");const s=t.getAttribute("href")?.slice(1);l&&s===l.id&&t.classList.add("active")})};let f=!1;const p=()=>{f||(requestAnimationFrame(()=>{i(),f=!1}),f=!0)};window.addEventListener("scroll",p),i()}</script>  </main> <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll"> <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400"> <p>Built with ❤️ by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Mangesh</a> using <a href="https://astro.build" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Astro</a> & <a href="https://tailwindcss.com" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Tailwind CSS</a></p> <p class="text-xs mt-2 opacity-50 hover:opacity-100 transition-opacity"> <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span> <a href="/secret" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a> </p> </div> </footer> </div> <!-- Back to Top Button --> <button id="back-to-top" class="fixed bottom-8 right-8 custom-gradient-bg hover:from-blue-600 hover:to-purple-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible translate-y-4 z-50 hover-lift group" aria-label="Back to top"> <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path> </svg> <!-- Progress ring --> <svg class="absolute inset-0 w-full h-full -rotate-90 opacity-30" viewBox="0 0 36 36"> <path id="progress-ring" class="stroke-current text-white" stroke-width="2" fill="transparent" stroke-dasharray="100, 100" stroke-dashoffset="100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path> </svg> </button> <script type="module">const t=document.getElementById("back-to-top"),n=document.getElementById("progress-ring");if(t&&n){let i=!1;const l=()=>{const o=window.scrollY,c=window.innerHeight,a=document.documentElement.scrollHeight,r=Math.min(100,Math.max(0,o/(a-c)*100)),e=100,s=e-r*e/100;n.style.strokeDashoffset=s.toString(),o>300?(t.classList.remove("opacity-0","invisible","translate-y-4"),t.classList.add("opacity-100","visible","translate-y-0")):(t.classList.add("opacity-0","invisible","translate-y-4"),t.classList.remove("opacity-100","visible","translate-y-0")),i=!1},m=()=>{i||(requestAnimationFrame(l),i=!0)},u=()=>{t.style.transform="scale(0.95)",setTimeout(()=>{t.style.transform=""},150);const o=window.scrollY,c=performance.now(),a=800,r=s=>1-Math.pow(1-s,3),e=s=>{const p=s-c,d=Math.min(p/a,1),y=r(d);window.scrollTo(0,o*(1-y)),d<1&&requestAnimationFrame(e)};requestAnimationFrame(e)};window.addEventListener("scroll",m,{passive:!0}),t.addEventListener("click",u),l(),t.addEventListener("mouseenter",()=>{n.style.opacity="0.6"}),t.addEventListener("mouseleave",()=>{n.style.opacity="0.3"})}</script> <!-- Easter Eggs --> <!-- Hidden Easter Egg Elements --><div id="easter-eggs" data-astro-cid-mei435rj> <!-- Floating Emojis Container --> <div id="floating-emojis" class="fixed inset-0 pointer-events-none z-50" data-astro-cid-mei435rj></div> <!-- Secret Message Modal --> <div id="secret-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" data-astro-cid-mei435rj> <div class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md mx-4 text-center transform scale-0 transition-transform duration-300" data-astro-cid-mei435rj> <div class="text-6xl mb-4" data-astro-cid-mei435rj>🎉</div> <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100" data-astro-cid-mei435rj>You Found It!</h2> <p class="text-gray-600 dark:text-gray-400 mb-6" data-astro-cid-mei435rj>
+Congratulations! You discovered the Konami code easter egg. 
+        You're clearly a person of culture! 🎮
+</p> <button id="close-secret" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-astro-cid-mei435rj>
+Awesome!
+</button> </div> </div> <!-- Dancing Cat (appears on triple click) --> <div id="dancing-cat" class="fixed bottom-4 right-4 z-40 hidden" data-astro-cid-mei435rj> <div class="text-6xl animate-bounce" data-astro-cid-mei435rj>🐱</div> </div> <!-- Rainbow Mode Toggle --> <div id="rainbow-mode" class="hidden" data-astro-cid-mei435rj></div> </div> <script defer>
+  // Easter Egg 1: Konami Code (↑↑↓↓←→←→BA)
+  let konamiCode = [];
+  const konamiSequence = [
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+  ];
+
+  document.addEventListener('keydown', (e) => {
+    konamiCode.push(e.code);
+    
+    // Keep only the last 10 keys
+    if (konamiCode.length > 10) {
+      konamiCode.shift();
+    }
+    
+    // Check if sequence matches
+    if (konamiCode.length === 10 && 
+        konamiCode.every((key, index) => key === konamiSequence[index])) {
+      triggerKonamiEasterEgg();
+      konamiCode = [];
+    }
+  });
+
+  function triggerKonamiEasterEgg() {
+    const modal = document.getElementById('secret-modal');
+    const content = modal?.querySelector('div');
+    
+    if (modal && content) {
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        content.classList.add('scale-100');
+      }, 100);
+      
+      // Add confetti effect
+      createConfetti();
+    }
+  }
+
+  // Close secret modal
+  document.getElementById('close-secret')?.addEventListener('click', () => {
+    const modal = document.getElementById('secret-modal');
+    const content = modal?.querySelector('div');
+    
+    if (content) {
+      content.classList.remove('scale-100');
+      setTimeout(() => {
+        modal?.classList.add('hidden');
+      }, 300);
+    }
+  });
+
+  // Easter Egg 2: Click Effects (floating emojis)
+  const clickEmojis = ['✨', '🎉', '💫', '⭐', '🌟', '💥', '🎊', '🔥'];
+  let clickCount = 0;
+
+  document.addEventListener('click', (_e) => {
+    // Random chance for emoji on click
+    if (Math.random() < 0.1) {
+      createFloatingEmoji(_e.clientX, _e.clientY);
+    }
+    
+    // Special effect on rapid clicks
+    clickCount++;
+    setTimeout(() => clickCount--, 1000);
+    
+    if (clickCount >= 10) {
+      triggerClickFrenzy();
+      clickCount = 0;
+    }
+  });
+
+  function createFloatingEmoji(x, y, emoji) {
+    const container = document.getElementById('floating-emojis');
+    if (!container) return;
+    
+    const emojiEl = document.createElement('div');
+    emojiEl.textContent = emoji || clickEmojis[Math.floor(Math.random() * clickEmojis.length)];
+    emojiEl.className = 'absolute text-2xl pointer-events-none animate-ping';
+    emojiEl.style.left = x + 'px';
+    emojiEl.style.top = y + 'px';
+    emojiEl.style.transform = 'translate(-50%, -50%)';
+    
+    container.appendChild(emojiEl);
+    
+    // Remove after animation
+    setTimeout(() => {
+      emojiEl.remove();
+    }, 1000);
+  }
+
+  function triggerClickFrenzy() {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        createFloatingEmoji(x, y);
+      }, i * 100);
+    }
+  }
+
+  // Easter Egg 3: Triple Click Dancing Cat
+  let lastClickTime = 0;
+  let clickSequence = 0;
+
+  document.addEventListener('click', (e) => {
+    const now = Date.now();
+    
+    if (now - lastClickTime < 500) {
+      clickSequence++;
+    } else {
+      clickSequence = 1;
+    }
+    
+    lastClickTime = now;
+    
+    if (clickSequence >= 3) {
+      showDancingCat();
+      clickSequence = 0;
+    }
+  });
+
+  function showDancingCat() {
+    const cat = document.getElementById('dancing-cat');
+    if (!cat) return;
+    
+    cat.classList.remove('hidden');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+      cat.classList.add('hidden');
+    }, 3000);
+  }
+
+  // Easter Egg 4: Simple Keyboard Shortcuts
+  let keySequence = '';
+  let keyTimeout;
+  
+  document.addEventListener('keydown', (e) => {
+    // Only trigger on letter keys when not typing in input fields
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      return;
+    }
+    
+    // Clear previous timeout
+    clearTimeout(keyTimeout);
+    
+    // Add key to sequence
+    keySequence += e.key.toLowerCase();
+    
+    // Check for trigger words
+    if (keySequence.includes('rainbow')) {
+      toggleRainbowMode();
+      keySequence = '';
+      return;
+    }
+    
+    if (keySequence.includes('surprise')) {
+      triggerSurprise();
+      keySequence = '';
+      return;
+    }
+    
+    if (keySequence.includes('dev')) {
+      toggleDeveloperMode();
+      keySequence = '';
+      return;
+    }
+    
+    // Reset sequence after 2 seconds of inactivity
+    keyTimeout = setTimeout(() => {
+      keySequence = '';
+    }, 2000);
+    
+    // Keep only last 10 characters to prevent memory issues
+    if (keySequence.length > 10) {
+      keySequence = keySequence.slice(-10);
+    }
+  });
+
+  let rainbowMode = false;
+  function toggleRainbowMode() {
+    rainbowMode = !rainbowMode;
+    const body = document.body;
+    
+    if (rainbowMode) {
+      body.style.animation = 'rainbow 3s infinite';
+      body.style.transition = 'all 0.3s ease';
+      createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '🌈');
+      
+      // Show notification
+      const notification = document.createElement('div');
+      notification.innerHTML = `
+        <div class="text-center">
+          <div class="text-lg">🌈 Rainbow Mode Activated!</div>
+          <div class="text-xs opacity-75 mt-1">Type "rainbow" again to toggle</div>
+        </div>
+      `;
+      notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-6 py-3 rounded-lg z-50 animate-bounce';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+      
+      // Auto-disable after 10 seconds
+      setTimeout(() => {
+        if (rainbowMode) {
+          body.style.animation = '';
+          rainbowMode = false;
+        }
+      }, 10000);
+    } else {
+      body.style.animation = '';
+      body.style.transition = '';
+    }
+  }
+
+  function triggerSurprise() {
+    // Random surprise effects
+    const surprises = [
+      () => {
+        // Wobbly page
+        document.body.style.transform = 'rotate(2deg)';
+        document.body.style.transition = 'transform 0.3s ease';
+        setTimeout(() => {
+          document.body.style.transform = '';
+        }, 2000);
+      },
+      () => createConfetti(),
+      () => showDancingCat(),
+      () => {
+        // Comic Sans transformation
+        const text = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div');
+        text.forEach(el => {
+          const original = el.style.fontFamily;
+          el.style.fontFamily = 'Comic Sans MS, cursive';
+          el.style.transition = 'font-family 0.3s ease';
+          setTimeout(() => {
+            el.style.fontFamily = original;
+          }, 3000);
+        });
+      },
+      () => {
+        // Upside down
+        document.body.style.transform = 'rotate(180deg)';
+        document.body.style.transition = 'transform 1s ease';
+        setTimeout(() => {
+          document.body.style.transform = '';
+        }, 3000);
+      },
+      () => {
+        // Bounce effect
+        document.body.style.animation = 'bounce 1s ease-in-out 3';
+        setTimeout(() => {
+          document.body.style.animation = '';
+        }, 3000);
+      }
+    ];
+    
+    const randomSurprise = surprises[Math.floor(Math.random() * surprises.length)];
+    randomSurprise();
+    
+    // Show notification
+    const notification = document.createElement('div');
+    notification.innerHTML = `
+      <div class="text-center">
+        <div class="text-lg">🎉 Surprise!</div>
+        <div class="text-xs opacity-75 mt-1">Type "surprise" for more surprises</div>
+      </div>
+    `;
+    notification.className = 'fixed top-20 right-4 bg-pink-600 text-white px-4 py-2 rounded-lg z-50 animate-pulse';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 2000);
+  }
+
+  let devMode = false;
+  function toggleDeveloperMode() {
+    devMode = !devMode;
+    
+    if (devMode) {
+      // Add debug info
+      const debugInfo = document.createElement('div');
+      debugInfo.id = 'debug-info';
+      debugInfo.className = 'fixed top-20 left-4 bg-black text-green-400 p-2 rounded font-mono text-xs z-50';
+      debugInfo.innerHTML = `
+        <div>🔧 Developer Mode Active</div>
+        <div>Screen: ${window.innerWidth}x${window.innerHeight}</div>
+        <div>User Agent: ${navigator.userAgent.split(' ')[0]}</div>
+        <div>Theme: ${document.documentElement.classList.contains('dark') ? 'Dark' : 'Light'}</div>
+        <div>Platform: ${navigator.platform}</div>
+        <div class="text-yellow-400 mt-1">Type "dev" to toggle</div>
+      `;
+      document.body.appendChild(debugInfo);
+      
+      // Add click counter
+      let devClicks = 0;
+      const clickCounter = document.createElement('div');
+      clickCounter.id = 'click-counter';
+      clickCounter.className = 'fixed top-20 right-4 bg-black text-green-400 p-2 rounded font-mono text-xs z-50';
+      clickCounter.textContent = `Clicks: ${devClicks}`;
+      document.body.appendChild(clickCounter);
+      
+      const countClicks = () => {
+        devClicks++;
+        clickCounter.textContent = `Clicks: ${devClicks}`;
+      };
+      
+      document.addEventListener('click', countClicks);
+      
+      // Store cleanup function
+      window.cleanupDevMode = () => {
+        document.removeEventListener('click', countClicks);
+        document.getElementById('debug-info')?.remove();
+        document.getElementById('click-counter')?.remove();
+      };
+    } else {
+      window.cleanupDevMode?.();
+    }
+  }
+
+  // Easter Egg 5: Confetti Effect
+  function createConfetti() {
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+    const container = document.getElementById('floating-emojis');
+    if (!container) return;
+    
+    for (let i = 0; i < 50; i++) {
+      setTimeout(() => {
+        const confetti = document.createElement('div');
+        confetti.className = 'absolute w-2 h-2 rounded-full pointer-events-none';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-10px';
+        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+        
+        container.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }, i * 50);
+    }
+  }
+
+  // Easter Egg 6: Secret Navigation
+  let secretPath = '';
+  document.addEventListener('keydown', (e) => {
+    if (e.key.length === 1) {
+      secretPath += e.key.toLowerCase();
+      
+      // Keep only last 10 characters
+      if (secretPath.length > 10) {
+        secretPath = secretPath.slice(-10);
+      }
+      
+      // Check for secret words
+      if (secretPath.includes('mangesh')) {
+        createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '👨‍💻');
+        secretPath = '';
+      } else if (secretPath.includes('hello')) {
+        createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '👋');
+        secretPath = '';
+      } else if (secretPath.includes('awesome')) {
+        triggerClickFrenzy();
+        secretPath = '';
+      }
+    }
+  });
+
+  // Easter Egg 7: Time-based surprises
+  const now = new Date();
+  const hour = now.getHours();
+  
+  // Late night coding mode
+  if (hour >= 23 || hour <= 5) {
+    setTimeout(() => {
+      createFloatingEmoji(window.innerWidth - 100, 100, '🌙');
+    }, 5000);
+  }
+  
+  // Friday celebration
+  if (now.getDay() === 5) {
+    setTimeout(() => {
+      createFloatingEmoji(100, 100, '🎉');
+    }, 3000);
+  }
+
+  // Random meme suggestion (5% chance)
+  if (Math.random() < 0.05) {
+    setTimeout(() => {
+      const memeNotification = document.createElement('div');
+      memeNotification.className = 'fixed bottom-4 left-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 cursor-pointer transform transition-all hover:scale-105';
+      memeNotification.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🤣</span>
+          <div class="text-sm">
+            <div class="font-bold">Need a laugh?</div>
+            <div class="opacity-90">Check out some programming memes!</div>
+          </div>
+          <button class="ml-2 text-white hover:text-gray-200">×</button>
+        </div>
+      `;
+      
+      memeNotification.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.textContent === '×') {
+          memeNotification.remove();
+        } else {
+          window.location.href = '/meme';
+        }
+      });
+      
+      document.body.appendChild(memeNotification);
+      
+      // Auto-remove after 8 seconds
+      setTimeout(() => {
+        if (document.body.contains(memeNotification)) {
+          memeNotification.style.transform = 'translateX(-100%)';
+          setTimeout(() => memeNotification.remove(), 300);
+        }
+      }, 8000);
+    }, Math.random() * 30000 + 10000); // Random delay between 10-40 seconds
+  }
+
+
+</script>  <!-- Global Visitor Counter --> <!-- <CleanGlobalCounter /> --> <script type="module">const l=document.getElementById("theme-toggle"),c=document.documentElement,f=localStorage.getItem("theme")||"light";f==="dark"&&c.classList.add("dark");l?.addEventListener("click",()=>{c.classList.toggle("dark");const e=c.classList.contains("dark");localStorage.setItem("theme",e?"dark":"light"),l.style.transform="scale(0.95)",setTimeout(()=>{l.style.transform=""},150)});const g=document.getElementById("mobile-menu-btn"),t=document.getElementById("mobile-menu"),o=document.getElementById("menu-open-icon"),r=document.getElementById("menu-close-icon");g?.addEventListener("click",()=>{t?.classList.contains("hidden")?(t?.classList.remove("hidden"),t?.classList.add("mobile-menu-enter"),o?.classList.add("hidden"),r?.classList.remove("hidden")):(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const v=t?.querySelectorAll("a");v?.forEach(e=>{e.addEventListener("click",()=>{t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden")})});document.addEventListener("click",e=>{const s=e.target;!t?.contains(s)&&!g?.contains(s)&&(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const m=document.getElementById("reading-progress"),n=document.getElementById("navbar");let h=window.scrollY,d=!1;const u=()=>{const e=window.scrollY,s=window.innerHeight,i=document.documentElement.scrollHeight,a=Math.min(100,Math.max(0,e/(i-s)*100));if(m&&(m.style.width=`${a}%`),n){const L=e>h,y=e>100;L&&y?n.style.transform="translateY(-100%)":n.style.transform="translateY(0)",e>20?n.classList.add("backdrop-blur-md"):n.classList.remove("backdrop-blur-md")}h=e,d=!1},b=()=>{d||(requestAnimationFrame(u),d=!0)},w={threshold:.1,rootMargin:"0px 0px -50px 0px"},p=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&(s.target.classList.add("in-view"),p.unobserve(s.target))})},w),E=document.querySelectorAll(".animate-on-scroll");E.forEach(e=>p.observe(e));const k=document.querySelectorAll("[data-stagger]");k.forEach(e=>{const s=e.children;Array.from(s).forEach((i,a)=>{i.style.animationDelay=`${a*.1}s`})});window.addEventListener("scroll",b);u();console.log(`
+        🎨 Welcome to Mangesh's Blog!
+        
+        ✨ Now with smooth animations and enhanced UX!
+        
+        🔍 Developer Tools Detected!
+        Since you're here, you might enjoy these easter eggs:
+        
+        🎮 Try the Konami Code: ↑↑↓↓←→←→BA
+        🖱️ Triple click anywhere for a surprise
+        ⌨️ Type "rainbow" for rainbow mode
+        ⌨️ Type "surprise" for a random surprise  
+        ⌨️ Type "dev" for developer mode
+        🔤 Type "mangesh", "hello", or "awesome"
+        
+        💡 There might be a secret page somewhere... 👀
+        
+        🎭 Notice the smooth animations? They respect your motion preferences!
+        
+        Happy exploring! 🚀
+      `);</script> </body> </html>
