@@ -1,0 +1,80 @@
+/*! Custom Giscus Theme - Dark Mode */
+main {
+  /* Variables matching Tailwind's dark mode palette */
+  --color-prettylights-syntax-comment: #8b949e;
+  --color-prettylights-syntax-entity: #79c0ff;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-keyword: #ff7b72;
+
+  --color-canvas-default: #111827; /* bg-gray-900 */
+  --color-canvas-overlay: #1f2937; /* bg-gray-800 */
+  --color-canvas-inset: #1f2937;
+  --color-canvas-subtle: #1f2937;
+
+  --color-border-default: #374151; /* border-gray-700 */
+  --color-border-muted: #374151;
+
+  --color-neutral-muted: #6e7681;
+
+  --color-accent-fg: #60a5fa; /* text-blue-400 */
+  --color-accent-emphasis: #2563eb; /* bg-blue-600 */
+  --color-accent-muted: #388bfd66;
+  --color-accent-subtle: #388bfd26;
+
+  --color-fg-default: #f3f4f6; /* text-gray-100 */
+  --color-fg-muted: #d1d5db; /* text-gray-300 */
+  --color-fg-subtle: #9ca3af; /* text-gray-400 */
+
+  --color-btn-text: #f3f4f6; /* text-gray-100 */
+  --color-btn-bg: #1f2937; /* bg-gray-800 */
+  --color-btn-border: #4b5563; /* border-gray-600 */
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: #374151; /* hover:bg-gray-700 */
+  --color-btn-hover-border: #6b7280; /* border-gray-500 */
+  --color-btn-active-bg: #4b5563;
+  --color-btn-active-border: #6b7280;
+
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: #2563eb; /* bg-blue-600 */
+  --color-btn-primary-border: rgba(240,246,252,0.1);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #1d4ed8; /* hover:bg-blue-700 */
+  --color-btn-primary-hover-border: rgba(240,246,252,0.1);
+
+  --color-scale-gray-1: #21262d;
+  --color-scale-blue-1: #1f6feb;
+}
+
+main .pagination-loader-container {
+  background-image: url("https://github.com/images/modules/pulls/progressive-disclosure-line-dark.svg");
+}
+
+/* Custom fonts and overrides */
+.gsc-main {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.gsc-comment-box-textarea {
+  background-color: #1f2937; /* bg-gray-800 */
+  border-color: #4b5563; /* border-gray-600 */
+  color: #f3f4f6;
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.gsc-comment-box-textarea:focus {
+  border-color: #60a5fa; /* focus:ring-blue-400 */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5); /* focus:ring-2 */
+}
+
+/* Adjust links */
+a {
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover {
+  text-decoration: underline;
+}
