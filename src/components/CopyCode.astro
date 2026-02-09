@@ -1,0 +1,62 @@
+<script>
+  function addCopyButtons() {
+    const codeBlocks = document.querySelectorAll('pre');
+
+    codeBlocks.forEach((codeBlock) => {
+      // Check if already processed
+      if (codeBlock.parentElement?.classList.contains('code-block-wrapper')) {
+        return;
+      }
+
+      // Create wrapper
+      const wrapper = document.createElement('div');
+      wrapper.className = 'relative group code-block-wrapper';
+
+      // Insert wrapper before codeBlock and move codeBlock inside
+      codeBlock.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      // Create button
+      const copyButton = document.createElement('button');
+      copyButton.className = 'absolute top-2 right-2 p-2 rounded-lg bg-gray-800 dark:bg-gray-700 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:text-white focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500';
+      copyButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      `;
+      copyButton.ariaLabel = 'Copy code';
+
+      // Copy functionality
+      copyButton.addEventListener('click', async () => {
+        const code = codeBlock.querySelector('code')?.innerText || codeBlock.innerText;
+
+        try {
+          await navigator.clipboard.writeText(code);
+
+          // Success feedback
+          const originalIcon = copyButton.innerHTML;
+          copyButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          `;
+
+          setTimeout(() => {
+            copyButton.innerHTML = originalIcon;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+
+      wrapper.appendChild(copyButton);
+    });
+  }
+
+  // Run on load
+  addCopyButtons();
+
+  // Run on view transitions
+  document.addEventListener('astro:page-load', addCopyButtons);
+</script>
