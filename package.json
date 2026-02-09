@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "test": "node --experimental-strip-types --test src/utils/reading-time.test.ts",
     "build": "astro check && astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
