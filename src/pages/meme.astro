@@ -206,6 +206,9 @@ import Layout from '../layouts/Layout.astro';
 
     memesContainer.innerHTML = '';
 
+    // Create DocumentFragment for efficient DOM manipulation
+    const fragment = document.createDocumentFragment();
+
     memes.forEach((meme, index) => {
       const memeCard = document.createElement('div');
       memeCard.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow';
@@ -279,7 +282,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       `;
 
-      memesContainer.appendChild(memeCard);
+      fragment.appendChild(memeCard);
       
       // Add stagger animation
       setTimeout(() => {
@@ -293,6 +296,8 @@ import Layout from '../layouts/Layout.astro';
         }, index * 100);
       }, 50);
     });
+
+    memesContainer.appendChild(fragment);
   }
 
   // Update stats

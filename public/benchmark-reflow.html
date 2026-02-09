@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Benchmark: appendChild vs DocumentFragment</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .controls {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background 0.2s;
+        }
+        button.primary {
+            background: #0070f3;
+            color: white;
+        }
+        button.secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        .container {
+            border: 1px dashed #ccc;
+            padding: 10px;
+            min-height: 100px;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+        .item {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM Manipulation Performance Benchmark</h1>
+    <p>This benchmark compares the performance of appending elements directly to the DOM in a loop vs. using a DocumentFragment.</p>
+
+    <div class="controls">
+        <div style="margin-bottom: 15px;">
+            <label for="count">Number of items:</label>
+            <input type="number" id="count" value="5000" min="100" max="10000">
+        </div>
+        <button onclick="runBenchmark('slow')" class="secondary">Run Slow (Direct Append)</button>
+        <button onclick="runBenchmark('fast')" class="primary">Run Fast (DocumentFragment)</button>
+        <button onclick="clearContainer()" class="secondary">Clear</button>
+    </div>
+
+    <div id="results">Run a benchmark to see results...</div>
+    <div id="container" class="container"></div>
+
+    <script>
+        const container = document.getElementById('container');
+        const results = document.getElementById('results');
+        const countInput = document.getElementById('count');
+
+        function createItem(index) {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.textContent = `Item ${index}`;
+            // Add some complex style/content to make reflow heavier
+            div.style.backgroundColor = `hsl(${index % 360}, 70%, 80%)`;
+            return div;
+        }
+
+        function clearContainer() {
+            container.innerHTML = '';
+            results.textContent = 'Container cleared.';
+        }
+
+        function runBenchmark(type) {
+            const count = parseInt(countInput.value, 10);
+            clearContainer();
+            results.textContent = `Running ${type} benchmark with ${count} items...`;
+
+            // Use setTimeout to allow UI to update before blocking
+            setTimeout(() => {
+                const start = performance.now();
+
+                if (type === 'slow') {
+                    // Slow: Append directly in loop
+                    for (let i = 0; i < count; i++) {
+                        const item = createItem(i);
+                        container.appendChild(item);
+                        // Force layout calculation (optional, mimics complex app behavior where reads might happen)
+                        // item.offsetHeight;
+                    }
+                } else {
+                    // Fast: Use DocumentFragment
+                    const fragment = document.createDocumentFragment();
+                    for (let i = 0; i < count; i++) {
+                        const item = createItem(i);
+                        fragment.appendChild(item);
+                    }
+                    container.appendChild(fragment);
+                }
+
+                // Force layout to ensure measurement captures rendering cost
+                const height = container.offsetHeight;
+
+                const end = performance.now();
+                const duration = (end - start).toFixed(2);
+
+                results.innerHTML = `
+                    <strong>${type === 'slow' ? 'Direct Append' : 'DocumentFragment'}</strong><br>
+                    Items: ${count}<br>
+                    Time: ${duration}ms<br>
+                    <small>(Lower is better)</small>
+                `;
+            }, 100);
+        }
+    </script>
+</body>
+</html>
