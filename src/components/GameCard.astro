@@ -1,0 +1,79 @@
+---
+interface Tag {
+  label: string;
+  colorClass: string;
+}
+
+interface ThemeClasses {
+  container: string;
+  heading: string;
+  button: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  emoji: string;
+  description: string;
+  tags: Tag[];
+  features: string[];
+  buttonText: string;
+  themeClasses: ThemeClasses;
+}
+
+const {
+  id,
+  title,
+  emoji,
+  description,
+  tags,
+  features,
+  buttonText,
+  themeClasses,
+} = Astro.props;
+---
+
+<div class={`rounded-xl border overflow-hidden ${themeClasses.container}`}>
+  <div class="p-6">
+    <div class="flex items-center mb-4">
+      <span class="text-3xl mr-3">{emoji}</span>
+      <h2 class="text-2xl font-bold">{title}</h2>
+    </div>
+    <p class="text-gray-600 dark:text-gray-400 mb-4">
+      {description}
+    </p>
+
+    <div class="mb-4">
+      <h3 class={`text-sm font-semibold mb-2 ${themeClasses.heading}`}>
+        Technologies:
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        {
+          tags.map((tag) => (
+            <span
+              class={`px-2 py-1 text-white text-xs rounded-full ${tag.colorClass}`}
+            >
+              {tag.label}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <h3 class={`text-sm font-semibold mb-2 ${themeClasses.heading}`}>
+        Features:
+      </h3>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+        {features.map((feature) => <li>• {feature}</li>)}
+      </ul>
+    </div>
+
+    <button
+      onclick={`showGame('${id}')`}
+      class={`w-full text-white py-3 rounded-lg transition-colors font-medium ${themeClasses.button}`}
+    >
+      {buttonText}
+    </button>
+  </div>
+</div>

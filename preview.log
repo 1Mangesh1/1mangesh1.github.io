@@ -1,8 +1,0 @@
-yarn run v1.22.22
-$ astro preview
-
- astro  v5.16.11 ready in 31 ms
-
-┃ Local    http://localhost:4321/
-┃ Network  use --host to expose
-
