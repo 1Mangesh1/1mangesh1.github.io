@@ -160,6 +160,15 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxRtJRGDs9Mb
     return div.innerHTML;
   }
 
+  function isValidUrl(string) {
+    try {
+      const url = new URL(string);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (_) {
+      return false;
+    }
+  }
+
   // Generate consistent color from name
   function getAvatarColor(name) {
     const colors = [
@@ -188,7 +197,7 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxRtJRGDs9Mb
           </div>
           <div class="flex-1 min-w-0">
             <div class="flex items-baseline gap-2 mb-1">
-              ${entry.website
+              ${entry.website && isValidUrl(entry.website)
                 ? `<a href="${escapeHtml(entry.website)}" target="_blank" rel="noopener noreferrer" class="font-medium text-slate-900 dark:text-slate-100 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">${escapeHtml(entry.name)}</a>`
                 : `<span class="font-medium text-slate-900 dark:text-slate-100">${escapeHtml(entry.name)}</span>`
               }
