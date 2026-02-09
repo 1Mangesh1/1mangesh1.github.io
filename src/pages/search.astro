@@ -141,16 +141,6 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    // Mock search data - in a real app, this would come from an API or search index
-    const searchData = [
-      { type: 'blog', title: 'Hello World', url: '/blog/hello-world', excerpt: 'Welcome to my new blog built with Astro!' },
-      { type: 'blog', title: 'Infinite Worlds', url: '/blog/infinite-worlds', excerpt: 'Exploring the concept of infinite possibilities in software development.' },
-      { type: 'blog', title: 'Django Soft Delete', url: '/blog/soft-delete-django', excerpt: 'Implementing soft delete functionality in Django applications.' },
-      { type: 'portfolio', title: 'CrimiFace', url: '/portfolio/crimiface', excerpt: 'Facial recognition system for criminal identification using machine learning.' },
-      { type: 'resources', title: 'Essential Development Tools', url: '/resources', excerpt: 'VS Code and other productivity tools for developers.' },
-      { type: 'resources', title: 'Python Learning Resources', url: '/resources', excerpt: 'Comprehensive collection of Python learning materials.' }
-    ];
-
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     const searchResults = document.getElementById('search-results') as HTMLElement;
     const searchLoading = document.getElementById('search-loading') as HTMLElement;
@@ -162,8 +152,23 @@ import Layout from '../layouts/Layout.astro';
 
     let currentFilter = 'all';
     let searchTimeout: NodeJS.Timeout;
+    let pagefind: any;
 
-    function performSearch(query: string) {
+    // Initialize Pagefind
+    async function initPagefind() {
+      try {
+        // @ts-ignore
+        pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+        pagefind.init();
+      } catch (e) {
+        console.error('Pagefind not found. Search will be unavailable until site is built.');
+      }
+    }
+
+    // Call init
+    initPagefind();
+
+    async function performSearch(query: string) {
       if (!query.trim()) {
         searchResults?.classList.add('hidden');
         popularSearches?.classList.remove('hidden');
@@ -180,13 +185,28 @@ import Layout from '../layouts/Layout.astro';
       resultsContainer?.classList.add('hidden');
       noResults?.classList.add('hidden');
 
-      // Simulate search delay for better UX
-      searchTimeout = setTimeout(() => {
-        const filteredData = searchData.filter(item => {
-          const matchesQuery = item.title.toLowerCase().includes(query.toLowerCase()) ||
-                             item.excerpt.toLowerCase().includes(query.toLowerCase());
-          const matchesFilter = currentFilter === 'all' || item.type === currentFilter;
-          return matchesQuery && matchesFilter;
+      // Debounce search
+      searchTimeout = setTimeout(async () => {
+        if (!pagefind) {
+           searchLoading?.classList.add('hidden');
+           if (resultsContainer) {
+             resultsContainer.innerHTML = '<div class="text-center text-gray-500">Search index not available in dev mode. Build the site to test search.</div>';
+             resultsContainer.classList.remove('hidden');
+           }
+           return;
+        }
+
+        const search = await pagefind.search(query);
+        const results = await Promise.all(search.results.map((r: any) => r.data()));
+
+        const filteredData = results.filter((item: any) => {
+             let type = 'page';
+             if (item.url.includes('/blog/')) type = 'blog';
+             else if (item.url.includes('/portfolio/')) type = 'portfolio';
+             else if (item.url.includes('/resources/')) type = 'resources';
+
+             const matchesFilter = currentFilter === 'all' || type === currentFilter;
+             return matchesFilter;
         });
 
         // Hide loading state
@@ -199,19 +219,25 @@ import Layout from '../layouts/Layout.astro';
         } else {
           noResults?.classList.add('hidden');
           if (resultsContainer) {
-            resultsContainer.innerHTML = filteredData.map(item => `
+            resultsContainer.innerHTML = filteredData.map((item: any) => {
+               let type = 'page';
+               if (item.url.includes('/blog/')) type = 'blog';
+               else if (item.url.includes('/portfolio/')) type = 'portfolio';
+               else if (item.url.includes('/resources/')) type = 'resources';
+
+               return `
               <div class="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 opacity-0 animate-fade-in">
                 <div class="flex items-start justify-between mb-2">
                   <h3 class="font-semibold text-lg">
-                    <a href="${item.url}" class="text-blue-600 dark:text-blue-400 hover:underline">${item.title}</a>
+                    <a href="${item.url}" class="text-blue-600 dark:text-blue-400 hover:underline">${item.meta.title}</a>
                   </h3>
                   <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded capitalize">
-                    ${item.type}
+                    ${type}
                   </span>
                 </div>
                 <p class="text-gray-600 dark:text-gray-400 text-sm">${item.excerpt}</p>
               </div>
-            `).join('');
+            `}).join('');
 
             // Trigger fade-in animation
             setTimeout(() => {
@@ -225,7 +251,7 @@ import Layout from '../layouts/Layout.astro';
             }, 50);
           }
         }
-      }, 300); // 300ms delay to show loading state
+      }, 300);
     }
 
     searchInput?.addEventListener('input', (e) => {
@@ -278,4 +304,4 @@ import Layout from '../layouts/Layout.astro';
       transition: opacity 0.3s ease-in-out;
     }
   </style>
-</Layout> 
+</Layout>

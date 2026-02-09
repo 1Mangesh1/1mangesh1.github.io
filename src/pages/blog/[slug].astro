@@ -6,6 +6,8 @@ import { getRelatedPosts } from '../../utils/related-posts';
 import SocialShare from '../../components/SocialShare.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import CleanVisitorCounter from '../../components/CleanVisitorCounter.astro';
+import Giscus from '../../components/Giscus.astro';
+import CopyCode from '../../components/CopyCode.astro';
 
 import { siteConfig } from '../../config/site';
 
@@ -42,8 +44,8 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<Layout title={`${post.data.title} - Mangesh's Blog`} description={post.data.description} image={post.data.ogImage}>
-  <article class="max-w-4xl mx-auto px-4 py-12">
+<Layout title={`${post.data.title} - Mangesh's Blog`} description={post.data.description} image={post.data.ogImage || `/og/${post.slug}.png`}>
+  <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body>
         <header class="mb-8">
           <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4">
             <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400">Blog</a>
@@ -144,6 +146,8 @@ const formatDate = (date: Date) => {
       </section>
     )}
 
+    <Giscus />
+
     <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
       <a 
         href="/blog" 
@@ -159,5 +163,8 @@ const formatDate = (date: Date) => {
 
   <!-- Floating Table of Contents -->
   <TableOfContents headings={headings} />
+
+  <!-- Code Block Copy Functionality -->
+  <CopyCode />
 </Layout>
  
