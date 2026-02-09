@@ -8,6 +8,7 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import Giscus from '../../components/Giscus.astro';
 import CopyCode from '../../components/CopyCode.astro';
 
+
 import { siteConfig } from '../../config/site';
 
 export async function getStaticPaths() {
@@ -60,8 +61,6 @@ const formatDate = (date: Date) => {
             </time>
             <span class="mx-2">•</span>
             <span>{formatReadingTime(readingTime)}</span>
-            <span class="mx-2">•</span>
-            <!-- <CleanVisitorCounter /> -->
           </div>
           
           {post.data.description && (
