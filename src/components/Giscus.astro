@@ -1,18 +1,78 @@
 <div class="giscus mt-16"></div>
 
-<script src="https://giscus.app/client.js"
-        data-repo="1mangesh1/1mangesh1.github.io"
-        data-repo-id="R_kgDONJZqoA"
-        data-category="Comments"
-        data-category-id="DIC_kwDONJZqoM4C2FCx"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
+<script>
+  function loadGiscus() {
+    const container = document.querySelector('.giscus');
+    // Prevent double loading if script runs twice (e.g. view transitions)
+    if (!container || container.querySelector('iframe')) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '1mangesh1/1mangesh1.github.io');
+    script.setAttribute('data-repo-id', 'R_kgDONJZqoA');
+    script.setAttribute('data-category', 'Comments');
+    script.setAttribute('data-category-id', 'DIC_kwDONJZqoM4C2FCx');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-lang', 'en');
+    script.setAttribute('data-loading', 'lazy');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    // Determine initial theme
+    const isDark = document.documentElement.classList.contains('dark') ||
+                   (localStorage.getItem('theme') === 'dark') ||
+                   (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    // Construct absolute URL for the theme file
+    const origin = window.location.origin;
+    const themeUrl = isDark
+      ? `${origin}/styles/giscus-dark.css`
+      : `${origin}/styles/giscus-light.css`;
+
+    script.setAttribute('data-theme', themeUrl);
+
+    container.appendChild(script);
+
+    // Theme toggling logic
+    function setGiscusTheme(theme) {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+
+      const newThemeUrl = theme === 'dark'
+        ? `${window.location.origin}/styles/giscus-dark.css`
+        : `${window.location.origin}/styles/giscus-light.css`;
+
+      // @ts-ignore
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: newThemeUrl } } },
+        'https://giscus.app'
+      );
+    }
+
+    // Observer for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDarkNow = document.documentElement.classList.contains('dark');
+          setGiscusTheme(isDarkNow ? 'dark' : 'light');
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+  }
+
+  // Load on idle or immediately
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadGiscus);
+  } else {
+    loadGiscus();
+  }
+
+  // Re-run on Astro page transitions if they are added later
+  document.addEventListener('astro:page-load', loadGiscus);
 </script>
