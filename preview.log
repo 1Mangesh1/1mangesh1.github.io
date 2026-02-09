@@ -5,3 +5,7 @@ $ astro preview
 
 ┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/main
