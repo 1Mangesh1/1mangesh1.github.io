@@ -19,7 +19,11 @@ export const GET: APIRoute = async ({ props }) => {
     'https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.ttf'
   ).then((res) => res.arrayBuffer());
 
-  const markup = html`
+  const tagsHtml = post.data.tags
+    ? post.data.tags.map((tag: string) => `<span style="background-color: #334155; padding: 10px 20px; border-radius: 10px; font-size: 24px;">#${tag}</span>`).join('')
+    : '';
+
+  const markup = html(`
     <div
       style="display: flex; height: 100%; width: 100%; align-items: center; justify-content: center; background-color: #1e293b; color: white; padding: 40px;"
     >
@@ -29,14 +33,14 @@ export const GET: APIRoute = async ({ props }) => {
         <div style="font-size: 24px; color: #60a5fa; margin-bottom: 20px;">Mangesh's Blog</div>
         <div style="font-size: 64px; font-weight: bold; line-height: 1.1; margin-bottom: 40px;">${post.data.title}</div>
         <div style="display: flex; gap: 20px;">
-           ${post.data.tags ? post.data.tags.map((tag: string) => `<span style="background-color: #334155; padding: 10px 20px; border-radius: 10px; font-size: 24px;">#${tag}</span>`).join('') : ''}
+           ${tagsHtml}
         </div>
         <div style="margin-top: auto; font-size: 24px; color: #94a3b8;">
           ${new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         </div>
       </div>
     </div>
-  `;
+  `);
 
   const svg = await satori(markup, {
     width: 1200,
