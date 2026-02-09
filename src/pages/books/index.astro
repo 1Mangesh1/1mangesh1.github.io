@@ -1,16 +1,27 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 // Filter drafts in production, show all in development
 const allBooks = await getCollection('books', ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-const reading = allBooks.filter(b => b.data.status === 'reading');
-const completed = allBooks.filter(b => b.data.status === 'completed')
-  .sort((a, b) => (b.data.finishDate?.getTime() || 0) - (a.data.finishDate?.getTime() || 0));
-const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
+const reading: CollectionEntry<'books'>[] = [];
+const completed: CollectionEntry<'books'>[] = [];
+const wantToRead: CollectionEntry<'books'>[] = [];
+
+for (const book of allBooks) {
+  if (book.data.status === 'reading') {
+    reading.push(book);
+  } else if (book.data.status === 'completed') {
+    completed.push(book);
+  } else if (book.data.status === 'want-to-read') {
+    wantToRead.push(book);
+  }
+}
+
+completed.sort((a, b) => (b.data.finishDate?.getTime() || 0) - (a.data.finishDate?.getTime() || 0));
 
 const renderStars = (rating: number | undefined) => {
   if (!rating) return '';
