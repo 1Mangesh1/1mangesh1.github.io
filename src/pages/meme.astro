@@ -157,7 +157,19 @@ import Layout from '../layouts/Layout.astro';
   const retryBtn = document.getElementById('retry-btn');
   const memeStats = document.getElementById('meme-stats');
 
-  let currentMemes: any[] = [];
+  interface Meme {
+    postLink: string;
+    subreddit: string;
+    title: string;
+    url: string;
+    nsfw: boolean;
+    spoiler: boolean;
+    author: string;
+    ups: number;
+    preview: string[];
+  }
+
+  let currentMemes: Meme[] = [];
 
   // Load memes function
   async function loadMemes() {
@@ -201,7 +213,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // Display memes function
-  function displayMemes(memes: any[]) {
+  function displayMemes(memes: Meme[]) {
     if (!memesContainer) return;
 
     memesContainer.innerHTML = '';
@@ -301,7 +313,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // Update stats
-  function updateStats(memes: any[]) {
+  function updateStats(memes: Meme[]) {
     const totalMemes = document.getElementById('total-memes');
     const totalUpvotes = document.getElementById('total-upvotes');
     const uniqueAuthors = document.getElementById('unique-authors');
