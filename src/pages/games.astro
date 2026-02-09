@@ -1,5 +1,242 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import GameCard from "../components/GameCard.astro";
+
+const gamesData = [
+  {
+    id: "code-snake",
+    emoji: "🐍",
+    title: "Code Snake: Matrix Edition",
+    description:
+      "Navigate through the matrix eating code snippets! Features power-ups, portals, ghost mode, and stunning visual effects with matrix rain background.",
+    tags: [
+      { label: "Canvas 2D", colorClass: "bg-green-600" },
+      { label: "Particle Effects", colorClass: "bg-blue-600" },
+      { label: "Web Audio API", colorClass: "bg-purple-600" },
+      { label: "LocalStorage", colorClass: "bg-orange-600" },
+    ],
+    features: [
+      "Matrix rain background animation",
+      "Power-ups: Speed boost, Ghost mode, Portals",
+      "Combo system with score multipliers",
+      "Smooth animations and particle effects",
+    ],
+    buttonText: "🐍 Enter the Matrix",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800",
+      heading: "text-green-900 dark:text-green-100",
+      button: "bg-green-600 hover:bg-green-700",
+    },
+  },
+  {
+    id: "dev-memory",
+    emoji: "🧠",
+    title: "Dev Memory: Code Match",
+    description:
+      "Match programming languages, dev tools, and code concepts! Beautiful 3D card flips, streak bonuses, and multiple difficulty levels.",
+    tags: [
+      { label: "CSS 3D Transforms", colorClass: "bg-purple-600" },
+      { label: "Animations", colorClass: "bg-pink-600" },
+      { label: "DOM Manipulation", colorClass: "bg-blue-600" },
+      { label: "Particle System", colorClass: "bg-orange-600" },
+    ],
+    features: [
+      "3 Themes: Languages, Concepts, Tools",
+      "Easy (6), Medium (8), Hard (12) pairs",
+      "Streak system and combo bonuses",
+      "Beautiful card flip animations",
+    ],
+    buttonText: "🧠 Test Your Memory",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-800",
+      heading: "text-purple-900 dark:text-purple-100",
+      button: "bg-purple-600 hover:bg-purple-700",
+    },
+  },
+  {
+    id: "code-typer",
+    emoji: "⌨️",
+    title: "Code Typer: Speed Challenge",
+    description:
+      "Test your coding typing speed! Real code snippets with syntax highlighting, WPM tracking, and accuracy metrics across multiple languages.",
+    tags: [
+      { label: "Real-time Parsing", colorClass: "bg-cyan-600" },
+      { label: "Syntax Highlighting", colorClass: "bg-blue-600" },
+      { label: "Performance Metrics", colorClass: "bg-green-600" },
+      { label: "LocalStorage", colorClass: "bg-purple-600" },
+    ],
+    features: [
+      "JavaScript, Python, TypeScript snippets",
+      "Live syntax highlighting as you type",
+      "WPM, accuracy, and error tracking",
+      "Easy, Medium, Hard difficulties",
+    ],
+    buttonText: "⌨️ Start Typing",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border-cyan-200 dark:border-cyan-800",
+      heading: "text-cyan-900 dark:text-cyan-100",
+      button: "bg-cyan-600 hover:bg-cyan-700",
+    },
+  },
+  {
+    id: "pixel-drawer",
+    emoji: "🎨",
+    title: "Pixel Sandbox",
+    description:
+      "Create pixel art or ASCII art in customizable grids. Save, share, and export your creations as JSON or PNG files.",
+    tags: [
+      { label: "JavaScript ES6", colorClass: "bg-blue-600" },
+      { label: "Canvas API", colorClass: "bg-green-600" },
+      { label: "File API", colorClass: "bg-purple-600" },
+      { label: "Local Storage", colorClass: "bg-orange-600" },
+    ],
+    features: [
+      "Dual mode: Pixel Art & ASCII Art",
+      "Multiple grid sizes (16x16 to 48x48)",
+      "Export as PNG, JSON, or code snippets",
+      "Save/load artwork files",
+    ],
+    buttonText: "🎨 Start Creating",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-blue-200 dark:border-blue-800",
+      heading: "text-blue-900 dark:text-blue-100",
+      button: "bg-blue-600 hover:bg-blue-700",
+    },
+  },
+  {
+    id: "useless-machine",
+    emoji: "🤖",
+    title: "Useless Machine",
+    description:
+      "An incredibly advanced useless machine with particle effects, sound, thought bubbles, and endless personality! Watch it run away from your cursor, teleport, dance, have tantrums, and perform other delightfully pointless actions.",
+    tags: [
+      { label: "JavaScript ES6", colorClass: "bg-red-600" },
+      { label: "Canvas 2D", colorClass: "bg-blue-600" },
+      { label: "Physics", colorClass: "bg-purple-600" },
+      { label: "Animation", colorClass: "bg-orange-600" },
+    ],
+    features: [
+      "Particle effects & sound system",
+      "Thought bubbles & mood changes",
+      "Teleport, dance, tantrums & more",
+      "Energy system & enhanced physics",
+    ],
+    buttonText: "🤖 Start Pointless Fun",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border-red-200 dark:border-red-800",
+      heading: "text-red-900 dark:text-red-100",
+      button: "bg-red-600 hover:bg-red-700",
+    },
+  },
+  {
+    id: "hangman",
+    emoji: "🎯",
+    title: "Hangman",
+    description:
+      "Classic word guessing game re-imagined as a critical system failure. Prevent the server crash by guessing the password before the system is compromised!",
+    tags: [
+      { label: "JavaScript ES6", colorClass: "bg-green-600" },
+      { label: "Canvas 2D", colorClass: "bg-blue-600" },
+      { label: "Web Audio API", colorClass: "bg-purple-600" },
+      { label: "Local Storage", colorClass: "bg-orange-600" },
+    ],
+    features: [
+      "50+ programming-themed words",
+      '"System Failure" visual theme',
+      "Sound effects for game events",
+      "Score tracking and hints",
+    ],
+    buttonText: "🎯 Start Playing",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 border-green-200 dark:border-green-800",
+      heading: "text-green-900 dark:text-green-100",
+      button: "bg-green-600 hover:bg-green-700",
+    },
+  },
+  {
+    id: "wack-a-bug",
+    emoji: "🐛",
+    title: "Wack a Bug",
+    description:
+      "A fast-paced bug hunting game! Whack the bugs, avoid the traps, and catch the Golden Bug for bonus points. Features boss battles and splat effects!",
+    tags: [
+      { label: "JavaScript ES6", colorClass: "bg-yellow-600" },
+      { label: "Canvas 2D", colorClass: "bg-blue-600" },
+      { label: "Simple Physics", colorClass: "bg-green-600" },
+      { label: "Click Detection", colorClass: "bg-orange-600" },
+    ],
+    features: [
+      "Simple one-click gameplay",
+      "Golden Bugs & Trap Bugs",
+      'Satisfying "Splat" effects',
+      "Score tracking and high scores",
+      "Increasing difficulty levels",
+    ],
+    buttonText: "🐛 Start Wacking",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-800",
+      heading: "text-yellow-900 dark:text-yellow-100",
+      button: "bg-yellow-600 hover:bg-yellow-700",
+    },
+  },
+  {
+    id: "typing-test",
+    emoji: "⌨️",
+    title: "Typing Speed Test",
+    description:
+      "Test your typing speed with real code snippets! Track your WPM, accuracy, and compete against your best scores.",
+    tags: [
+      { label: "JavaScript", colorClass: "bg-indigo-600" },
+      { label: "Real-time Tracking", colorClass: "bg-violet-600" },
+      { label: "LocalStorage", colorClass: "bg-purple-600" },
+    ],
+    features: [
+      "20+ code snippets in various languages",
+      "WPM and accuracy tracking",
+      "Focus mode for distraction-free typing",
+      "Personal best score tracking",
+    ],
+    buttonText: "⌨️ Start Typing",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 border-indigo-200 dark:border-indigo-800",
+      heading: "text-indigo-900 dark:text-indigo-100",
+      button: "bg-indigo-600 hover:bg-indigo-700",
+    },
+  },
+  {
+    id: "dev-bingo",
+    emoji: "🎯",
+    title: "Developer Bingo",
+    description:
+      "The classic bingo game with a developer twist! Mark off relatable dev experiences and share your card with friends.",
+    tags: [
+      { label: "JavaScript", colorClass: "bg-pink-600" },
+      { label: "CSS Grid", colorClass: "bg-rose-600" },
+      { label: "LocalStorage", colorClass: "bg-red-600" },
+    ],
+    features: [
+      "45+ relatable developer situations",
+      "Win detection for rows, columns, diagonals",
+      "Share your bingo card",
+      "Progress saved automatically",
+    ],
+    buttonText: "🎯 Play Bingo",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border-pink-200 dark:border-pink-800",
+      heading: "text-pink-900 dark:text-pink-100",
+      button: "bg-pink-600 hover:bg-pink-700",
+    },
+  },
+];
 ---
 
 <Layout
@@ -18,580 +255,22 @@ import Layout from "../layouts/Layout.astro";
       </p>
     </div>
 
-    <!-- Games Grid -->
+        <!-- Games Grid -->
     <div class="grid md:grid-cols-2 gap-8 mb-12">
-      <!-- Code Snake Card -->
-      <div
-        class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🐍</span>
-            <h2 class="text-2xl font-bold">Code Snake: Matrix Edition</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            Navigate through the matrix eating code snippets! Features
-            power-ups, portals, ghost mode, and stunning visual effects with
-            matrix rain background.
-          </p>
-
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-green-900 dark:text-green-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-green-600 text-white text-xs rounded-full"
-                >Canvas 2D</span
-              >
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >Particle Effects</span
-              >
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >Web Audio API</span
-              >
-              <span
-                class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full"
-                >LocalStorage</span
-              >
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-green-900 dark:text-green-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• Matrix rain background animation</li>
-              <li>• Power-ups: Speed boost, Ghost mode, Portals</li>
-              <li>• Combo system with score multipliers</li>
-              <li>• Smooth animations and particle effects</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('code-snake')"
-            class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
-          >
-            🐍 Enter the Matrix
-          </button>
-        </div>
-      </div>
-
-      <!-- Dev Memory Card -->
-      <div
-        class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🧠</span>
-            <h2 class="text-2xl font-bold">Dev Memory: Code Match</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            Match programming languages, dev tools, and code concepts! Beautiful
-            3D card flips, streak bonuses, and multiple difficulty levels.
-          </p>
-
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-purple-900 dark:text-purple-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >CSS 3D Transforms</span
-              >
-              <span
-                class="px-2 py-1 bg-pink-600 text-white text-xs rounded-full"
-                >Animations</span
-              >
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >DOM Manipulation</span
-              >
-              <span
-                class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full"
-                >Particle System</span
-              >
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-purple-900 dark:text-purple-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• 3 Themes: Languages, Concepts, Tools</li>
-              <li>• Easy (6), Medium (8), Hard (12) pairs</li>
-              <li>• Streak system and combo bonuses</li>
-              <li>• Beautiful card flip animations</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('dev-memory')"
-            class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium"
-          >
-            🧠 Test Your Memory
-          </button>
-        </div>
-      </div>
-
-      <!-- Code Typer Card -->
-      <div
-        class="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl border border-cyan-200 dark:border-cyan-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">⌨️</span>
-            <h2 class="text-2xl font-bold">Code Typer: Speed Challenge</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            Test your coding typing speed! Real code snippets with syntax
-            highlighting, WPM tracking, and accuracy metrics across multiple
-            languages.
-          </p>
-
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-cyan-900 dark:text-cyan-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-cyan-600 text-white text-xs rounded-full"
-                >Real-time Parsing</span
-              >
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >Syntax Highlighting</span
-              >
-              <span
-                class="px-2 py-1 bg-green-600 text-white text-xs rounded-full"
-                >Performance Metrics</span
-              >
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >LocalStorage</span
-              >
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-cyan-900 dark:text-cyan-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• JavaScript, Python, TypeScript snippets</li>
-              <li>• Live syntax highlighting as you type</li>
-              <li>• WPM, accuracy, and error tracking</li>
-              <li>• Easy, Medium, Hard difficulties</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('code-typer')"
-            class="w-full bg-cyan-600 text-white py-3 rounded-lg hover:bg-cyan-700 transition-colors font-medium"
-          >
-            ⌨️ Start Typing
-          </button>
-        </div>
-      </div>
-
-      <!-- Pixel Sandbox / ASCII Drawer Card -->
-      <div
-        class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200 dark:border-blue-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🎨</span>
-            <h2 class="text-2xl font-bold">Pixel Sandbox</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            Create pixel art or ASCII art in customizable grids. Save, share,
-            and export your creations as JSON or PNG files.
-          </p>
-
-          <!-- Technologies -->
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-blue-900 dark:text-blue-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >JavaScript ES6</span
-              >
-              <span
-                class="px-2 py-1 bg-green-600 text-white text-xs rounded-full"
-                >Canvas API</span
-              >
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >File API</span
-              >
-              <span
-                class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full"
-                >Local Storage</span
-              >
-            </div>
-          </div>
-
-          <!-- Features -->
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-blue-900 dark:text-blue-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• Dual mode: Pixel Art & ASCII Art</li>
-              <li>• Multiple grid sizes (16x16 to 48x48)</li>
-              <li>• Export as PNG, JSON, or code snippets</li>
-              <li>• Save/load artwork files</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('pixel-drawer')"
-            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
-            🎨 Start Creating
-          </button>
-        </div>
-      </div>
-
-      <!-- Useless Machine Game Card -->
-      <div
-        class="bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-xl border border-red-200 dark:border-red-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🤖</span>
-            <h2 class="text-2xl font-bold">Useless Machine</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            An incredibly advanced useless machine with particle effects, sound,
-            thought bubbles, and endless personality! Watch it run away from
-            your cursor, teleport, dance, have tantrums, and perform other
-            delightfully pointless actions.
-          </p>
-
-          <!-- Technologies -->
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-red-900 dark:text-red-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-2 py-1 bg-red-600 text-white text-xs rounded-full"
-                >JavaScript ES6</span
-              >
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >Canvas 2D</span
-              >
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >Physics</span
-              >
-              <span
-                class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full"
-                >Animation</span
-              >
-            </div>
-          </div>
-
-          <!-- Features -->
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-red-900 dark:text-red-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• Particle effects & sound system</li>
-              <li>• Thought bubbles & mood changes</li>
-              <li>• Teleport, dance, tantrums & more</li>
-              <li>• Energy system & enhanced physics</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('useless-machine')"
-            class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-medium"
-          >
-            🤖 Start Pointless Fun
-          </button>
-        </div>
-      </div>
-
-      <!-- Hangman Game Card -->
-      <div
-        class="bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl border border-green-200 dark:border-green-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🎯</span>
-            <h2 class="text-2xl font-bold">Hangman</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            Classic word guessing game re-imagined as a critical system failure.
-            Prevent the server crash by guessing the password before the system
-            is compromised!
-          </p>
-
-          <!-- Technologies -->
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-green-900 dark:text-green-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-green-600 text-white text-xs rounded-full"
-                >JavaScript ES6</span
-              >
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >Canvas 2D</span
-              >
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >Web Audio API</span
-              >
-              <span
-                class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full"
-                >Local Storage</span
-              >
-            </div>
-          </div>
-
-          <!-- Features -->
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-green-900 dark:text-green-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• 50+ programming-themed words</li>
-              <li>• "System Failure" visual theme</li>
-              <li>• Sound effects for game events</li>
-              <li>• Score tracking and hints</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('hangman')"
-            class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
-          >
-            🎯 Start Playing
-          </button>
-        </div>
-      </div>
-
-      <!-- Wack a Bug Game Card -->
-      <div
-        class="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🐛</span>
-            <h2 class="text-2xl font-bold">Wack a Bug</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            A fast-paced bug hunting game! Whack the bugs, avoid the traps, and
-            catch the Golden Bug for bonus points. Features boss battles and
-            splat effects!
-          </p>
-
-          <!-- Technologies -->
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-yellow-900 dark:text-yellow-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-yellow-600 text-white text-xs rounded-full"
-                >JavaScript ES6</span
-              >
-              <span
-                class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full"
-                >Canvas 2D</span
-              >
-              <span
-                class="px-2 py-1 bg-green-600 text-white text-xs rounded-full"
-                >Simple Physics</span
-              >
-              <span
-                class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full"
-                >Click Detection</span
-              >
-            </div>
-          </div>
-
-          <!-- Features -->
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-yellow-900 dark:text-yellow-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• Simple one-click gameplay</li>
-              <li>• Golden Bugs & Trap Bugs</li>
-              <li>• Satisfying "Splat" effects</li>
-              <li>• Score tracking and high scores</li>
-              <li>• Increasing difficulty levels</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('wack-a-bug')"
-            class="w-full bg-yellow-600 text-white py-3 rounded-lg hover:bg-yellow-700 transition-colors font-medium"
-          >
-            🐛 Start Wacking
-          </button>
-        </div>
-      </div>
-
-      <!-- Typing Speed Test Card -->
-      <div
-        class="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">⌨️</span>
-            <h2 class="text-2xl font-bold">Typing Speed Test</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            Test your typing speed with real code snippets! Track your WPM,
-            accuracy, and compete against your best scores.
-          </p>
-
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-indigo-900 dark:text-indigo-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-indigo-600 text-white text-xs rounded-full"
-                >JavaScript</span
-              >
-              <span
-                class="px-2 py-1 bg-violet-600 text-white text-xs rounded-full"
-                >Real-time Tracking</span
-              >
-              <span
-                class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
-                >LocalStorage</span
-              >
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-indigo-900 dark:text-indigo-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• 20+ code snippets in various languages</li>
-              <li>• WPM and accuracy tracking</li>
-              <li>• Focus mode for distraction-free typing</li>
-              <li>• Personal best score tracking</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('typing-test')"
-            class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
-          >
-            ⌨️ Start Typing
-          </button>
-        </div>
-      </div>
-
-      <!-- Dev Bingo Card -->
-      <div
-        class="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-xl border border-pink-200 dark:border-pink-800 overflow-hidden"
-      >
-        <div class="p-6">
-          <div class="flex items-center mb-4">
-            <span class="text-3xl mr-3">🎯</span>
-            <h2 class="text-2xl font-bold">Developer Bingo</h2>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            The classic bingo game with a developer twist! Mark off relatable
-            dev experiences and share your card with friends.
-          </p>
-
-          <div class="mb-4">
-            <h3
-              class="text-sm font-semibold mb-2 text-pink-900 dark:text-pink-100"
-            >
-              Technologies:
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-2 py-1 bg-pink-600 text-white text-xs rounded-full"
-                >JavaScript</span
-              >
-              <span
-                class="px-2 py-1 bg-rose-600 text-white text-xs rounded-full"
-                >CSS Grid</span
-              >
-              <span
-                class="px-2 py-1 bg-red-600 text-white text-xs rounded-full"
-                >LocalStorage</span
-              >
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <h3
-              class="text-sm font-semibold mb-2 text-pink-900 dark:text-pink-100"
-            >
-              Features:
-            </h3>
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li>• 45+ relatable developer situations</li>
-              <li>• Win detection for rows, columns, diagonals</li>
-              <li>• Share your bingo card</li>
-              <li>• Progress saved automatically</li>
-            </ul>
-          </div>
-
-          <button
-            onclick="showGame('dev-bingo')"
-            class="w-full bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition-colors font-medium"
-          >
-            🎯 Play Bingo
-          </button>
-        </div>
-      </div>
+      {
+        gamesData.map((game) => (
+          <GameCard
+            id={game.id}
+            title={game.title}
+            emoji={game.emoji}
+            description={game.description}
+            tags={game.tags}
+            features={game.features}
+            buttonText={game.buttonText}
+            themeClasses={game.themeClasses}
+          />
+        ))
+      }
     </div>
 
     <!-- Game Container -->
