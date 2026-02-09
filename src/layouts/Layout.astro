@@ -2,7 +2,6 @@
 import { siteConfig } from '../config/site';
 import BackToTop from '../components/BackToTop.astro';
 import EasterEggs from '../components/EasterEggs.astro';
-import CleanGlobalCounter from '../components/CleanGlobalCounter.astro';
 
 export interface Props {
   title: string;
@@ -355,9 +354,6 @@ const imageURL = new URL(image, siteConfig.url);
     
     <!-- Easter Eggs -->
     <EasterEggs />
-    
-    <!-- Global Visitor Counter -->
-    <!-- <CleanGlobalCounter /> -->
 
     <script>
       // Theme toggle functionality with enhanced animation

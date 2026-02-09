@@ -8,8 +8,16 @@ const allBookmarks = await getCollection('bookmarks', ({ data }) => {
 });
 const sortedBookmarks = allBookmarks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const featuredBookmarks = sortedBookmarks.filter(b => b.data.featured);
-const regularBookmarks = sortedBookmarks.filter(b => !b.data.featured);
+const featuredBookmarks: typeof sortedBookmarks = [];
+const regularBookmarks: typeof sortedBookmarks = [];
+
+for (const bookmark of sortedBookmarks) {
+  if (bookmark.data.featured) {
+    featuredBookmarks.push(bookmark);
+  } else {
+    regularBookmarks.push(bookmark);
+  }
+}
 
 const categoryColors: Record<string, string> = {
   article: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
