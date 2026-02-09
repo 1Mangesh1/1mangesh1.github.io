@@ -5,7 +5,7 @@ export function calculateReadingTime(content: string): number {
     .replace(/```[\s\S]*?```/g, "") // Remove code blocks
     .replace(/`[^`]*`/g, "") // Remove inline code
     .replace(/!\[.*?\]\(.*?\)/g, "") // Remove images
-    .replace(/\[.*?\]\(.*?\)/g, "") // Remove links (keep text)
+    .replace(/\[(.*?)\]\(.*?\)/g, "$1") // Remove links (keep text)
     .replace(/#{1,6}\s/g, "") // Remove markdown headers
     .replace(/[*_~`]/g, "") // Remove emphasis markers
     .replace(/\s+/g, " ") // Normalize whitespace
