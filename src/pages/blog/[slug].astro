@@ -19,16 +19,14 @@ export async function getStaticPaths() {
   return blogPosts.map((post) => {
     return {
       params: { slug: post.slug },
-      props: { post },
+      props: { post, allPosts: blogPosts },
     };
   });
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content, headings } = await post.render();
 
-// Get all posts for related posts calculation
-const allPosts = await getCollection("blog");
 const relatedPosts = getRelatedPosts(post, allPosts, 3);
 
 // Calculate reading time
