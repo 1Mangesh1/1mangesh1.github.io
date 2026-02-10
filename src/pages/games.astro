@@ -428,20 +428,27 @@ const gamesData = [
   </div>
 
   <script>
+    // Type definitions
+    interface GameInstance {
+      destroy?: () => void;
+    }
+
+    type GameConstructor = new () => GameInstance;
+
     // Game management functions
-    let currentGame: any = null;
+    let currentGame: GameInstance | null = null;
 
     // Extend window interface for global functions
     interface GameWindow extends Window {
-      PixelStudio?: any;
-      ChaosMachine?: any;
-      BugBlaster?: any;
-      CodeSnake?: any;
-      DevMemory?: any;
-      CodeTyper?: any;
-      CodeHangman?: any;
-      TypingTest?: any;
-      DevBingo?: any;
+      PixelStudio?: GameConstructor;
+      ChaosMachine?: GameConstructor;
+      BugBlaster?: GameConstructor;
+      CodeSnake?: GameConstructor;
+      DevMemory?: GameConstructor;
+      CodeTyper?: GameConstructor;
+      CodeHangman?: GameConstructor;
+      TypingTest?: GameConstructor;
+      DevBingo?: GameConstructor;
       showGame?: (gameType: string) => void;
       hideGame?: () => void;
     }
@@ -673,9 +680,10 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/useless-machine.js", () => {
             if (gameWindow.ChaosMachine) {
+              const ChaosMachineClass = gameWindow.ChaosMachine;
               // Add a slight delay to ensure DOM is fully ready
               setTimeout(() => {
-                currentGame = new gameWindow.ChaosMachine();
+                currentGame = new ChaosMachineClass();
               }, 100);
             }
           });
@@ -749,9 +757,10 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/wack-a-bug.js", () => {
             if (gameWindow.BugBlaster) {
+              const BugBlasterClass = gameWindow.BugBlaster;
               // Add a slight delay to ensure DOM is fully ready
               setTimeout(() => {
-                currentGame = new gameWindow.BugBlaster();
+                currentGame = new BugBlasterClass();
               }, 100);
             }
           });
@@ -829,8 +838,9 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/code-snake.js", () => {
             if (gameWindow.CodeSnake) {
+              const CodeSnakeClass = gameWindow.CodeSnake;
               setTimeout(() => {
-                currentGame = new gameWindow.CodeSnake();
+                currentGame = new CodeSnakeClass();
               }, 100);
             }
           });
@@ -936,8 +946,9 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/dev-memory.js", () => {
             if (gameWindow.DevMemory) {
+              const DevMemoryClass = gameWindow.DevMemory;
               setTimeout(() => {
-                currentGame = new gameWindow.DevMemory();
+                currentGame = new DevMemoryClass();
               }, 100);
             }
           });
@@ -1042,8 +1053,9 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/code-typer.js", () => {
             if (gameWindow.CodeTyper) {
+              const CodeTyperClass = gameWindow.CodeTyper;
               setTimeout(() => {
-                currentGame = new gameWindow.CodeTyper();
+                currentGame = new CodeTyperClass();
               }, 100);
             }
           });
@@ -1125,8 +1137,9 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/hangman.js", () => {
             if (gameWindow.CodeHangman) {
+              const CodeHangmanClass = gameWindow.CodeHangman;
               setTimeout(() => {
-                currentGame = new gameWindow.CodeHangman();
+                currentGame = new CodeHangmanClass();
               }, 100);
             }
           });
@@ -1188,8 +1201,9 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/typing-test.js", () => {
             if (gameWindow.TypingTest) {
+              const TypingTestClass = gameWindow.TypingTest;
               setTimeout(() => {
-                currentGame = new gameWindow.TypingTest();
+                currentGame = new TypingTestClass();
               }, 100);
             }
           });
@@ -1252,8 +1266,9 @@ const gamesData = [
         } else {
           loadScript("/game-scripts/dev-bingo.js", () => {
             if (gameWindow.DevBingo) {
+              const DevBingoClass = gameWindow.DevBingo;
               setTimeout(() => {
-                currentGame = new gameWindow.DevBingo();
+                currentGame = new DevBingoClass();
               }, 100);
             }
           });
