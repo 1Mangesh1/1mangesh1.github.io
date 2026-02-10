@@ -228,7 +228,9 @@ import Layout from '../layouts/Layout.astro';
   document.getElementById('run-btn')!.addEventListener('click', () => {
     try {
       const code = codeInput.value;
-      const result = eval(`(function() { ${code}; return typeof solve !== 'undefined' ? solve : null; })()`);
+      // Using new Function() instead of eval() for safer execution.
+      // This prevents access to local scope variables, though global scope access remains.
+      const result = new Function(`"use strict"; ${code}; return typeof solve !== 'undefined' ? solve : null;`)();
 
       if (typeof result === 'function') {
         // Test with sample input
@@ -249,7 +251,8 @@ import Layout from '../layouts/Layout.astro';
   document.getElementById('test-btn')!.addEventListener('click', () => {
     try {
       const code = codeInput.value;
-      const fn = eval(`(function() { ${code}; return solve; })()`);
+      // Using new Function() instead of eval() for safer execution.
+      const fn = new Function(`"use strict"; ${code}; return solve;`)();
 
       const challenge = challenges[currentChallenge];
       const passed = challenge.test(fn);
