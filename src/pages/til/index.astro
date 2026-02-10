@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../utils/date';
 
 // Filter drafts in production, show all in development
 const allTils = await getCollection('til', ({ data }) => {
@@ -8,12 +9,30 @@ const allTils = await getCollection('til', ({ data }) => {
 });
 const sortedTils = allTils.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  }).format(date);
+const getExcerpt = (body: string) => {
+  if (!body) return '';
+  // Remove markdown headers
+  let clean = body.replace(/^#+\s+/gm, '');
+  // Remove images
+  clean = clean.replace(/!\[.*?\]\(.*?\)/g, '');
+  // Remove links but keep text
+  clean = clean.replace(/\[(.*?)\]\(.*?\)/g, '$1');
+  // Remove code blocks
+  clean = clean.replace(/```[\s\S]*?```/g, '');
+  // Remove inline code
+  clean = clean.replace(/`([^`]+)`/g, '$1');
+  // Remove html tags
+  clean = clean.replace(/<[^>]*>/g, '');
+
+  // Trim whitespace
+  clean = clean.trim();
+
+  // Get first paragraph or truncate
+  const firstParagraph = clean.split(/\n\n/)[0];
+  if (firstParagraph.length > 200) {
+    return firstParagraph.substring(0, 200) + '...';
+  }
+  return firstParagraph;
 };
 
 const categoryColors: Record<string, string> = {
@@ -35,8 +54,8 @@ const categoryColors: Record<string, string> = {
     </div>
 
     <div class="space-y-6">
-      {sortedTils.map(async (til) => {
-        const { Content } = await til.render();
+      {sortedTils.map((til) => {
+        const excerpt = getExcerpt(til.body);
         return (
           <article class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
             <div class="flex items-center gap-3 mb-3">
@@ -50,10 +69,18 @@ const categoryColors: Record<string, string> = {
               )}
             </div>
 
-            <h2 class="text-xl font-semibold mb-3">{til.data.title}</h2>
+            <h2 class="text-xl font-semibold mb-3">
+              <a href={`/til/${til.slug}`} class="hover:text-blue-600 transition-colors">
+                {til.data.title}
+              </a>
+            </h2>
 
-            <div class="prose dark:prose-invert prose-sm max-w-none">
-              <Content />
+            <div class="prose dark:prose-invert prose-sm max-w-none text-gray-600 dark:text-gray-300">
+              <p>{excerpt}</p>
+            </div>
+
+            <div class="mt-4">
+               <a href={`/til/${til.slug}`} class="text-blue-600 hover:underline text-sm font-medium">Read more &rarr;</a>
             </div>
 
             {til.data.tags && (
