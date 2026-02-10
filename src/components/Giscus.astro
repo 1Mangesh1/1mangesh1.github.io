@@ -22,16 +22,31 @@
     script.crossOrigin = 'anonymous';
     script.async = true;
 
+
+    // Check if running on localhost
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+
     // Determine initial theme
     const isDark = document.documentElement.classList.contains('dark') ||
                    (localStorage.getItem('theme') === 'dark') ||
                    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-    // Construct absolute URL for the theme file
+
+    // Construct theme URL or use default for localhost
     const origin = window.location.origin;
-    const themeUrl = isDark
-      ? `${origin}/styles/giscus-dark.css`
-      : `${origin}/styles/giscus-light.css`;
+    let themeUrl;
+
+    if (isLocalhost) {
+      // Fallback to built-in themes on localhost because giscus.app cannot reach local CSS files
+      console.warn('Giscus custom theme is disabled on localhost. Using built-in themes.');
+      themeUrl = isDark ? 'dark' : 'light';
+    } else {
+      themeUrl = isDark
+        ? `${origin}/styles/giscus-dark.css`
+        : `${origin}/styles/giscus-light.css`;
+    }
+
 
     script.setAttribute('data-theme', themeUrl);
 
@@ -42,9 +57,17 @@
       const iframe = document.querySelector('iframe.giscus-frame');
       if (!iframe) return;
 
-      const newThemeUrl = theme === 'dark'
-        ? `${window.location.origin}/styles/giscus-dark.css`
-        : `${window.location.origin}/styles/giscus-light.css`;
+
+      let newThemeUrl;
+
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        newThemeUrl = theme === 'dark' ? 'dark' : 'light';
+      } else {
+        newThemeUrl = theme === 'dark'
+          ? `${window.location.origin}/styles/giscus-dark.css`
+          : `${window.location.origin}/styles/giscus-light.css`;
+      }
+
 
       // @ts-ignore
       iframe.contentWindow?.postMessage(
