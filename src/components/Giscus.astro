@@ -22,13 +22,16 @@
     script.crossOrigin = 'anonymous';
     script.async = true;
 
+
     // Check if running on localhost
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 
     // Determine initial theme
     const isDark = document.documentElement.classList.contains('dark') ||
                    (localStorage.getItem('theme') === 'dark') ||
                    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
 
     // Construct theme URL or use default for localhost
     const origin = window.location.origin;
@@ -44,6 +47,7 @@
         : `${origin}/styles/giscus-light.css`;
     }
 
+
     script.setAttribute('data-theme', themeUrl);
 
     container.appendChild(script);
@@ -52,6 +56,7 @@
     function setGiscusTheme(theme) {
       const iframe = document.querySelector('iframe.giscus-frame');
       if (!iframe) return;
+
 
       let newThemeUrl;
 
@@ -62,6 +67,7 @@
           ? `${window.location.origin}/styles/giscus-dark.css`
           : `${window.location.origin}/styles/giscus-light.css`;
       }
+
 
       // @ts-ignore
       iframe.contentWindow?.postMessage(
