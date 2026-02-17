@@ -19,7 +19,7 @@
           "https://linkedin.com/in/mangesh-bide/"
         ]
       }
-    </script><!-- GoatCounter Analytics --><script data-goatcounter="https://mangeshbide.goatcounter.com/count" data-goatcounter-settings="{&quot;allow_local&quot;: true}" async src="https://gc.zgo.at/count.js"></script><!-- Animation Styles --><link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/animations.css"></noscript><link rel="stylesheet" href="/assets/about.BZ6O0OQd.css">
+    </script><!-- GoatCounter Analytics --><script data-goatcounter="https://mangeshbide.goatcounter.com/count" data-goatcounter-settings="{&quot;allow_local&quot;: true}" async src="https://gc.zgo.at/count.js"></script><!-- Animation Styles --><link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/animations.css"></noscript><link rel="stylesheet" href="/assets/about.BiVzcx22.css">
 <style>@keyframes rainbow{0%{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}@keyframes fall{to{transform:translateY(100vh) rotate(360deg)}}#dancing-cat[data-astro-cid-mei435rj]{animation:dance .5s infinite alternate}@keyframes dance{0%{transform:rotate(-10deg) scale(1)}to{transform:rotate(10deg) scale(1.1)}}
 .notification-bubble[data-astro-cid-nbvelyww]{max-width:100vw;box-sizing:border-box;margin:0 auto}@media(max-width:640px){.notification-bubble[data-astro-cid-nbvelyww]{left:50%!important;right:auto!important;transform:translate(-50%)!important;width:calc(100vw - 2rem);max-width:95vw;min-width:0;top:1rem!important}}.toc-link[data-astro-cid-xvrfupwn].active{font-weight:500;--tw-text-opacity: 1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn].active:is(.dark *){--tw-text-opacity: 1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn].active:before{content:"";position:absolute;left:0;top:50%;height:1rem;width:.25rem;--tw-translate-y: -50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));border-radius:9999px;--tw-bg-opacity: 1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.toc-link[data-astro-cid-xvrfupwn]{position:relative;padding-left:1rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="2"]{padding-left:1rem;font-weight:500}.toc-link[data-astro-cid-xvrfupwn][data-depth="3"]{padding-left:1.5rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="4"]{padding-left:2rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="5"]{padding-left:2.5rem}.toc-link[data-astro-cid-xvrfupwn][data-depth="6"]{padding-left:3rem}.giscus-wrapper{width:100%}.giscus-container{width:100%;min-width:0}.giscus-container .giscus,.giscus-container .giscus iframe,.giscus-container .giscus .giscus-frame,.giscus-container iframe.giscus-frame{width:100%!important;max-width:100%!important}
 </style></head> <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"> <!-- Reading Progress Bar --> <div id="reading-progress" class="fixed top-0 left-0 h-1 custom-gradient-bg z-50 transition-all duration-300" style="width: 0%"></div> <div class="min-h-screen flex flex-col page-enter"> <header id="navbar" class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-all duration-300 sticky top-0 z-40 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90"> <nav class="max-w-4xl mx-auto px-4 py-6"> <!-- Desktop Navigation --> <div class="flex justify-between items-center"> <div class="flex items-center space-x-8"> <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link animate-on-scroll slide-left">
@@ -955,31 +955,6 @@ Awesome!
     }, 2500);
   }
 
-  // Easter Egg 9: Scroll bouncy effect easter egg  
-  let scrollCount = 0;
-  let scrollTimeout;
-
-  window.addEventListener('scroll', () => {
-    scrollCount++;
-    clearTimeout(scrollTimeout);
-
-    if (scrollCount >= 50) {
-      const scrollNotif = document.createElement('div');
-      scrollNotif.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-green-400 to-blue-500 text-white px-8 py-6 rounded-lg shadow-2xl z-50 text-center animate-bounce';
-      scrollNotif.innerHTML = `
-        <div class="text-3xl mb-2">⬆️ Whoa!</div>
-        <div class="text-lg">You're a scroll master!</div>
-        <div class="text-sm opacity-80 mt-2">That's a lot of scrolling</div>
-      `;
-      document.body.appendChild(scrollNotif);
-      setTimeout(() => scrollNotif.remove(), 2500);
-      scrollCount = 0;
-    }
-
-    scrollTimeout = setTimeout(() => {
-      scrollCount = 0;
-    }, 2000);
-  });
 
   // Easter Egg 10: Secret sound (visual only, respects user preferences)
   if (Math.random() < 0.02) {
@@ -1000,7 +975,46 @@ Awesome!
   }
 
 
-</script>  <script type="module">const l=document.getElementById("theme-toggle"),c=document.documentElement,f=localStorage.getItem("theme")||"light";f==="dark"&&c.classList.add("dark");l?.addEventListener("click",()=>{c.classList.toggle("dark");const e=c.classList.contains("dark");localStorage.setItem("theme",e?"dark":"light"),l.style.transform="scale(0.95)",setTimeout(()=>{l.style.transform=""},150)});const g=document.getElementById("mobile-menu-btn"),t=document.getElementById("mobile-menu"),o=document.getElementById("menu-open-icon"),r=document.getElementById("menu-close-icon");g?.addEventListener("click",()=>{t?.classList.contains("hidden")?(t?.classList.remove("hidden"),t?.classList.add("mobile-menu-enter"),o?.classList.add("hidden"),r?.classList.remove("hidden")):(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const v=t?.querySelectorAll("a");v?.forEach(e=>{e.addEventListener("click",()=>{t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden")})});document.addEventListener("click",e=>{const s=e.target;!t?.contains(s)&&!g?.contains(s)&&(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const m=document.getElementById("reading-progress"),n=document.getElementById("navbar");let h=window.scrollY,d=!1;const u=()=>{const e=window.scrollY,s=window.innerHeight,i=document.documentElement.scrollHeight,a=Math.min(100,Math.max(0,e/(i-s)*100));if(m&&(m.style.width=`${a}%`),n){const L=e>h,y=e>100;L&&y?n.style.transform="translateY(-100%)":n.style.transform="translateY(0)",e>20?n.classList.add("backdrop-blur-md"):n.classList.remove("backdrop-blur-md")}h=e,d=!1},b=()=>{d||(requestAnimationFrame(u),d=!0)},w={threshold:.1,rootMargin:"0px 0px -50px 0px"},p=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&(s.target.classList.add("in-view"),p.unobserve(s.target))})},w),E=document.querySelectorAll(".animate-on-scroll");E.forEach(e=>p.observe(e));const k=document.querySelectorAll("[data-stagger]");k.forEach(e=>{const s=e.children;Array.from(s).forEach((i,a)=>{i.style.animationDelay=`${a*.1}s`})});window.addEventListener("scroll",b);u();console.log(`
+</script>  <div id="quote-notification" class="fixed bottom-4 right-4 z-50 hidden transform transition-all duration-500 translate-y-10 opacity-0"> <div class="bg-white dark:bg-gray-800 border-l-4 border-blue-500 shadow-2xl rounded-r-lg p-5 max-w-sm relative flex items-start gap-4"> <button id="close-quote" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="Close notification"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> <div class="text-2xl mt-1 animate-bounce">💡</div> <div class="flex-1 pr-4"> <h3 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Random Wisdom</h3> <p id="quote-text" class="text-sm text-gray-700 dark:text-gray-300 italic leading-relaxed"></p> </div> </div> </div> <script>(function(){const funQuotes = ["There are 10 types of people: those who understand binary and those who don't.","Why do Java developers wear glasses? Because they don't C#!","How many programmers does it take to change a light bulb? None, that's a hardware problem.","Why did the developer go broke? Because he used up all his cache!","Debugging: Removing the needles from the haystack. Programming: Adding needles to the haystack with your eyes closed.","I would tell you a UDP joke, but you might not get it.","A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'","Why do programmers prefer dark mode? Because light attracts bugs!","The best thing about programming? It doesn't get angry when you test your code multiple times.","I'm not a great programmer; I'm just a good programmer with great habits.","Talk is cheap. Show me the code. - Linus Torvalds","The only way to make sense out of change is to plunge into it, move with it, and join the dance. - Alan Watts","Code is poetry written for machines to execute and humans to understand.","First, solve the problem. Then, write the code.","Do or do not. There is no try() in production.","Java is to JavaScript what Car is to Carpet.","It's not a bug, it's an undocumented feature!","Real programmers don't comment their code. If it was hard to write, it should be hard to read.","99 little bugs in the code, 99 little bugs... Take one down, patch it around... 127 little bugs in the code.","I'm not joking around. I'm a compiler.","Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler","Premature optimization is the root of all evil. - Donald Knuth","Make it work, make it right, make it fast. In that order.","A good programmer is someone who looks both ways before crossing a one-way street. - Doug Linder","Code without tests is broken as designed. - Jacob Kaplan-Moss","If it hurts, do it more often. - Extreme Programming","You can't have great software without a great team. - Steve Jobs","The most devastating thing to any programmer is a stupid manager. - Richard Stallman","If you think hardware is expensive, try buying software. - Tom Syroid","Measuring programming progress by lines of code is like measuring aircraft building progress by weight. - Bill Gates","90% of my code is garbage. The other 10% will be rewritten tomorrow.","Git purge: where you delete your entire project and start from scratch because merge conflicts got out of hand.","CSS: Cascading Strong Suggestions. Maybe they'll work, maybe they won't.","To understand what recursion is, you must first understand what recursion is.","As a programmer, you are not paid to create code. You are paid to solve problems.","The only valid measurement of code quality: WTFs per minute.","UNIX is simple. It just takes a genius to understand its simplicity.","The best error message is one that never appears.","Debugging is like being the detective in a crime drama, except you are also the murderer.","In programming, there are 2 hard problems: cache invalidation, naming things, and off-by-one errors."];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const lastShown = localStorage.getItem('lastQuoteShownTime');
+    const now = Date.now();
+    const FOUR_HOURS = 4 * 60 * 60 * 1000;
+
+    // Check if we should show a quote (if never shown or > 4 hours ago)
+    if (!lastShown || (now - parseInt(lastShown) > FOUR_HOURS)) {
+      const notification = document.getElementById('quote-notification');
+      const quoteText = document.getElementById('quote-text');
+      const closeBtn = document.getElementById('close-quote');
+
+      if (notification && quoteText) {
+        // Select random quote
+        const randomQuote = funQuotes[Math.floor(Math.random() * funQuotes.length)];
+        quoteText.textContent = `"${randomQuote}"`;
+
+        // Show notification with a slight delay for better UX
+        setTimeout(() => {
+          notification.classList.remove('hidden');
+          // Trigger reflow to enable transition
+          void notification.offsetWidth;
+          notification.classList.remove('translate-y-10', 'opacity-0');
+
+          // Update timestamp immediately when shown
+          localStorage.setItem('lastQuoteShownTime', now.toString());
+        }, 1500);
+
+        // Close handler
+        closeBtn?.addEventListener('click', () => {
+          notification.classList.add('translate-y-10', 'opacity-0');
+          setTimeout(() => {
+            notification.classList.add('hidden');
+          }, 500);
+        });
+      }
+    }
+  });
+})();</script> <script type="module">const l=document.getElementById("theme-toggle"),c=document.documentElement,f=localStorage.getItem("theme")||"light";f==="dark"&&c.classList.add("dark");l?.addEventListener("click",()=>{c.classList.toggle("dark");const e=c.classList.contains("dark");localStorage.setItem("theme",e?"dark":"light"),l.style.transform="scale(0.95)",setTimeout(()=>{l.style.transform=""},150)});const g=document.getElementById("mobile-menu-btn"),t=document.getElementById("mobile-menu"),o=document.getElementById("menu-open-icon"),r=document.getElementById("menu-close-icon");g?.addEventListener("click",()=>{t?.classList.contains("hidden")?(t?.classList.remove("hidden"),t?.classList.add("mobile-menu-enter"),o?.classList.add("hidden"),r?.classList.remove("hidden")):(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const v=t?.querySelectorAll("a");v?.forEach(e=>{e.addEventListener("click",()=>{t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden")})});document.addEventListener("click",e=>{const s=e.target;!t?.contains(s)&&!g?.contains(s)&&(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const m=document.getElementById("reading-progress"),n=document.getElementById("navbar");let h=window.scrollY,d=!1;const u=()=>{const e=window.scrollY,s=window.innerHeight,i=document.documentElement.scrollHeight,a=Math.min(100,Math.max(0,e/(i-s)*100));if(m&&(m.style.width=`${a}%`),n){const L=e>h,y=e>100;L&&y?n.style.transform="translateY(-100%)":n.style.transform="translateY(0)",e>20?n.classList.add("backdrop-blur-md"):n.classList.remove("backdrop-blur-md")}h=e,d=!1},b=()=>{d||(requestAnimationFrame(u),d=!0)},w={threshold:.1,rootMargin:"0px 0px -50px 0px"},p=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&(s.target.classList.add("in-view"),p.unobserve(s.target))})},w),E=document.querySelectorAll(".animate-on-scroll");E.forEach(e=>p.observe(e));const k=document.querySelectorAll("[data-stagger]");k.forEach(e=>{const s=e.children;Array.from(s).forEach((i,a)=>{i.style.animationDelay=`${a*.1}s`})});window.addEventListener("scroll",b);u();console.log(`
         🎨 Welcome to Mangesh's Blog!
         
         ✨ Now with smooth animations and enhanced UX!
