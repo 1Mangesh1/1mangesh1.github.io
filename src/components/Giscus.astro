@@ -1,4 +1,19 @@
-<div class="giscus mt-16"></div>
+<div class="giscus-wrapper mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Comments</h2>
+  <div class="giscus"></div>
+</div>
+
+<style>
+  .giscus-wrapper {
+    width: 100%;
+  }
+  .giscus-wrapper .giscus {
+    width: 100%;
+  }
+  .giscus-wrapper .giscus > iframe {
+    width: 100% !important;
+  }
+</style>
 
 <script>
   function loadGiscus() {
@@ -35,7 +50,7 @@
 
     // Construct theme URL or use default for localhost
     const origin = window.location.origin;
-    let themeUrl;
+    let themeUrl: string;
 
     if (isLocalhost) {
       // Fallback to built-in themes on localhost because giscus.app cannot reach local CSS files
@@ -58,7 +73,7 @@
       if (!iframe) return;
 
 
-      let newThemeUrl;
+      let newThemeUrl: string;
 
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         newThemeUrl = theme === 'dark' ? 'dark' : 'light';
