@@ -145,4 +145,10 @@ echo "GEMINI_API_KEY=your_api_key_here" > .env
 npm run dev
 ```
 
+## Learn More
+
+Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
+
+---
+
 This project demonstrates creativity in AI application development, API design, and user experience design while showcasing proficiency in modern web development practices and AI integration techniques.
