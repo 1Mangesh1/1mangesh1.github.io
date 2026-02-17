@@ -1,25 +1,40 @@
 <div class="giscus-wrapper mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
   <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Comments</h2>
-  <div class="giscus"></div>
+  <div class="giscus-container"></div>
 </div>
 
-<style>
+<style is:global>
   .giscus-wrapper {
     width: 100%;
   }
-  .giscus-wrapper .giscus {
+
+  .giscus-container {
     width: 100%;
+    min-width: 0;
   }
-  .giscus-wrapper .giscus > iframe {
+
+  /* Target giscus wrapper created by the client script */
+  .giscus-container .giscus {
     width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Target the giscus iframe */
+  .giscus-container .giscus iframe,
+  .giscus-container .giscus .giscus-frame,
+  .giscus-container iframe.giscus-frame {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 </style>
 
 <script>
   function loadGiscus() {
-    const container = document.querySelector('.giscus');
-    // Prevent double loading if script runs twice (e.g. view transitions)
-    if (!container || container.querySelector('iframe')) return;
+    const wrapper = document.querySelector('.giscus-container');
+    if (!wrapper) return;
+
+    // Prevent double loading
+    if (wrapper.querySelector('iframe') || wrapper.querySelector('.giscus')) return;
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
@@ -37,23 +52,19 @@
     script.crossOrigin = 'anonymous';
     script.async = true;
 
-
     // Check if running on localhost
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
 
     // Determine initial theme
     const isDark = document.documentElement.classList.contains('dark') ||
                    (localStorage.getItem('theme') === 'dark') ||
                    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-
     // Construct theme URL or use default for localhost
     const origin = window.location.origin;
     let themeUrl: string;
 
     if (isLocalhost) {
-      // Fallback to built-in themes on localhost because giscus.app cannot reach local CSS files
       console.warn('Giscus custom theme is disabled on localhost. Using built-in themes.');
       themeUrl = isDark ? 'dark' : 'light';
     } else {
@@ -62,16 +73,31 @@
         : `${origin}/styles/giscus-light.css`;
     }
 
-
     script.setAttribute('data-theme', themeUrl);
 
-    container.appendChild(script);
+    // Append the script to the wrapper — giscus will create a .giscus div as a sibling
+    wrapper.appendChild(script);
+
+    // Watch for the iframe to appear and force full width
+    const iframeWatcher = new MutationObserver(() => {
+      const iframe = wrapper.querySelector<HTMLIFrameElement>('iframe');
+      if (iframe) {
+        iframe.style.setProperty('width', '100%', 'important');
+        iframe.style.setProperty('max-width', '100%', 'important');
+      }
+      // Also ensure the .giscus wrapper div is full width
+      const giscusDiv = wrapper.querySelector<HTMLElement>('.giscus');
+      if (giscusDiv) {
+        giscusDiv.style.setProperty('width', '100%', 'important');
+        giscusDiv.style.setProperty('max-width', '100%', 'important');
+      }
+    });
+    iframeWatcher.observe(wrapper, { childList: true, subtree: true, attributes: true });
 
     // Theme toggling logic
     function setGiscusTheme(theme: string) {
-      const iframe = document.querySelector('iframe.giscus-frame');
+      const iframe = document.querySelector('iframe.giscus-frame') as HTMLIFrameElement | null;
       if (!iframe) return;
-
 
       let newThemeUrl: string;
 
@@ -83,8 +109,6 @@
           : `${window.location.origin}/styles/giscus-light.css`;
       }
 
-
-      // @ts-ignore
       iframe.contentWindow?.postMessage(
         { giscus: { setConfig: { theme: newThemeUrl } } },
         'https://giscus.app'
@@ -92,7 +116,7 @@
     }
 
     // Observer for theme changes
-    const observer = new MutationObserver((mutations) => {
+    const themeObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
           const isDarkNow = document.documentElement.classList.contains('dark');
@@ -101,7 +125,7 @@
       });
     });
 
-    observer.observe(document.documentElement, { attributes: true });
+    themeObserver.observe(document.documentElement, { attributes: true });
   }
 
   // Load on idle or immediately
@@ -111,6 +135,6 @@
     loadGiscus();
   }
 
-  // Re-run on Astro page transitions if they are added later
+  // Re-run on Astro page transitions
   document.addEventListener('astro:page-load', loadGiscus);
 </script>
