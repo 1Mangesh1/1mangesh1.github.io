@@ -95,11 +95,11 @@ Compliance teams manually review code looking for PHI leaks.
 An **agent skill** is a reusable tool that an AI agent can invoke to perform specific tasks.
 
 Instead of waiting for humans to review, you give your AI agent **HIPAA Guardian skill** which:
-- ✅ Scans code for PHI automatically
-- ✅ Checks logs in real-time
-- ✅ Validates AI-generated responses
-- ✅ Flags suspicious patterns before deployment
-- ✅ Works 24/7 with zero human bottleneck
+- - Scans code for PHI automatically
+- - Checks logs in real-time
+- - Validates AI-generated responses
+- - Flags suspicious patterns before deployment
+- - Works 24/7 with zero human bottleneck
 
 **The game changer?** Your AI agent can now self-check. When writing code or generating content, the agent can invoke the HIPAA Guardian skill to ask: "Does this output contain PHI?"
 
@@ -450,11 +450,11 @@ def test_multiple_phi():
 
 ### Why Publish Your Skill?
 
-✅ Other developers can use your skill  
-✅ Get feedback and improvements  
-✅ Build reputation in the AI agent ecosystem  
-✅ Reduce duplication across projects  
-✅ Create a portfolio of working code  
+- Other developers can use your skill  
+- Get feedback and improvements  
+- Build reputation in the AI agent ecosystem  
+- Reduce duplication across projects  
+- Create a portfolio of working code  
 
 ### Publishing Steps
 
@@ -495,7 +495,7 @@ def test_multiple_phi():
    ```
 
 4. **Document Everything**
-   ```markdown
+
    # HIPAA Guardian Skill
    
    ## Usage
@@ -512,7 +512,7 @@ def test_multiple_phi():
    - [x] Medical record numbers
    - [x] Diagnosis codes
    ...
-   ```
+
 
 ---
 
@@ -548,16 +548,16 @@ jobs:
           path: report.json
       
       - name: Comment on PR
-        if: failure()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '⚠️ HIPAA violations detected. Review report.'
-            })
+            if: failure()
+            uses: actions/github-script@v6
+            with:
+                script: |
+                    github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: 'HIPAA violations detected. Review report.'
+                    })
 ```
 
 ---
@@ -589,11 +589,11 @@ Pattern matching tools are great, but test with actual healthcare formats.
 As AI agents take on more coding and audit responsibilities, skills like HIPAA Guardian become foundational.
 
 **What's coming:**
-- 🔍 Real-time agent monitoring for compliance violations
-- 🤖 Agents that auto-remediate PHI leaks before deployment
-- 📊 Dashboards showing which agents handle sensitive data best
-- 🔐 Skills ecosystem where healthcare companies rate and share compliance tools
-- 🌐 Industry standards for healthcare AI safety (similar to GDPR compliance)
+- Real-time agent monitoring for compliance violations
+- Agents that auto-remediate PHI leaks before deployment
+- Dashboards showing which agents handle sensitive data best
+- Skills ecosystem where healthcare companies rate and share compliance tools
+- Industry standards for healthcare AI safety (similar to GDPR compliance)
 
 **The opportunity:** If you're building in healthcare tech, creating compliance skills now positions you as someone who understands both engineering and trust. That's rare. That's valuable.
 
@@ -652,4 +652,4 @@ If you're building healthcare tech, use them. If you're building skills, use hea
 
 **Questions or want to contribute?** Open an issue on [HIPAA Guardian](https://github.com/1Mangesh1/hipaa-guardian) or contribute to [dev-skills-collection](https://github.com/1Mangesh1/dev-skills-collection).
 
-Healthcare tech desperately needs engineers who care about compliance. Be one of them. 🏥🔒
+Healthcare tech desperately needs engineers who care about compliance. Be one of them.
