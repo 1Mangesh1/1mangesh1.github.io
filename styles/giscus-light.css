@@ -1,5 +1,10 @@
 /*! Custom Giscus Theme - Light Mode */
+
 main {
+  /* Ensure full width */
+  width: 100%;
+  max-width: 100%;
+
   /* Variables matching Tailwind's light mode palette */
   --color-prettylights-syntax-comment: #6e7781;
   --color-prettylights-syntax-entity: #0550ae;
@@ -52,9 +57,18 @@ main .pagination-loader-container {
   background-image: url("https://github.com/images/modules/pulls/progressive-disclosure-line.svg");
 }
 
-/* Custom fonts and overrides */
+/* Custom fonts and full width */
 .gsc-main {
+  width: 100%;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.gsc-comments {
+  width: 100%;
+}
+
+.gsc-comment-box {
+  width: 100%;
 }
 
 .gsc-header {
