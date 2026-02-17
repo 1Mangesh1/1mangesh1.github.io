@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getDailyQuote } from '../data/quotes';
 
 const title = "Mangesh Bide - Software Developer";
 const description = "Software Developer specializing in Python, Django, and Machine Learning. Sharing insights on web development, AI, and modern programming practices.";
@@ -18,6 +19,9 @@ const formatDate = (date: Date) => {
     day: 'numeric'
   }).format(date);
 };
+
+// Get daily quote
+const dailyQuote = getDailyQuote();
 ---
 
 <Layout title={title} description={description}>
@@ -69,6 +73,16 @@ const formatDate = (date: Date) => {
             <div class="text-3xl mb-3">🌐</div>
             <h3 class="text-lg font-medium mb-2">Web Development</h3>
             <p class="text-sm text-gray-600 dark:text-gray-400">Full-stack development with modern frameworks and best practices</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-xl p-8 mb-8 text-white shadow-lg hover-lift animate-on-scroll">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">💡</div>
+          <div class="flex-1">
+            <p class="text-lg italic mb-3 font-light">"{ dailyQuote }"</p>
+            <p class="text-sm opacity-80">💫 Today's programming wisdom — fresh daily!</p>
           </div>
         </div>
       </div>
