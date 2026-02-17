@@ -533,31 +533,6 @@
     }, 2500);
   }
 
-  // Easter Egg 9: Scroll bouncy effect easter egg  
-  let scrollCount = 0;
-  let scrollTimeout;
-
-  window.addEventListener('scroll', () => {
-    scrollCount++;
-    clearTimeout(scrollTimeout);
-
-    if (scrollCount >= 50) {
-      const scrollNotif = document.createElement('div');
-      scrollNotif.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-green-400 to-blue-500 text-white px-8 py-6 rounded-lg shadow-2xl z-50 text-center animate-bounce';
-      scrollNotif.innerHTML = `
-        <div class="text-3xl mb-2">⬆️ Whoa!</div>
-        <div class="text-lg">You're a scroll master!</div>
-        <div class="text-sm opacity-80 mt-2">That's a lot of scrolling</div>
-      `;
-      document.body.appendChild(scrollNotif);
-      setTimeout(() => scrollNotif.remove(), 2500);
-      scrollCount = 0;
-    }
-
-    scrollTimeout = setTimeout(() => {
-      scrollCount = 0;
-    }, 2000);
-  });
 
   // Easter Egg 10: Secret sound (visual only, respects user preferences)
   if (Math.random() < 0.02) {

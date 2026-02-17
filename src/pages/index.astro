@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { getDailyQuote } from '../data/quotes';
 
 const title = "Mangesh Bide - Software Developer";
 const description = "Software Developer specializing in Python, Django, and Machine Learning. Sharing insights on web development, AI, and modern programming practices.";
@@ -20,8 +19,6 @@ const formatDate = (date: Date) => {
   }).format(date);
 };
 
-// Get daily quote
-const dailyQuote = getDailyQuote();
 ---
 
 <Layout title={title} description={description}>
@@ -77,15 +74,6 @@ const dailyQuote = getDailyQuote();
         </div>
       </div>
 
-      <div class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-xl p-8 mb-8 text-white shadow-lg hover-lift animate-on-scroll">
-        <div class="flex items-start gap-4">
-          <div class="text-3xl">💡</div>
-          <div class="flex-1">
-            <p class="text-lg italic mb-3 font-light">"{ dailyQuote }"</p>
-            <p class="text-sm opacity-80">💫 Today's programming wisdom — fresh daily!</p>
-          </div>
-        </div>
-      </div>
 
       <blockquote class="border-l-4 border-blue-500 pl-6 italic text-lg animate-on-scroll slide-left">
         <p>"The best way to learn is to build, break things, and build again. Every bug is a lesson in disguise."</p>
