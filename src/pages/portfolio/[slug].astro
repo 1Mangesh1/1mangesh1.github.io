@@ -26,7 +26,7 @@ const { Content } = await item.render();
       )}
       <div class="flex flex-wrap gap-4 items-center text-sm text-gray-600 dark:text-gray-400">
         {item.data.date && (
-          <time>
+          <time datetime={item.data.date.toISOString()}>
             {item.data.date.toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -87,4 +87,47 @@ const { Content } = await item.render();
       </a>
     </div>
   </article>
+
+  <!-- CreativeWork Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": item.data.title,
+    "description": item.data.description,
+    "dateCreated": item.data.date.toISOString(),
+    "creator": {
+      "@type": "Person",
+      "name": "Mangesh Bide",
+      "url": "https://mangeshbide.tech"
+    },
+    "url": `https://mangeshbide.tech/portfolio/${item.slug}`,
+    "keywords": item.data.tech.join(", "),
+    "image": item.data.image ? `https://mangeshbide.tech${item.data.image}` : undefined
+  })} />
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://mangeshbide.tech"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Portfolio",
+        "item": "https://mangeshbide.tech/portfolio"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": item.data.title,
+        "item": `https://mangeshbide.tech/portfolio/${item.slug}`
+      }
+    ]
+  })} />
 </Layout> 

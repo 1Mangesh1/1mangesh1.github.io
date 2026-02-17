@@ -7,7 +7,6 @@ Allow: /
 # Block access to admin/sensitive areas and maintenance
 Disallow: /.well-known/
 Disallow: /api/
-Disallow: /_astro/
 Disallow: /maintenance
 
 # Sitemap location
