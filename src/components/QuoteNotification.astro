@@ -1,0 +1,59 @@
+---
+import { funQuotes } from '../data/quotes';
+---
+
+<div id="quote-notification" class="fixed bottom-4 right-4 z-50 hidden transform transition-all duration-500 translate-y-10 opacity-0">
+  <div class="bg-white dark:bg-gray-800 border-l-4 border-blue-500 shadow-2xl rounded-r-lg p-5 max-w-sm relative flex items-start gap-4">
+    <button id="close-quote" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="Close notification">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div class="text-2xl mt-1 animate-bounce">💡</div>
+    <div class="flex-1 pr-4">
+      <h3 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Random Wisdom</h3>
+      <p id="quote-text" class="text-sm text-gray-700 dark:text-gray-300 italic leading-relaxed"></p>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ funQuotes }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lastShown = localStorage.getItem('lastQuoteShownTime');
+    const now = Date.now();
+    const FOUR_HOURS = 4 * 60 * 60 * 1000;
+
+    // Check if we should show a quote (if never shown or > 4 hours ago)
+    if (!lastShown || (now - parseInt(lastShown) > FOUR_HOURS)) {
+      const notification = document.getElementById('quote-notification');
+      const quoteText = document.getElementById('quote-text');
+      const closeBtn = document.getElementById('close-quote');
+
+      if (notification && quoteText) {
+        // Select random quote
+        const randomQuote = funQuotes[Math.floor(Math.random() * funQuotes.length)];
+        quoteText.textContent = `"${randomQuote}"`;
+
+        // Show notification with a slight delay for better UX
+        setTimeout(() => {
+          notification.classList.remove('hidden');
+          // Trigger reflow to enable transition
+          void notification.offsetWidth;
+          notification.classList.remove('translate-y-10', 'opacity-0');
+
+          // Update timestamp immediately when shown
+          localStorage.setItem('lastQuoteShownTime', now.toString());
+        }, 1500);
+
+        // Close handler
+        closeBtn?.addEventListener('click', () => {
+          notification.classList.add('translate-y-10', 'opacity-0');
+          setTimeout(() => {
+            notification.classList.add('hidden');
+          }, 500);
+        });
+      }
+    }
+  });
+</script>
