@@ -12,7 +12,7 @@ tags:
     "PostgreSQL",
     "Django",
   ]
-draft: true
+draft: false
 ---
 
 This guide shows exactly how to benchmark APIs for a multi‑tenant system and turn results into decisions. It's opinionated, concise, and actionable.
@@ -21,11 +21,11 @@ This guide shows exactly how to benchmark APIs for a multi‑tenant system and t
 
 ## Understanding Multi-Tenancy: The Foundation
 
-Before diving into benchmarking, let's establish what we're working with. Multi-tenancy is a fundamental architectural pattern that shapes how we design, test, and optimize our systems.
+Multi-tenancy is a fundamental architectural pattern that shapes how we design, test, and optimize our systems.
 
 ### What is a Tenant?
 
-A **tenant** is a logical unit of isolation in a software system. Think of it as a separate "instance" or "workspace" within a shared application. Each tenant represents:
+A **tenant** is a logical unit of isolation in a software system. It is a separate "instance" or "workspace" within a shared application. Each tenant represents:
 
 - **A distinct organization** (company, department, team)
 - **Isolated data** (customers can't see each other's data)
@@ -418,11 +418,11 @@ tenants: { hot: 2, warm: 3, cold: 20 }
 
 ---
 
-Want the broader context? Read the companion post: [Multi‑Tenant Architecture: A Complete Guide](./multi-tenant-architecture-complete-guide).
+Want the broader context? Read the companion post: [Multi‑Tenant Architecture: A Complete Guide](/blog/multi-tenant-architecture-complete-guide).
 
 ---
 
 ### Benchmark Flow Overview
 
-![Benchmark Flow](/images/blogs/benchmarking/benchmark-flow.png)
+<!-- ![Benchmark Flow](/images/blogs/benchmarking/benchmark-flow.png) -->
 _Figure 1: Complete benchmark workflow from data seeding to optimization_
