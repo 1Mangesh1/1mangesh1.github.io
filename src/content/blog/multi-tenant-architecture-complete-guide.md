@@ -924,7 +924,4 @@ The future of SaaS is multi-tenant, and with the right architecture, you can bui
 
 ---
 
-<!--
-_Ready to implement multi-tenant architecture in your application? Check out our next post on [API Benchmarking for Multi-Tenant SaaS](./api-benchmarking-multitenant-saas) to ensure your APIs can handle the load._ -->
-
-_Ready to implement multi-tenant architecture in your application? next post will be on API Benchmarking for Multi-Tenant SaaS to ensure your APIs can handle the load._
+_Ready to implement multi-tenant architecture in your application? Check out the next post: [API Benchmarking for Multi-Tenant SaaS](/blog/api-benchmarking-multitenant-saas) to ensure your APIs can handle the load._
