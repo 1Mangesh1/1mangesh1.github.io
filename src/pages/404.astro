@@ -13,13 +13,13 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Game Canvas -->
-    <div class="mb-6">
-      <canvas id="game-canvas" width="600" height="300" class="mx-auto rounded-lg bg-gray-900 cursor-pointer max-w-full border-2 border-gray-700"></canvas>
+    <div class="mb-6" role="img" aria-label="404 runner game - press Space or click to jump over obstacles">
+      <canvas id="game-canvas" width="600" height="300" class="mx-auto rounded-lg bg-gray-900 cursor-pointer max-w-full border-2 border-gray-700" tabindex="0" aria-label="Runner game canvas"></canvas>
     </div>
 
     <!-- Game Controls -->
     <div class="mb-6 space-y-2">
-      <p id="game-status" class="text-lg font-mono text-gray-600 dark:text-gray-400">Press SPACE or click to jump!</p>
+      <p id="game-status" class="text-lg font-mono text-gray-600 dark:text-gray-400" role="status" aria-live="polite">Press SPACE or click to jump!</p>
       <p class="text-sm text-gray-500">High Score: <span id="high-score">0</span></p>
     </div>
 

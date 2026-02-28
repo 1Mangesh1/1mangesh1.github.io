@@ -19,6 +19,10 @@ pnpm-debug.log*
 CLAUDE.md
 .claude
 .agents
+AGENTS.md
 
 #seo
 seo.md
+
+# search index (dev only)
+public/pagefind

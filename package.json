@@ -20,9 +20,11 @@
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.2",
+    "@playform/compress": "^0.2.1",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/typography": "^0.5.16",
     "astro": "^5.16.11",
+    "astro-critters": "^2.2.1",
     "satori": "^0.19.1",
     "satori-html": "^0.3.2",
     "typescript": "^5.8.3"

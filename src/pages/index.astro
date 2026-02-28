@@ -24,22 +24,23 @@ const formatDate = (date: Date) => {
 const dailyQuote = getDailyQuote();
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} type="website">
   <div class="max-w-4xl mx-auto px-4 py-12">
     <!-- Hero Section -->
-    <div class="text-center mb-16 animate-on-scroll">
+    <section aria-label="Introduction" class="text-center mb-16 animate-on-scroll">
       <div class="mb-8 animate-on-scroll scale stagger-1">
         <img 
           src="/me.jpg" 
-          alt="Mangesh Bide" 
+          alt="Mangesh Bide - Software Developer" 
           width="128"
           height="128"
           fetchpriority="high"
+          decoding="async"
           class="w-32 h-32 rounded-full mx-auto shadow-lg object-cover hover-lift transition-all duration-300 hover:shadow-2xl hover:scale-105"
         />
       </div>
       <h1 class="text-4xl md:text-5xl font-bold mb-6 custom-gradient-text py-2 leading-tight animate-on-scroll stagger-2">
-        Hey, I'm Mangesh <span>👋</span>
+        Hey, I'm Mangesh <span aria-hidden="true">👋</span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed animate-on-scroll stagger-3">
         Software Developer crafting solutions with <strong>Python</strong>, <strong>Django</strong>, and <strong>Machine Learning</strong>. 
@@ -47,15 +48,15 @@ const dailyQuote = getDailyQuote();
       </p>
       
       <!-- Typing Animation -->
-      <div class="mt-6 animate-on-scroll stagger-4">
+      <div class="mt-6 animate-on-scroll stagger-4" aria-live="polite" aria-atomic="true">
         <p class="text-lg text-gray-500 dark:text-gray-500">
-          I specialize in: <span id="typing-text" class="text-blue-600 dark:text-blue-400 font-mono"></span><span id="cursor" class="animate-ping">|</span>
+          I specialize in: <span id="typing-text" class="text-blue-600 dark:text-blue-400 font-mono" role="status"></span><span id="cursor" class="animate-ping" aria-hidden="true">|</span>
         </p>
       </div>
-    </div>
+    </section>
 
     <!-- About Section -->
-    <div class="prose prose-lg dark:prose-invert max-w-none mb-12">
+    <section aria-label="About" class="prose prose-lg dark:prose-invert max-w-none mb-12">
       <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 mb-8 hover-lift animate-on-scroll">
         <h2 class="text-2xl font-semibold mb-4 text-center">What I Do</h2>
         <div class="grid md:grid-cols-3 gap-6 text-center" data-stagger>
@@ -112,10 +113,10 @@ const dailyQuote = getDailyQuote();
       <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800 hover-lift animate-on-scroll scale">
         <p class="mb-0"><strong>Fun fact:</strong> This site is built with <strong>Astro</strong> and <strong>Tailwind CSS</strong> — because I practice what I preach about keeping things fast, clean, and maintainable. You can even check out the <a href="https://github.com/1mangesh1/1mangesh1.github.io" target="_blank" rel="noopener noreferrer" class="link-glow">source code</a>!</p>
       </div>
-    </div>
+    </section>
 
     <!-- Quick navigation to main sections -->
-    <div class="mt-12 pt-12 border-t border-gray-200 dark:border-gray-700">
+    <nav aria-label="Site sections" class="mt-12 pt-12 border-t border-gray-200 dark:border-gray-700">
       <h2 class="text-3xl font-bold text-center mb-4 animate-on-scroll">Start Exploring</h2>
       <p class="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto animate-on-scroll stagger-1">
         Dive into my work, thoughts, and the tools that power my development journey
@@ -170,7 +171,7 @@ const dailyQuote = getDailyQuote();
       </div>
 
       <!-- Featured Blog Posts Section -->
-      <div class="mt-16 pt-12 border-t border-gray-200 dark:border-gray-700">
+      <section aria-label="Latest blog posts" class="mt-16 pt-12 border-t border-gray-200 dark:border-gray-700">
         <div class="text-center mb-8">
           <h2 class="text-3xl font-bold mb-2 animate-on-scroll">Latest Blog Posts</h2>
           <p class="text-gray-600 dark:text-gray-400 animate-on-scroll">Deep dives into the topics I'm passionate about</p>
@@ -218,7 +219,7 @@ const dailyQuote = getDailyQuote();
             View All Posts →
           </a>
         </div>
-      </div>
+      </section>
 
       <!-- Additional sections -->
       <div class="grid md:grid-cols-3 gap-6 mt-16" data-stagger>
@@ -274,8 +275,55 @@ const dailyQuote = getDailyQuote();
           </a>
         </div>
       </div>
-    </div>
+    </nav>
   </div>
+
+  <!-- Homepage structured data: ItemList for latest posts -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Latest Blog Posts by Mangesh Bide",
+    "itemListOrder": "https://schema.org/ItemListOrderDescending",
+    "numberOfItems": latestPosts.length,
+    "itemListElement": latestPosts.map((post, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": `https://mangeshbide.tech/blog/${post.slug}`,
+      "name": post.data.title
+    }))
+  })} />
+
+  <!-- FAQ Schema for SERP rich snippets -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does Mangesh Bide specialize in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mangesh Bide is a Software Developer specializing in Python, Django, and Machine Learning. He builds robust backend APIs, scalable web applications, and intelligent ML-powered solutions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What topics does Mangesh Bide write about?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mangesh writes about backend development with Python and Django, machine learning algorithms and applications, web development best practices, API design, cloud solutions, and data engineering."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I contact Mangesh Bide?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can reach Mangesh through the contact page at mangeshbide.tech/contact, connect on GitHub at github.com/1mangesh1, or find him on LinkedIn and Twitter."
+        }
+      }
+    ]
+  })} />
 </Layout>
 
 <script>

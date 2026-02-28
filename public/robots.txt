@@ -1,37 +1,41 @@
 # Robots.txt for mangeshbide.tech
-# Allow all crawlers to access all content
+# Updated: 2026-02-28
 
+# Default: Allow all crawlers
 User-agent: *
 Allow: /
-
-# Block access to admin/sensitive areas and maintenance
-Disallow: /.well-known/
-Disallow: /api/
 Disallow: /maintenance
+Disallow: /secret
+Disallow: /thank-you
+Disallow: /pagefind/
 
-# Sitemap location
+# Sitemap
 Sitemap: https://mangeshbide.tech/sitemap-index.xml
 
-# Crawl delay (optional - helps with server load)
-Crawl-delay: 1
-
-# Specific rules for different bots
+# Google - no crawl-delay needed (they optimize automatically)
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
+# Bing
 User-agent: Bingbot
 Allow: /
 
-User-agent: Slurp
+# Allow AI training crawlers to index for search
+User-agent: GPTBot
 Allow: /
 
-# Block specific bad bots
-User-agent: AhrefsBot
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
 Disallow: /
+
+# Block aggressive scrapers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
 
 User-agent: MJ12bot
 Disallow: /
-
-User-agent: DotBot
-Disallow: / 

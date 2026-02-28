@@ -31,6 +31,7 @@ const relatedPosts = getRelatedPosts(post, allPosts, 3);
 
 // Calculate reading time
 const readingTime = calculateReadingTime(post.body);
+const wordCount = post.body ? post.body.split(/\s+/).filter((w: string) => w.length > 0).length : 0;
 
 // Current post URL for sharing
 const currentUrl = `${siteConfig.url}/blog/${post.slug}`;
@@ -48,10 +49,41 @@ const formatDate = (date: Date) => {
   title={`${post.data.title} - Mangesh's Blog`}
   description={post.data.description}
   image={post.data.ogImage || `/og/${post.slug}.png`}
+  type="article"
+  publishedDate={post.data.pubDate}
+  modifiedDate={post.data.updatedDate}
+  tags={post.data.tags}
 >
-  <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body>
+  <!-- Article JSON-LD Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "image": post.data.ogImage || `${siteConfig.url}/og/${post.slug}.png`,
+    "datePublished": post.data.pubDate.toISOString(),
+    "dateModified": (post.data.updatedDate || post.data.pubDate).toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Mangesh Bide",
+      "url": "https://mangeshbide.tech/about"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Mangesh Bide",
+      "url": "https://mangeshbide.tech"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": currentUrl
+    },
+    "wordCount": wordCount,
+    "keywords": post.data.tags?.join(', ') || ''
+  })} />
+
+  <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body itemscope itemtype="https://schema.org/BlogPosting">
     <header class="mb-8">
-      <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+      <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4" aria-label="Breadcrumb">
         <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400"
           >Blog</a
         >

@@ -9,6 +9,10 @@ export interface Props {
   image?: string;
   canonical?: string;
   noindex?: boolean;
+  type?: 'website' | 'article';
+  publishedDate?: Date;
+  modifiedDate?: Date;
+  tags?: string[];
 }
 
 const { 
@@ -16,23 +20,42 @@ const {
   description = "Software Developer | Python | Django | Machine Learning | Web Development", 
   image = "/og-image.png",
   canonical,
-  noindex = false
+  noindex = false,
+  type = 'website',
+  publishedDate,
+  modifiedDate,
+  tags = [],
 } = Astro.props;
 
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteConfig.url);
 const imageURL = new URL(image, siteConfig.url);
+
+// Build breadcrumb from URL path
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbs = [
+  { name: 'Home', url: siteConfig.url },
+  ...pathSegments.map((seg, i) => ({
+    name: seg.charAt(0).toUpperCase() + seg.slice(1).replace(/-/g, ' '),
+    url: `${siteConfig.url}/${pathSegments.slice(0, i + 1).join('/')}`
+  }))
+];
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title="Mangesh's Blog" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- DNS Prefetch & Preconnect for performance -->
+    <link rel="preconnect" href="https://gc.zgo.at" crossorigin />
+    <link rel="dns-prefetch" href="https://gc.zgo.at" />
     
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -42,10 +65,14 @@ const imageURL = new URL(image, siteConfig.url);
     <link rel="canonical" href={canonicalURL} />
     
     <!-- Robots -->
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -68,62 +95,119 @@ const imageURL = new URL(image, siteConfig.url);
     
     <!-- Additional SEO -->
     <meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog" />
-    <meta name="theme-color" content="#3b82f6" />
+    <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1e3a5f" media="(prefers-color-scheme: dark)" />
     
-    <!-- Content Security Policy for GoatCounter -->
-    <meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at;" />
+    <!-- Article metadata for blog posts -->
+    {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+    {modifiedDate && <meta property="article:modified_time" content={modifiedDate.toISOString()} />}
+    {tags.map(tag => <meta property="article:tag" content={tag} />)}
     
     <!-- LinkedIn specific -->
     <meta property="article:author" content="Mangesh Bide" />
     <meta name="image" content={imageURL} />
     
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Mangesh Bide",
-        "url": "https://mangeshbide.tech",
-        "image": "https://mangeshbide.tech/og-image.png",
-        "photo": "https://mangeshbide.tech/me.jpg",
-        "jobTitle": "Software Developer",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Houseworks Technologies"
-        },
-        "alumniOf": "https://www.rcpit.ac.in",
-        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
-        "sameAs": [
-          "https://github.com/1mangesh1",
-          "https://x.com/Mangesh_Bide",
-          "https://linkedin.com/in/mangesh-bide/"
-        ]
-      }
-    </script>
-    
-    <!-- GoatCounter Analytics -->
-    <script data-goatcounter="https://mangeshbide.goatcounter.com/count" 
-     data-goatcounter-settings='{"allow_local": true}'
-        async src="https://gc.zgo.at/count.js"></script>
+    <!-- Structured Data: Person -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mangesh Bide",
+      "url": "https://mangeshbide.tech",
+      "image": "https://mangeshbide.tech/og-image.png",
+      "photo": "https://mangeshbide.tech/me.jpg",
+      "jobTitle": "Software Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Houseworks Technologies"
+      },
+      "alumniOf": "https://www.rcpit.ac.in",
+      "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+      "sameAs": [
+        "https://github.com/1mangesh1",
+        "https://x.com/Mangesh_Bide",
+        "https://linkedin.com/in/mangesh-bide/"
+      ]
+    })} />
 
-    <!-- Animation Styles -->
-  <link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/animations.css"></noscript>
+    <!-- Structured Data: WebSite with SearchAction -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": siteConfig.title,
+      "url": siteConfig.url,
+      "description": siteConfig.description,
+      "author": {
+        "@type": "Person",
+        "name": siteConfig.author
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": `${siteConfig.url}/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+
+    <!-- Structured Data: BreadcrumbList -->
+    {breadcrumbs.length > 1 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs.map((crumb, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": crumb.name,
+          "item": crumb.url
+        }))
+      })} />
+    )}
+    
+    <!-- Animation Styles (non-blocking) -->
+    <link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/animations.css"></noscript>
+
+    <!-- GoatCounter Analytics (deferred to user interaction for perf) -->
+    <script is:inline>
+      let _gcLoaded = false;
+      function _loadGC() {
+        if (_gcLoaded) return;
+        _gcLoaded = true;
+        const s = document.createElement('script');
+        s.setAttribute('data-goatcounter', 'https://mangeshbide.goatcounter.com/count');
+        s.setAttribute('data-goatcounter-settings', '{"allow_local": true}');
+        s.async = true;
+        s.src = 'https://gc.zgo.at/count.js';
+        document.head.appendChild(s);
+      }
+      ['scroll', 'click', 'touchstart', 'keydown'].forEach(function(e) {
+        document.addEventListener(e, _loadGC, { once: true, passive: true });
+      });
+      setTimeout(_loadGC, 3000);
+    </script>
   </head>
   <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Skip to main content (a11y) -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:outline-none">
+      Skip to main content
+    </a>
     <!-- Reading Progress Bar -->
     <div 
       id="reading-progress" 
       class="fixed top-0 left-0 h-1 custom-gradient-bg z-50 transition-all duration-300"
       style="width: 0%"
+      role="progressbar"
+      aria-label="Reading progress"
+      aria-valuenow="0"
+      aria-valuemin="0"
+      aria-valuemax="100"
     ></div>
     
     <div class="min-h-screen flex flex-col page-enter">
       <header 
         id="navbar"
         class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-all duration-300 sticky top-0 z-40 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90"
+        role="banner"
       >
-        <nav class="max-w-4xl mx-auto px-4 py-6">
+        <nav class="max-w-4xl mx-auto px-4 py-6" aria-label="Main navigation">
           <!-- Desktop Navigation -->
           <div class="flex justify-between items-center">
             <div class="flex items-center space-x-8">
@@ -136,9 +220,9 @@ const imageURL = new URL(image, siteConfig.url);
                 
                 <!-- Fun Dropdown -->
                 <div class="relative group animate-on-scroll stagger-3">
-                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link" aria-haspopup="true" aria-expanded="false">
                     Fun
-                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                   </button>
@@ -159,9 +243,9 @@ const imageURL = new URL(image, siteConfig.url);
 
                 <!-- About Dropdown -->
                 <div class="relative group animate-on-scroll stagger-4">
-                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link" aria-haspopup="true" aria-expanded="false">
                     About
-                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                   </button>
@@ -190,9 +274,9 @@ const imageURL = new URL(image, siteConfig.url);
 
                 <!-- More Dropdown -->
                 <div class="relative group animate-on-scroll stagger-5">
-                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link">
+                  <button class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center nav-link" aria-haspopup="true" aria-expanded="false">
                     More
-                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                   </button>
@@ -335,11 +419,11 @@ const imageURL = new URL(image, siteConfig.url);
         </nav>
       </header>
 
-      <main class="flex-1">
+      <main id="main-content" class="flex-1" role="main">
         <slot />
       </main>
 
-      <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll">
+      <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll" role="contentinfo">
         <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400">
           <p>Built with ❤️ by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Mangesh</a> using <a href="https://astro.build" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Astro</a> & <a href="https://tailwindcss.com" class="text-blue-600 dark:text-blue-400 hover:underline link-glow">Tailwind CSS</a></p>
           <p class="text-xs mt-2 opacity-50 hover:opacity-100 transition-opacity">

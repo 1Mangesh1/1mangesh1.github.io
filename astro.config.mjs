@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
+import critters from "astro-critters";
+import compress from "@playform/compress";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,14 +15,29 @@ export default defineConfig({
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
-      // Exclude maintenance page from sitemap
-      filter: (page) => !page.includes("/maintenance"),
+      filter: (page) =>
+        !page.includes("/maintenance") &&
+        !page.includes("/secret") &&
+        !page.includes("/thank-you") &&
+        !page.includes("/404"),
+    }),
+    critters(),
+    compress({
+      CSS: true,
+      HTML: true,
+      JavaScript: true,
+      Image: false,
+      SVG: false,
     }),
   ],
   site: "https://mangeshbide.tech",
   base: "/",
   build: {
     assets: "assets",
+  },
+  prefetch: {
+    prefetchAll: false,
+    defaultStrategy: "hover",
   },
   vite: {
     build: {
