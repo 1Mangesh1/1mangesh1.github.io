@@ -1,0 +1,266 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection("blog", ({ data }) => data.draft !== true);
+const allProjects = await getCollection("portfolio");
+const allTil = await getCollection("til");
+const allSnippets = await getCollection("snippets");
+const allBooks = await getCollection("books");
+const allBookmarks = await getCollection("bookmarks");
+
+// Calculate content stats
+const totalWords = allPosts.reduce((sum, post) => {
+  const words = post.body?.split(/\s+/).filter((w: string) => w.length > 0).length || 0;
+  return sum + words;
+}, 0);
+
+// Get all unique tags
+const allTags = [...new Set(allPosts.flatMap(post => post.data.tags || []))];
+
+// Get all unique tech from projects
+const allTech = [...new Set(allProjects.flatMap(project => project.data.tech || []))];
+
+// Books by status
+const booksReading = allBooks.filter(b => b.data.status === 'reading').length;
+const booksCompleted = allBooks.filter(b => b.data.status === 'completed').length;
+const booksWantToRead = allBooks.filter(b => b.data.status === 'want-to-read').length;
+
+const stats = [
+  { label: 'Blog Posts', value: allPosts.length, icon: '✍️', color: 'blue' },
+  { label: 'Portfolio Projects', value: allProjects.length, icon: '🚀', color: 'green' },
+  { label: 'TIL Entries', value: allTil.length, icon: '💡', color: 'yellow' },
+  { label: 'Code Snippets', value: allSnippets.length, icon: '🧩', color: 'purple' },
+  { label: 'Bookmarks', value: allBookmarks.length, icon: '🔖', color: 'pink' },
+  { label: 'Books Tracked', value: allBooks.length, icon: '📚', color: 'orange' },
+  { label: 'Unique Tags', value: allTags.length, icon: '🏷️', color: 'cyan' },
+  { label: 'Words Written', value: totalWords.toLocaleString(), icon: '📝', color: 'indigo' },
+];
+
+const techStack = [
+  { name: 'Python', level: 95, years: '5+', color: '#3776AB' },
+  { name: 'Django', level: 90, years: '3+', color: '#092E20' },
+  { name: 'JavaScript', level: 85, years: '4+', color: '#F7DF1E' },
+  { name: 'TypeScript', level: 80, years: '2+', color: '#3178C6' },
+  { name: 'React / Next.js', level: 75, years: '2+', color: '#61DAFB' },
+  { name: 'Docker', level: 85, years: '2+', color: '#2496ED' },
+  { name: 'Terraform', level: 80, years: '1+', color: '#7B42BC' },
+  { name: 'AWS', level: 80, years: '2+', color: '#FF9900' },
+  { name: 'PostgreSQL', level: 85, years: '3+', color: '#4169E1' },
+  { name: 'TensorFlow', level: 70, years: '2+', color: '#FF6F00' },
+  { name: 'Git', level: 90, years: '5+', color: '#F05032' },
+  { name: 'Node.js', level: 75, years: '3+', color: '#339933' },
+];
+---
+
+<Layout title="Stats & Activity | Mangesh Bide" description="Coding stats, GitHub activity, skills proficiency, and content metrics. A transparent look at my engineering output.">
+  <div class="max-w-5xl mx-auto px-4 py-12">
+    
+    <div class="text-center mb-12 animate-on-scroll">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Engineering <span class="custom-gradient-text">Dashboard</span>
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Real-time stats from this site's content, my GitHub activity, and the tools I use daily. 
+        Transparency builds trust.
+      </p>
+    </div>
+
+    <!-- Content Stats Grid -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold mb-6 animate-on-scroll">Content Output</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {stats.map((stat) => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover-lift transition-all animate-on-scroll">
+            <div class="text-2xl mb-2">{stat.icon}</div>
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-count>{stat.value}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- GitHub Activity Section -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold mb-6 animate-on-scroll">GitHub Activity</h2>
+      
+      <!-- Contribution Graph -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mb-6 animate-on-scroll overflow-x-auto">
+        <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Contribution Graph</h3>
+        <img 
+          src="https://ghchart.rshah.org/3B82F6/1mangesh1" 
+          alt="Mangesh's GitHub contribution chart" 
+          class="mx-auto dark:hidden w-full max-w-full"
+          loading="lazy"
+        />
+        <img 
+          src="https://ghchart.rshah.org/60A5FA/1mangesh1" 
+          alt="Mangesh's GitHub contribution chart" 
+          class="mx-auto hidden dark:block w-full max-w-full"
+          loading="lazy"
+        />
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 animate-on-scroll">
+          <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Stats Overview</h3>
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=1mangesh1&show_icons=true&theme=transparent&hide_border=true&title_color=3B82F6&icon_color=3B82F6&text_color=6B7280" 
+            alt="GitHub stats" 
+            class="mx-auto dark:hidden w-full"
+            loading="lazy"
+          />
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=1mangesh1&show_icons=true&theme=transparent&hide_border=true&title_color=60A5FA&icon_color=60A5FA&text_color=9CA3AF&bg_color=1F2937" 
+            alt="GitHub stats" 
+            class="mx-auto hidden dark:block w-full"
+            loading="lazy"
+          />
+        </div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 animate-on-scroll">
+          <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Top Languages</h3>
+          <img 
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=1mangesh1&layout=compact&theme=transparent&hide_border=true&title_color=3B82F6&text_color=6B7280" 
+            alt="Top languages" 
+            class="mx-auto dark:hidden w-full"
+            loading="lazy"
+          />
+          <img 
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=1mangesh1&layout=compact&theme=transparent&hide_border=true&title_color=60A5FA&text_color=9CA3AF&bg_color=1F2937" 
+            alt="Top languages" 
+            class="mx-auto hidden dark:block w-full"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      
+      <div class="mt-4 text-center">
+        <a href="https://github.com/1mangesh1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
+          View full GitHub profile →
+        </a>
+      </div>
+    </section>
+
+    <!-- Skills Proficiency -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold mb-6 animate-on-scroll">Skills Proficiency</h2>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 animate-on-scroll">
+        <div class="space-y-4">
+          {techStack.map((tech) => (
+            <div class="group">
+              <div class="flex items-center justify-between mb-1.5">
+                <div class="flex items-center gap-3">
+                  <span class="font-medium text-sm">{tech.name}</span>
+                  <span class="text-xs text-gray-400 dark:text-gray-500">{tech.years} years</span>
+                </div>
+                <span class="text-xs font-bold text-gray-500 dark:text-gray-400">{tech.level}%</span>
+              </div>
+              <div class="h-2.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  class="skill-bar h-full rounded-full transition-all duration-1000 ease-out"
+                  style={`width: 0%; background-color: ${tech.color}`}
+                  data-target-width={`${tech.level}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Reading Stats -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold mb-6 animate-on-scroll">Reading Dashboard</h2>
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-5 border border-green-200 dark:border-green-800 text-center animate-on-scroll">
+          <div class="text-2xl font-bold text-green-600 dark:text-green-400">{booksCompleted}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Completed</div>
+        </div>
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-5 border border-blue-200 dark:border-blue-800 text-center animate-on-scroll">
+          <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">{booksReading}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Currently Reading</div>
+        </div>
+        <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-5 border border-purple-200 dark:border-purple-800 text-center animate-on-scroll">
+          <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">{booksWantToRead}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Want to Read</div>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="/books" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
+          View full reading list →
+        </a>
+      </div>
+    </section>
+
+    <!-- Technologies Used in Projects -->
+    <section class="mb-16 animate-on-scroll">
+      <h2 class="text-2xl font-bold mb-6">Tech Used Across Projects</h2>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex flex-wrap gap-2">
+          {allTech.sort().map((tech) => (
+            <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-default">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Tags Cloud -->
+    <section class="mb-16 animate-on-scroll">
+      <h2 class="text-2xl font-bold mb-6">Topics I Write About</h2>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex flex-wrap gap-2">
+          {allTags.sort().map((tag) => (
+            <a href={`/blog/tags/${tag}`} class="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors border border-blue-200 dark:border-blue-800">
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center animate-on-scroll">
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-10 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold mb-3">Like What You See?</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-lg mx-auto">
+          These stats are auto-generated from my actual content. I believe in building in public 
+          and showing real work over polished pitches.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/hire-me" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            🤝 Work With Me
+          </a>
+          <a href="/blog" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700">
+            Read My Blog
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<script>
+// Animate skill bars when visible
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bars = entry.target.querySelectorAll('.skill-bar');
+      bars.forEach((bar, i) => {
+        const el = bar as HTMLElement;
+        const target = el.dataset.targetWidth || '0%';
+        setTimeout(() => {
+          el.style.width = target;
+        }, i * 80);
+      });
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+const skillsSection = document.querySelector('.skill-bar')?.closest('section');
+if (skillsSection) observer.observe(skillsSection);
+</script>

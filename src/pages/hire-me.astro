@@ -1,0 +1,540 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    icon: '🏗️',
+    title: 'Backend Engineering',
+    description: 'Scalable APIs, microservices, and data pipelines built with Python, Django, and Node.js. I design systems that handle growth gracefully.',
+    tags: ['Django REST', 'NestJS', 'PostgreSQL', 'API Design'],
+    color: 'blue'
+  },
+  {
+    icon: '☁️',
+    title: 'Cloud & DevOps',
+    description: 'Infrastructure as Code, CI/CD pipelines, and containerized deployments. From Terraform to GitHub Actions, I automate everything.',
+    tags: ['AWS', 'Terraform', 'Docker', 'GitHub Actions'],
+    color: 'orange'
+  },
+  {
+    icon: '🤖',
+    title: 'Machine Learning',
+    description: 'End-to-end ML solutions from data processing to model deployment. Computer vision, NLP, and predictive analytics.',
+    tags: ['TensorFlow', 'PyTorch', 'Computer Vision', 'NLP'],
+    color: 'purple'
+  },
+  {
+    icon: '🌐',
+    title: 'Full-Stack Development',
+    description: 'Modern web applications with React/Next.js frontends and robust backends. Pixel-perfect, performant, and accessible.',
+    tags: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
+    color: 'green'
+  }
+];
+
+const processSteps = [
+  { step: '01', title: 'Discovery', description: 'We discuss your project, goals, and technical requirements. I ask the right questions to understand your vision.', icon: '🔍' },
+  { step: '02', title: 'Architecture', description: 'I design a technical blueprint — system architecture, tech stack selection, and a clear development roadmap.', icon: '📐' },
+  { step: '03', title: 'Build & Iterate', description: 'Agile development with frequent demos. You see progress, provide feedback, and we iterate until it\'s right.', icon: '⚡' },
+  { step: '04', title: 'Ship & Support', description: 'Rigorous testing, smooth deployment, documentation, and knowledge transfer. I don\'t disappear after launch.', icon: '🚀' }
+];
+
+const metrics = [
+  { value: '70%', label: 'Deployment time reduced', detail: 'CI/CD optimization at Houseworks' },
+  { value: '10+', label: 'Production projects', detail: 'APIs, ML systems, web apps' },
+  { value: '39+', label: 'Technical articles', detail: 'Deep dives & tutorials' },
+  { value: '100+', label: 'Students mentored', detail: 'As coding club president' },
+];
+
+const colorMap: Record<string, { bg: string; text: string; border: string; tagBg: string; tagText: string }> = {
+  blue: { bg: 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20', text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-200 dark:border-blue-800', tagBg: 'bg-blue-100 dark:bg-blue-900', tagText: 'text-blue-700 dark:text-blue-300' },
+  orange: { bg: 'from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20', text: 'text-orange-600 dark:text-orange-400', border: 'border-orange-200 dark:border-orange-800', tagBg: 'bg-orange-100 dark:bg-orange-900', tagText: 'text-orange-700 dark:text-orange-300' },
+  purple: { bg: 'from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20', text: 'text-purple-600 dark:text-purple-400', border: 'border-purple-200 dark:border-purple-800', tagBg: 'bg-purple-100 dark:bg-purple-900', tagText: 'text-purple-700 dark:text-purple-300' },
+  green: { bg: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20', text: 'text-green-600 dark:text-green-400', border: 'border-green-200 dark:border-green-800', tagBg: 'bg-green-100 dark:bg-green-900', tagText: 'text-green-700 dark:text-green-300' },
+};
+---
+
+<Layout title="Hire Me | Mangesh Bide" description="Looking for a software engineer? I build scalable backends, ML solutions, cloud infrastructure, and full-stack web applications. Let's work together.">
+  <div class="max-w-5xl mx-auto px-4 py-12">
+    
+    <!-- Hero -->
+    <section class="text-center mb-20 animate-on-scroll">
+      <div class="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+        </span>
+        Available for opportunities
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        I build software that<br/>
+        <span class="custom-gradient-text">actually ships.</span>
+      </h1>
+      
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+        SDE at Houseworks Technologies. I turn complex requirements into clean, scalable, production-ready systems. 
+        From backend APIs to ML pipelines to cloud infrastructure — I've got it covered.
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contact" class="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-semibold text-lg hover-lift shadow-lg shadow-blue-500/25">
+          Let's Talk
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/resume" class="inline-flex items-center px-8 py-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-semibold text-lg border border-gray-200 dark:border-gray-700">
+          View Resume
+        </a>
+      </div>
+    </section>
+
+    <!-- Impact Metrics -->
+    <section class="mb-20 animate-on-scroll">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {metrics.map((metric) => (
+          <div class="text-center p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover-lift transition-all">
+            <div class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-1" data-metric>{metric.value}</div>
+            <div class="font-medium text-gray-900 dark:text-gray-100 text-sm mb-1">{metric.label}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-500">{metric.detail}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- What I Can Build -->
+    <section class="mb-20">
+      <div class="text-center mb-12 animate-on-scroll">
+        <h2 class="text-3xl font-bold mb-4">What I Can Build For You</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          Battle-tested skills across the full stack. I don't just write code — I engineer solutions.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        {services.map((service) => {
+          const colors = colorMap[service.color];
+          return (
+            <div class={`bg-gradient-to-br ${colors.bg} rounded-xl p-8 border ${colors.border} hover-lift transition-all animate-on-scroll`}>
+              <div class="text-4xl mb-4">{service.icon}</div>
+              <h3 class={`text-xl font-bold mb-3 ${colors.text}`}>{service.title}</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">{service.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {service.tags.map((tag) => (
+                  <span class={`text-xs px-2 py-1 rounded-md ${colors.tagBg} ${colors.tagText}`}>{tag}</span>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- How I Work -->
+    <section class="mb-20">
+      <div class="text-center mb-12 animate-on-scroll">
+        <h2 class="text-3xl font-bold mb-4">How I Work</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          Clear communication, iterative development, no surprises. Here's what working with me looks like.
+        </p>
+      </div>
+      
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 hidden md:block"></div>
+        
+        <div class="space-y-8">
+          {processSteps.map((step) => (
+            <div class="relative flex gap-6 animate-on-scroll">
+              <div class="flex-shrink-0 w-16 h-16 bg-blue-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold z-10 shadow-lg">
+                {step.icon}
+              </div>
+              <div class="flex-1 bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Step {step.step}</div>
+                <h3 class="text-lg font-bold mb-2">{step.title}</h3>
+                <p class="text-gray-600 dark:text-gray-400">{step.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- GitHub Activity -->
+    <section class="mb-20 animate-on-scroll">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Code Speaks Louder</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          I ship code consistently. Here's the proof.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=1mangesh1&show_icons=true&theme=transparent&hide_border=true&title_color=3B82F6&icon_color=3B82F6&text_color=6B7280" 
+            alt="Mangesh's GitHub stats" 
+            class="mx-auto dark:hidden w-full"
+            loading="lazy"
+          />
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=1mangesh1&show_icons=true&theme=transparent&hide_border=true&title_color=60A5FA&icon_color=60A5FA&text_color=9CA3AF&bg_color=1F2937" 
+            alt="Mangesh's GitHub stats" 
+            class="mx-auto hidden dark:block w-full"
+            loading="lazy"
+          />
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+          <img 
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=1mangesh1&layout=compact&theme=transparent&hide_border=true&title_color=3B82F6&text_color=6B7280" 
+            alt="Mangesh's top languages" 
+            class="mx-auto dark:hidden w-full"
+            loading="lazy"
+          />
+          <img 
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=1mangesh1&layout=compact&theme=transparent&hide_border=true&title_color=60A5FA&text_color=9CA3AF&bg_color=1F2937" 
+            alt="Mangesh's top languages" 
+            class="mx-auto hidden dark:block w-full"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      
+      <!-- GitHub Contribution Graph -->
+      <div class="mt-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center overflow-x-auto">
+        <img 
+          src="https://ghchart.rshah.org/3B82F6/1mangesh1" 
+          alt="Mangesh's GitHub contribution chart" 
+          class="mx-auto dark:hidden w-full max-w-full"
+          loading="lazy"
+        />
+        <img 
+          src="https://ghchart.rshah.org/60A5FA/1mangesh1" 
+          alt="Mangesh's GitHub contribution chart" 
+          class="mx-auto hidden dark:block w-full max-w-full"
+          loading="lazy"
+        />
+        <p class="text-sm text-gray-500 mt-3">
+          <a href="https://github.com/1mangesh1" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">View full profile on GitHub →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- What People Say / Recommendations -->
+    <section class="mb-20 animate-on-scroll" id="testimonials">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Working With Me</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          What makes me different — and what you can expect.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover-lift transition-all">
+          <div class="text-3xl mb-4">🎯</div>
+          <h3 class="font-bold mb-2">Ownership Mentality</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">
+            I don't just complete tickets — I think about the product holistically. If I spot a UX issue, a security gap, 
+            or an optimization opportunity, I'll flag it and fix it. Your codebase gets better every time I touch it.
+          </p>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover-lift transition-all">
+          <div class="text-3xl mb-4">📝</div>
+          <h3 class="font-bold mb-2">Communication First</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">
+            I write clear PRs, document my decisions, and over-communicate rather than under-communicate. 
+            You'll never wonder "what is Mangesh working on?" — I proactively share updates and blockers.
+          </p>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover-lift transition-all">
+          <div class="text-3xl mb-4">🔬</div>
+          <h3 class="font-bold mb-2">Deep Technical Rigor</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">
+            I don't just make things work — I make them work <em>right</em>. SOLID principles, comprehensive tests, 
+            performance profiling, and clean architecture. My code is ready for the next engineer who reads it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Radar -->
+    <section class="mb-20 animate-on-scroll">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Technical Depth</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          Not just a list of buzzwords. Here's where I genuinely go deep.
+        </p>
+      </div>
+      
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
+        <canvas id="skills-radar" class="mx-auto" width="500" height="500" style="max-width: 100%; height: auto;" aria-label="Skills radar chart showing proficiency levels in Backend, Frontend, DevOps, ML/AI, Databases, and System Design"></canvas>
+        <noscript>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+            <div><strong>Backend:</strong> 95%</div>
+            <div><strong>DevOps:</strong> 85%</div>
+            <div><strong>ML/AI:</strong> 80%</div>
+            <div><strong>Frontend:</strong> 75%</div>
+            <div><strong>Databases:</strong> 85%</div>
+            <div><strong>System Design:</strong> 80%</div>
+          </div>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- Featured Work -->
+    <section class="mb-20 animate-on-scroll">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Proof of Work</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          This website itself is a showcase. Built with Astro, Tailwind CSS, and attention to detail.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/games" class="group bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-xl p-6 border border-pink-200 dark:border-pink-800 hover-lift transition-all">
+          <div class="text-3xl mb-3">🎮</div>
+          <h3 class="font-bold mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">10 Interactive Games</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Built with vanilla JS, Canvas API, and Web Audio. No frameworks needed.</p>
+        </a>
+        
+        <a href="/tools" class="group bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-cyan-900/20 dark:to-teal-900/20 rounded-xl p-6 border border-cyan-200 dark:border-cyan-800 hover-lift transition-all">
+          <div class="text-3xl mb-3">🔧</div>
+          <h3 class="font-bold mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">Developer Tools</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">QR generator, JSON formatter, color picker — all offline, no dependencies.</p>
+        </a>
+        
+        <a href="/terminal" class="group bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 hover-lift transition-all">
+          <div class="text-3xl mb-3">💻</div>
+          <h3 class="font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Terminal Portfolio</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Full shell simulation with neofetch, matrix effect, and navigation.</p>
+        </a>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="/portfolio" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium">
+          See all projects →
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center mb-12 animate-on-scroll">
+      <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl p-12 text-white shadow-2xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Build Something Great?</h2>
+        <p class="text-lg opacity-90 mb-8 max-w-xl mx-auto">
+          Whether you need a backend engineer, a full-stack developer, or someone who can wear multiple hats — let's talk.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-xl hover:bg-gray-100 transition-all font-bold text-lg">
+            Start a Conversation
+          </a>
+          <a href="mailto:hello@mangeshbide.tech" class="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-xl hover:bg-white/10 transition-all font-bold text-lg">
+            hello@mangeshbide.tech
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- JSON-LD for Hire Me page -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Mangesh Bide",
+      "jobTitle": "Software Development Engineer",
+      "url": "https://mangeshbide.tech",
+      "sameAs": [
+        "https://github.com/1mangesh1",
+        "https://linkedin.com/in/mangesh-bide",
+        "https://x.com/Mangesh_Bide"
+      ],
+      "knowsAbout": ["Python", "Django", "JavaScript", "TypeScript", "React", "AWS", "Terraform", "Docker", "Machine Learning", "TensorFlow"],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Software Development Engineer",
+        "skills": "Backend Development, Cloud Infrastructure, Machine Learning, Full-Stack Web Development"
+      }
+    }
+  })} />
+</Layout>
+
+<script>
+// Skills Radar Chart - vanilla Canvas 2D
+(function() {
+  const canvas = document.getElementById('skills-radar') as HTMLCanvasElement;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // Use local reference to satisfy TypeScript narrowing in closures
+  const g = ctx as CanvasRenderingContext2D;
+
+  const isDark = document.documentElement.classList.contains('dark');
+  const centerX = 250;
+  const centerY = 250;
+  const maxRadius = 200;
+  
+  const skills = [
+    { label: 'Backend', value: 0.95 },
+    { label: 'DevOps', value: 0.85 },
+    { label: 'ML / AI', value: 0.80 },
+    { label: 'Frontend', value: 0.75 },
+    { label: 'Databases', value: 0.85 },
+    { label: 'System Design', value: 0.80 },
+  ];
+  
+  const numSkills = skills.length;
+  const angleStep = (2 * Math.PI) / numSkills;
+  const startAngle = -Math.PI / 2; // Start from top
+  
+  // Draw background rings
+  const ringLevels = [0.2, 0.4, 0.6, 0.8, 1.0];
+  g.strokeStyle = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  g.lineWidth = 1;
+  
+  ringLevels.forEach(level => {
+    g.beginPath();
+    for (let i = 0; i <= numSkills; i++) {
+      const angle = startAngle + (i % numSkills) * angleStep;
+      const r = maxRadius * level;
+      const x = centerX + r * Math.cos(angle);
+      const y = centerY + r * Math.sin(angle);
+      if (i === 0) g.moveTo(x, y);
+      else g.lineTo(x, y);
+    }
+    g.closePath();
+    g.stroke();
+  });
+  
+  // Draw axis lines
+  g.strokeStyle = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  for (let i = 0; i < numSkills; i++) {
+    const angle = startAngle + i * angleStep;
+    g.beginPath();
+    g.moveTo(centerX, centerY);
+    g.lineTo(centerX + maxRadius * Math.cos(angle), centerY + maxRadius * Math.sin(angle));
+    g.stroke();
+  }
+  
+  // Draw skill polygon with animation
+  let progress = 0;
+  
+  function draw() {
+    g.clearRect(0, 0, 500, 500);
+    
+    // Redraw rings
+    g.strokeStyle = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+    g.lineWidth = 1;
+    ringLevels.forEach(level => {
+      g.beginPath();
+      for (let i = 0; i <= numSkills; i++) {
+        const angle = startAngle + (i % numSkills) * angleStep;
+        const r = maxRadius * level;
+        const x = centerX + r * Math.cos(angle);
+        const y = centerY + r * Math.sin(angle);
+        if (i === 0) g.moveTo(x, y);
+        else g.lineTo(x, y);
+      }
+      g.closePath();
+      g.stroke();
+    });
+    
+    // Redraw axes
+    g.strokeStyle = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    for (let i = 0; i < numSkills; i++) {
+      const angle = startAngle + i * angleStep;
+      g.beginPath();
+      g.moveTo(centerX, centerY);
+      g.lineTo(centerX + maxRadius * Math.cos(angle), centerY + maxRadius * Math.sin(angle));
+      g.stroke();
+    }
+    
+    // Data polygon
+    const currentProgress = Math.min(progress, 1);
+    g.beginPath();
+    for (let i = 0; i < numSkills; i++) {
+      const angle = startAngle + i * angleStep;
+      const r = maxRadius * skills[i].value * currentProgress;
+      const x = centerX + r * Math.cos(angle);
+      const y = centerY + r * Math.sin(angle);
+      if (i === 0) g.moveTo(x, y);
+      else g.lineTo(x, y);
+    }
+    g.closePath();
+    
+    // Fill
+    const gradient = g.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
+    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.15)');
+    gradient.addColorStop(1, 'rgba(147, 51, 234, 0.15)');
+    g.fillStyle = gradient;
+    g.fill();
+    
+    // Stroke
+    g.strokeStyle = 'rgba(59, 130, 246, 0.8)';
+    g.lineWidth = 2;
+    g.stroke();
+    
+    // Data points
+    for (let i = 0; i < numSkills; i++) {
+      const angle = startAngle + i * angleStep;
+      const r = maxRadius * skills[i].value * currentProgress;
+      const x = centerX + r * Math.cos(angle);
+      const y = centerY + r * Math.sin(angle);
+      
+      g.beginPath();
+      g.arc(x, y, 5, 0, 2 * Math.PI);
+      g.fillStyle = 'rgb(59, 130, 246)';
+      g.fill();
+      g.strokeStyle = '#fff';
+      g.lineWidth = 2;
+      g.stroke();
+    }
+    
+    // Labels
+    g.font = '14px system-ui, -apple-system, sans-serif';
+    g.fillStyle = isDark ? '#D1D5DB' : '#374151';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    
+    for (let i = 0; i < numSkills; i++) {
+      const angle = startAngle + i * angleStep;
+      const labelR = maxRadius + 30;
+      const x = centerX + labelR * Math.cos(angle);
+      const y = centerY + labelR * Math.sin(angle);
+      
+      g.fillText(skills[i].label, x, y);
+      
+      // Percentage
+      g.font = 'bold 12px system-ui, -apple-system, sans-serif';
+      g.fillStyle = isDark ? '#60A5FA' : '#3B82F6';
+      g.fillText(Math.round(skills[i].value * 100 * currentProgress) + '%', x, y + 18);
+      
+      // Reset font
+      g.font = '14px system-ui, -apple-system, sans-serif';
+      g.fillStyle = isDark ? '#D1D5DB' : '#374151';
+    }
+    
+    if (progress < 1) {
+      progress += 0.025;
+      requestAnimationFrame(draw);
+    }
+  }
+  
+  // Start animation when visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        progress = 0;
+        draw();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  observer.observe(canvas);
+})();
+</script>

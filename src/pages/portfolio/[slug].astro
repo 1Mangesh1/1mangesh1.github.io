@@ -15,11 +15,22 @@ export async function getStaticPaths() {
 
 const { item } = Astro.props;
 const { Content } = await item.render();
+
+// Get related projects (same tech overlap, exclude current)
+const allProjects = await getCollection('portfolio');
+const relatedProjects = allProjects
+  .filter(p => p.slug !== item.slug)
+  .map(p => ({
+    ...p,
+    overlap: p.data.tech.filter(t => item.data.tech.includes(t)).length
+  }))
+  .sort((a, b) => b.overlap - a.overlap)
+  .slice(0, 3);
 ---
 
 <Layout title={`${item.data.title} - Portfolio`} description={item.data.description} image={item.data.image}>
   <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body itemscope itemtype="https://schema.org/CreativeWork">
-    <header class="mb-8">
+    <header class="mb-10">
       <nav aria-label="Breadcrumb" class="text-sm text-gray-500 dark:text-gray-400 mb-4">
         <ol class="flex items-center gap-1">
           <li><a href="/" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a></li>
@@ -29,24 +40,63 @@ const { Content } = await item.render();
           <li aria-current="page">{item.data.title}</li>
         </ol>
       </nav>
-      <h1 class="text-4xl font-bold mb-4" itemprop="name">{item.data.title}</h1>
-      {item.data.description && (
-        <p class="text-xl text-gray-600 dark:text-gray-400 mb-4" itemprop="description">{item.data.description}</p>
+      
+      {item.data.featured && (
+        <span class="inline-flex items-center gap-1.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+          ⭐ Featured Project
+        </span>
       )}
+      
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight" itemprop="name">{item.data.title}</h1>
+      {item.data.description && (
+        <p class="text-xl text-gray-600 dark:text-gray-400 mb-6 leading-relaxed" itemprop="description">{item.data.description}</p>
+      )}
+      
+      <!-- Project Meta Bar -->
+      <div class="flex flex-wrap gap-3 items-center mb-6">
+        {(item.data.github || item.data.demo) && (
+          <div class="flex gap-2">
+            {item.data.github && (
+              <a 
+                href={item.data.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                itemprop="codeRepository"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-80 transition-opacity text-sm font-medium"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Source Code
+              </a>
+            )}
+            {item.data.demo && (
+              <a 
+                href={item.data.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+                Live Demo
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+      
       <div class="flex flex-wrap gap-4 items-center text-sm text-gray-600 dark:text-gray-400">
         {item.data.date && (
-          <time datetime={item.data.date.toISOString()}>
+          <time datetime={item.data.date.toISOString()} class="flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" /></svg>
             {item.data.date.toLocaleDateString('en-US', {
               year: 'numeric',
-              month: 'long',
-              day: 'numeric'
+              month: 'long'
             })}
           </time>
         )}
         {item.data.tech && item.data.tech.length > 0 && (
           <div class="flex flex-wrap gap-2">
             {item.data.tech.map((tech) => (
-              <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs">
+              <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
                 {tech}
               </span>
             ))}
@@ -55,48 +105,70 @@ const { Content } = await item.render();
       </div>
     </header>
 
-    <div class="prose prose-lg dark:prose-invert max-w-none" itemprop="text">
+    <!-- Case Study Content -->
+    <div class="case-study-content prose prose-lg dark:prose-invert max-w-none" itemprop="text">
       <Content />
     </div>
 
-    {(item.data.github || item.data.demo) && (
-      <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <h3 class="text-lg font-semibold mb-4">Project Links</h3>
-        <div class="flex gap-4" role="list" aria-label="Project links">
-          {item.data.github && (
-            <a 
-              href={item.data.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              itemprop="codeRepository"
-              class="inline-flex items-center px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-80 transition-opacity"
-            >
-              GitHub
+    <!-- Related Projects -->
+    {relatedProjects.length > 0 && (
+      <section class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold mb-6">Related Projects</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          {relatedProjects.map((project) => (
+            <a href={`/portfolio/${project.slug}`} class="group block bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover-lift">
+              <h3 class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-1">{project.data.title}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">{project.data.description}</p>
+              <div class="flex flex-wrap gap-1">
+                {project.data.tech.slice(0, 3).map((tech) => (
+                  <span class="text-xs px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-full">{tech}</span>
+                ))}
+                {project.data.tech.length > 3 && (
+                  <span class="text-xs px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full">+{project.data.tech.length - 3}</span>
+                )}
+              </div>
             </a>
-          )}
-          {item.data.demo && (
-            <a 
-              href={item.data.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Live Demo
-            </a>
-          )}
+          ))}
         </div>
-      </div>
+      </section>
     )}
 
-    <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700" aria-label="Portfolio navigation">
-      <a 
-        href="/portfolio" 
-        class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
-      >
-        ← Back to portfolio
-      </a>
-    </nav>
+    <!-- Hire CTA -->
+    <section class="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 text-center border border-blue-100 dark:border-blue-800/30">
+      <h2 class="text-xl font-bold mb-2">Like this kind of work?</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">I build production-grade systems with clean architecture and real impact.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/hire-me" class="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+          🤝 Work With Me
+        </a>
+        <a href="/portfolio" class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium transition-colors">
+          ← All Projects
+        </a>
+      </div>
+    </section>
   </article>
+
+  <style>
+    /* Case study content styling - make h2s look like section headers */
+    .case-study-content :global(h2) {
+      @apply text-2xl font-bold mt-12 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700;
+    }
+    .case-study-content :global(h2:first-of-type) {
+      @apply mt-0;
+    }
+    /* Add left border to blockquotes for callout style */
+    .case-study-content :global(blockquote) {
+      @apply border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20 rounded-r-lg;
+    }
+    /* Style strong text in lists as mini-labels */
+    .case-study-content :global(li > strong:first-child) {
+      @apply text-blue-700 dark:text-blue-400;
+    }
+    /* Code blocks get subtle enhancement */
+    .case-study-content :global(pre) {
+      @apply rounded-xl border border-gray-200 dark:border-gray-700;
+    }
+  </style>
 
   <!-- CreativeWork Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({

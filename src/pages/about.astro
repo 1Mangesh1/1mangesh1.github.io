@@ -1,88 +1,281 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-const technologies = ['Python', 'JavaScript', 'Django', 'TensorFlow', 'React', 'Astro', 'Docker', 'Git', 'Node.js', 'Express', 'Socket.io', 'NestJS', 'TypeORM', 'JWT', 'Terraform', 'AWS']
+const allPosts = await getCollection("blog", ({ data }) => data.draft !== true);
+const allProjects = await getCollection("portfolio");
+const allTil = await getCollection("til");
+const allSnippets = await getCollection("snippets");
+
+const techCategories = [
+  { name: 'Languages', items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'PHP'], color: 'blue' },
+  { name: 'Backend', items: ['Django', 'NestJS', 'Node.js', 'Express', 'Laravel'], color: 'green' },
+  { name: 'Frontend', items: ['React', 'Next.js', 'Astro', 'Tailwind CSS'], color: 'purple' },
+  { name: 'DevOps', items: ['Docker', 'Terraform', 'GitHub Actions', 'AWS'], color: 'orange' },
+  { name: 'ML / AI', items: ['TensorFlow', 'PyTorch', 'OpenCV', 'Computer Vision'], color: 'pink' },
+  { name: 'Databases', items: ['PostgreSQL', 'MongoDB', 'MySQL', 'DynamoDB'], color: 'cyan' },
+];
+
+const timeline = [
+  { year: '2025', title: 'SDE-I @ Houseworks Technologies', desc: 'Leading backend development for healthcare products. Django, AWS, Terraform, CI/CD automation.', type: 'work', color: 'blue' },
+  { year: '2024', title: 'Backend Intern @ Netwin Infosolutions', desc: 'Built RESTful APIs, JWT auth systems, and ML-powered search for eCommerce.', type: 'work', color: 'blue' },
+  { year: '2024', title: 'B.Tech Computer Engineering', desc: 'R.C. Patel Institute of Technology, Shirpur. CGPA: 7.98/10', type: 'edu', color: 'green' },
+  { year: '2023', title: 'President — Akatsuki Coding Club', desc: 'Led coding competitions and workshops for 100+ students.', type: 'leadership', color: 'purple' },
+  { year: '2021', title: 'Diploma in Computer Engineering', desc: 'R.C. Patel Polytechnic, Shirpur. Score: 93.89%', type: 'edu', color: 'green' },
+  { year: '2019', title: 'Started Coding Journey', desc: 'Began self-learning Python. Built first projects out of curiosity about how things work.', type: 'milestone', color: 'orange' },
+];
+
+const colorMap: Record<string, string> = {
+  blue: 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200',
+  green: 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200',
+  purple: 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200',
+  orange: 'bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-200',
+  pink: 'bg-pink-100 dark:bg-pink-900/50 text-pink-800 dark:text-pink-200',
+  cyan: 'bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-200',
+};
+
+const dotColors: Record<string, string> = {
+  blue: 'bg-blue-500',
+  green: 'bg-green-500',
+  purple: 'bg-purple-500',
+  orange: 'bg-orange-500',
+};
 ---
 
-<Layout title="About | Mangesh Bide" description="Learn about Mangesh Bide, a software developer passionate about Python, machine learning, web development, and open-source projects.">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-    <div class="prose prose-lg dark:prose-invert max-w-none">
-      <h1>About Me</h1>
-      
-      <div class="flex flex-col md:flex-row gap-8 items-start mb-8">
-        <div class="md:w-1/3">
-          <div class="w-full max-w-sm mx-auto">
-            <img src="/me.jpg" alt="Mangesh Bide" class="w-full aspect-square object-cover rounded-lg shadow-lg">
+<Layout title="About | Mangesh Bide" description="Learn about Mangesh Bide — Software Development Engineer specializing in Python, Django, cloud infrastructure, and machine learning. Career timeline, technical skills, and engineering philosophy.">
+  <div class="max-w-5xl mx-auto px-4 py-12">
+    
+    <!-- Hero -->
+    <section class="mb-16 animate-on-scroll">
+      <div class="flex flex-col md:flex-row gap-10 items-center">
+        <div class="md:w-1/3 flex-shrink-0">
+          <div class="relative">
+            <img src="/me.jpg" alt="Mangesh Bide" class="w-48 h-48 md:w-56 md:h-56 rounded-2xl mx-auto shadow-xl object-cover hover-lift transition-all" />
+            <div class="absolute -bottom-3 -right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+              Open to work
+            </div>
           </div>
         </div>
         <div class="md:w-2/3">
-          <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">
-            Hi, I'm Mangesh! A passionate developer who loves creating innovative solutions.
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            Hey, I'm <span class="custom-gradient-text">Mangesh</span> 👋
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+            Software Development Engineer who turns complex problems into clean, scalable systems. 
+            Currently building healthcare products at <strong>Houseworks Technologies</strong>.
           </p>
-          
-          <p>
-            I'm a software developer with expertise in Python, Django, TensorFlow, and web development. 
-            I enjoy working on machine learning projects, building web applications, and sharing my 
-            knowledge through blogging.
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            I started coding out of curiosity about how video games work. That curiosity evolved into a career 
+            building production systems, automating infrastructure, training ML models, and writing about it all.
+            I don't just write code — I engineer solutions with intention.
           </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/hire-me" class="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              🤝 Work With Me
+            </a>
+            <a href="/resume" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium border border-gray-200 dark:border-gray-700">
+              📄 Resume
+            </a>
+            <a href="https://github.com/1mangesh1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium border border-gray-200 dark:border-gray-700">
+              🐙 GitHub
+            </a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <h2>My Journey</h2>
-      <p>
-        My coding journey started with curiosity about how video games work. Since then, I've been 
-        constantly learning and building projects that solve real-world problems. I began as a self-taught programmer, 
-        then pursued formal education to deepen my foundations in computer science and software engineering.
-      </p>
-      <p>
-        Over the years, I've worked on diverse projects ranging from simple web applications to complex machine learning systems. 
-        Each project has taught me valuable lessons about code quality, performance optimization, and user experience. 
-        I'm passionate about building software that not only works but also provides real value to users.
-      </p>
+    <!-- Quick Stats -->
+    <section class="mb-16 animate-on-scroll">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 text-center hover-lift transition-all">
+          <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">{allPosts.length}+</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Blog Posts</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 text-center hover-lift transition-all">
+          <div class="text-2xl font-bold text-green-600 dark:text-green-400">{allProjects.length}+</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Projects Built</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 text-center hover-lift transition-all">
+          <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">{allTil.length}+</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">TILs Shared</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 text-center hover-lift transition-all">
+          <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">{allSnippets.length}+</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Code Snippets</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 text-center hover-lift transition-all col-span-2 md:col-span-1">
+          <div class="text-2xl font-bold text-pink-600 dark:text-pink-400">100+</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Students Mentored</div>
+        </div>
+      </div>
+    </section>
 
-      <h2>What I Do</h2>
-      <ul>
-        <li>🚀 Build scalable web applications with modern frameworks (Django, React, Astro)</li>
-        <li>🤖 Develop machine learning solutions using TensorFlow and other frameworks</li>
-        <li>📝 Write technical blogs and tutorials to help other developers grow</li>
-        <li>🎯 Create tools and utilities that automate workflows and solve real problems</li>
-        <li>🔧 Help teams optimize code quality, performance, and deployment pipelines</li>
-        <li>📚 Speak at tech meetups and conferences about software development best practices</li>
-      </ul>
-
-      <h2>My Approach to Development</h2>
-      <p>
-        I believe in writing clean, maintainable code that's easy for other developers to understand and build upon. 
-        I'm a strong advocate for testing, documentation, and continuous learning. I prefer solutions that are simple yet elegant, 
-        and I always consider performance and scalability from the ground up.
-      </p>
-
-      <h2>Technologies I Love</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
-        {technologies.map((tech) => (
-          <div class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-2 rounded-lg text-center text-sm">
-            {tech}
+    <!-- Career Timeline -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">My Journey</h2>
+      <div class="relative">
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 transform md:-translate-x-1/2"></div>
+        
+        {timeline.map((item, i) => (
+          <div class={`relative flex items-start mb-8 animate-on-scroll ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+            {/* Timeline dot */}
+            <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-10">
+              <div class={`w-4 h-4 rounded-full ${dotColors[item.color]} ring-4 ring-white dark:ring-gray-900 shadow`}></div>
+            </div>
+            
+            {/* Content card */}
+            <div class={`ml-12 md:ml-0 md:w-[45%] ${i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover-lift transition-all">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class={`text-xs font-bold px-2 py-1 rounded ${colorMap[item.color]}`}>
+                    {item.year}
+                  </span>
+                  <span class="text-xs text-gray-500 uppercase tracking-wide">
+                    {item.type === 'work' ? '💼 Work' : item.type === 'edu' ? '🎓 Education' : item.type === 'leadership' ? '👑 Leadership' : '⭐ Milestone'}
+                  </span>
+                </div>
+                <h3 class="font-bold text-lg mb-1">{item.title}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
+              </div>
+            </div>
           </div>
         ))}
       </div>
+    </section>
 
-      <h2>Let's Connect</h2>
-      <p>
-        I'm always excited to connect with fellow developers and tech enthusiasts.
-        Feel free to reach out!
-      </p>
-
-      <div class="flex flex-wrap gap-3 mt-6">
-        <a href="https://github.com/1mangesh1" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <span>🐙</span> GitHub
-        </a>
-        <a href="https://x.com/Mangesh_Bide" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <span>🐦</span> Twitter
-        </a>
-        <a href="mailto:hello@mangeshbide.tech" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <span>📧</span> Email
-        </a>
+    <!-- What I Do -->
+    <section class="mb-16 animate-on-scroll">
+      <h2 class="text-3xl font-bold mb-8 text-center">What I Bring to the Table</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div class="text-2xl mb-3">🏗️</div>
+          <h3 class="font-bold text-lg mb-2">Production-Ready Backend Systems</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            I build APIs that handle real traffic. Django REST ViewSets, NestJS controllers, JWT auth, 
+            role-based access — all with tests and docs. At Houseworks, I reduced deployment time by 70% through CI/CD automation.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl p-6 border border-orange-200 dark:border-orange-800">
+          <div class="text-2xl mb-3">☁️</div>
+          <h3 class="font-bold text-lg mb-2">Infrastructure That Scales</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Terraform modules, Docker Compose setups, GitHub Actions pipelines — I automate infrastructure 
+            so teams can focus on features. One-click deployments from staging to production.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
+          <div class="text-2xl mb-3">🤖</div>
+          <h3 class="font-bold text-lg mb-2">ML-Powered Solutions</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            From computer vision (CrimiFace) to AI-powered search (Eden AI integration), I build intelligent 
+            systems that solve real problems. TensorFlow, PyTorch, and practical ML engineering.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
+          <div class="text-2xl mb-3">✍️</div>
+          <h3 class="font-bold text-lg mb-2">Knowledge Sharing</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            {allPosts.length}+ blog posts, speaking at events, mentoring 100+ students as coding club president. 
+            I believe the best engineers are also great communicators and teachers.
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">Technologies I Work With</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {techCategories.map((cat) => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 animate-on-scroll hover-lift transition-all">
+            <h3 class="font-bold mb-4 text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400">{cat.name}</h3>
+            <div class="flex flex-wrap gap-2">
+              {cat.items.map((tech) => (
+                <span class={`text-sm px-3 py-1.5 rounded-lg font-medium ${colorMap[cat.color]}`}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Engineering Philosophy -->
+    <section class="mb-16 animate-on-scroll">
+      <h2 class="text-3xl font-bold mb-8 text-center">Engineering Philosophy</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+          <div class="text-3xl mb-3">🎯</div>
+          <h3 class="font-bold mb-2">Simplicity First</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            The best solution is the simplest one that works. I avoid over-engineering and prefer 
+            code that the next person can understand in minutes, not hours.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+          <div class="text-3xl mb-3">🧪</div>
+          <h3 class="font-bold mb-2">Test Everything</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Unit tests, integration tests, and manual QA. I write code that I'm confident won't break 
+            at 2 AM on a Friday. SOLID principles and clean architecture always.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+          <div class="text-3xl mb-3">📈</div>
+          <h3 class="font-bold mb-2">Ship & Learn</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Perfect is the enemy of deployed. I favor iterative development — ship fast, measure, 
+            learn from production, and improve. Every bug is a lesson.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Beyond Code -->
+    <section class="mb-16 animate-on-scroll">
+      <h2 class="text-3xl font-bold mb-8 text-center">Beyond the Code</h2>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
+        <div class="prose dark:prose-invert max-w-none">
+          <p>
+            When I'm not pushing commits, you'll find me gaming (big fan of RDR2 and Spider-Man), 
+            watching anime, reading about distributed systems, or building silly side projects 
+            like the <a href="/games" class="text-blue-600 dark:text-blue-400 hover:underline">10 interactive games</a> on this site.
+          </p>
+          <p class="mb-0">
+            I believe the best engineers are well-rounded humans. Curiosity beyond code makes us 
+            better problem solvers, more empathetic teammates, and more creative builders. 
+            That's why this site has a <a href="/terminal" class="text-blue-600 dark:text-blue-400 hover:underline">terminal portfolio</a>, 
+            <a href="/meme" class="text-blue-600 dark:text-blue-400 hover:underline">dev memes</a>, and 
+            <a href="/secret" class="text-blue-600 dark:text-blue-400 hover:underline">easter eggs</a> hiding everywhere.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center animate-on-scroll">
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-10 border border-blue-200 dark:border-blue-800">
+        <h2 class="text-2xl font-bold mb-3">Let's Build Something Together</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-lg mx-auto">
+          Whether you're hiring, collaborating, or just want to nerd out about tech — I'd love to hear from you.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            💬 Get in Touch
+          </a>
+          <a href="https://x.com/Mangesh_Bide" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700">
+            🐦 Twitter
+          </a>
+          <a href="https://linkedin.com/in/mangesh-bide" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700">
+            💼 LinkedIn
+          </a>
+          <a href="mailto:hello@mangeshbide.tech" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700">
+            📧 Email
+          </a>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Layout> 
