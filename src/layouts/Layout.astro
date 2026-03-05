@@ -3,6 +3,7 @@ import { siteConfig } from '../config/site';
 import BackToTop from '../components/BackToTop.astro';
 import EasterEggs from '../components/EasterEggs.astro';
 import QuoteNotification from '../components/QuoteNotification.astro';
+import Haptics from '../components/Haptics.astro';
 
 export interface Props {
   title: string;
@@ -533,5 +534,6 @@ const imageURL = new URL(image, siteConfig.url);
         Happy exploring! 🚀
       `);
     </script>
+    <Haptics />
   </body>
 </html> 
