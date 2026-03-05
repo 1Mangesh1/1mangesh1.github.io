@@ -15,7 +15,7 @@
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       const el = target.closest('button, a[href]');
-      if (el) haptics.trigger('nudge');
+      if (el && !el.closest('[data-no-haptics]')) haptics.trigger('nudge');
     }, { passive: true });
   }
 </script>
