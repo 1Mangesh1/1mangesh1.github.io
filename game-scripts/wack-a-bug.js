@@ -296,6 +296,7 @@ class BugBlaster {
     if (!hit) {
       this.combo = 0;
       this.sounds.miss();
+      window.haptics?.trigger('error');
     }
   }
 
@@ -316,6 +317,7 @@ class BugBlaster {
       bug.damaged = true;
       setTimeout(() => { bug.damaged = false; }, 100);
       this.sounds.hit();
+      window.haptics?.trigger('nudge');
     }
   }
 
@@ -403,6 +405,7 @@ class BugBlaster {
 
   hitBoss() {
     if (!this.boss) return;
+    window.haptics?.trigger('success');
 
     const damage = this.activePowerUps.multishot ? 2 : 1;
     this.boss.health -= damage;
@@ -822,6 +825,7 @@ class BugBlaster {
     }
 
     this.sounds.gameOver();
+    window.haptics?.trigger('error');
     this.updateUI();
 
     // Check achievements

@@ -243,6 +243,7 @@ Awesome!
   });
 
   function triggerKonamiEasterEgg() {
+    window.haptics?.trigger('buzz');
     const modal = document.getElementById('secret-modal');
     const content = modal?.querySelector('div');
     
@@ -341,6 +342,7 @@ Awesome!
   });
 
   function showDancingCat() {
+    window.haptics?.trigger('success');
     const cat = document.getElementById('dancing-cat');
     if (!cat) return;
     
@@ -404,6 +406,7 @@ Awesome!
     const body = document.body;
     
     if (rainbowMode) {
+      window.haptics?.trigger('buzz');
       body.style.animation = 'rainbow 3s infinite';
       body.style.transition = 'all 0.3s ease';
       createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '🌈');
@@ -479,6 +482,7 @@ Awesome!
     ];
     
     const randomSurprise = surprises[Math.floor(Math.random() * surprises.length)];
+    window.haptics?.trigger('nudge');
     randomSurprise();
     
     // Show notification
@@ -690,6 +694,7 @@ Awesome!
 
   // Fake hacking effect
   function triggerHackMode() {
+    window.haptics?.trigger('buzz');
     const hackContainer = document.createElement('div');
     hackContainer.id = 'hack-mode';
     hackContainer.className = 'fixed inset-0 z-50 pointer-events-none flex items-center justify-center';
@@ -798,4 +803,4 @@ Awesome!
         🎭 Notice the smooth animations? They respect your motion preferences!
         
         Happy exploring! 🚀
-      `);</script> </body> </html>
+      `);</script> <script type="module" src="/assets/Haptics.astro_astro_type_script_index_0_lang.Csd68LtB.js"></script> </body></html>

@@ -157,6 +157,7 @@ Awesome!
   });
 
   function triggerKonamiEasterEgg() {
+    window.haptics?.trigger('buzz');
     const modal = document.getElementById('secret-modal');
     const content = modal?.querySelector('div');
     
@@ -255,6 +256,7 @@ Awesome!
   });
 
   function showDancingCat() {
+    window.haptics?.trigger('success');
     const cat = document.getElementById('dancing-cat');
     if (!cat) return;
     
@@ -318,6 +320,7 @@ Awesome!
     const body = document.body;
     
     if (rainbowMode) {
+      window.haptics?.trigger('buzz');
       body.style.animation = 'rainbow 3s infinite';
       body.style.transition = 'all 0.3s ease';
       createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '🌈');
@@ -393,6 +396,7 @@ Awesome!
     ];
     
     const randomSurprise = surprises[Math.floor(Math.random() * surprises.length)];
+    window.haptics?.trigger('nudge');
     randomSurprise();
     
     // Show notification
@@ -604,6 +608,7 @@ Awesome!
 
   // Fake hacking effect
   function triggerHackMode() {
+    window.haptics?.trigger('buzz');
     const hackContainer = document.createElement('div');
     hackContainer.id = 'hack-mode';
     hackContainer.className = 'fixed inset-0 z-50 pointer-events-none flex items-center justify-center';
@@ -712,4 +717,4 @@ Awesome!
         🎭 Notice the smooth animations? They respect your motion preferences!
         
         Happy exploring! 🚀
-      `);</script> </body> </html> <script type="module">const i=document.getElementById("typing-text"),g=document.getElementById("cursor");if(i&&g){const r=["Backend Development","Machine Learning","API Design","Django Applications","Python Automation","Data Processing","Cloud Solutions","Web Development","Data Engineering"];let n=0,e=0,o=!1;const u=100,c=50,l=2e3,t=()=>{const s=r[n];if(o){if(i.textContent=s.substring(0,e-1),e--,e===0){o=!1,n=(n+1)%r.length,setTimeout(t,500);return}setTimeout(t,c)}else{if(i.textContent=s.substring(0,e+1),e++,e===s.length){o=!0,setTimeout(t,l);return}setTimeout(t,u)}};setTimeout(()=>{t()},1e3)}</script>
+      `);</script> <script type="module" src="/assets/Haptics.astro_astro_type_script_index_0_lang.Csd68LtB.js"></script> </body></html> <script type="module">const i=document.getElementById("typing-text"),g=document.getElementById("cursor");if(i&&g){const r=["Backend Development","Machine Learning","API Design","Django Applications","Python Automation","Data Processing","Cloud Solutions","Web Development","Data Engineering"];let n=0,e=0,o=!1;const u=100,c=50,l=2e3,t=()=>{const s=r[n];if(o){if(i.textContent=s.substring(0,e-1),e--,e===0){o=!1,n=(n+1)%r.length,setTimeout(t,500);return}setTimeout(t,c)}else{if(i.textContent=s.substring(0,e+1),e++,e===s.length){o=!0,setTimeout(t,l);return}setTimeout(t,u)}};setTimeout(()=>{t()},1e3)}</script>

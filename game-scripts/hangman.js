@@ -160,6 +160,7 @@ class CodeHangman {
     const keyboard = document.getElementById('keyboard');
     if (!keyboard) return;
 
+    keyboard.dataset.noHaptics = '';
     keyboard.innerHTML = '';
     const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
 
@@ -193,6 +194,7 @@ class CodeHangman {
     if (this.word.includes(letter)) {
       // Correct guess
       this.sounds.correct();
+      window.haptics?.trigger('nudge');
       if (btn) {
         btn.classList.add('bg-green-500', 'text-white');
         btn.classList.remove('bg-gray-200', 'dark:bg-gray-700');
@@ -209,6 +211,7 @@ class CodeHangman {
       // Wrong guess
       this.wrongGuesses++;
       this.sounds.wrong();
+      window.haptics?.trigger('error');
 
       if (btn) {
         btn.classList.add('bg-red-500', 'text-white');
@@ -280,6 +283,7 @@ class CodeHangman {
     localStorage.setItem('hangmanTotalScore', this.totalScore);
 
     this.sounds.win();
+    window.haptics?.trigger('success');
     this.createWinAnimation();
     this.checkAchievements();
 
@@ -291,6 +295,7 @@ class CodeHangman {
   }
 
   lose() {
+    window.haptics?.trigger('error');
     this.gameOver = true;
     this.won = false;
     this.losses++;
