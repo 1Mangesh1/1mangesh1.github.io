@@ -1,0 +1,21 @@
+---
+// Haptics.astro — initialises web-haptics and wires site-wide event delegation
+---
+
+<script>
+  import { WebHaptics } from 'web-haptics';
+
+  if (WebHaptics.isSupported) {
+    const haptics = new WebHaptics();
+
+    // Expose globally so game scripts and EasterEggs can access it
+    (window as any).haptics = haptics;
+
+    // Site-wide: nudge on every button or link tap
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const el = target.closest('button, a[href]');
+      if (el) haptics.trigger('nudge');
+    }, { passive: true });
+  }
+</script>
