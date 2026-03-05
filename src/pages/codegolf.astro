@@ -63,7 +63,7 @@ import Layout from '../layouts/Layout.astro';
         rows="8"
         class="w-full p-4 font-mono text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
         placeholder="// Write your solution here
-// Your code should define a function or expression that solves the challenge
+// Your code should define a function named 'solve' that solves the challenge
 // Example: const solve = (n) => n * 2;"
       ></textarea>
     </div>
@@ -108,9 +108,58 @@ import Layout from '../layouts/Layout.astro';
     title: string;
     description: string;
     expected: string;
-    test: (fn: any) => boolean;
+    test: (run: (...args: any[]) => Promise<any>) => Promise<boolean>;
     hint: string;
     bestKnown: number;
+  }
+
+  // Web Worker Management
+  let worker: Worker | null = null;
+  let currentJobId = 0;
+  let pendingResolves: Record<number, (value: any) => void> = {};
+  let pendingRejects: Record<number, (reason: any) => void> = {};
+
+  function initWorker() {
+    if (worker) worker.terminate();
+    worker = new Worker('/game-scripts/codegolf-worker.js');
+    worker.onmessage = (e) => {
+      const { type, payload, id } = e.data;
+      if (pendingResolves[id]) {
+        if (type === 'error') pendingRejects[id](new Error(payload));
+        else pendingResolves[id](payload);
+
+        delete pendingResolves[id];
+        delete pendingRejects[id];
+      }
+    };
+    // Clean up pending jobs on worker restart
+    pendingResolves = {};
+    pendingRejects = {};
+  }
+
+  function sendWorkerMessage(type: string, payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const id = ++currentJobId;
+      pendingResolves[id] = resolve;
+      pendingRejects[id] = reject;
+
+      // 2 second timeout to protect against infinite loops
+      setTimeout(() => {
+        if (pendingResolves[id]) {
+            pendingRejects[id](new Error("Execution timed out (2s limit). Infinite loop?"));
+            delete pendingResolves[id];
+            delete pendingRejects[id];
+            initWorker(); // Restart worker as it might be stuck
+        }
+      }, 2000);
+
+      if (worker) {
+          worker.postMessage({ type, payload, id });
+      } else {
+          initWorker();
+          worker!.postMessage({ type, payload, id });
+      }
+    });
   }
 
   const challenges: Challenge[] = [
@@ -118,8 +167,8 @@ import Layout from '../layouts/Layout.astro';
       title: 'FizzBuzz',
       description: 'Return an array of 1-100 where multiples of 3 are "Fizz", multiples of 5 are "Buzz", and multiples of both are "FizzBuzz".',
       expected: '[1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", ...]',
-      test: (fn) => {
-        const result = fn();
+      test: async (run) => {
+        const result = await run();
         if (!Array.isArray(result) || result.length !== 100) return false;
         return result[2] === 'Fizz' && result[4] === 'Buzz' && result[14] === 'FizzBuzz' && result[0] === 1;
       },
@@ -130,7 +179,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Reverse a String',
       description: 'Create a function that reverses a string. solve("hello") → "olleh"',
       expected: 'solve("hello") → "olleh"',
-      test: (fn) => fn('hello') === 'olleh' && fn('world') === 'dlrow' && fn('') === '',
+      test: async (run) => (await run('hello')) === 'olleh' && (await run('world')) === 'dlrow' && (await run('')) === '',
       hint: 'split("").reverse().join("") works, but can you do better?',
       bestKnown: 22
     },
@@ -138,7 +187,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Check Palindrome',
       description: 'Create a function that returns true if a string is a palindrome. solve("racecar") → true',
       expected: 'solve("racecar") → true, solve("hello") → false',
-      test: (fn) => fn('racecar') === true && fn('hello') === false && fn('a') === true,
+      test: async (run) => (await run('racecar')) === true && (await run('hello')) === false && (await run('a')) === true,
       hint: 'Compare the string with its reverse.',
       bestKnown: 27
     },
@@ -146,7 +195,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Sum of Array',
       description: 'Create a function that returns the sum of all numbers in an array. solve([1,2,3]) → 6',
       expected: 'solve([1, 2, 3, 4, 5]) → 15',
-      test: (fn) => fn([1, 2, 3]) === 6 && fn([1, 2, 3, 4, 5]) === 15 && fn([]) === 0,
+      test: async (run) => (await run([1, 2, 3])) === 6 && (await run([1, 2, 3, 4, 5])) === 15 && (await run([])) === 0,
       hint: 'reduce() is your friend.',
       bestKnown: 19
     },
@@ -154,7 +203,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Factorial',
       description: 'Create a function that returns n!. solve(5) → 120',
       expected: 'solve(5) → 120, solve(0) → 1',
-      test: (fn) => fn(5) === 120 && fn(0) === 1 && fn(1) === 1 && fn(10) === 3628800,
+      test: async (run) => (await run(5)) === 120 && (await run(0)) === 1 && (await run(1)) === 1 && (await run(10)) === 3628800,
       hint: 'Recursion or reduce can work.',
       bestKnown: 25
     },
@@ -162,7 +211,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Fibonacci',
       description: 'Create a function that returns the nth Fibonacci number (0-indexed). solve(6) → 8',
       expected: 'solve(0) → 0, solve(1) → 1, solve(6) → 8',
-      test: (fn) => fn(0) === 0 && fn(1) === 1 && fn(6) === 8 && fn(10) === 55,
+      test: async (run) => (await run(0)) === 0 && (await run(1)) === 1 && (await run(6)) === 8 && (await run(10)) === 55,
       hint: 'Think recursively or use memoization.',
       bestKnown: 38
     },
@@ -170,7 +219,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Count Vowels',
       description: 'Create a function that counts vowels in a string. solve("hello") → 2',
       expected: 'solve("hello world") → 3',
-      test: (fn) => fn('hello') === 2 && fn('aeiou') === 5 && fn('xyz') === 0,
+      test: async (run) => (await run('hello')) === 2 && (await run('aeiou')) === 5 && (await run('xyz')) === 0,
       hint: 'Try using match() with a regex.',
       bestKnown: 29
     },
@@ -178,7 +227,7 @@ import Layout from '../layouts/Layout.astro';
       title: 'Find Maximum',
       description: 'Create a function that finds the max number in an array. solve([1,5,3]) → 5',
       expected: 'solve([1, 5, 3, 9, 2]) → 9',
-      test: (fn) => fn([1, 5, 3]) === 5 && fn([1, 5, 3, 9, 2]) === 9 && fn([-1, -5]) === -1,
+      test: async (run) => (await run([1, 5, 3])) === 5 && (await run([1, 5, 3, 9, 2])) === 9 && (await run([-1, -5])) === -1,
       hint: 'Math.max with spread operator.',
       bestKnown: 18
     }
@@ -225,22 +274,43 @@ import Layout from '../layouts/Layout.astro';
     loadChallenge(parseInt(challengeSelect.value));
   });
 
-  document.getElementById('run-btn')!.addEventListener('click', () => {
+  // Helper to run code in worker
+  async function runCodeInWorker(code: string, args: any[] = []): Promise<any> {
+    // 1. Init
+    await sendWorkerMessage('init', code);
+    // 2. Run
+    return await sendWorkerMessage('run', args);
+  }
+
+  document.getElementById('run-btn')!.addEventListener('click', async () => {
+    status.textContent = 'Running...';
+    status.className = 'text-sm text-yellow-500';
+    output.textContent = 'Running...';
+
     try {
       const code = codeInput.value;
-      // Using new Function() instead of eval() for safer execution.
-      // This prevents access to local scope variables, though global scope access remains.
-      const result = new Function(`"use strict"; ${code}; return typeof solve !== 'undefined' ? solve : null;`)();
 
-      if (typeof result === 'function') {
-        // Test with sample input
-        const testResult = currentChallenge === 0 ? result() : result([1, 2, 3]);
-        output.textContent = JSON.stringify(testResult, null, 2);
-        status.textContent = '';
-        status.className = 'text-sm';
+      // Use helper to run (init + run with sample input)
+      // For visual run, we just run with appropriate sample input depending on challenge
+      let result;
+      if (currentChallenge === 0) { // FizzBuzz
+         result = await runCodeInWorker(code, []);
       } else {
-        output.textContent = JSON.stringify(result, null, 2);
+         // Run with some default input for display purposes
+         // We can pick the first test case input from memory or just generic
+         // Simplified: just run with empty or simple args.
+         // Actually, runCodeInWorker does 'init', then 'run'.
+         // We need to pass args that match the function signature.
+         // Let's rely on the worker handling empty args or we need specific args.
+         // For FizzBuzz, args is empty.
+         // For others, we need valid args.
+         const sampleArgs = getSampleArgs(currentChallenge);
+         result = await runCodeInWorker(code, sampleArgs);
       }
+
+      output.textContent = JSON.stringify(result, null, 2);
+      status.textContent = '';
+      status.className = 'text-sm';
     } catch (e: any) {
       output.textContent = `Error: ${e.message}`;
       status.textContent = 'Error';
@@ -248,14 +318,39 @@ import Layout from '../layouts/Layout.astro';
     }
   });
 
-  document.getElementById('test-btn')!.addEventListener('click', () => {
+  function getSampleArgs(index: number): any[] {
+     // Return sample arguments for the visual "Run" button
+     switch(index) {
+         case 0: return []; // FizzBuzz
+         case 1: return ['hello']; // Reverse
+         case 2: return ['racecar']; // Palindrome
+         case 3: return [[1, 2, 3]]; // Sum
+         case 4: return [5]; // Factorial
+         case 5: return [6]; // Fibonacci
+         case 6: return ['hello']; // Vowels
+         case 7: return [[1, 5, 3]]; // Max
+         default: return [];
+     }
+  }
+
+  document.getElementById('test-btn')!.addEventListener('click', async () => {
+    status.textContent = 'Testing...';
+    status.className = 'text-sm text-yellow-500';
+
     try {
       const code = codeInput.value;
-      // Using new Function() instead of eval() for safer execution.
-      const fn = new Function(`"use strict"; ${code}; return solve;`)();
+
+      // Initialize the worker with the code ONCE
+      await sendWorkerMessage('init', code);
 
       const challenge = challenges[currentChallenge];
-      const passed = challenge.test(fn);
+
+      // Pass a 'run' helper that just sends 'run' message (code is already inited)
+      const runHelper = async (...args: any[]) => {
+          return await sendWorkerMessage('run', args);
+      };
+
+      const passed = await challenge.test(runHelper);
 
       if (passed) {
         const chars = countChars(code);
@@ -318,5 +413,6 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // Initialize
+  initWorker();
   loadChallenge(0);
 </script>
