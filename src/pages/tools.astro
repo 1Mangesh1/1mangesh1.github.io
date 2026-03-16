@@ -35,8 +35,9 @@ import Layout from '../layouts/Layout.astro';
             ></textarea>
           </div>
           
-          <button 
-            onclick="generateQR()" 
+          <button
+            onclick="generateQR()"
+            data-haptic="medium"
             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Generate QR Code
@@ -44,8 +45,9 @@ import Layout from '../layouts/Layout.astro';
           
           <div id="qr-result" class="text-center hidden">
             <div id="qr-code" class="bg-white p-4 rounded-lg inline-block"></div>
-            <button 
-              onclick="downloadQR()" 
+            <button
+              onclick="downloadQR()"
+              data-haptic="success"
               class="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
             >
               Download PNG
@@ -72,8 +74,9 @@ import Layout from '../layouts/Layout.astro';
             >
           </div>
           
-          <button 
-            onclick="generatePalette()" 
+          <button
+            onclick="generatePalette()"
+            data-haptic="medium"
             class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-all btn-primary hover-lift"
           >
             Generate Palette
@@ -123,8 +126,9 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           
-          <button 
-            onclick="generateLorem()" 
+          <button
+            onclick="generateLorem()"
+            data-haptic="medium"
             class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-all btn-primary hover-lift"
           >
             Generate Text
@@ -138,8 +142,9 @@ import Layout from '../layouts/Layout.astro';
               class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm hover-lift transition-all"
               placeholder="Generated text will appear here..."
             ></textarea>
-            <button 
-              onclick="copyToClipboard('lorem-output')" 
+            <button
+              onclick="copyToClipboard('lorem-output')"
+              data-haptic="success"
               class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-all hover-lift"
             >
               Copy
@@ -188,8 +193,9 @@ import Layout from '../layouts/Layout.astro';
             </label>
           </div>
           
-          <button 
-            onclick="generatePassword()" 
+          <button
+            onclick="generatePassword()"
+            data-haptic="medium"
             class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
           >
             Generate Password
@@ -203,8 +209,9 @@ import Layout from '../layouts/Layout.astro';
               class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono"
               placeholder="Generated password will appear here..."
             >
-            <button 
-              onclick="copyToClipboard('password-output')" 
+            <button
+              onclick="copyToClipboard('password-output')"
+              data-haptic="success"
               class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
             >
               Copy
@@ -222,16 +229,18 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="space-y-4">
           <div class="flex space-x-2">
-            <button 
-              onclick="setBase64Mode('encode')" 
+            <button
+              onclick="setBase64Mode('encode')"
               id="encode-btn"
+              data-haptic="selection"
               class="flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors"
             >
               Encode
             </button>
-            <button 
-              onclick="setBase64Mode('decode')" 
+            <button
+              onclick="setBase64Mode('decode')"
               id="decode-btn"
+              data-haptic="selection"
               class="flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               Decode
@@ -248,8 +257,9 @@ import Layout from '../layouts/Layout.astro';
             ></textarea>
           </div>
           
-          <button 
-            onclick="processBase64()" 
+          <button
+            onclick="processBase64()"
+            data-haptic="medium"
             class="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors"
             id="base64-process-btn"
           >
@@ -264,8 +274,9 @@ import Layout from '../layouts/Layout.astro';
               class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono text-sm"
               placeholder="Result will appear here..."
             ></textarea>
-            <button 
-              onclick="copyToClipboard('base64-output')" 
+            <button
+              onclick="copyToClipboard('base64-output')"
+              data-haptic="success"
               class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
             >
               Copy
@@ -295,18 +306,21 @@ import Layout from '../layouts/Layout.astro';
           <div class="flex space-x-2">
             <button
               onclick="formatJSON()"
+              data-haptic="medium"
               class="flex-1 bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors"
             >
               Format
             </button>
             <button
               onclick="minifyJSON()"
+              data-haptic="medium"
               class="flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               Minify
             </button>
             <button
               onclick="validateJSON()"
+              data-haptic="success"
               class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
             >
               Validate
@@ -325,6 +339,7 @@ import Layout from '../layouts/Layout.astro';
             ></textarea>
             <button
               onclick="copyToClipboard('json-output')"
+              data-haptic="success"
               class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700 transition-colors"
             >
               Copy
@@ -372,6 +387,7 @@ import Layout from '../layouts/Layout.astro';
 
           <button
             onclick="testRegex()"
+            data-haptic="medium"
             class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors"
           >
             Test Regex
@@ -414,6 +430,7 @@ import Layout from '../layouts/Layout.astro';
 
           <button
             onclick="showDiff()"
+            data-haptic="medium"
             class="w-full bg-cyan-600 text-white py-2 rounded-lg hover:bg-cyan-700 transition-colors"
           >
             Compare
@@ -446,18 +463,21 @@ import Layout from '../layouts/Layout.astro';
           <div class="flex gap-2">
             <button
               onclick="timestampToDate()"
+              data-haptic="medium"
               class="flex-1 bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition-colors"
             >
               To Date
             </button>
             <button
               onclick="dateToTimestamp()"
+              data-haptic="medium"
               class="flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               From Date
             </button>
             <button
               onclick="setCurrentTimestamp()"
+              data-haptic="selection"
               class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Now
@@ -525,6 +545,7 @@ import Layout from '../layouts/Layout.astro';
             >
             <button
               onclick="copyToClipboard('gradient-output')"
+              data-haptic="success"
               class="absolute top-2 right-2 px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-700"
             >
               Copy
@@ -565,11 +586,11 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div class="flex flex-wrap gap-2">
-            <button onclick="setCronPreset('* * * * *')" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Every minute</button>
-            <button onclick="setCronPreset('0 * * * *')" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Every hour</button>
-            <button onclick="setCronPreset('0 0 * * *')" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Daily</button>
-            <button onclick="setCronPreset('0 0 * * 0')" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Weekly</button>
-            <button onclick="setCronPreset('0 0 1 * *')" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Monthly</button>
+            <button onclick="setCronPreset('* * * * *')" data-haptic="selection" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Every minute</button>
+            <button onclick="setCronPreset('0 * * * *')" data-haptic="selection" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Every hour</button>
+            <button onclick="setCronPreset('0 0 * * *')" data-haptic="selection" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Daily</button>
+            <button onclick="setCronPreset('0 0 * * 0')" data-haptic="selection" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Weekly</button>
+            <button onclick="setCronPreset('0 0 1 * *')" data-haptic="selection" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs hover:bg-gray-300 dark:hover:bg-gray-600">Monthly</button>
           </div>
 
           <div class="p-3 bg-gray-900 rounded-md">
