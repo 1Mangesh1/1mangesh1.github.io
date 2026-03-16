@@ -12,10 +12,14 @@
     (window as any).haptics = haptics;
 
     // Site-wide: nudge on every button or link tap
+    // Override per-element with data-haptic="<pattern>" (success, medium, selection, heavy, light, etc.)
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       const el = target.closest('button, a[href]');
-      if (el && !el.closest('[data-no-haptics]')) haptics.trigger('nudge');
+      if (el && !el.closest('[data-no-haptics]')) {
+        const pattern = el.getAttribute('data-haptic') || 'nudge';
+        haptics.trigger(pattern);
+      }
     }, { passive: true });
   }
 </script>
