@@ -1,7 +1,6 @@
 ---
 title: "Expense Tracking and Budgeting API"
 description: "Modular API for managing expenses with JWT-based auth, role-based access, data aggregation, and scheduled summaries."
-image: "/images/expense-api-preview.jpg"
 tech: ["NestJS", "TypeORM", "JWT", "Swagger", "PostgreSQL", "TypeScript"]
 github: ""
 demo: ""
