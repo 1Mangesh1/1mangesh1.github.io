@@ -18,7 +18,7 @@ const portfolioProjects = await getCollection('portfolio');
     <div class="grid gap-8 md:grid-cols-2">
       {portfolioProjects.map((project) => (
         <article class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col">
-          <a href={`/portfolio/${project.slug}`} class="block">
+          <a href={`/portfolio/${project.id}`} class="block">
             {project.data.image ? (
               <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                 <img
@@ -39,7 +39,7 @@ const portfolioProjects = await getCollection('portfolio');
           
           <div class="p-6 flex flex-col flex-grow">
             <h2 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-              <a href={`/portfolio/${project.slug}`}>
+              <a href={`/portfolio/${project.id}`}>
                 {project.data.title}
               </a>
             </h2>
@@ -72,7 +72,7 @@ const portfolioProjects = await getCollection('portfolio');
                 </time>
               )}
               <a 
-                href={`/portfolio/${project.slug}`}
+                href={`/portfolio/${project.id}`}
                 class="text-emerald-600 dark:text-emerald-400 hover:underline font-medium inline-flex items-center"
               >
                 View Details <span class="ml-1">→</span>

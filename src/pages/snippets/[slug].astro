@@ -8,7 +8,7 @@ export async function getStaticPaths() {
     return import.meta.env.PROD ? data.draft !== true : true;
   });
   return snippets.map((snippet) => ({
-    params: { slug: snippet.slug },
+    params: { slug: snippet.id },
     props: { snippet },
   }));
 }
