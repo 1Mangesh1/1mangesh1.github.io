@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 
 const title = "Mangesh Bide - Software Developer";
 const description =
-  "Mangesh Bide — software engineer. Python, Django, ML, JS. Writing about what I build and learn.";
+  "Mangesh Bide — software engineer. Python, Django, React, TypeScript, ML. Writing about what I build and learn.";
 
 // Get latest blog posts for featured section
 const allPosts = await getCollection("blog", ({ data }) => data.draft !== true);
@@ -57,13 +57,13 @@ const formatDate = (date: Date) => {
       <p
         class="text-2xl text-gray-800 dark:text-gray-200 mt-2 font-medium animate-on-scroll stagger-3"
       >
-        Backend Engineer & System Architect
+        Software Engineer
       </p>
       <p
         class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4 leading-relaxed animate-on-scroll stagger-4"
       >
-        I build APIs, design backend systems, and write about what I learn
-        while doing it.
+        I build things across the stack — Python, Django, React, TypeScript, ML, AI — and
+        write about what I learn while doing it.
       </p>
     </div>
 
@@ -311,8 +311,8 @@ const formatDate = (date: Date) => {
             <div class="text-4xl mb-3">🌐</div>
             <h3 class="text-lg font-bold mb-2">Web Development</h3>
             <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Frontend work with Astro and React when the project
-              needs it.
+              React, Next.js, Astro, TypeScript — building the frontend
+              side of things.
             </p>
           </div>
         </div>
