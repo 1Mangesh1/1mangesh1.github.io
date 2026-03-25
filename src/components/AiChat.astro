@@ -105,7 +105,10 @@
 
   .ai-message-wrapper {
     display: flex;
+    margin-bottom: 1rem;
     animation: slideIn 0.3s ease-out;
+    align-items: flex-end;
+    gap: 0.5rem;
   }
 
   @keyframes slideIn {
@@ -120,36 +123,40 @@
   }
 
   .ai-message {
-    padding: 0.875rem 1.125rem;
-    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
     font-size: 0.95rem;
-    line-height: 1.5;
-    max-width: 85%;
+    line-height: 1.4;
+    max-width: 75%;
     word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
   .ai-message-user {
     background: var(--primary-blue);
     color: white;
     margin-left: auto;
-    border-radius: 10px 2px 10px 10px;
+    border-radius: 12px 4px 12px 12px;
+    font-weight: 500;
   }
 
   .ai-message-assistant {
-    background: var(--border-light);
-    color: var(--text-primary);
-    border-radius: 2px 10px 10px 10px;
+    background: #f0f4f8;
+    color: #1f2937;
+    border-radius: 4px 12px 12px 12px;
+    margin-right: auto;
   }
 
   :global(.dark) .ai-message-assistant {
-    background: var(--border-dark);
-    color: #f3f4f6;
+    background: #2a3f5f;
+    color: #e5e7eb;
   }
 
   .ai-message-error {
     background: #fee2e2;
     color: #991b1b;
-    border-radius: 2px 10px 10px 10px;
+    border-radius: 4px 12px 12px 12px;
+    margin-right: auto;
   }
 
   :global(.dark) .ai-message-error {
@@ -160,7 +167,7 @@
   #ai-chat-welcome {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
     animation: fadeIn 0.4s ease-out;
   }
 
@@ -174,13 +181,18 @@
   }
 
   .ai-welcome-text {
-    color: var(--text-secondary);
+    color: #6b7280;
     font-size: 0.95rem;
     line-height: 1.5;
+    padding: 0.75rem 1rem;
+    background: #f0f4f8;
+    border-radius: 12px;
+    border-left: 3px solid var(--primary-blue);
   }
 
   :global(.dark) .ai-welcome-text {
     color: #d1d5db;
+    background: #2a3f5f;
   }
 
   .ai-suggestions {
@@ -219,34 +231,35 @@
     border-color: #3b82f6;
   }
 
-  #ai-chat-typing {
-    padding: 1rem 1.5rem 0;
+  .ai-message.ai-typing-indicator {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
   }
 
   .ai-typing-dot {
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.35rem;
+    height: 0.35rem;
     border-radius: 50%;
-    background: var(--text-secondary);
-    animation: bounce 0.6s ease-in-out infinite;
+    background: currentColor;
+    animation: typingBounce 1.2s infinite;
   }
 
   .ai-typing-dot:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-
-  .ai-typing-dot:nth-child(3) {
     animation-delay: 0.2s;
   }
 
-  @keyframes bounce {
-    0%, 100% {
+  .ai-typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% {
       transform: translateY(0);
       opacity: 0.6;
     }
-    50% {
+    30% {
       transform: translateY(-6px);
       opacity: 1;
     }
@@ -400,10 +413,11 @@
   const form = document.getElementById('ai-chat-form')!;
   const input = document.getElementById('ai-chat-input') as HTMLTextAreaElement;
   const submitBtn = document.getElementById('ai-chat-submit') as HTMLButtonElement;
-  const typingIndicator = document.getElementById('ai-chat-typing')!;
   const counter = document.getElementById('ai-chat-counter')!;
   const welcomeDiv = document.getElementById('ai-chat-welcome')!;
   const suggestionChips = document.querySelectorAll('.ai-suggestion-chip');
+  
+  let typingElement: HTMLElement | null = null;
 
   // Toggle chat window
   button.addEventListener('click', () => {
@@ -462,8 +476,7 @@
     submitBtn.disabled = true;
     if (counter) counter.textContent = '0 / 300';
 
-    typingIndicator.classList.remove('hidden');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    showTypingIndicator();
 
     try {
       const response = await fetch(WORKER_URL, {
@@ -475,7 +488,7 @@
         }),
       });
 
-      typingIndicator.classList.add('hidden');
+      hideTypingIndicator();
 
       if (!response.ok) {
         if (response.status === 429) {
@@ -490,7 +503,7 @@
       const aiMessage = data.result || 'No response received';
       addMessage(aiMessage, 'assistant');
     } catch (error) {
-      typingIndicator.classList.add('hidden');
+      hideTypingIndicator();
       addMessage('Connection error. Please check your internet.', 'error');
     } finally {
       submitBtn.disabled = false;
@@ -513,6 +526,43 @@
     wrapper.appendChild(bubble);
     messagesContainer.appendChild(wrapper);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Show typing indicator as a message bubble
+  function showTypingIndicator(): void {
+    if (welcomeDiv && welcomeDiv.parentElement === messagesContainer) {
+      welcomeDiv.remove();
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'ai-message-wrapper';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-message ai-typing-indicator';
+    
+    const dot1 = document.createElement('span');
+    dot1.className = 'ai-typing-dot';
+    const dot2 = document.createElement('span');
+    dot2.className = 'ai-typing-dot';
+    const dot3 = document.createElement('span');
+    dot3.className = 'ai-typing-dot';
+
+    bubble.appendChild(dot1);
+    bubble.appendChild(dot2);
+    bubble.appendChild(dot3);
+
+    wrapper.appendChild(bubble);
+    typingElement = wrapper;
+    messagesContainer.appendChild(wrapper);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Remove typing indicator
+  function hideTypingIndicator(): void {
+    if (typingElement && typingElement.parentElement === messagesContainer) {
+      typingElement.remove();
+      typingElement = null;
+    }
   }
 
   // Handle suggestion chips
@@ -584,13 +634,6 @@
         </div>
       </div>
       
-    </div>
-
-    <!-- Typing Indicator -->
-    <div id="ai-chat-typing" class="hidden">
-      <span class="ai-typing-dot"></span>
-      <span class="ai-typing-dot"></span>
-      <span class="ai-typing-dot"></span>
     </div>
 
     <!-- Input Area -->
