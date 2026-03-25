@@ -71,8 +71,8 @@ export function getRelatedPosts(
     const recentPosts = publishedPosts
       .filter(
         (post) =>
-          post.slug !== currentPost.slug &&
-          !relatedPosts.some((related) => related.slug === post.slug)
+          post.id !== currentPost.id &&
+          !relatedPosts.some((related) => related.id === post.id)
       )
       .sort(
         (a, b) =>
