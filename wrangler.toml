@@ -10,3 +10,13 @@ binding = "AI"
 [[kv_namespaces]]
 binding = "RATE_LIMIT_KV"
 id = "b77d2ec29ad04027a94aae88654643f9"
+
+# D1 Database (chat logging)
+[[d1_databases]]
+binding = "CHAT_DB"
+database_name = "mangesh-chatbot-db"
+database_id = "bc45720d-5bbb-482c-8604-f038b0d9f02e"
+
+# Scheduled Trigger (auto-cleanup every day at 3 AM UTC)
+[triggers]
+crons = ["0 3 * * *"]
