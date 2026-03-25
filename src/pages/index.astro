@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 
 const title = "Mangesh Bide - Software Developer";
 const description =
-  "Software Developer specializing in Python, Django, and Machine Learning. Sharing insights on web development, AI, and modern programming practices.";
+  "Mangesh Bide — software engineer. Python, Django, ML, JS. Writing about what I build and learn.";
 
 // Get latest blog posts for featured section
 const allPosts = await getCollection("blog", ({ data }) => data.draft !== true);
@@ -62,8 +62,8 @@ const formatDate = (date: Date) => {
       <p
         class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4 leading-relaxed animate-on-scroll stagger-4"
       >
-        I build robust APIs, architect scalable microservices, and write about
-        the engineering lessons learned along the way.
+        I build APIs, design backend systems, and write about what I learn
+        while doing it.
       </p>
     </div>
 
@@ -295,8 +295,8 @@ const formatDate = (date: Date) => {
             <div class="text-4xl mb-3">🐍</div>
             <h3 class="text-lg font-bold mb-2">Backend Architecture</h3>
             <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Building robust APIs and scalable systems with Python, Django, and
-              modern DBs.
+              APIs and backend systems with Python, Django, and
+              PostgreSQL.
             </p>
           </div>
           <div class="animate-on-scroll card-animate">
@@ -311,32 +311,20 @@ const formatDate = (date: Date) => {
             <div class="text-4xl mb-3">🌐</div>
             <h3 class="text-lg font-bold mb-2">Web Development</h3>
             <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Connecting the backend to beautifully fast, optimized frontends
-              like Astro and React.
+              Frontend work with Astro and React when the project
+              needs it.
             </p>
           </div>
         </div>
       </div>
 
       <div class="animate-on-scroll mb-10">
-        <h3>Why This Space Exists</h3>
+        <h3>Why this site exists</h3>
         <p>
-          In a world flooded with information, I believe in <strong
-            >quality over quantity</strong
-          >. This site is my digital garden where I share practical insights,
-          real-world solutions, and lessons learned from the trenches of
-          software development.
+          Mostly so I have somewhere to put the things I figure out. If it
+          helps someone else along the way, even better.
         </p>
       </div>
-
-      <blockquote
-        class="border-l-4 border-emerald-500 pl-6 italic text-lg animate-on-scroll slide-left mb-10 text-gray-700 dark:text-gray-300"
-      >
-        <p class="mb-2">
-          "The best way to learn is to build, break things, and build again.
-          Every bug is a lesson in disguise."
-        </p>
-      </blockquote>
     </div>
 
     <!-- Quick navigation to secondary sections -->
@@ -399,9 +387,9 @@ const formatDate = (date: Date) => {
       <!-- Call to Action & Quick Links -->
       <div class="mt-20 pt-8 animate-on-scroll">
         <div class="text-center mb-10">
-          <h3 class="text-xl font-bold mb-2">Ready to Connect?</h3>
+          <h3 class="text-xl font-bold mb-2">Say hi</h3>
           <p class="text-gray-600 dark:text-gray-400 mb-6">
-            Whether you want to collaborate, have questions, or just say hi!
+            Got a question, idea, or just want to chat? I'm around.
           </p>
           <a
             href="/contact"

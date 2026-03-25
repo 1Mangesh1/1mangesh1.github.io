@@ -19,7 +19,7 @@ date: 2024-07-10T00:00:00Z
 
 # Real-time ChatApp
 
-A feature-rich real-time chat application built with Node.js and Socket.io, supporting private messaging, room-based communication, and comprehensive activity logging for seamless user interactions.
+A real-time chat app built with Node.js and Socket.io. Supports private messaging, chat rooms, and activity logging.
 
 ## Project Overview
 
@@ -91,8 +91,7 @@ This chat application provides a modern messaging experience with real-time comm
 
 - **Scalable Architecture**: Designed to handle multiple concurrent users
 - **Cross-platform Compatibility**: Works across different browsers and devices
-- **Error Handling**: Robust error handling and connection recovery
+- **Error Handling**: Connection recovery and graceful failure handling
 - **Performance Optimization**: Efficient message queuing and delivery
 - **Security Features**: Input validation and XSS protection
 
-This project demonstrates proficiency in real-time web technologies, WebSocket programming, and building interactive user experiences with modern JavaScript frameworks.
