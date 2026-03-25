@@ -17,7 +17,7 @@ const sortedTalks = talks.sort((a, b) => new Date(b.data.date).getTime() - new D
     {sortedTalks.length > 0 ? (
       <div class="space-y-8">
         {sortedTalks.map(async (talk) => {
-          const { Content } = await talk.render();
+          const { Content: TalkContent } = await (talk as any).render();
           return (
             <article class="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
               <div class="mb-6">

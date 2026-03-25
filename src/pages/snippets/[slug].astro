@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { snippet } = Astro.props;
-const { Content } = await snippet.render();
+const { Content } = await (snippet as any).render();
 
 const languageColors: Record<string, string> = {
   javascript: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
