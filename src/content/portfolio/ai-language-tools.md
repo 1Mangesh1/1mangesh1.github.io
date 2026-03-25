@@ -13,7 +13,7 @@ tech:
   ]
 github: "https://github.com/1Mangesh1/brainrot-translator"
 demo: "https://brainrot-translator.onrender.com"
-featured: true
+featured: false
 date: 2025-04-15T00:00:00Z
 ---
 
@@ -65,6 +65,22 @@ Craft hilariously honest reviews with style:
 ## Technical Implementation
 
 ### Backend Architecture
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant App as Vanilla JS UI
+    participant API as Express Server
+    participant Gemini as Google Gemini API
+    
+    User->>App: Enters text
+    App->>API: HTTP Request to Tool Endpoint
+    API->>API: Inject specific prompt logic
+    API->>Gemini: Remote completion call
+    Gemini-->>API: Generated text
+    API-->>App: JSON object
+    App-->>User: Display formatted result
+```
 
 - **Express.js Server**: RESTful API design with clean endpoint structure
 - **Gemini AI Integration**: Efficient API calls with prompt engineering

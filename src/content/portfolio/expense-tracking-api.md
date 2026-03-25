@@ -24,6 +24,23 @@ A comprehensive expense management system built with NestJS and TypeORM, featuri
 
 ## Technical Implementation
 
+```mermaid
+graph LR
+    Client([Client App]) --> |JWT Auth| API[NestJS API Gateway]
+    
+    subgraph "Modular Backend"
+        API --> Auth[Auth Module]
+        API --> Exp[Expense Module]
+        API --> Budg[Budget Module]
+        API --> Rep[Reporting Module]
+    end
+    
+    Auth --> DB[(PostgreSQL)]
+    Exp --> DB
+    Budg --> DB
+    Rep --> DB
+```
+
 The application follows a modular architecture with clean separation of concerns:
 
 - **Authentication Module**: JWT token management and user session handling
