@@ -16,7 +16,7 @@ const ALLOWED_DOMAINS = [
   "http://localhost", // Allow localhost for development
   "http://127.0.0.1",  // Allow localhost IP for development
 ];
-const MAX_REQUESTS_PER_HOUR = 15;
+const MAX_REQUESTS_PER_HOUR = 40;
 const SYSTEM_PROMPT = `
 You are an AI assistant embedded in Mangesh Bide's portfolio website.
 Your only job is to answer questions about Mangesh based on the information below.

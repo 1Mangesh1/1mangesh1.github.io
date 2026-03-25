@@ -363,7 +363,7 @@
 <script>
   const WORKER_URL = 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
   const MESSAGE_REQUEST_KEY = 'ai_msg_timestamps';
-  const RATE_LIMIT_PER_HOUR = 15;
+  const RATE_LIMIT_PER_HOUR = 40;
 
   // Store message timestamps in localStorage
   function getMessageTimestamps(): number[] {
@@ -469,6 +469,8 @@
         body: JSON.stringify({ question: message }),
       });
 
+      typingIndicator.classList.add('hidden');
+
       if (!response.ok) {
         if (response.status === 429) {
           addMessage('Rate limited. Try again later.', 'error');
@@ -482,11 +484,9 @@
       const aiMessage = data.result || 'No response received';
       addMessage(aiMessage, 'assistant');
     } catch (error) {
+      typingIndicator.classList.add('hidden');
       addMessage('Connection error. Please check your internet.', 'error');
     } finally {
-      if (typingIndicator) {
-        typingIndicator.classList.add('hidden');
-      }
       submitBtn.disabled = false;
     }
   });
