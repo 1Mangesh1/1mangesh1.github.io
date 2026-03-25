@@ -175,14 +175,14 @@ const formatDate = (date: Date) => {
                   {formatDate(post.data.pubDate)}
                 </time>
                 <h3 class="text-lg font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
-                  <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
                 </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
                   {post.data.description}
                 </p>
                 <div class="mt-auto pt-4">
                   <a
-                    href={`/blog/${post.slug}`}
+                    href={`/blog/${post.id}`}
                     class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
                   >
                     Read article →
@@ -218,7 +218,7 @@ const formatDate = (date: Date) => {
         {
           projectsToShow.map((project) => (
             <article class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col">
-              <a href={`/portfolio/${project.slug}`} class="block">
+              <a href={`/portfolio/${project.id}`} class="block">
                 {project.data.image ? (
                   <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                     <img
@@ -238,7 +238,7 @@ const formatDate = (date: Date) => {
               </a>
               <div class="p-6 flex flex-col flex-grow">
                 <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                  <a href={`/portfolio/${project.slug}`}>
+                  <a href={`/portfolio/${project.id}`}>
                     {project.data.title}
                   </a>
                 </h3>
@@ -260,7 +260,7 @@ const formatDate = (date: Date) => {
                   </div>
                 )}
                 <a
-                  href={`/portfolio/${project.slug}`}
+                  href={`/portfolio/${project.id}`}
                   class="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:underline text-sm font-medium mt-auto border border-emerald-200 dark:border-emerald-800 px-4 py-2 rounded self-start"
                 >
                   View Details

@@ -61,7 +61,7 @@ const formatDate = (date: Date) => {
           <div class="flex flex-col space-y-3">
             <h2 class="text-2xl font-semibold">
               <a 
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.id}`}
                 class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 {post.data.title}
@@ -94,7 +94,7 @@ const formatDate = (date: Date) => {
             )}
             
             <a 
-              href={`/blog/${post.slug}`}
+              href={`/blog/${post.id}`}
               class="text-blue-600 dark:text-blue-400 hover:underline font-medium self-start"
             >
               Read more →
