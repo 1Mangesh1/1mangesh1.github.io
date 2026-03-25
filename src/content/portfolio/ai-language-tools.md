@@ -19,11 +19,11 @@ date: 2025-04-15T00:00:00Z
 
 # AI Language Tools Suite
 
-A delightful collection of AI-powered language tools that bring humor and creativity to everyday communication. Built with Google Gemini AI and featuring a warm, beige-themed interface that makes language manipulation both fun and accessible.
+A set of AI-powered language tools that do silly things with text. Built with Google Gemini AI. Warm beige UI because why not.
 
 ## Project Overview
 
-This suite combines the power of Google's Gemini AI with a playful approach to language, offering four distinct tools that transform how we communicate. From translating corporate jargon to converting insults into passive-aggressive compliments, each tool serves a unique purpose while maintaining a consistent, user-friendly experience.
+Four tools that use Gemini to mess with language: translate corporate jargon, turn insults into backhanded compliments, generate fake buzzword phrases, and write brutally honest reviews in various styles.
 
 ## Tools Included
 
@@ -85,7 +85,7 @@ sequenceDiagram
 - **Express.js Server**: RESTful API design with clean endpoint structure
 - **Gemini AI Integration**: Efficient API calls with prompt engineering
 - **Environment Configuration**: Secure API key management
-- **Error Handling**: Robust error handling and fallback responses
+- **Error Handling**: Fallback responses when the API fails
 
 ### API Design
 
@@ -100,7 +100,7 @@ GET /api/bad-review?style=Passive-Aggressive&subject=app
 ### Frontend Features
 
 - **Responsive Design**: Mobile-first approach with warm beige color scheme
-- **Interactive Navigation**: Seamless switching between tools
+- **Interactive Navigation**: Switch between tools without page reloads
 - **Real-time Results**: Instant feedback without page refreshes
 - **Clean Interface**: Minimalist design focusing on functionality
 
@@ -167,4 +167,3 @@ Interested in building AI-powered applications? Read my in-depth guide on **[Bui
 
 ---
 
-This project demonstrates creativity in AI application development, API design, and user experience design while showcasing proficiency in modern web development practices and AI integration techniques.

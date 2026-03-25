@@ -10,7 +10,7 @@ date: 2025-02-15T00:00:00Z
 
 # Expense Tracking and Budgeting API
 
-A comprehensive expense management system built with NestJS and TypeORM, featuring robust authentication, role-based access control, and intelligent data aggregation.
+Expense management API built with NestJS and TypeORM. Handles authentication, role-based access, and spending aggregation.
 
 ## Key Features
 
@@ -57,4 +57,3 @@ The application follows a modular architecture with clean separation of concerns
 - **Validation**: Class-validator for input validation
 - **Testing**: Jest for unit and integration tests
 
-This project demonstrates proficiency in building scalable backend systems with modern TypeScript frameworks and database design patterns.

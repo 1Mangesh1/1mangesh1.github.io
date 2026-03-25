@@ -18,11 +18,11 @@ date: 2025-03-20T00:00:00Z
 
 # Infrastructure-as-Code ChatApp Deployment
 
-A comprehensive Infrastructure-as-Code solution for deploying and managing a real-time chat application on AWS using Terraform, demonstrating modern DevOps practices and cloud architecture principles.
+Terraform setup for deploying a real-time chat app on AWS. Handles networking, compute, DNS, and monitoring.
 
 ## Project Overview
 
-This project showcases the complete automation of infrastructure provisioning and application deployment using Terraform. The solution includes network setup, compute resources, security configurations, and DNS management for a production-ready chat application.
+Everything needed to spin up the chat app on AWS is defined in Terraform. Network, compute, security groups, and DNS are all version-controlled and repeatable.
 
 ## Key Features
 
@@ -87,7 +87,6 @@ graph TD
 - **Infrastructure Versioning**: Git-based infrastructure change tracking
 - **Environment Parity**: Consistent infrastructure across all environments
 - **Automated Deployments**: One-click infrastructure provisioning
-- **Resource Tagging**: Comprehensive resource organization and cost tracking
+- **Resource Tagging**: Organization and cost tracking for all resources
 - **State Management**: Remote state storage with locking mechanism
 
-This project demonstrates expertise in modern cloud architecture, DevOps practices, and Infrastructure-as-Code principles, showcasing the ability to design and implement scalable, maintainable infrastructure solutions.

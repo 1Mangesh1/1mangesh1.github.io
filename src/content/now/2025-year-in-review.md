@@ -11,7 +11,7 @@ currentlyBuilding: ["Personal portfolio", "New projects for 2026"]
 
 ## Looking Back at 2025
 
-What a year it's been! 2025 was packed with learning, building, and growing both personally and professionally. Here's a look back at the highlights.
+2025 went by fast. Here's what actually happened.
 
 ---
 
@@ -62,7 +62,7 @@ Experimented with the **Google Gemini API** to build a resume analyzer that pars
 
 ## Books Read
 
-A solid year of reading across technical and personal development:
+Books I finished this year:
 
 1. **"Eat That Frog"** by Brian Tracy - Great for productivity and tackling procrastination
 2. **"The Fountainhead"** by Ayn Rand - A long read about creative rebellion and ambition
@@ -94,7 +94,7 @@ Deep dive into distributed systems through Gaurav Sen's YouTube playlist. Covere
 - Terraform infrastructure patterns
 
 ### AI & ML
-Started exploring the AI landscape:
+Started poking around with AI:
 - Large Language Models (LLMs)
 - Transformer architectures
 - AI tools and their capabilities
@@ -128,14 +128,14 @@ Spent most of the year working from home, with occasional commutes between Mumba
 
 ## Looking Forward to 2026
 
-As I head into 2026, I'm excited to:
+Heading into 2026, here's what I'm aiming for:
 1. Continue deepening system design knowledge
 2. Build more AI-powered projects
 3. Write more consistently
 4. Maybe launch a significant side project
 5. Keep balancing learning with living
 
-Thanks for following along! Here's to an even better 2026.
+On to the next one.
 
 ---
 
