@@ -19,7 +19,7 @@ const portfolio = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    image: z.string(),
+    image: z.string().optional(),
     tech: z.array(z.string()),
     github: z.string().optional(),
     demo: z.string().optional(),
