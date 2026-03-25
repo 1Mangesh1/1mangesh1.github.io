@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   
   return portfolioItems.map((item) => {
     return {
-      params: { slug: item.slug },
+      params: { slug: item.id },
       props: { item }
     };
   });
@@ -123,7 +123,7 @@ const { Content } = await item.render();
       "name": "Mangesh Bide",
       "url": "https://mangeshbide.tech"
     },
-    "url": `https://mangeshbide.tech/portfolio/${item.slug}`,
+    "url": `https://mangeshbide.tech/portfolio/${item.id}`,
     "keywords": item.data.tech.join(", "),
     "image": item.data.image ? `https://mangeshbide.tech${item.data.image}` : undefined
   })} />
@@ -149,7 +149,7 @@ const { Content } = await item.render();
         "@type": "ListItem",
         "position": 3,
         "name": item.data.title,
-        "item": `https://mangeshbide.tech/portfolio/${item.slug}`
+        "item": `https://mangeshbide.tech/portfolio/${item.id}`
       }
     ]
   })} />

@@ -11,7 +11,7 @@ export function getRelatedPosts(
   if (!currentPost.data.tags || currentPost.data.tags.length === 0) {
     // If no tags, return most recent posts (excluding current)
     return publishedPosts
-      .filter((post) => post.slug !== currentPost.slug)
+      .filter((post) => post.id !== currentPost.id)
       .sort(
         (a, b) =>
           new Date(b.data.pubDate).getTime() -
@@ -26,7 +26,7 @@ export function getRelatedPosts(
 
   // Calculate relevance score for each post
   const scoredPosts = publishedPosts
-    .filter((post) => post.slug !== currentPost.slug) // Exclude current post
+    .filter((post) => post.id !== currentPost.id) // Exclude current post
     .map((post) => {
       let score = 0;
 

@@ -8,7 +8,7 @@ export async function getStaticPaths() {
     return import.meta.env.PROD ? data.draft !== true : true;
   });
   return books.map((book) => ({
-    params: { slug: book.slug },
+    params: { slug: book.id },
     props: { book },
   }));
 }
