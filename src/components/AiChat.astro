@@ -1,0 +1,262 @@
+---
+// src/components/AiChat.astro
+---
+
+<div id="ai-chat-container" class="fixed bottom-6 right-6 z-50 font-sans">
+  
+  <!-- Chat Button -->
+  <button 
+    id="ai-chat-button" 
+    class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-transform hover:scale-110 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+    aria-label="Open AI Chat"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+    </svg>
+  </button>
+
+  <!-- Chat Window -->
+  <div 
+    id="ai-chat-window" 
+    class="hidden absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-[350px] h-[480px] bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right transform scale-95 opacity-0 text-sm"
+  >
+    <!-- Header -->
+    <div class="bg-blue-600 text-white p-4 flex justify-between items-center rounded-t-2xl shadow-sm">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-base py-0.5">Ask about me <span class="text-blue-200">✦</span></span>
+      </div>
+      <button id="ai-chat-close" class="text-blue-100 hover:text-white transition-colors focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Message Area -->
+    <div id="ai-chat-messages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 bg-gray-50 dark:bg-gray-950 scroll-smooth">
+      
+      <!-- Welcome Message & Suggestions (shown by default) -->
+      <div id="ai-chat-welcome" class="flex flex-col gap-3">
+        <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] self-start border border-gray-100 dark:border-gray-800">
+          Hi! I'm an AI assistant. Feel free to ask me anything about Mangesh's experience, skills, or projects.
+        </div>
+        
+        <div class="flex flex-wrap gap-2 mt-2">
+          <button class="ai-suggestion-chip bg-blue-50 hover:bg-blue-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-full text-xs font-medium transition-colors border border-blue-200 dark:border-gray-700">What are your top skills?</button>
+          <button class="ai-suggestion-chip bg-blue-50 hover:bg-blue-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-full text-xs font-medium transition-colors border border-blue-200 dark:border-gray-700">Tell me about your projects</button>
+          <button class="ai-suggestion-chip bg-blue-50 hover:bg-blue-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-full text-xs font-medium transition-colors border border-blue-200 dark:border-gray-700">Are you available for work?</button>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Typing Indicator (hidden by default) -->
+    <div id="ai-chat-typing" class="hidden px-4 pb-2 bg-gray-50 dark:bg-gray-950">
+      <div class="bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm w-fit flex gap-1 items-center">
+        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></span>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="p-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 relative shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+      <form id="ai-chat-form" class="flex items-end gap-2 relative">
+        <div class="flex-1 bg-gray-50 dark:bg-gray-950 border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all">
+          <textarea 
+            id="ai-chat-input" 
+            rows="1"
+            placeholder="Ask a question..." 
+            class="w-full bg-transparent p-3 pr-2 text-gray-800 dark:text-gray-200 placeholder-gray-500 focus:outline-none resize-none overflow-hidden min-h-[44px] max-h-[120px]"
+            maxlength="300"
+          ></textarea>
+        </div>
+        <button 
+          id="ai-chat-submit"
+          type="submit" 
+          class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0 mb-px"
+          disabled
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-90" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+          </svg>
+        </button>
+      </form>
+      <div class="text-right mt-1.5">
+        <span id="ai-chat-counter" class="text-[10px] text-gray-400 font-medium">0 / 300</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // IMPORTANT: This URL will be populated after deploying the Cloudflare Worker.
+  // Run `wrangler deploy` and copy the deployed worker URL here.
+  // Format: https://[worker-name].[account-id].workers.dev
+  const WORKER_URL = "https://your-worker-url.workers.dev";
+  
+  // Element References
+  const btnOpen = document.getElementById('ai-chat-button');
+  const btnClose = document.getElementById('ai-chat-close');
+  const chatWindow = document.getElementById('ai-chat-window');
+  const messagesContainer = document.getElementById('ai-chat-messages');
+  const welcomeSection = document.getElementById('ai-chat-welcome');
+  const chatForm = document.getElementById('ai-chat-form');
+  const inputEl = document.getElementById('ai-chat-input') as HTMLTextAreaElement | null;
+  const submitBtn = document.getElementById('ai-chat-submit') as HTMLButtonElement | null;
+  const counterEl = document.getElementById('ai-chat-counter');
+  const typingIndicator = document.getElementById('ai-chat-typing');
+  const suggestionChips = document.querySelectorAll('.ai-suggestion-chip');
+
+  let isOpen = false;
+  let isSending = false;
+
+  // Toggle Window
+  function toggleChat() {
+    if (!chatWindow || !btnOpen) return;
+    
+    isOpen = !isOpen;
+    if (isOpen) {
+      chatWindow.classList.remove('hidden');
+      // small delay for transition
+      setTimeout(() => {
+        chatWindow.classList.remove('scale-95', 'opacity-0');
+        chatWindow.classList.add('scale-100', 'opacity-100');
+        inputEl?.focus();
+      }, 10);
+      btnOpen.classList.add('hidden');
+    } else {
+      chatWindow.classList.remove('scale-100', 'opacity-100');
+      chatWindow.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        chatWindow.classList.add('hidden');
+        btnOpen.classList.remove('hidden');
+      }, 300);
+    }
+  }
+
+  btnOpen?.addEventListener('click', toggleChat);
+  btnClose?.addEventListener('click', toggleChat);
+
+  // Auto-resize textarea
+  inputEl?.addEventListener('input', function(this: HTMLTextAreaElement) {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+    
+    // Character counter
+    const len = this.value.length;
+    if (counterEl) counterEl.textContent = `${len} / 300`;
+    
+    if (submitBtn) {
+      submitBtn.disabled = len === 0 || this.value.trim().length === 0 || isSending;
+    }
+  });
+
+  // Enter to submit (Shift+Enter for newline)
+  inputEl?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (submitBtn && !submitBtn.disabled && chatForm) {
+        chatForm.dispatchEvent(new Event('submit'));
+      }
+    }
+  });
+
+  function addMessage(text: string, isUser: boolean, isError: boolean = false) {
+    // Hide welcome section on first message
+    if (welcomeSection && !welcomeSection.classList.contains('hidden')) {
+      welcomeSection.classList.add('hidden');
+    }
+
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.className = `flex w-full ${isUser ? 'justify-end' : 'justify-start'}`;
+    
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `p-3 max-w-[85%] rounded-2xl shadow-sm text-sm ${
+      isUser 
+        ? 'bg-blue-600 text-white rounded-tr-sm' 
+        : isError
+          ? 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-tl-sm'
+          : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-800 rounded-tl-sm'
+    }`;
+    
+    msgDiv.textContent = text;
+    wrapperDiv.appendChild(msgDiv);
+    
+    if (messagesContainer) {
+      messagesContainer.appendChild(wrapperDiv);
+      // Auto scroll
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  }
+
+  // Suggestion chips logic
+  suggestionChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const q = chip.textContent;
+      if (q && inputEl && chatForm) {
+        inputEl.value = q;
+        inputEl.dispatchEvent(new Event('input'));
+        chatForm.dispatchEvent(new Event('submit'));
+      }
+    });
+  });
+
+  // Handle Send
+  chatForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!inputEl) return;
+    
+    const question = inputEl.value.trim();
+    if (!question || isSending) return;
+
+    // Reset UI
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    if (counterEl) counterEl.textContent = '0 / 300';
+    if (submitBtn) submitBtn.disabled = true;
+    isSending = true;
+
+    // Show User message
+    addMessage(question, true);
+
+    // Show Loading
+    typingIndicator?.classList.remove('hidden');
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+      
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+
+      if (res.status === 429) {
+        addMessage("Rate limit exceeded. Try again in an hour!", false, true);
+      } else if (!res.ok) {
+        throw new Error(`Server returned ${res.status}`);
+      } else {
+        const data = await res.json();
+        const answer = data.answer || "Sorry, I couldn't formulate an answer.";
+        addMessage(answer, false);
+      }
+    } catch (err) {
+      console.error("Chat error:", err);
+      addMessage("Something went wrong, try again!", false, true);
+    } finally {
+      typingIndicator?.classList.add('hidden');
+      isSending = false;
+      // Recheck submit button state (in case user typed while waiting)
+      if (submitBtn) submitBtn.disabled = inputEl.value.trim().length === 0;
+      inputEl.focus();
+    }
+  });
+</script>
