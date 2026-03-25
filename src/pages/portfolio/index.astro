@@ -17,46 +17,69 @@ const portfolioProjects = await getCollection('portfolio');
 
     <div class="grid gap-8 md:grid-cols-2">
       {portfolioProjects.map((project) => (
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-          <h2 class="text-xl font-semibold mb-2">
-            <a 
-              href={`/portfolio/${project.slug}`}
-              class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              {project.data.title}
-            </a>
-          </h2>
-          {project.data.description && (
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{project.data.description}</p>
-          )}
-          
-          {project.data.tech && project.data.tech.length > 0 && (
-            <div class="flex flex-wrap gap-2 mb-4">
-              {project.data.tech.map((tech) => (
-                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-md text-xs">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
-          
-          <div class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-500">
-            {project.data.date && (
-              <time>
-                {project.data.date.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long'
-                })}
-              </time>
+        <article class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col">
+          <a href={`/portfolio/${project.slug}`} class="block">
+            {project.data.image ? (
+              <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                <img
+                  src={project.data.image}
+                  alt={project.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            ) : (
+              <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 relative flex items-center justify-center p-6">
+                <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiAvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMDAwIiAvPgo8L3N2Zz4=')]"></div>
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-emerald-500/10 dark:bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-colors duration-500"></div>
+                <h3 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 z-10 drop-shadow-sm group-hover:scale-105 transition-transform duration-500">{project.data.title}</h3>
+              </div>
             )}
-            <a 
-              href={`/portfolio/${project.slug}`}
-              class="text-blue-600 dark:text-blue-400 hover:underline"
-            >
-              View Project →
-            </a>
+          </a>
+          
+          <div class="p-6 flex flex-col flex-grow">
+            <h2 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              <a href={`/portfolio/${project.slug}`}>
+                {project.data.title}
+              </a>
+            </h2>
+            {project.data.description && (
+              <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{project.data.description}</p>
+            )}
+            
+            {project.data.tech && project.data.tech.length > 0 && (
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.data.tech.slice(0, 4).map((tech) => (
+                  <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md font-medium">
+                    {tech}
+                  </span>
+                ))}
+                {project.data.tech.length > 4 && (
+                  <span class="text-xs text-gray-500 flex items-center px-1">
+                    +{project.data.tech.length - 4}
+                  </span>
+                )}
+              </div>
+            )}
+            
+            <div class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-500 mt-auto pt-4 border-t border-gray-100 dark:border-gray-700/50">
+              {project.data.date && (
+                <time class="font-medium">
+                  {project.data.date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short'
+                  })}
+                </time>
+              )}
+              <a 
+                href={`/portfolio/${project.slug}`}
+                class="text-emerald-600 dark:text-emerald-400 hover:underline font-medium inline-flex items-center"
+              >
+                View Details <span class="ml-1">→</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </article>
       ))}
     </div>
   </div>

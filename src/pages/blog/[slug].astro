@@ -213,6 +213,30 @@ const formatDate = (date: Date) => {
   <!-- Code Block Copy Functionality -->
   <CopyCode />
 
+  <!-- Mermaid JS Rendering -->
+  <script is:inline type="module">
+    document.addEventListener('DOMContentLoaded', async () => {
+      const mermaidElements = document.querySelectorAll('pre[data-language="mermaid"]');
+      if (mermaidElements.length > 0) {
+        const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+        mermaid.initialize({ 
+          startOnLoad: false, 
+          theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'neutral' 
+        });
+        
+        for (const pre of mermaidElements) {
+          const content = pre.textContent || '';
+          const div = document.createElement('div');
+          div.className = 'mermaid flex justify-center my-8 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl overflow-x-auto border border-gray-100 dark:border-gray-700';
+          div.textContent = content;
+          pre.replaceWith(div);
+        }
+        
+        await mermaid.run({ querySelector: '.mermaid' });
+      }
+    });
+  </script>
+
   <!-- BlogPosting Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",

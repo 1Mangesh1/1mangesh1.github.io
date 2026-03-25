@@ -36,6 +36,25 @@ This project showcases the complete automation of infrastructure provisioning an
 
 ## Infrastructure Components
 
+```mermaid
+graph TD
+    User([Users]) --> |HTTPS| Route53[Route 53 DNS]
+    Route53 --> ALB[Application Load Balancer]
+    
+    subgraph "AWS Cloud (VPC)"
+        ALB --> ASG[Auto Scaling Group]
+        
+        subgraph "Compute"
+            ASG --> EC2_1[EC2 Node 1]
+            ASG --> EC2_2[EC2 Node 2]
+        end
+    end
+    
+    terraform((Terraform)) -.-> |Provisions| Route53
+    terraform -.-> |Provisions| ALB
+    terraform -.-> |Provisions| ASG
+```
+
 ### Network Layer
 
 - **VPC Configuration**: Custom Virtual Private Cloud with public and private subnets
