@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { book } = Astro.props;
-const { Content } = await book.render();
+const { Content } = await (book as any).render();
 
 const renderStars = (rating: number | undefined) => {
   if (!rating) return '';

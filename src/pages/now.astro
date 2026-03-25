@@ -9,7 +9,7 @@ const latestEntry = nowEntries.sort((a, b) => new Date(b.data.date).getTime() - 
 // Pre-render all previous entries' content
 const previousEntries = await Promise.all(
   nowEntries.slice(1).map(async (entry) => {
-    const { Content } = await entry.render();
+    const { Content } = await (entry as any).render();
     return {
       ...entry,
       renderedContent: Content
@@ -50,7 +50,7 @@ const previousEntries = await Promise.all(
         </div>
 
         <div class="prose dark:prose-invert max-w-none mb-8">
-          {await latestEntry.render().then(({ Content }) => <Content />)}
+          {await (latestEntry as any).render().then(({ Content }) => <Content />)}
         </div>
 
         {/* Quick Status Cards */}

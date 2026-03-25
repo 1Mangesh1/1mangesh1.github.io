@@ -25,12 +25,12 @@ export async function getStaticPaths() {
 }
 
 const { post, allPosts } = Astro.props;
-const { Content, headings } = await post.render();
+const { Content, headings } = await (post as any).render();
 
 const relatedPosts = getRelatedPosts(post, allPosts, 3);
 
 // Calculate reading time
-const readingTime = calculateReadingTime(post.body);
+const readingTime = calculateReadingTime(post.body || '');
 
 // Current post URL for sharing
 const currentUrl = `${siteConfig.url}/blog/${post.id}`;
