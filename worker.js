@@ -66,21 +66,35 @@ FUN FACTS: Interested in Cloud Infrastructure, Distributed Systems, Anime, and G
 
 export default {
   async fetch(request, env, ctx) {
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": ALLOWED_DOMAIN,
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    };
+
+    // Development-only: Clear rate limit cache for testing
+    if (request.method === "POST" && request.url.includes('/clear-cache')) {
+      if (env.RATE_LIMIT_KV) {
+        const clientIP = request.headers.get("cf-connecting-ip") || "127.0.0.1";
+        const kvKey = `rl_${clientIP}`;
+        await env.RATE_LIMIT_KV.delete(kvKey);
+        return new Response(JSON.stringify({ message: "Cache cleared", kvKey }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+      return new Response(JSON.stringify({ error: "KV not configured" }), { status: 500 });
+    }
+
     // 1. CORS Preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
-          "Access-Control-Allow-Origin": ALLOWED_DOMAIN,
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
+          ...corsHeaders,
           "Access-Control-Max-Age": "86400",
         },
       });
     }
-
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": ALLOWED_DOMAIN,
-    };
 
     // 2. HTTP Method Check
     if (request.method !== "POST") {
