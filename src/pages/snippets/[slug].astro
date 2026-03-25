@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   // Filter drafts in production, show all in development
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { snippet } = Astro.props;
-const { Content } = await (snippet as any).render();
+const { Content } = await render(snippet);
 
 const languageColors: Record<string, string> = {
   javascript: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',

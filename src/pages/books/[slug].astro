@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   // Filter drafts in production, show all in development
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { book } = Astro.props;
-const { Content } = await (book as any).render();
+const { Content } = await render(book);
 
 const renderStars = (rating: number | undefined) => {
   if (!rating) return '';
