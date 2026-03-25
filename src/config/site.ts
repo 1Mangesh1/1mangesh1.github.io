@@ -1,6 +1,6 @@
 export const siteConfig = {
   // Site maintenance mode
-  maintenanceMode: false, // Set to true to enable maintenance mode
+  maintenanceMode: true, // Set to true to enable maintenance mode
 
   // Site metadata
   title: "Mangesh Bide",

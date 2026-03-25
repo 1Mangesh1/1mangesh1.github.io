@@ -1,7 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -15,7 +16,7 @@ const blog = defineCollection({
 });
 
 const portfolio = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/portfolio" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -29,7 +30,7 @@ const portfolio = defineCollection({
 });
 
 const resources = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resources" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -42,7 +43,7 @@ const resources = defineCollection({
 });
 
 const talks = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/talks" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -57,7 +58,7 @@ const talks = defineCollection({
 });
 
 const now = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/now" }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -72,7 +73,7 @@ const now = defineCollection({
 
 // Today I Learned - Quick daily learnings
 const til = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/til" }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -84,7 +85,7 @@ const til = defineCollection({
 
 // Code Snippets - Reusable code patterns
 const snippets = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/snippets" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -97,7 +98,7 @@ const snippets = defineCollection({
 
 // Bookmarks - Curated links
 const bookmarks = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/bookmarks" }),
   schema: z.object({
     title: z.string(),
     url: z.string().url(),
@@ -112,7 +113,7 @@ const bookmarks = defineCollection({
 
 // Books - Reading list with reviews
 const books = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/books" }),
   schema: z.object({
     title: z.string(),
     author: z.string(),
@@ -129,7 +130,7 @@ const books = defineCollection({
 
 // Random - Miscellaneous thoughts, ideas, experiments
 const random = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/random" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
