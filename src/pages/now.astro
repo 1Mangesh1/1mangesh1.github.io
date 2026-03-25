@@ -1,15 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 const nowEntries = await getCollection('now');
 // Get the latest entry
 const latestEntry = nowEntries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())[0];
 
+// Render the latest entry content
+const latestEntryRendered = latestEntry ? await render(latestEntry) : null;
+
 // Pre-render all previous entries' content
 const previousEntries = await Promise.all(
   nowEntries.slice(1).map(async (entry) => {
-    const { Content } = await (entry as any).render();
+    const { Content } = await render(entry);
     return {
       ...entry,
       renderedContent: Content
@@ -50,7 +53,7 @@ const previousEntries = await Promise.all(
         </div>
 
         <div class="prose dark:prose-invert max-w-none mb-8">
-          {await (latestEntry as any).render().then(({ Content }) => <Content />)}
+          {latestEntryRendered && <latestEntryRendered.Content />}
         </div>
 
         {/* Quick Status Cards */}

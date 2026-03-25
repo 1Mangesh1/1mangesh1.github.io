@@ -1,10 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 const talks = await getCollection('talks');
 // Sort by date, newest first
 const sortedTalks = talks.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Pre-render all talks
+const renderedTalks = await Promise.all(
+  sortedTalks.map(async (talk) => {
+    const { Content } = await render(talk);
+    return {
+      ...talk,
+      Content
+    };
+  })
+);
 ---
 
 <Layout title="Speaking | Presentations | Mangesh Bide" description="Talks and presentations about technology, software development, and my experiences building software at conferences and meetups.">
@@ -16,8 +27,7 @@ const sortedTalks = talks.sort((a, b) => new Date(b.data.date).getTime() - new D
 
     {sortedTalks.length > 0 ? (
       <div class="space-y-8">
-        {sortedTalks.map(async (talk) => {
-          const { Content: TalkContent } = await (talk as any).render();
+        {renderedTalks.map((talk) => {
           return (
             <article class="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
               <div class="mb-6">
@@ -58,7 +68,7 @@ const sortedTalks = talks.sort((a, b) => new Date(b.data.date).getTime() - new D
               </div>
 
               <div class="prose dark:prose-invert max-w-none mb-6">
-                <Content />
+                <talk.Content />
               </div>
 
               <div class="flex flex-wrap gap-3">
