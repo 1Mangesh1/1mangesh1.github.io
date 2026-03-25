@@ -1,7 +1,6 @@
 ---
 title: "Infrastructure-as-Code ChatApp Deployment"
 description: "Provisioned and deployed real-time chat application using Terraform scripts on AWS EC2 with DNS routing."
-image: "/images/infrastructure-preview.jpg"
 tech:
   [
     "Terraform",
