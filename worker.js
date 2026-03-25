@@ -169,7 +169,7 @@ export default {
 
       const answer = response.response || "No answer generated.";
 
-      return new Response(JSON.stringify({ answer }), {
+      return new Response(JSON.stringify({ result: answer }), {
         status: 200,
         headers: {
           ...corsHeaders,
