@@ -1,22 +1,105 @@
-/*
-DEPLOYMENT STEPS:
-1. npm install -g wrangler
-2. wrangler login
-3. Enable Cloudflare Workers AI binding in wrangler.toml (ai = { binding = "AI" })
-4. Create KV namespace: wrangler kv:namespace create "RATE_LIMIT_KV"
-5. Copy the KV namespace binding ID into wrangler.toml
-6. Deploy: wrangler deploy
-7. Copy your worker URL into AiChat.astro WORKER_URL constant
-8. In Cloudflare Dashboard → your worker → Settings → replace yourdomain.com with your real domain (mangeshbide.tech)
-9. In Cloudflare Dashboard → Security → WAF → add rate limit rule as backup
-*/
+// ============================================================
+// MANGESH'S PORTFOLIO CHATBOT WORKER — WITH D1 CHAT LOGGING
+// Privacy-safe: Hashed IPs, auto-cleanup, disclosure-ready
+// ============================================================
+//
+// ┌─────────────────────────────────────────────────────────┐
+// │  SETUP INSTRUCTIONS                                     │
+// └─────────────────────────────────────────────────────────┘
+//
+// STEP 1: Create the D1 database
+//   wrangler d1 create mangesh-chatbot-db
+//   → Copy the database_id from the output
+//
+// STEP 2: Add these bindings to your wrangler.toml
+//
+//   [[d1_databases]]
+//   binding = "CHAT_DB"
+//   database_name = "mangesh-chatbot-db"
+//   database_id = "<paste-your-database-id-here>"
+//
+//   # Keep your existing KV binding for rate limiting:
+//   [[kv_namespaces]]
+//   binding = "RATE_LIMIT_KV"
+//   id = "<your-existing-kv-id>"
+//
+//   # Add scheduled trigger for auto-cleanup:
+//   [triggers]
+//   crons = ["0 3 * * *"]   # Runs daily at 3:00 AM UTC
+//
+// STEP 3: Create the table (run once)
+//   wrangler d1 execute mangesh-chatbot-db --command="CREATE TABLE IF NOT EXISTS chat_logs (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     session_id TEXT NOT NULL,
+//     visitor_hash TEXT,
+//     country TEXT,
+//     city TEXT,
+//     question TEXT NOT NULL,
+//     answer TEXT NOT NULL,
+//     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+//   );"
+//
+// STEP 4: Deploy
+//   wrangler deploy
+//
+// ┌─────────────────────────────────────────────────────────┐
+// │  USEFUL D1 QUERIES                                      │
+// └─────────────────────────────────────────────────────────┘
+//
+// Last 20 chats:
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT * FROM chat_logs ORDER BY created_at DESC LIMIT 20;"
+//
+// Most asked questions:
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT question, COUNT(*) as count FROM chat_logs GROUP BY question ORDER BY count DESC LIMIT 10;"
+//
+// Total chats:
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT COUNT(*) as total FROM chat_logs;"
+//
+// Chats by country:
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT country, COUNT(*) as count FROM chat_logs GROUP BY country ORDER BY count DESC;"
+//
+// Unique visitors (by hash):
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT COUNT(DISTINCT visitor_hash) as unique_visitors FROM chat_logs;"
+//
+// Today's chats:
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT * FROM chat_logs WHERE created_at >= date('now') ORDER BY created_at DESC;"
+//
+// Full session conversation:
+//   wrangler d1 execute mangesh-chatbot-db --command="SELECT question, answer, created_at FROM chat_logs WHERE session_id = '<session-id>' ORDER BY created_at ASC;"
+//
+// ┌─────────────────────────────────────────────────────────┐
+// │  FRONTEND: Add this disclosure to your chat UI          │
+// └─────────────────────────────────────────────────────────┘
+//
+// Add a small line below or above the chat input:
+//   <p class="text-xs text-gray-400">Chats may be logged to improve the experience.</p>
+//
+// ============================================================
 
 const ALLOWED_DOMAINS = [
   "https://mangeshbide.tech",
-  "http://localhost", // Allow localhost for development
-  "http://127.0.0.1",  // Allow localhost IP for development
+  "http://localhost",
+  "http://127.0.0.1",
 ];
+
 const MAX_REQUESTS_PER_HOUR = 40;
+const CLEANUP_DAYS = 90;
+
+// ── Helper: Hash IP with daily salt ─────────────────────────
+// Gives you unique visitor counts without storing raw IPs.
+// Daily salt = same IP gets a different hash each day,
+// so you can't track individuals across days.
+async function hashIP(ip) {
+  const today = new Date().toISOString().split("T")[0];
+  const data = new TextEncoder().encode(ip + "|" + today);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")
+    .slice(0, 16);
+}
+
 const SYSTEM_PROMPT = `
 You are "MangeshGPT" — a sharp, friendly AI assistant living on Mangesh Bide's portfolio site (mangeshbide.tech).
 You know everything about Mangesh and genuinely enjoy talking about his work. Think of yourself as Mangesh's hype-man who keeps it real — you're enthusiastic but never exaggerate or lie.
@@ -165,6 +248,7 @@ You: "Hey! 👋 I'm here to tell you all about Mangesh — his skills, projects,
 `;
 
 export default {
+  // ── Main request handler ──────────────────────────────────
   async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin") || "";
     const isAllowedOrigin = ALLOWED_DOMAINS.some((domain) =>
@@ -177,15 +261,15 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Development-only: Clear rate limit cache for testing
-    if (request.method === "POST" && request.url.includes('/clear-cache')) {
+    // Development-only: Clear rate limit cache
+    if (request.method === "POST" && request.url.includes("/clear-cache")) {
       if (env.RATE_LIMIT_KV) {
         const clientIP = request.headers.get("cf-connecting-ip") || "127.0.0.1";
         const kvKey = `rl_${clientIP}`;
         await env.RATE_LIMIT_KV.delete(kvKey);
         return new Response(JSON.stringify({ message: "Cache cleared", kvKey }), {
           status: 200,
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
         });
       }
       return new Response(JSON.stringify({ error: "KV not configured" }), { status: 500 });
@@ -194,10 +278,7 @@ export default {
     // 1. CORS Preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
-        headers: {
-          ...corsHeaders,
-          "Access-Control-Max-Age": "86400",
-        },
+        headers: { ...corsHeaders, "Access-Control-Max-Age": "86400" },
       });
     }
 
@@ -214,26 +295,26 @@ export default {
     }
 
     // 4. Rate Limiting (Using KV)
-    // Use IP from headers (CF-Connecting-IP is standard in Cloudflare)
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
     const kvKey = `rl_${ip}`;
     let currentRequests = 0;
-    
+
     if (env.RATE_LIMIT_KV) {
       const stored = await env.RATE_LIMIT_KV.get(kvKey);
       if (stored) {
         currentRequests = parseInt(stored, 10);
       }
-      
+
       if (currentRequests >= MAX_REQUESTS_PER_HOUR) {
-        return new Response(JSON.stringify({ error: "Rate limit exceeded. Try again later." }), { 
-          status: 429, 
-          headers: { ...corsHeaders, "Content-Type": "application/json" } 
-        });
+        return new Response(
+          JSON.stringify({ error: "Rate limit exceeded. Try again later." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
 
-      // Increment and store with 1-hour expiration 
-      await env.RATE_LIMIT_KV.put(kvKey, (currentRequests + 1).toString(), { expirationTtl: 3600 });
+      await env.RATE_LIMIT_KV.put(kvKey, (currentRequests + 1).toString(), {
+        expirationTtl: 3600,
+      });
     }
 
     // 5. Input Validation
@@ -245,6 +326,8 @@ export default {
     }
 
     const question = body.question;
+    const sessionId = body.sessionId || "anonymous";
+
     if (!question || typeof question !== "string") {
       return new Response("Empty or missing question", { status: 400, headers: corsHeaders });
     }
@@ -258,37 +341,65 @@ export default {
 
     // 6. Cloudflare Workers AI Call (Llama 3.2)
     try {
-      const response = await env.AI.run('@cf/meta/llama-3.2-3b-instruct', {
+      const response = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
         messages: [
-          {
-            role: "system",
-            content: SYSTEM_PROMPT
-          },
-          {
-            role: "user",
-            content: trimmedQuestion
-          }
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user", content: trimmedQuestion },
         ],
         max_tokens: 400,
-        temperature: 0.7
+        temperature: 0.7,
       });
 
       const answer = response.response || "No answer generated.";
 
+      // 7. Log to D1 — privacy-safe (hashed IP, non-blocking)
+      if (env.CHAT_DB) {
+        const visitorHash = await hashIP(ip);
+        const country = request.cf?.country || "unknown";
+        const city = request.cf?.city || "unknown";
+
+        ctx.waitUntil(
+          env.CHAT_DB.prepare(
+            `INSERT INTO chat_logs (session_id, visitor_hash, country, city, question, answer)
+             VALUES (?, ?, ?, ?, ?, ?)`
+          )
+            .bind(sessionId, visitorHash, country, city, trimmedQuestion, answer)
+            .run()
+            .catch((err) => console.error("D1 write error:", err))
+        );
+      }
+
       return new Response(JSON.stringify({ result: answer }), {
         status: 200,
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json"
-        }
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
-
     } catch (err) {
       console.error("Worker error:", err);
-      return new Response(JSON.stringify({ error: "Internal Server Error" }), { 
-        status: 500, 
-        headers: { ...corsHeaders, "Content-Type": "application/json" } 
-      });
+      return new Response(
+        JSON.stringify({ error: "Internal Server Error" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
-  }
+  },
+
+  // ── Scheduled cleanup: runs daily at 3 AM UTC ─────────────
+  // Deletes all chats older than 90 days automatically.
+  // You'll see logs in Workers dashboard: "Deleted X chats older than 90 days."
+  async scheduled(event, env, ctx) {
+    if (!env.CHAT_DB) return;
+
+    try {
+      const result = await env.CHAT_DB.prepare(
+        `DELETE FROM chat_logs WHERE created_at < datetime('now', '-' || ? || ' days')`
+      )
+        .bind(CLEANUP_DAYS)
+        .run();
+
+      console.log(
+        `[Cleanup] Deleted ${result.meta.changes} chats older than ${CLEANUP_DAYS} days.`
+      );
+    } catch (err) {
+      console.error("[Cleanup] Failed:", err);
+    }
+  },
 };

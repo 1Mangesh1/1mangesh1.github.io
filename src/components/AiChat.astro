@@ -365,6 +365,9 @@
   const MESSAGE_REQUEST_KEY = 'ai_msg_timestamps';
   const RATE_LIMIT_PER_HOUR = 40;
 
+  // Generate a unique session ID for this visitor's conversation
+  const SESSION_ID = crypto.randomUUID();
+
   // Store message timestamps in localStorage
   function getMessageTimestamps(): number[] {
     const stored = localStorage.getItem(MESSAGE_REQUEST_KEY);
@@ -466,7 +469,10 @@
       const response = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: message }),
+        body: JSON.stringify({ 
+          question: message,
+          sessionId: SESSION_ID,
+        }),
       });
 
       typingIndicator.classList.add('hidden');
@@ -611,6 +617,9 @@
       <div class="ai-counter">
         <span id="ai-chat-counter">0 / 300</span>
       </div>
+      <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
+        Chats may be logged to improve the experience.
+      </p>
     </div>
   </div>
 </div>

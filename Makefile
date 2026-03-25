@@ -1,4 +1,4 @@
-.PHONY: install dev build preview clean deploy help maintenance-on maintenance-off maintenance-toggle maintenance-status maintenance-deploy-on maintenance-deploy-off setup seo-check seo-install
+.PHONY: install dev build preview clean deploy help maintenance-on maintenance-off maintenance-toggle maintenance-status maintenance-deploy-on maintenance-deploy-off setup seo-check seo-install chats chats-today chats-week
 
 # Default target
 help:
@@ -26,6 +26,11 @@ help:
 	@echo "  SEO & Optimization:"
 	@echo "    make seo-check        - Check SEO implementation status"
 	@echo "    make seo-install      - Install SEO dependencies"
+	@echo ""
+	@echo "  AI Chat Analytics:"
+	@echo "    make chats            - View recent chats (last 20)"
+	@echo "    make chats-today      - View today's chats"
+	@echo "    make chats-week       - View this week's chats"
 	@echo ""
 	@echo "    make help             - Show this help message"
 # Install dependencies
@@ -98,6 +103,22 @@ maintenance-deploy-off: maintenance-off
 	@git commit -m "Disable maintenance mode - site back online" || echo "Nothing to commit"
 	@git push origin main
 	@echo "✅ Site is back online!"
+
+# AI Chat Analytics - instant view of recent chats
+chats:
+	@node scripts/show-chats.js 20 all
+	@echo "📊 Opening chat viewer..."
+	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
+
+chats-today:
+	@node scripts/show-chats.js 20 today
+	@echo "📊 Opening today's chats..."
+	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
+
+chats-week:
+	@node scripts/show-chats.js 30 week
+	@echo "📊 Opening this week's chats..."
+	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
 
 # SEO verification commands
 seo-check:
