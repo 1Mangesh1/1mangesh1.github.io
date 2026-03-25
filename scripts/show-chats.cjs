@@ -3,7 +3,7 @@
 /**
  * Quick D1 Chat Viewer
  * Generates an instant HTML report of recent chats
- * Usage: node scripts/show-chats.js [limit] [time-filter]
+ * Usage: node scripts/show-chats.cjs [limit] [time-filter]
  *   - limit: number of chats to show (default: 20)
  *   - time-filter: 'today', 'week', 'month' or number of days (default: all)
  */

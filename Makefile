@@ -106,17 +106,17 @@ maintenance-deploy-off: maintenance-off
 
 # AI Chat Analytics - instant view of recent chats
 chats:
-	@node scripts/show-chats.js 20 all
+	@node scripts/show-chats.cjs 20 all
 	@echo "📊 Opening chat viewer..."
 	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
 
 chats-today:
-	@node scripts/show-chats.js 20 today
+	@node scripts/show-chats.cjs 20 today
 	@echo "📊 Opening today's chats..."
 	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
 
 chats-week:
-	@node scripts/show-chats.js 30 week
+	@node scripts/show-chats.cjs 30 week
 	@echo "📊 Opening this week's chats..."
 	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
 
