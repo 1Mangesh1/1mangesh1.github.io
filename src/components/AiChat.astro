@@ -432,7 +432,7 @@
     
     // Update counter and button state
     const length = input.value.trim().length;
-    counter.textContent = `${length} / 300`;
+    if (counter) counter.textContent = `${length} / 300`;
     submitBtn.disabled = length === 0 || !canSendMessage();
   });
 
@@ -457,7 +457,7 @@
     input.value = '';
     input.style.height = 'auto';
     submitBtn.disabled = true;
-    counter.textContent = '0 / 300';
+    if (counter) counter.textContent = '0 / 300';
 
     typingIndicator.classList.remove('hidden');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -484,7 +484,10 @@
     } catch (error) {
       addMessage('Connection error. Please check your internet.', 'error');
     } finally {
-      typingIndicator.classList.add('hidden');
+      if (typingIndicator) {
+        typingIndicator.classList.add('hidden');
+      }
+      submitBtn.disabled = false;
     }
   });
 

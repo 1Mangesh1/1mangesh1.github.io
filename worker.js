@@ -11,7 +11,11 @@ DEPLOYMENT STEPS:
 9. In Cloudflare Dashboard → Security → WAF → add rate limit rule as backup
 */
 
-const ALLOWED_DOMAIN = "https://mangeshbide.tech";
+const ALLOWED_DOMAINS = [
+  "https://mangeshbide.tech",
+  "http://localhost", // Allow localhost for development
+  "http://127.0.0.1",  // Allow localhost IP for development
+];
 const MAX_REQUESTS_PER_HOUR = 15;
 const SYSTEM_PROMPT = `
 You are an AI assistant embedded in Mangesh Bide's portfolio website.
@@ -66,8 +70,13 @@ FUN FACTS: Interested in Cloud Infrastructure, Distributed Systems, Anime, and G
 
 export default {
   async fetch(request, env, ctx) {
+    const origin = request.headers.get("Origin") || "";
+    const isAllowedOrigin = ALLOWED_DOMAINS.some((domain) =>
+      origin.startsWith(domain.replace("https://", "").replace("http://", ""))
+    );
+
     const corsHeaders = {
-      "Access-Control-Allow-Origin": ALLOWED_DOMAIN,
+      "Access-Control-Allow-Origin": isAllowedOrigin ? origin : ALLOWED_DOMAINS[0],
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     };
@@ -103,7 +112,8 @@ export default {
 
     // 3. Referer Check
     const referer = request.headers.get("Referer");
-    if (!referer || !referer.startsWith(ALLOWED_DOMAIN)) {
+    const isAllowedReferer = ALLOWED_DOMAINS.some((domain) => referer?.startsWith(domain));
+    if (!referer || !isAllowedReferer) {
       return new Response("Forbidden: Invalid Referer", { status: 403, headers: corsHeaders });
     }
 
