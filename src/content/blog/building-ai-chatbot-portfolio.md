@@ -585,7 +585,7 @@ This is where the session ID pays off. You can read an entire conversation in or
 Interested in building with Cloudflare? Check out my other posts on edge computing and worker deployment:
 
 - **[Building with Astro and Content Collections](/blog/astro-content-collections-guide/)** — Explore the content management layer that powers this site
-- **[Benchmarking and Performance](/blog/api-benchmarking-multitenant-saas/)** — Understand request latency and optimization strategies
+
 
 Want to dive deeper into AI implementation? The system prompt design patterns here apply broadly—constraints, examples, and clear boundaries.
 
