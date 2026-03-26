@@ -139,7 +139,6 @@ Languages spoken: English, Hindi, Marathi
 CONTACT & LINKS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Email: hello@mangeshbide.tech
-Phone: ***REMOVED***
 GitHub: github.com/1mangesh1
 LinkedIn: linkedin.com/in/mangesh-bide
 Portfolio: mangeshbide.tech
