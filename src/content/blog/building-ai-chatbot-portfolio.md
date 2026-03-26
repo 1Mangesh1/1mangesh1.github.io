@@ -630,3 +630,5 @@ No. D1 auto-deletes chats older than 90 days. If you need longer retention for c
 The full source is on [GitHub](https://github.com/1mangesh1/1mangesh1.github.io): [`worker.js`](https://github.com/1mangesh1/1mangesh1.github.io/blob/main/worker.js) for the Worker backend, [`AiChat.astro`](https://github.com/1mangesh1/1mangesh1.github.io/blob/main/src/components/AiChat.astro) for the Astro component, [`wrangler.toml`](https://github.com/1mangesh1/1mangesh1.github.io/blob/main/wrangler.toml) for the config.
 
 To build your own: fork the repo, rewrite the system prompt with your own facts and constraints, update the allowed domains, and deploy. The Worker code stays the same. The architecture scales.
+
+Happy Building!
