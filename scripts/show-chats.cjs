@@ -33,46 +33,54 @@ sqlQuery += ` ORDER BY created_at DESC LIMIT ${limit};`;
 console.log(`📊 Fetching ${limit} recent chats (${timeFilter})...`);
 
 try {
-  const output = execSync(`wrangler d1 execute mangesh-chatbot-db --command="${sqlQuery.replace(/"/g, '\\"')}"`, {
+  const output = execSync(`wrangler d1 execute mangesh-chatbot-db --remote --command="${sqlQuery.replace(/"/g, '\\"')}"`, {
     encoding: 'utf8',
     stdio: ['pipe', 'pipe', 'pipe']
   });
 
-  // Parse the output
+  // Parse the output - wrangler returns JSON array
   let chats = [];
   try {
-    const lines = output.split('\n').filter(l => l.trim() && !l.includes('wrangler'));
-    const dataStart = lines.findIndex(l => l.includes('question'));
+    // Find the JSON portion (skip wrangler CLI output)
+    const jsonStart = output.indexOf('[');
+    const jsonEnd = output.lastIndexOf(']') + 1;
     
-    if (dataStart !== -1) {
-      for (let i = dataStart + 1; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line && line.includes('|')) {
-          const parts = line.split('|').map(p => p.trim());
-          if (parts.length >= 6) {
-            chats.push({
-              question: parts[0],
-              answer: parts[1],
-              country: parts[2] || 'unknown',
-              city: parts[3] || 'unknown',
-              hash: parts[4] || 'anon',
-              time: parts[5] || 'now'
-            });
-          }
+    if (jsonStart !== -1 && jsonEnd > jsonStart) {
+      const jsonStr = output.substring(jsonStart, jsonEnd);
+      const parsed = JSON.parse(jsonStr);
+      
+      // Extract results from first element
+      if (Array.isArray(parsed) && parsed[0] && Array.isArray(parsed[0].results)) {
+        chats = parsed[0].results.map(r => ({
+          question: r.question || '',
+          answer: r.answer || '',
+          country: r.country || 'unknown',
+          city: r.city || 'unknown',
+          hash: r.visitor_hash || 'anon',
+          time: r.created_at || new Date().toISOString()
+        }));
+      }
+    }
+    
+    if (chats.length === 0) {
+      // Fallback: try to parse as single object
+      const singleJsonMatch = output.match(/\[\s*\{[\s\S]*\}\s*\]/);
+      if (singleJsonMatch) {
+        const parsed = JSON.parse(singleJsonMatch[0]);
+        if (parsed[0]?.results) {
+          chats = parsed[0].results.map(r => ({
+            question: r.question || '',
+            answer: r.answer || '',
+            country: r.country || 'unknown',
+            city: r.city || 'unknown',
+            hash: r.visitor_hash || 'anon',
+            time: r.created_at || new Date().toISOString()
+          }));
         }
       }
     }
   } catch (e) {
-    // Fallback parsing
-    const jsonMatch = output.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      try {
-        chats = JSON.parse(jsonMatch[0]);
-      } catch (e) {
-        console.error('Could not parse response');
-        process.exit(1);
-      }
-    }
+    console.error('Parse error:', e.message);
   }
 
   // Generate HTML
