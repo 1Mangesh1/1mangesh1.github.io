@@ -246,139 +246,591 @@ User: "hi" / "hello" / "hey"
 You: "Hey! 👋 I'm here to tell you all about Mangesh — his skills, projects, experience, whatever you're curious about. What would you like to know?"
 `;
 
+// ── Route Handlers ────────────────────────────────────────
+
+// Development-only: Clear rate limit cache
+async function handleClearCache(request, env, corsHeaders) {
+  if (request.method !== "POST") {
+    return new Response("Method not allowed", { status: 405, headers: corsHeaders });
+  }
+  if (env.RATE_LIMIT_KV) {
+    const clientIP = request.headers.get("cf-connecting-ip") || "127.0.0.1";
+    const kvKey = `rl_${clientIP}`;
+    await env.RATE_LIMIT_KV.delete(kvKey);
+    return new Response(JSON.stringify({ message: "Cache cleared", kvKey }), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  return new Response(JSON.stringify({ error: "KV not configured" }), {
+    status: 500,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+}
+
+// AI Chat handler (extracted from original fetch)
+async function handleChat(request, env, ctx, corsHeaders) {
+  // HTTP Method Check
+  if (request.method !== "POST") {
+    return new Response("Method not allowed", { status: 405, headers: corsHeaders });
+  }
+
+  // Referer Check (chat-specific security)
+  const referer = request.headers.get("Referer");
+  const isAllowedReferer = ALLOWED_DOMAINS.some((domain) => referer?.startsWith(domain));
+  if (!referer || !isAllowedReferer) {
+    return new Response("Forbidden: Invalid Referer", { status: 403, headers: corsHeaders });
+  }
+
+  // Rate Limiting (Using KV)
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const kvKey = `rl_${ip}`;
+  let currentRequests = 0;
+
+  if (env.RATE_LIMIT_KV) {
+    const stored = await env.RATE_LIMIT_KV.get(kvKey);
+    if (stored) {
+      currentRequests = parseInt(stored, 10);
+    }
+
+    if (currentRequests >= MAX_REQUESTS_PER_HOUR) {
+      return new Response(
+        JSON.stringify({ error: "Rate limit exceeded. Try again later." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    await env.RATE_LIMIT_KV.put(kvKey, (currentRequests + 1).toString(), {
+      expirationTtl: 3600,
+    });
+  }
+
+  // Input Validation
+  let body;
+  try {
+    body = await request.json();
+  } catch (err) {
+    return new Response("Invalid JSON payload", { status: 400, headers: corsHeaders });
+  }
+
+  const question = body.question;
+  const sessionId = body.sessionId || "anonymous";
+
+  if (!question || typeof question !== "string") {
+    return new Response("Empty or missing question", { status: 400, headers: corsHeaders });
+  }
+  const trimmedQuestion = question.trim();
+  if (trimmedQuestion.length === 0) {
+    return new Response("Question cannot be whitespace only", { status: 400, headers: corsHeaders });
+  }
+  if (trimmedQuestion.length > 300) {
+    return new Response("Question too long (max 300 characters)", { status: 400, headers: corsHeaders });
+  }
+
+  // Cloudflare Workers AI Call (Llama 3.2)
+  try {
+    const response = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: trimmedQuestion },
+      ],
+      max_tokens: 400,
+      temperature: 0.7,
+    });
+
+    const answer = response.response || "No answer generated.";
+
+    // Log to D1 — privacy-safe (hashed IP, non-blocking)
+    if (env.CHAT_DB) {
+      const visitorHash = await hashIP(ip);
+      const country = request.cf?.country || "unknown";
+      const city = request.cf?.city || "unknown";
+
+      ctx.waitUntil(
+        env.CHAT_DB.prepare(
+          `INSERT INTO chat_logs (session_id, visitor_hash, country, city, question, answer)
+             VALUES (?, ?, ?, ?, ?, ?)`
+        )
+          .bind(sessionId, visitorHash, country, city, trimmedQuestion, answer)
+          .run()
+          .catch((err) => console.error("D1 write error:", err))
+      );
+    }
+
+    return new Response(JSON.stringify({ result: answer }), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Worker error:", err);
+    return new Response(
+      JSON.stringify({ error: "Internal Server Error" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+}
+
+// ── Living Site Route Handlers ─────────────────────────────
+
+// Presence: live cursor sharing
+async function handlePresence(request, env, corsHeaders) {
+  const jsonHeaders = { ...corsHeaders, "Content-Type": "application/json" };
+
+  if (request.method === "GET") {
+    try {
+      const list = await env.RATE_LIMIT_KV.list({ prefix: "cursor:" });
+      const values = await Promise.all(
+        list.keys.map(key => env.RATE_LIMIT_KV.get(key.name, { type: "json" }))
+      );
+      const cursors = values.filter(Boolean);
+      return new Response(JSON.stringify({ cursors }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Presence GET error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  if (request.method === "POST") {
+    let body;
+    try {
+      body = await request.json();
+    } catch (err) {
+      return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+        status: 400,
+        headers: jsonHeaders,
+      });
+    }
+
+    const { id, x, y, page, emoji, color } = body;
+    if (
+      id === undefined || id === null ||
+      x === undefined || x === null ||
+      y === undefined || y === null ||
+      page === undefined || page === null ||
+      emoji === undefined || emoji === null ||
+      color === undefined || color === null
+    ) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields: id, x, y, page, emoji, color" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+
+    try {
+      const kvKey = `cursor:${String(id).slice(0, 36)}`;
+      await env.RATE_LIMIT_KV.put(kvKey, JSON.stringify({ id, x, y, page, emoji, color }), {
+        expirationTtl: 60,
+      });
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Presence POST error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  return new Response(JSON.stringify({ error: "Method not allowed" }), {
+    status: 405,
+    headers: jsonHeaders,
+  });
+}
+
+// Wall: shared pixel canvas
+const WALL_PALETTE = [
+  '#000000', '#1a1c2c', '#5d275d', '#b13e53',
+  '#ef7d57', '#ffcd75', '#a7f070', '#38b764',
+  '#257179', '#29366f', '#3b5dc9', '#41a6f6',
+  '#73eff7', '#f4f4f4', '#94b0c2', '#566c86',
+];
+
+async function handleWall(request, env, corsHeaders) {
+  const jsonHeaders = { ...corsHeaders, "Content-Type": "application/json" };
+
+  if (request.method === "GET") {
+    try {
+      const data = await env.RATE_LIMIT_KV.get("wall:canvas", { type: "json" });
+      if (data) {
+        return new Response(JSON.stringify(data), {
+          status: 200,
+          headers: jsonHeaders,
+        });
+      }
+      // Return empty 64x64 canvas
+      const emptyCanvas = {
+        pixels: Array.from({ length: 64 }, () => Array(64).fill(null)),
+        stats: { placed: 0, visitors: 0 },
+      };
+      return new Response(JSON.stringify(emptyCanvas), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Wall GET error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  if (request.method === "POST") {
+    let body;
+    try {
+      body = await request.json();
+    } catch (err) {
+      return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+        status: 400,
+        headers: jsonHeaders,
+      });
+    }
+
+    const { x, y, color, visitorId } = body;
+
+    // Validate required fields
+    if (x === undefined || x === null || y === undefined || y === null || !color || !visitorId) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields: x, y, color, visitorId" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+
+    // Validate coordinates
+    if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || x > 63 || y < 0 || y > 63) {
+      return new Response(
+        JSON.stringify({ error: "Invalid coordinates: x and y must be integers 0-63" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+
+    // Validate color against palette
+    if (!WALL_PALETTE.includes(color)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid color. Must be one of the 16-color palette." }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+
+    // Rate limit: 1 pixel per 10 minutes per visitor
+    const safeVisitorId = String(visitorId).slice(0, 36);
+    const rateKey = `wall:rate:${safeVisitorId}`;
+    const existing = await env.RATE_LIMIT_KV.get(rateKey);
+    if (existing) {
+      return new Response(
+        JSON.stringify({ error: "Rate limited. You can place one pixel every 10 minutes." }),
+        { status: 429, headers: jsonHeaders }
+      );
+    }
+
+    try {
+      // Get or create canvas
+      let canvas = await env.RATE_LIMIT_KV.get("wall:canvas", { type: "json" });
+      if (!canvas) {
+        canvas = {
+          pixels: Array.from({ length: 64 }, () => Array(64).fill(null)),
+          stats: { placed: 0, visitors: 0 },
+        };
+      }
+
+      // Track unique visitors
+      const visitorKey = `wall:visitor:${safeVisitorId}`;
+      const isReturning = await env.RATE_LIMIT_KV.get(visitorKey);
+      if (!isReturning) {
+        canvas.stats.visitors += 1;
+        // Mark visitor as known (30 day TTL)
+        await env.RATE_LIMIT_KV.put(visitorKey, "1", { expirationTtl: 2592000 });
+      }
+
+      // Place pixel
+      canvas.pixels[y][x] = color;
+      canvas.stats.placed += 1;
+
+      // Save canvas and set rate limit
+      await env.RATE_LIMIT_KV.put("wall:canvas", JSON.stringify(canvas));
+      await env.RATE_LIMIT_KV.put(rateKey, "1", { expirationTtl: 600 });
+
+      return new Response(JSON.stringify({ ok: true, stats: canvas.stats }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Wall POST error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  return new Response(JSON.stringify({ error: "Method not allowed" }), {
+    status: 405,
+    headers: jsonHeaders,
+  });
+}
+
+// Heatmap: aggregated click data
+async function handleHeatmap(request, env, corsHeaders) {
+  const jsonHeaders = { ...corsHeaders, "Content-Type": "application/json" };
+
+  if (request.method === "GET") {
+    try {
+      const url = new URL(request.url);
+      const page = url.searchParams.get("page");
+      if (!page) {
+        return new Response(
+          JSON.stringify({ error: "Missing 'page' query parameter" }),
+          { status: 400, headers: jsonHeaders }
+        );
+      }
+      const data = await env.RATE_LIMIT_KV.get(`heatmap:${page}`, { type: "json" });
+      if (data) {
+        return new Response(JSON.stringify(data), {
+          status: 200,
+          headers: jsonHeaders,
+        });
+      }
+      return new Response(JSON.stringify({ grid: [], totalClicks: 0 }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Heatmap GET error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  if (request.method === "POST") {
+    let body;
+    try {
+      body = await request.json();
+    } catch (err) {
+      return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+        status: 400,
+        headers: jsonHeaders,
+      });
+    }
+
+    const { clicks, page } = body;
+
+    // Validate required fields
+    if (!page || typeof page !== "string" || page.length > 100 || !/^\/[a-zA-Z0-9\-_\/\.]*$/.test(page)) {
+      return new Response(
+        JSON.stringify({ error: "Missing or invalid 'page' field" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+    if (!Array.isArray(clicks)) {
+      return new Response(
+        JSON.stringify({ error: "'clicks' must be an array" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+    if (clicks.length > 50) {
+      return new Response(
+        JSON.stringify({ error: "'clicks' array exceeds maximum of 50" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+
+    try {
+      const kvKey = `heatmap:${page}`;
+      let data = await env.RATE_LIMIT_KV.get(kvKey, { type: "json" });
+      if (!data || !Array.isArray(data.grid) || data.grid.length === 0) {
+        data = {
+          grid: Array.from({ length: 50 }, () => Array(50).fill(0)),
+          totalClicks: 0,
+        };
+      }
+
+      // Bucket each click into the 50x50 grid
+      for (const click of clicks) {
+        if (
+          click &&
+          typeof click.x === "number" &&
+          typeof click.y === "number"
+        ) {
+          const gx = Math.min(49, Math.max(0, Math.floor(click.x / 2)));
+          const gy = Math.min(49, Math.max(0, Math.floor(click.y / 2)));
+          data.grid[gy][gx] += 1;
+          data.totalClicks += 1;
+        }
+      }
+
+      // Save with 30-day TTL
+      await env.RATE_LIMIT_KV.put(kvKey, JSON.stringify(data), {
+        expirationTtl: 2592000,
+      });
+
+      return new Response(JSON.stringify({ ok: true, totalClicks: data.totalClicks }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Heatmap POST error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  return new Response(JSON.stringify({ error: "Method not allowed" }), {
+    status: 405,
+    headers: jsonHeaders,
+  });
+}
+
+// Footprints: owner's browsing trail
+async function handleFootprints(request, env, corsHeaders) {
+  const jsonHeaders = { ...corsHeaders, "Content-Type": "application/json" };
+
+  if (request.method === "GET") {
+    try {
+      const data = await env.RATE_LIMIT_KV.get("footprints:recent", { type: "json" });
+      return new Response(JSON.stringify({ trail: data || [] }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Footprints GET error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  if (request.method === "POST") {
+    let body;
+    try {
+      body = await request.json();
+    } catch (err) {
+      return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+        status: 400,
+        headers: jsonHeaders,
+      });
+    }
+
+    const { token, page } = body;
+
+    // Validate required fields
+    if (!token || typeof token !== "string") {
+      return new Response(
+        JSON.stringify({ error: "Missing or invalid 'token'" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+    if (!page || typeof page !== "string") {
+      return new Response(
+        JSON.stringify({ error: "Missing or invalid 'page'" }),
+        { status: 400, headers: jsonHeaders }
+      );
+    }
+
+    // Verify token by hashing and comparing to stored hash
+    try {
+      const tokenData = new TextEncoder().encode(token);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", tokenData);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const tokenHash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+
+      if (tokenHash !== env.FOOTPRINT_TOKEN_HASH) {
+        return new Response(JSON.stringify({ error: "Forbidden" }), {
+          status: 403,
+          headers: jsonHeaders,
+        });
+      }
+
+      // Get existing trail
+      let trail = await env.RATE_LIMIT_KV.get("footprints:recent", { type: "json" });
+      if (!Array.isArray(trail)) {
+        trail = [];
+      }
+
+      // Prepend new entry
+      const newEntry = { page, time: Math.floor(Date.now() / 1000) };
+      trail.unshift(newEntry);
+
+      // Filter duplicates of same page (keep first occurrence only)
+      const seen = new Set();
+      trail = trail.filter((entry) => {
+        if (seen.has(entry.page)) return false;
+        seen.add(entry.page);
+        return true;
+      });
+
+      // Keep max 5
+      trail = trail.slice(0, 5);
+
+      // Save with 1 hour TTL
+      await env.RATE_LIMIT_KV.put("footprints:recent", JSON.stringify(trail), {
+        expirationTtl: 3600,
+      });
+
+      return new Response(JSON.stringify({ ok: true, trail }), {
+        status: 200,
+        headers: jsonHeaders,
+      });
+    } catch (err) {
+      console.error("Footprints POST error:", err);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: jsonHeaders,
+      });
+    }
+  }
+
+  return new Response(JSON.stringify({ error: "Method not allowed" }), {
+    status: 405,
+    headers: jsonHeaders,
+  });
+}
+
 export default {
   // ── Main request handler ──────────────────────────────────
   async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin") || "";
     const isAllowedOrigin = ALLOWED_DOMAINS.some((domain) =>
-      origin.startsWith(domain.replace("https://", "").replace("http://", ""))
+      origin.startsWith(domain)
     );
 
     const corsHeaders = {
       "Access-Control-Allow-Origin": isAllowedOrigin ? origin : ALLOWED_DOMAINS[0],
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Development-only: Clear rate limit cache
-    if (request.method === "POST" && request.url.includes("/clear-cache")) {
-      if (env.RATE_LIMIT_KV) {
-        const clientIP = request.headers.get("cf-connecting-ip") || "127.0.0.1";
-        const kvKey = `rl_${clientIP}`;
-        await env.RATE_LIMIT_KV.delete(kvKey);
-        return new Response(JSON.stringify({ message: "Cache cleared", kvKey }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-      return new Response(JSON.stringify({ error: "KV not configured" }), { status: 500 });
-    }
-
-    // 1. CORS Preflight
+    // CORS Preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: { ...corsHeaders, "Access-Control-Max-Age": "86400" },
       });
     }
 
-    // 2. HTTP Method Check
-    if (request.method !== "POST") {
-      return new Response("Method not allowed", { status: 405, headers: corsHeaders });
-    }
+    // Route dispatcher
+    const url = new URL(request.url);
+    const path = url.pathname;
 
-    // 3. Referer Check
-    const referer = request.headers.get("Referer");
-    const isAllowedReferer = ALLOWED_DOMAINS.some((domain) => referer?.startsWith(domain));
-    if (!referer || !isAllowedReferer) {
-      return new Response("Forbidden: Invalid Referer", { status: 403, headers: corsHeaders });
-    }
+    if (path === '/presence') return handlePresence(request, env, corsHeaders);
+    if (path === '/wall') return handleWall(request, env, corsHeaders);
+    if (path === '/heatmap') return handleHeatmap(request, env, corsHeaders);
+    if (path === '/footprints') return handleFootprints(request, env, corsHeaders);
+    if (path === '/clear-cache') return handleClearCache(request, env, corsHeaders);
 
-    // 4. Rate Limiting (Using KV)
-    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-    const kvKey = `rl_${ip}`;
-    let currentRequests = 0;
-
-    if (env.RATE_LIMIT_KV) {
-      const stored = await env.RATE_LIMIT_KV.get(kvKey);
-      if (stored) {
-        currentRequests = parseInt(stored, 10);
-      }
-
-      if (currentRequests >= MAX_REQUESTS_PER_HOUR) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Try again later." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-
-      await env.RATE_LIMIT_KV.put(kvKey, (currentRequests + 1).toString(), {
-        expirationTtl: 3600,
-      });
-    }
-
-    // 5. Input Validation
-    let body;
-    try {
-      body = await request.json();
-    } catch (err) {
-      return new Response("Invalid JSON payload", { status: 400, headers: corsHeaders });
-    }
-
-    const question = body.question;
-    const sessionId = body.sessionId || "anonymous";
-
-    if (!question || typeof question !== "string") {
-      return new Response("Empty or missing question", { status: 400, headers: corsHeaders });
-    }
-    const trimmedQuestion = question.trim();
-    if (trimmedQuestion.length === 0) {
-      return new Response("Question cannot be whitespace only", { status: 400, headers: corsHeaders });
-    }
-    if (trimmedQuestion.length > 300) {
-      return new Response("Question too long (max 300 characters)", { status: 400, headers: corsHeaders });
-    }
-
-    // 6. Cloudflare Workers AI Call (Llama 3.2)
-    try {
-      const response = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: trimmedQuestion },
-        ],
-        max_tokens: 400,
-        temperature: 0.7,
-      });
-
-      const answer = response.response || "No answer generated.";
-
-      // 7. Log to D1 — privacy-safe (hashed IP, non-blocking)
-      if (env.CHAT_DB) {
-        const visitorHash = await hashIP(ip);
-        const country = request.cf?.country || "unknown";
-        const city = request.cf?.city || "unknown";
-
-        ctx.waitUntil(
-          env.CHAT_DB.prepare(
-            `INSERT INTO chat_logs (session_id, visitor_hash, country, city, question, answer)
-             VALUES (?, ?, ?, ?, ?, ?)`
-          )
-            .bind(sessionId, visitorHash, country, city, trimmedQuestion, answer)
-            .run()
-            .catch((err) => console.error("D1 write error:", err))
-        );
-      }
-
-      return new Response(JSON.stringify({ result: answer }), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    } catch (err) {
-      console.error("Worker error:", err);
-      return new Response(
-        JSON.stringify({ error: "Internal Server Error" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    return handleChat(request, env, ctx, corsHeaders);
   },
 
   // ── Scheduled cleanup: runs daily at 3 AM UTC ─────────────

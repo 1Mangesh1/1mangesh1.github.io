@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="The Wall — mangeshbide.tech" description="A shared pixel canvas. Place your pixel.">
+  <div class="max-w-2xl mx-auto px-4 py-12 text-center">
+    <h1 class="text-3xl font-bold mb-2 dark:text-white">The Wall</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-1">A shared 64x64 canvas. Everyone gets 1 pixel every 10 minutes.</p>
+    <p id="wall-stats" class="text-sm text-gray-400 dark:text-gray-500 mb-6"></p>
+
+    <div class="inline-block relative">
+      <canvas
+        id="wall-canvas"
+        width="320"
+        height="320"
+        style="image-rendering:pixelated;border:1px solid #e5e7eb;cursor:crosshair;border-radius:4px;"
+        class="dark:border-gray-600"
+      ></canvas>
+      <div id="wall-empty" class="absolute inset-0 flex items-center justify-center pointer-events-none text-gray-300 dark:text-gray-600 text-lg" style="display:none;">
+        Place the first pixel
+      </div>
+    </div>
+
+    <!-- Color palette -->
+    <div id="wall-palette" class="flex flex-wrap justify-center gap-1.5 mt-4 mb-4"></div>
+
+    <!-- Controls -->
+    <div class="flex justify-center gap-2 mb-4">
+      <button data-zoom="1" class="px-3 py-1 rounded text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">1x</button>
+      <button data-zoom="2" class="px-3 py-1 rounded text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">2x</button>
+      <button data-zoom="4" class="px-3 py-1 rounded text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">4x</button>
+      <button id="grid-toggle" class="px-3 py-1 rounded text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">Grid</button>
+    </div>
+
+    <p id="wall-status" class="text-sm text-green-600 dark:text-green-400 h-6"></p>
+  </div>
+</Layout>
+
+<script is:inline>
+(function () {
+  var ls = window.__livingSite;
+  var WORKER_URL = ls ? ls.WORKER_URL : 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
+  var VISITOR_ID = ls ? ls.VISITOR_ID : crypto.randomUUID();
+  var PALETTE = [
+    '#000000','#1a1c2c','#5d275d','#b13e53',
+    '#ef7d57','#ffcd75','#a7f070','#38b764',
+    '#257179','#29366f','#3b5dc9','#41a6f6',
+    '#73eff7','#f4f4f4','#94b0c2','#566c86',
+  ];
+
+  var canvas = document.getElementById('wall-canvas');
+  var ctx = canvas.getContext('2d');
+  var statsEl = document.getElementById('wall-stats');
+  var statusEl = document.getElementById('wall-status');
+  var emptyEl = document.getElementById('wall-empty');
+  var paletteEl = document.getElementById('wall-palette');
+
+  var selectedColor = PALETTE[3];
+  var canvasData = null;
+  var showGrid = false;
+  var PIXEL_SIZE = 5;
+
+  // Build palette
+  PALETTE.forEach(function (color) {
+    var swatch = document.createElement('button');
+    swatch.style.cssText = 'width:24px;height:24px;border-radius:4px;border:2px solid transparent;cursor:pointer;transition:transform 0.15s;';
+    swatch.style.backgroundColor = color;
+    swatch.dataset.color = color;
+    swatch.addEventListener('click', function () {
+      selectedColor = color;
+      paletteEl.querySelectorAll('button').forEach(function (b) { b.style.borderColor = 'transparent'; });
+      swatch.style.borderColor = '#fff';
+      swatch.style.transform = 'scale(1.2)';
+      setTimeout(function () { swatch.style.transform = ''; }, 150);
+    });
+    if (color === selectedColor) swatch.style.borderColor = '#fff';
+    paletteEl.appendChild(swatch);
+  });
+
+  // Zoom controls
+  document.querySelectorAll('[data-zoom]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var z = parseInt(btn.dataset.zoom);
+      canvas.style.width = (320 * z) + 'px';
+      canvas.style.height = (320 * z) + 'px';
+    });
+  });
+
+  // Grid toggle
+  document.getElementById('grid-toggle').addEventListener('click', function () {
+    showGrid = !showGrid;
+    if (canvasData) render(canvasData);
+  });
+
+  function render(data) {
+    ctx.clearRect(0, 0, 320, 320);
+    var hasPixels = false;
+
+    for (var y = 0; y < 64; y++) {
+      for (var x = 0; x < 64; x++) {
+        var color = data.pixels[y] && data.pixels[y][x];
+        if (color) {
+          hasPixels = true;
+          ctx.fillStyle = color;
+          ctx.fillRect(x * PIXEL_SIZE, y * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+        }
+      }
+    }
+
+    if (showGrid) {
+      ctx.strokeStyle = 'rgba(128,128,128,0.15)';
+      ctx.lineWidth = 0.5;
+      for (var i = 0; i <= 64; i++) {
+        ctx.beginPath(); ctx.moveTo(i * PIXEL_SIZE, 0); ctx.lineTo(i * PIXEL_SIZE, 320); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, i * PIXEL_SIZE); ctx.lineTo(320, i * PIXEL_SIZE); ctx.stroke();
+      }
+    }
+
+    emptyEl.style.display = hasPixels ? 'none' : 'flex';
+    statsEl.textContent = data.stats.placed.toLocaleString() + ' pixels placed';
+  }
+
+  // Hover preview (throttled with rAF)
+  var pendingHover = false;
+  canvas.addEventListener('mousemove', function (e) {
+    if (!canvasData || pendingHover) return;
+    pendingHover = true;
+    var clientX = e.clientX, clientY = e.clientY;
+    requestAnimationFrame(function () {
+      pendingHover = false;
+      render(canvasData);
+      var rect = canvas.getBoundingClientRect();
+      var scaleX = 320 / rect.width;
+      var scaleY = 320 / rect.height;
+      var px = Math.floor((clientX - rect.left) * scaleX / PIXEL_SIZE);
+      var py = Math.floor((clientY - rect.top) * scaleY / PIXEL_SIZE);
+      if (px >= 0 && px < 64 && py >= 0 && py < 64) {
+        ctx.fillStyle = selectedColor;
+        ctx.globalAlpha = 0.5;
+        ctx.fillRect(px * PIXEL_SIZE, py * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+        ctx.globalAlpha = 1;
+      }
+    });
+  });
+
+  // Place pixel (with cooldown tracking)
+  var cooldownUntil = 0;
+  var cooldownTimer = null;
+
+  function startCooldown() {
+    cooldownUntil = Date.now() + 10 * 60 * 1000;
+    canvas.style.cursor = 'not-allowed';
+    updateCooldownDisplay();
+  }
+
+  function updateCooldownDisplay() {
+    var remaining = Math.ceil((cooldownUntil - Date.now()) / 1000);
+    if (remaining <= 0) {
+      cooldownUntil = 0;
+      canvas.style.cursor = 'crosshair';
+      statusEl.textContent = '';
+      statusEl.style.color = '';
+      if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
+      return;
+    }
+    var mins = Math.floor(remaining / 60);
+    var secs = remaining % 60;
+    statusEl.style.color = '#f59e0b';
+    statusEl.textContent = 'Next pixel in ' + mins + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+
+  canvas.addEventListener('click', async function (e) {
+    if (cooldownUntil > Date.now()) return;
+
+    var rect = canvas.getBoundingClientRect();
+    var scaleX = 320 / rect.width;
+    var scaleY = 320 / rect.height;
+    var px = Math.floor((e.clientX - rect.left) * scaleX / PIXEL_SIZE);
+    var py = Math.floor((e.clientY - rect.top) * scaleY / PIXEL_SIZE);
+    if (px < 0 || px > 63 || py < 0 || py > 63) return;
+
+    statusEl.style.color = '';
+    statusEl.textContent = 'Placing...';
+    try {
+      var res = await fetch(WORKER_URL + '/wall', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ x: px, y: py, color: selectedColor, visitorId: VISITOR_ID }),
+      });
+      var data = await res.json();
+      if (res.ok) {
+        canvasData.pixels[py][px] = selectedColor;
+        canvasData.stats = data.stats;
+        render(canvasData);
+        statusEl.style.color = '';
+        statusEl.textContent = 'Pixel placed!';
+        startCooldown();
+        cooldownTimer = setInterval(updateCooldownDisplay, 1000);
+      } else if (res.status === 429) {
+        startCooldown();
+        cooldownTimer = setInterval(updateCooldownDisplay, 1000);
+      } else {
+        statusEl.textContent = data.error || 'Could not place pixel';
+        setTimeout(function () { statusEl.textContent = ''; }, 3000);
+      }
+    } catch (err) {
+      statusEl.textContent = 'Connection error';
+      setTimeout(function () { statusEl.textContent = ''; }, 3000);
+    }
+  });
+
+  // Load canvas
+  async function load() {
+    try {
+      var res = await fetch(WORKER_URL + '/wall');
+      canvasData = await res.json();
+      render(canvasData);
+    } catch (err) {
+      emptyEl.textContent = 'Could not load canvas';
+      emptyEl.style.display = 'flex';
+    }
+  }
+
+  load();
+})();
+</script>

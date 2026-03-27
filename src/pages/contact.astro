@@ -139,11 +139,38 @@ import Layout from '../layouts/Layout.astro';
     ahoy.configure({
       visitsUrl: "https://usebasin.com/ahoy/visits",
       eventsUrl: "https://usebasin.com/ahoy/events",
-      page: "a244a812de55" 
+      page: "a244a812de55"
     });
     ahoy.trackView();
     ahoy.trackSubmits();
   }
+
+  // Submit via fetch to stay on our site instead of redirecting to UseBasin
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = e.target;
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' },
+    }).then(function (res) {
+      if (res.ok) {
+        window.location.href = '/thank-you';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please try again.');
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+      alert('Network error. Please try again.');
+    });
+  });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/ahoy.js@0.3.9/dist/ahoy.min.js" async defer onload="configureAhoy()"></script>
 
