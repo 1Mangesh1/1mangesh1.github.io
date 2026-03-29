@@ -104,14 +104,13 @@ const imageURL = new URL(image, siteConfig.url);
       }
     </script>
     
-    <!-- GoatCounter Analytics -->
-    <script data-goatcounter="https://mangeshbide.goatcounter.com/count" 
-     data-goatcounter-settings='{"allow_local": true}'
-        async src="https://gc.zgo.at/count.js"></script>
+    <!-- Animation Styles (loaded synchronously to prevent FOUC) -->
+    <link rel="stylesheet" href="/animations.css">
 
-    <!-- Animation Styles -->
-    <link rel="preload" href="/animations.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/animations.css"></noscript>
+    <!-- GoatCounter Analytics (deferred to not block rendering) -->
+    <script data-goatcounter="https://mangeshbide.goatcounter.com/count"
+     data-goatcounter-settings='{"allow_local": true}'
+        defer src="https://gc.zgo.at/count.js"></script>
     
     <style is:global>
       body {
@@ -143,15 +142,15 @@ const imageURL = new URL(image, siteConfig.url);
           <!-- Desktop Navigation -->
           <div class="flex justify-between items-center">
             <div class="flex items-center space-x-8">
-              <a href="/" class="text-xl font-bold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link animate-on-scroll slide-left">
+              <a href="/" class="text-xl font-bold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link load-animate slide-left">
                 by mangesh
               </a>
               <div class="hidden md:flex space-x-6">
-                <a href="/blog" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link animate-on-scroll stagger-1">Blog</a>
-                <a href="/portfolio" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link animate-on-scroll stagger-2">Portfolio</a>
-                
+                <a href="/blog" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link load-animate stagger-1">Blog</a>
+                <a href="/portfolio" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link load-animate stagger-2">Portfolio</a>
+
                 <!-- Fun Dropdown -->
-                <div class="relative group animate-on-scroll stagger-3">
+                <div class="relative group load-animate stagger-3">
                   <button class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center nav-link">
                     Fun
                     <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,7 +176,7 @@ const imageURL = new URL(image, siteConfig.url);
                 </div>
 
                 <!-- About Dropdown -->
-                <div class="relative group animate-on-scroll stagger-4">
+                <div class="relative group load-animate stagger-4">
                   <button class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center nav-link">
                     About
                     <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,10 +204,10 @@ const imageURL = new URL(image, siteConfig.url);
                   </div>
                 </div>
 
-                <a href="/contact" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link animate-on-scroll stagger-5">Contact</a>
+                <a href="/contact" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors nav-link load-animate stagger-5">Contact</a>
 
                 <!-- More Dropdown -->
-                <div class="relative group animate-on-scroll stagger-5">
+                <div class="relative group load-animate stagger-5">
                   <button class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center nav-link">
                     More
                     <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -246,7 +245,7 @@ const imageURL = new URL(image, siteConfig.url);
             </div>
             
             <div class="flex items-center space-x-2">
-              <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 hover-lift animate-on-scroll slide-right" aria-label="Search">
+              <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 hover-lift load-animate slide-right" aria-label="Search">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
@@ -254,7 +253,7 @@ const imageURL = new URL(image, siteConfig.url);
               <button
                 id="theme-toggle"
                 data-haptic="selection"
-                class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 theme-toggle animate-on-scroll slide-right stagger-1"
+                class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 theme-toggle load-animate slide-right stagger-1"
                 aria-label="Toggle theme"
               >
                 <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
