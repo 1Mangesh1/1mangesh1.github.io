@@ -136,15 +136,20 @@ html {
 .dark .hover-lift:hover {
   box-shadow:
     0 10px 25px -5px rgba(0, 0, 0, 0.3),
-    0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    0 4px 20px -2px rgba(0, 229, 255, 0.1);
 }
 
 /* Button animations */
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #0284c7, #6366f1);
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+}
+
+.dark .btn-primary {
+  background: linear-gradient(135deg, #00e5ff, #818cf8);
+  color: #0b0f1a;
 }
 
 .btn-primary::before {
@@ -169,7 +174,11 @@ html {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3);
+}
+
+.dark .btn-primary:hover {
+  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.3);
 }
 
 /* Card animations */
@@ -184,7 +193,9 @@ html {
 }
 
 .dark .card-animate:hover {
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.4),
+    0 0 20px -4px rgba(0, 229, 255, 0.1);
 }
 
 /* Theme toggle animation */
@@ -198,7 +209,7 @@ html {
 }
 
 .dark .theme-toggle:hover {
-  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  background: linear-gradient(135deg, #00e5ff, #818cf8);
 }
 
 /* Navigation animations */
@@ -214,8 +225,12 @@ html {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(90deg, #0284c7, #6366f1);
   transition: width 0.3s ease;
+}
+
+.dark .nav-link::after {
+  background: linear-gradient(90deg, #00e5ff, #818cf8);
 }
 
 .nav-link:hover::after {
@@ -277,7 +292,11 @@ html {
 }
 
 .link-glow:hover {
-  text-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+  text-shadow: 0 0 8px rgba(2, 132, 199, 0.5);
+}
+
+.dark .link-glow:hover {
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
 }
 
 /* Mobile menu animation */
@@ -328,45 +347,25 @@ html {
   color: transparent;
 } */
 
-/* Warm golden gradient */
+/* Gradient — light: sky-blue to indigo, dark: neon cyan to soft indigo */
 .custom-gradient-bg {
-  background: hsla(51, 89%, 61%, 1);
-  background: linear-gradient(
-    90deg,
-    hsla(51, 89%, 61%, 1) 0%,
-    hsla(25, 83%, 57%, 1) 100%
-  );
-  background: -moz-linear-gradient(
-    90deg,
-    hsla(51, 89%, 61%, 1) 0%,
-    hsla(25, 83%, 57%, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    hsla(51, 89%, 61%, 1) 0%,
-    hsla(25, 83%, 57%, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#F4D941", endColorstr="#EC8235", GradientType=1);
+  background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+}
+
+.dark .custom-gradient-bg {
+  background: linear-gradient(135deg, #00e5ff 0%, #818cf8 100%);
 }
 
 .custom-gradient-text {
-  background: hsla(51, 89%, 61%, 1);
-  background: linear-gradient(
-    90deg,
-    hsla(51, 89%, 61%, 1) 0%,
-    hsla(25, 83%, 57%, 1) 100%
-  );
-  background: -moz-linear-gradient(
-    90deg,
-    hsla(51, 89%, 61%, 1) 0%,
-    hsla(25, 83%, 57%, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    hsla(51, 89%, 61%, 1) 0%,
-    hsla(25, 83%, 57%, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#F4D941", endColorstr="#EC8235", GradientType=1);
+  background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.dark .custom-gradient-text {
+  background: linear-gradient(135deg, #00e5ff 0%, #818cf8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

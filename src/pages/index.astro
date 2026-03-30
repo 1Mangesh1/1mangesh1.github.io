@@ -78,7 +78,7 @@ const formatDate = (date: Date) => {
           >
             <div class="flex items-center space-x-4 hover-lift">
               <div
-                class="p-3 bg-blue-100 dark:bg-blue-900/40 rounded-lg text-blue-600 dark:text-blue-400"
+                class="p-3 bg-blue-100 dark:bg-blue-900/40 rounded-lg text-blue-600 dark:text-cyan-400"
               >
                 <svg
                   class="w-6 h-6"
@@ -102,7 +102,7 @@ const formatDate = (date: Date) => {
             </div>
             <div class="flex items-center space-x-4 hover-lift">
               <div
-                class="p-3 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg text-emerald-600 dark:text-emerald-400"
+                class="p-3 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg text-emerald-600 dark:text-cyan-400"
               >
                 <svg
                   class="w-6 h-6"
@@ -161,7 +161,7 @@ const formatDate = (date: Date) => {
         <h2 class="text-3xl font-bold">Latest Writing</h2>
         <a
           href="/blog"
-          class="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
+          class="text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
           >View all posts →</a
         >
       </div>
@@ -174,7 +174,7 @@ const formatDate = (date: Date) => {
                 <time class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 block">
                   {formatDate(post.data.pubDate)}
                 </time>
-                <h3 class="text-lg font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                <h3 class="text-lg font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-2">
                   <a href={`/blog/${post.id}`}>{post.data.title}</a>
                 </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
@@ -183,7 +183,7 @@ const formatDate = (date: Date) => {
                 <div class="mt-auto pt-4">
                   <a
                     href={`/blog/${post.id}`}
-                    class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+                    class="inline-flex items-center text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium"
                   >
                     Read article →
                   </a>
@@ -209,7 +209,7 @@ const formatDate = (date: Date) => {
         <h2 class="text-3xl font-bold">Featured Projects</h2>
         <a
           href="/portfolio"
-          class="text-emerald-600 dark:text-emerald-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
+          class="text-emerald-600 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
           >View portfolio →</a
         >
       </div>
@@ -237,7 +237,7 @@ const formatDate = (date: Date) => {
                 )}
               </a>
               <div class="p-6 flex flex-col flex-grow">
-                <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-cyan-400 transition-colors">
                   <a href={`/portfolio/${project.id}`}>
                     {project.data.title}
                   </a>
@@ -261,7 +261,7 @@ const formatDate = (date: Date) => {
                 )}
                 <a
                   href={`/portfolio/${project.id}`}
-                  class="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:underline text-sm font-medium mt-auto border border-emerald-200 dark:border-emerald-800 px-4 py-2 rounded self-start"
+                  class="inline-flex items-center text-emerald-600 dark:text-cyan-400 hover:underline text-sm font-medium mt-auto border border-emerald-200 dark:border-cyan-800 px-4 py-2 rounded self-start"
                 >
                   View Details
                 </a>
@@ -336,7 +336,7 @@ const formatDate = (date: Date) => {
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-stagger>
         <a
           href="/about"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
             👨‍💻
@@ -348,7 +348,7 @@ const formatDate = (date: Date) => {
         </a>
         <a
           href="/resources"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
             📚
@@ -360,7 +360,7 @@ const formatDate = (date: Date) => {
         </a>
         <a
           href="/now"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
             🎯
@@ -372,7 +372,7 @@ const formatDate = (date: Date) => {
         </a>
         <a
           href="/games"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
             🎮
@@ -405,7 +405,7 @@ const formatDate = (date: Date) => {
         >
           <a
             href="/rss.xml"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center transition-colors animate-on-scroll"
+            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
           >
             <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -419,7 +419,7 @@ const formatDate = (date: Date) => {
           >
           <a
             href="/search"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center transition-colors animate-on-scroll"
+            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
           >
             <svg
               class="w-4 h-4 mr-1"
@@ -440,7 +440,7 @@ const formatDate = (date: Date) => {
           >
           <a
             href="/resume"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center transition-colors animate-on-scroll"
+            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
           >
             <svg
               class="w-4 h-4 mr-1"
