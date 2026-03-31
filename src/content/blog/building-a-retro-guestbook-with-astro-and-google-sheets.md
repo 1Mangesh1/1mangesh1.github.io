@@ -3,7 +3,6 @@ title: "Building a Retro Guestbook with Astro & Google Sheets (No Database Requi
 description: "How I built a nostalgic 90s-style guestbook using Astro, vanilla JavaScript, and Google Sheets as a free backend. Complete with spam moderation and zero hosting costs."
 pubDate: 2026-01-20T00:00:00Z
 tags: ["Astro", "Google Sheets", "Tutorial", "JavaScript", "Web Development", "Serverless"]
-heroImage: "/images/blog/guestbook-hero.png"
 draft: false
 ---
 

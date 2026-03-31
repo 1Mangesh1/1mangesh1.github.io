@@ -1,7 +1,6 @@
 ---
 title: "AI Language Tools Suite"
 description: "A collection of fun language tools powered by Gemini AI, with a clean and simple warm-beige UI."
-image: "/images/ai-tools-preview.jpg"
 tech:
   [
     "Node.js",
