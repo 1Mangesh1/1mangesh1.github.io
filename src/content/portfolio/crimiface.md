@@ -1,7 +1,6 @@
 ---
 title: "CrimiFace"
 description: "A criminal recognition system using facial recognition with Python and TensorFlow."
-image: "/images/crimiface-preview.jpg"
 tech: ["Python", "TensorFlow", "OpenCV", "Machine Learning", "Computer Vision"]
 github: "https://github.com/1Mangesh1/crimiface"
 demo: ""

@@ -1,7 +1,6 @@
 ---
 title: "Real-time ChatApp"
 description: "Chat platform with private messaging, room-based communication, and activity logging using WebSockets."
-image: "/images/chatapp-preview.jpg"
 tech:
   [
     "Node.js",
