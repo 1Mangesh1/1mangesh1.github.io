@@ -24,6 +24,23 @@ const {
 
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteConfig.url);
 const imageURL = new URL(image, siteConfig.url);
+
+let visitorCount: string | null = null;
+try {
+  const apiKey = import.meta.env.GOATCOUNTER_API_KEY;
+  if (apiKey) {
+    const res = await fetch('https://mangeshbide.goatcounter.com/api/v0/stats/total?start=2020-01-01T00:00:00Z&end=2030-01-01T00:00:00Z', {
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      visitorCount = new Intl.NumberFormat().format(data.total ?? 0);
+    }
+  }
+} catch { /* silent fail — no counter shown */ }
 ---
 
 <!DOCTYPE html>
@@ -109,7 +126,6 @@ const imageURL = new URL(image, siteConfig.url);
 
     <!-- GoatCounter Analytics (deferred to not block rendering) -->
     <script data-goatcounter="https://mangeshbide.goatcounter.com/count"
-     data-goatcounter-settings='{"allow_local": true}'
         defer src="https://gc.zgo.at/count.js"></script>
     
     <style is:global>
@@ -365,6 +381,12 @@ const imageURL = new URL(image, siteConfig.url);
       <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll">
         <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400">
           <p>Built with ❤️ by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-cyan-400 hover:underline link-glow">Mangesh</a> using <a href="https://astro.build" class="text-blue-600 dark:text-cyan-400 hover:underline link-glow">Astro</a> & <a href="https://tailwindcss.com" class="text-blue-600 dark:text-cyan-400 hover:underline link-glow">Tailwind CSS</a></p>
+          {visitorCount && (
+            <p class="text-xs mt-2 text-gray-500 dark:text-gray-500">
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse align-middle"></span>
+              {visitorCount} visitors and counting
+            </p>
+          )}
           <p class="text-xs mt-2 opacity-50 hover:opacity-100 transition-opacity">
             <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span>
             <a href="/secret" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a>
