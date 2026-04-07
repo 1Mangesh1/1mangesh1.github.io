@@ -105,9 +105,9 @@ const formatDate = (date: Date) => {
     </div>
 
     {/* Pagination Controls */}
-    <div class="mt-12 flex justify-between items-center">
+    <nav aria-label="Blog pagination" class="mt-12 mb-8 flex justify-between items-center relative z-[70]">
       {page.url.prev ? (
-        <a href={page.url.prev} class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+        <a href={page.url.prev.endsWith('/') ? page.url.prev : `${page.url.prev}/`} class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
           ← Previous
         </a>
       ) : (
@@ -121,7 +121,7 @@ const formatDate = (date: Date) => {
       </span>
 
       {page.url.next ? (
-        <a href={page.url.next} class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+        <a href={page.url.next.endsWith('/') ? page.url.next : `${page.url.next}/`} class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
           Next →
         </a>
       ) : (
@@ -129,6 +129,6 @@ const formatDate = (date: Date) => {
           Next →
         </span>
       )}
-    </div>
+    </nav>
   </div>
 </Layout>
