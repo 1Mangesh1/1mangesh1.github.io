@@ -1,0 +1,714 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Live 3D globe showing real-time natural events from NASA's EONET — wildfires, storms, volcanoes, and more, tracked as they happen."><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="alternate" type="application/rss+xml" title="Mangesh's Blog" href="/rss.xml"><meta name="generator" content="Astro v6.0.8"><!-- Primary Meta Tags --><title>Earth Observatory | Mangesh Bide</title><meta name="title" content="Earth Observatory | Mangesh Bide"><meta name="description" content="Live 3D globe showing real-time natural events from NASA's EONET — wildfires, storms, volcanoes, and more, tracked as they happen."><meta name="author" content="Mangesh Bide"><link rel="canonical" href="https://mangeshbide.tech/earth-observatory/"><!-- Robots --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://mangeshbide.tech/earth-observatory/"><meta property="og:title" content="Earth Observatory | Mangesh Bide"><meta property="og:description" content="Live 3D globe showing real-time natural events from NASA's EONET — wildfires, storms, volcanoes, and more, tracked as they happen."><meta property="og:image" content="https://mangeshbide.tech/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:logo" content="https://mangeshbide.tech/me.jpg"><meta property="og:site_name" content="Mangesh Bide"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://mangeshbide.tech/earth-observatory/"><meta property="twitter:title" content="Earth Observatory | Mangesh Bide"><meta property="twitter:description" content="Live 3D globe showing real-time natural events from NASA's EONET — wildfires, storms, volcanoes, and more, tracked as they happen."><meta property="twitter:image" content="https://mangeshbide.tech/og-image.png"><meta property="twitter:image:width" content="1200"><meta property="twitter:image:height" content="630"><meta property="twitter:creator" content="@Mangesh_Bide"><!-- Additional SEO --><meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog"><meta name="theme-color" content="#3b82f6"><!-- Content Security Policy for GoatCounter --><meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at https://giscus.app;"><!-- LinkedIn specific --><meta property="article:author" content="Mangesh Bide"><meta name="image" content="https://mangeshbide.tech/og-image.png"><!-- Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mangesh Bide",
+        "url": "https://mangeshbide.tech",
+        "image": "https://mangeshbide.tech/og-image.png",
+        "photo": "https://mangeshbide.tech/me.jpg",
+        "jobTitle": "Software Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Houseworks Technologies"
+        },
+        "alumniOf": "https://www.rcpit.ac.in",
+        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+        "sameAs": [
+          "https://github.com/1mangesh1",
+          "https://x.com/Mangesh_Bide",
+          "https://linkedin.com/in/mangesh-bide/"
+        ]
+      }
+    </script><!-- Animation Styles (loaded synchronously to prevent FOUC) --><link rel="stylesheet" href="/animations.css"><!-- GoatCounter Analytics (deferred to not block rendering) --><script data-goatcounter="https://mangeshbide.goatcounter.com/count" defer src="https://gc.zgo.at/count.js"></script><link rel="stylesheet" href="/assets/site.D5vn5Npr.css">
+<link rel="stylesheet" href="/assets/earth-observatory@_@astro.CkG3Kn_c.css">
+<link rel="stylesheet" href="/assets/Layout.DKEolqBN.css"></head> <body class="bg-white dark:bg-[#0b0f1a] text-gray-900 dark:text-gray-100 transition-colors duration-300"> <!-- Reading Progress Bar --> <div id="reading-progress" class="fixed top-0 left-0 h-1 custom-gradient-bg z-50 transition-all duration-300" style="width: 0%"></div> <div class="min-h-screen flex flex-col page-enter"> <header id="navbar" class="border-b border-gray-200 dark:border-gray-700/50 bg-white dark:bg-[#0b0f1a] transition-all duration-300 sticky top-0 z-40 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90"> <nav class="max-w-4xl mx-auto px-4 py-6"> <!-- Desktop Navigation --> <div class="flex justify-between items-center"> <div class="flex items-center space-x-8"> <a href="/" class="text-xl font-bold hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors nav-link load-animate slide-left">
+by mangesh
+</a> <div class="hidden md:flex space-x-6"> <a href="/blog" class="hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors nav-link load-animate stagger-1">Blog</a> <a href="/portfolio" class="hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors nav-link load-animate stagger-2">Portfolio</a> <!-- Fun Dropdown --> <div class="relative group load-animate stagger-3"> <button class="hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors flex items-center nav-link">
+Fun
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/games" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Games
+</a> <a href="/fun" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Life & Hobbies
+</a> <a href="/meme" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Memes
+</a> <!-- <a href="/wall" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+                        The Wall
+                      </a> --> </div> </div> </div> <!-- About Dropdown --> <div class="relative group load-animate stagger-4"> <button class="hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors flex items-center nav-link">
+About
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/about" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Me
+</a> <a href="/uses" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+My Stack
+</a> <a href="/resume" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Resume
+</a> <a href="/now" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Now
+</a> <a href="/guestbook" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Guestbook
+</a> </div> </div> </div> <a href="/contact" class="hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors nav-link load-animate stagger-5">Contact</a> <!-- More Dropdown --> <div class="relative group load-animate stagger-5"> <button class="hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors flex items-center nav-link">
+More
+<svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover-lift"> <div class="py-2"> <a href="/til" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+TIL
+</a> <a href="/snippets" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Snippets
+</a> <a href="/bookmarks" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Bookmarks
+</a> <a href="/books" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Books
+</a> <a href="/random" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Random
+</a> <!-- <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div> --> <a href="/tools" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Dev Tools
+</a> <a href="/earth-observatory" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Earth Observatory
+</a> <a href="/credits" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">
+Credits
+</a> </div> </div> </div> </div> </div> <div class="flex items-center space-x-2"> <a href="/search" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 hover-lift load-animate slide-right" aria-label="Search"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> </svg> </a> <button id="theme-toggle" data-haptic="selection" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 theme-toggle load-animate slide-right stagger-1" aria-label="Toggle theme"> <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path> </svg> <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <button id="mobile-menu-btn" data-haptic="light" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors hover-lift" aria-label="Toggle mobile menu"> <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> </div> <!-- Mobile Menu --> <div id="mobile-menu" class="hidden md:hidden mt-4 mobile-menu-enter"> <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-lg hover-lift"> <!-- Main Links --> <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Blog
+</a> <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Portfolio
+</a> <!-- Fun Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+Fun
+</div> <a href="/games" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Games
+</a> <a href="/fun" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Life & Hobbies
+</a> <a href="/meme" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Memes
+</a> <!-- <a href="/wall" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                The Wall
+              </a> --> <!-- About Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+About
+</div> <a href="/about" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+About Me
+</a> <a href="/uses" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+My Stack
+</a> <a href="/resume" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Resume
+</a> <a href="/guestbook" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Guestbook
+</a> <a href="/contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors mt-4">
+Contact
+</a> <!-- More Section --> <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">
+More
+</div> <a href="/til" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+TIL
+</a> <a href="/snippets" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Snippets
+</a> <a href="/bookmarks" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Bookmarks
+</a> <a href="/books" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Books
+</a> <a href="/random" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Random
+</a> <a href="/tools" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Dev Tools
+</a> <a href="/earth-observatory" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Earth Observatory
+</a> <a href="/credits" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+Credits
+</a> </div> </div> </nav> </header> <main class="flex-1">  <div class="max-w-5xl mx-auto px-4 py-12"> <!-- Header --> <div class="text-center mb-10"> <h1 class="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight"> <span class="custom-gradient-bg">Earth Observatory</span> </h1> <p class="text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+Live natural events tracked by NASA's
+<a href="https://eonet.gsfc.nasa.gov/" target="_blank" rel="noopener" class="underline decoration-dotted hover:text-emerald-600 dark:hover:text-cyan-400 transition-colors">EONET</a> </p> </div> <!-- Stats Bar --> <div id="globe-stats" class="flex justify-center gap-6 md:gap-10 mb-8 text-sm"> <div class="stat-item"> <span id="stat-total" class="stat-value">--</span> <span class="stat-label">Events</span> </div> <div class="stat-item"> <span id="stat-active" class="stat-value">--</span> <span class="stat-label">Active</span> </div> <div class="stat-item"> <span id="stat-categories" class="stat-value">--</span> <span class="stat-label">Categories</span> </div> <div class="stat-item"> <span id="stat-updated" class="stat-value">--</span> <span class="stat-label">Updated</span> </div> </div> <!-- Globe Section --> <div class="globe-wrapper mb-6"> <div class="globe-outer"> <div id="globe-mount" class="globe-mount"></div> <!-- Loading overlay --> <div id="globe-loading" class="globe-loading"> <div class="loading-spinner"></div> <p class="loading-text">Loading Earth...</p> </div> <!-- Error state --> <div id="globe-error" class="globe-error"></div> </div> <p class="text-center text-xs text-gray-400 dark:text-gray-500 mt-3">
+Drag to rotate &middot; Scroll to zoom &middot; Hover for details &middot; Click markers to view event
+</p> </div> <!-- Category Filters --> <div class="mb-8"> <div id="category-filters" class="category-filters"></div> </div> <!-- Event List --> <div class="events-section"> <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Recent Events</h2> <div id="events-loading" class="events-loading"> <div class="skel-card"><div class="skel-dot"></div><div class="skel-lines"><div class="skel-line w-3/4"></div><div class="skel-line w-1/2"></div></div></div> <div class="skel-card"><div class="skel-dot"></div><div class="skel-lines"><div class="skel-line w-2/3"></div><div class="skel-line w-1/3"></div></div></div> <div class="skel-card"><div class="skel-dot"></div><div class="skel-lines"><div class="skel-line w-4/5"></div><div class="skel-line w-2/5"></div></div></div> <div class="skel-card"><div class="skel-dot"></div><div class="skel-lines"><div class="skel-line w-1/2"></div><div class="skel-line w-1/4"></div></div></div> </div> <div id="events-container" class="events-container"></div> </div> <!-- Attribution --> <div class="text-center mt-12 text-xs text-gray-400 dark:text-gray-600">
+Data from <a href="https://eonet.gsfc.nasa.gov/" target="_blank" rel="noopener" class="underline hover:text-emerald-600 dark:hover:text-cyan-400">NASA EONET v3</a> &middot; Updated in real-time
+</div> </div> <script src="/scripts/earth-observatory.js"></script>  </main> <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll"> <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400"> <p>Built with ❤️ by <a href="https://github.com/1mangesh1" class="text-blue-600 dark:text-cyan-400 hover:underline link-glow">Mangesh</a> using <a href="https://astro.build" class="text-blue-600 dark:text-cyan-400 hover:underline link-glow">Astro</a> & <a href="https://tailwindcss.com" class="text-blue-600 dark:text-cyan-400 hover:underline link-glow">Tailwind CSS</a></p> <p class="text-xs mt-2 text-gray-500 dark:text-gray-500"> <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse align-middle"></span> 3,196 visitors and counting
+</p> <p class="text-xs mt-2 opacity-50 hover:opacity-100 transition-opacity"> <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span> <a href="/secret" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a> </p> </div> </footer> </div> <!-- Back to Top Button --> <button id="back-to-top-btn" type="button" aria-label="Back to top" class="fixed bottom-24 right-8 z-[60] hidden w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-200 flex items-center justify-center">
+↑
+</button> <script type="module">const o=document.getElementById("back-to-top-btn");o&&(window.addEventListener("scroll",()=>{o.classList.toggle("hidden",window.scrollY<=300)}),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}));</script> <!-- Easter Eggs --> <!-- Hidden Easter Egg Elements --><div id="easter-eggs" data-astro-cid-mei435rj> <!-- Floating Emojis Container --> <div id="floating-emojis" class="fixed inset-0 pointer-events-none z-50" data-astro-cid-mei435rj></div> <!-- Secret Message Modal --> <div id="secret-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" data-astro-cid-mei435rj> <div class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md mx-4 text-center transform scale-0 transition-transform duration-300" data-astro-cid-mei435rj> <div class="text-6xl mb-4" data-astro-cid-mei435rj>🎉</div> <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100" data-astro-cid-mei435rj>You Found It!</h2> <p class="text-gray-600 dark:text-gray-400 mb-6" data-astro-cid-mei435rj>
+Congratulations! You discovered the Konami code easter egg. 
+        You're clearly a person of culture! 🎮
+</p> <button id="close-secret" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-astro-cid-mei435rj>
+Awesome!
+</button> </div> </div> <!-- Dancing Cat (appears on triple click) --> <div id="dancing-cat" class="fixed bottom-4 right-4 z-40 hidden" data-astro-cid-mei435rj> <div class="text-6xl animate-bounce" data-astro-cid-mei435rj>🐱</div> </div> <!-- Rainbow Mode Toggle --> <div id="rainbow-mode" class="hidden" data-astro-cid-mei435rj></div> </div> <script defer>
+  // Easter Egg 1: Konami Code (↑↑↓↓←→←→BA)
+  let konamiCode = [];
+  const konamiSequence = [
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+  ];
+
+  document.addEventListener('keydown', (e) => {
+    konamiCode.push(e.code);
+    
+    // Keep only the last 10 keys
+    if (konamiCode.length > 10) {
+      konamiCode.shift();
+    }
+    
+    // Check if sequence matches
+    if (konamiCode.length === 10 && 
+        konamiCode.every((key, index) => key === konamiSequence[index])) {
+      triggerKonamiEasterEgg();
+      konamiCode = [];
+    }
+  });
+
+  function triggerKonamiEasterEgg() {
+    window.haptics?.trigger('buzz');
+    const modal = document.getElementById('secret-modal');
+    const content = modal?.querySelector('div');
+    
+    if (modal && content) {
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        content.classList.add('scale-100');
+      }, 100);
+      
+      // Add confetti effect
+      createConfetti();
+    }
+  }
+
+  // Close secret modal
+  document.getElementById('close-secret')?.addEventListener('click', () => {
+    const modal = document.getElementById('secret-modal');
+    const content = modal?.querySelector('div');
+    
+    if (content) {
+      content.classList.remove('scale-100');
+      setTimeout(() => {
+        modal?.classList.add('hidden');
+      }, 300);
+    }
+  });
+
+  // Easter Egg 2: Click Effects (floating emojis)
+  const clickEmojis = ['✨', '🎉', '💫', '⭐', '🌟', '💥', '🎊', '🔥'];
+  let clickCount = 0;
+
+  document.addEventListener('click', (_e) => {
+    // Random chance for emoji on click
+    if (Math.random() < 0.1) {
+      createFloatingEmoji(_e.clientX, _e.clientY);
+    }
+    
+    // Special effect on rapid clicks
+    clickCount++;
+    setTimeout(() => clickCount--, 1000);
+    
+    if (clickCount >= 10) {
+      triggerClickFrenzy();
+      clickCount = 0;
+    }
+  });
+
+  function createFloatingEmoji(x, y, emoji) {
+    const container = document.getElementById('floating-emojis');
+    if (!container) return;
+    
+    const emojiEl = document.createElement('div');
+    emojiEl.textContent = emoji || clickEmojis[Math.floor(Math.random() * clickEmojis.length)];
+    emojiEl.className = 'absolute text-2xl pointer-events-none animate-ping';
+    emojiEl.style.left = x + 'px';
+    emojiEl.style.top = y + 'px';
+    emojiEl.style.transform = 'translate(-50%, -50%)';
+    
+    container.appendChild(emojiEl);
+    
+    // Remove after animation
+    setTimeout(() => {
+      emojiEl.remove();
+    }, 1000);
+  }
+
+  function triggerClickFrenzy() {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        createFloatingEmoji(x, y);
+      }, i * 100);
+    }
+  }
+
+  // Easter Egg 3: Triple Click Dancing Cat
+  let lastClickTime = 0;
+  let clickSequence = 0;
+
+  document.addEventListener('click', (e) => {
+    const now = Date.now();
+    
+    if (now - lastClickTime < 500) {
+      clickSequence++;
+    } else {
+      clickSequence = 1;
+    }
+    
+    lastClickTime = now;
+    
+    if (clickSequence >= 3) {
+      showDancingCat();
+      clickSequence = 0;
+    }
+  });
+
+  function showDancingCat() {
+    window.haptics?.trigger('success');
+    const cat = document.getElementById('dancing-cat');
+    if (!cat) return;
+    
+    cat.classList.remove('hidden');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+      cat.classList.add('hidden');
+    }, 3000);
+  }
+
+  // Easter Egg 4: Simple Keyboard Shortcuts
+  let keySequence = '';
+  let keyTimeout;
+  
+  document.addEventListener('keydown', (e) => {
+    // Only trigger on letter keys when not typing in input fields
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      return;
+    }
+    
+    // Clear previous timeout
+    clearTimeout(keyTimeout);
+    
+    // Add key to sequence
+    keySequence += e.key.toLowerCase();
+    
+    // Check for trigger words
+    if (keySequence.includes('rainbow')) {
+      toggleRainbowMode();
+      keySequence = '';
+      return;
+    }
+    
+    if (keySequence.includes('surprise')) {
+      triggerSurprise();
+      keySequence = '';
+      return;
+    }
+    
+    if (keySequence.includes('dev')) {
+      toggleDeveloperMode();
+      keySequence = '';
+      return;
+    }
+    
+    // Reset sequence after 2 seconds of inactivity
+    keyTimeout = setTimeout(() => {
+      keySequence = '';
+    }, 2000);
+    
+    // Keep only last 10 characters to prevent memory issues
+    if (keySequence.length > 10) {
+      keySequence = keySequence.slice(-10);
+    }
+  });
+
+  let rainbowMode = false;
+  function toggleRainbowMode() {
+    rainbowMode = !rainbowMode;
+    const body = document.body;
+    
+    if (rainbowMode) {
+      window.haptics?.trigger('buzz');
+      body.style.animation = 'rainbow 3s infinite';
+      body.style.transition = 'all 0.3s ease';
+      createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '🌈');
+      
+      // Show notification
+      const notification = document.createElement('div');
+      notification.innerHTML = `
+        <div class="text-center">
+          <div class="text-lg">🌈 Rainbow Mode Activated!</div>
+          <div class="text-xs opacity-75 mt-1">Type "rainbow" again to toggle</div>
+        </div>
+      `;
+      notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-6 py-3 rounded-lg z-50 animate-bounce';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+      
+      // Auto-disable after 10 seconds
+      setTimeout(() => {
+        if (rainbowMode) {
+          body.style.animation = '';
+          rainbowMode = false;
+        }
+      }, 10000);
+    } else {
+      body.style.animation = '';
+      body.style.transition = '';
+    }
+  }
+
+  function triggerSurprise() {
+    // Random surprise effects
+    const surprises = [
+      () => {
+        // Wobbly page
+        document.body.style.transform = 'rotate(2deg)';
+        document.body.style.transition = 'transform 0.3s ease';
+        setTimeout(() => {
+          document.body.style.transform = '';
+        }, 2000);
+      },
+      () => createConfetti(),
+      () => showDancingCat(),
+      () => {
+        // Comic Sans transformation
+        const text = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div');
+        text.forEach(el => {
+          const original = el.style.fontFamily;
+          el.style.fontFamily = 'Comic Sans MS, cursive';
+          el.style.transition = 'font-family 0.3s ease';
+          setTimeout(() => {
+            el.style.fontFamily = original;
+          }, 3000);
+        });
+      },
+      () => {
+        // Upside down
+        document.body.style.transform = 'rotate(180deg)';
+        document.body.style.transition = 'transform 1s ease';
+        setTimeout(() => {
+          document.body.style.transform = '';
+        }, 3000);
+      },
+      () => {
+        // Bounce effect
+        document.body.style.animation = 'bounce 1s ease-in-out 3';
+        setTimeout(() => {
+          document.body.style.animation = '';
+        }, 3000);
+      }
+    ];
+    
+    const randomSurprise = surprises[Math.floor(Math.random() * surprises.length)];
+    window.haptics?.trigger('nudge');
+    randomSurprise();
+    
+    // Show notification
+    const notification = document.createElement('div');
+    notification.innerHTML = `
+      <div class="text-center">
+        <div class="text-lg">🎉 Surprise!</div>
+        <div class="text-xs opacity-75 mt-1">Type "surprise" for more surprises</div>
+      </div>
+    `;
+    notification.className = 'fixed top-20 right-4 bg-pink-600 text-white px-4 py-2 rounded-lg z-50 animate-pulse';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 2000);
+  }
+
+  let devMode = false;
+  function toggleDeveloperMode() {
+    devMode = !devMode;
+    
+    if (devMode) {
+      // Add debug info
+      const debugInfo = document.createElement('div');
+      debugInfo.id = 'debug-info';
+      debugInfo.className = 'fixed top-20 left-4 bg-black text-green-400 p-2 rounded font-mono text-xs z-50';
+      debugInfo.innerHTML = `
+        <div>🔧 Developer Mode Active</div>
+        <div>Screen: ${window.innerWidth}x${window.innerHeight}</div>
+        <div>User Agent: ${navigator.userAgent.split(' ')[0]}</div>
+        <div>Theme: ${document.documentElement.classList.contains('dark') ? 'Dark' : 'Light'}</div>
+        <div>Platform: ${navigator.platform}</div>
+        <div class="text-yellow-400 mt-1">Type "dev" to toggle</div>
+      `;
+      document.body.appendChild(debugInfo);
+      
+      // Add click counter
+      let devClicks = 0;
+      const clickCounter = document.createElement('div');
+      clickCounter.id = 'click-counter';
+      clickCounter.className = 'fixed top-20 right-4 bg-black text-green-400 p-2 rounded font-mono text-xs z-50';
+      clickCounter.textContent = `Clicks: ${devClicks}`;
+      document.body.appendChild(clickCounter);
+      
+      const countClicks = () => {
+        devClicks++;
+        clickCounter.textContent = `Clicks: ${devClicks}`;
+      };
+      
+      document.addEventListener('click', countClicks);
+      
+      // Store cleanup function
+      window.cleanupDevMode = () => {
+        document.removeEventListener('click', countClicks);
+        document.getElementById('debug-info')?.remove();
+        document.getElementById('click-counter')?.remove();
+      };
+    } else {
+      window.cleanupDevMode?.();
+    }
+  }
+
+  // Easter Egg 5: Confetti Effect
+  function createConfetti() {
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+    const container = document.getElementById('floating-emojis');
+    if (!container) return;
+    
+    for (let i = 0; i < 50; i++) {
+      setTimeout(() => {
+        const confetti = document.createElement('div');
+        confetti.className = 'absolute w-2 h-2 rounded-full pointer-events-none';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-10px';
+        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+        
+        container.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }, i * 50);
+    }
+  }
+
+  // Easter Egg 6: Secret Navigation
+  let secretPath = '';
+  document.addEventListener('keydown', (e) => {
+    if (e.key.length === 1) {
+      secretPath += e.key.toLowerCase();
+      
+      // Keep only last 10 characters
+      if (secretPath.length > 10) {
+        secretPath = secretPath.slice(-10);
+      }
+      
+      // Check for secret words
+      if (secretPath.includes('mangesh')) {
+        createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '👨‍💻');
+        secretPath = '';
+      } else if (secretPath.includes('hello')) {
+        createFloatingEmoji(window.innerWidth / 2, window.innerHeight / 2, '👋');
+        secretPath = '';
+      } else if (secretPath.includes('awesome')) {
+        triggerClickFrenzy();
+        secretPath = '';
+      }
+    }
+  });
+
+  // Easter Egg 7: Time-based surprises
+  const now = new Date();
+  const hour = now.getHours();
+  
+  // Late night coding mode
+  if (hour >= 23 || hour <= 5) {
+    setTimeout(() => {
+      createFloatingEmoji(window.innerWidth - 100, 100, '🌙');
+    }, 5000);
+  }
+  
+  // Friday celebration
+  if (now.getDay() === 5) {
+    setTimeout(() => {
+      createFloatingEmoji(100, 100, '🎉');
+    }, 3000);
+  }
+
+  // Random meme suggestion (5% chance)
+  if (Math.random() < 0.05) {
+    setTimeout(() => {
+      const memeNotification = document.createElement('div');
+      memeNotification.className = 'fixed bottom-4 left-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 cursor-pointer transform transition-all hover:scale-105';
+      memeNotification.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🤣</span>
+          <div class="text-sm">
+            <div class="font-bold">Need a laugh?</div>
+            <div class="opacity-90">Check out some programming memes!</div>
+          </div>
+          <button class="ml-2 text-white hover:text-gray-200">×</button>
+        </div>
+      `;
+      
+      memeNotification.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.textContent === '×') {
+          memeNotification.remove();
+        } else {
+          window.location.href = '/meme';
+        }
+      });
+      
+      document.body.appendChild(memeNotification);
+      
+      // Auto-remove after 8 seconds
+      setTimeout(() => {
+        if (document.body.contains(memeNotification)) {
+          memeNotification.style.transform = 'translateX(-100%)';
+          setTimeout(() => memeNotification.remove(), 300);
+        }
+      }, 8000);
+    }, Math.random() * 30000 + 10000); // Random delay between 10-40 seconds
+  }
+
+  // Easter Egg 8: More keyboard triggers
+  document.addEventListener('keydown', (e) => {
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      return;
+    }
+
+    // Type "gaming" for game mode notification
+    if (keySequence.includes('gaming')) {
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg z-50 animate-bounce';
+      notification.innerHTML = `
+        <div class="text-center">
+          <div class="text-lg">🎮 Gaming Mode Activated!</div>
+          <div class="text-xs opacity-75 mt-1">Go check out the games section →</div>
+        </div>
+      `;
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 3000);
+      keySequence = '';
+    }
+
+    // Type "whoami" for a secret message
+    if (keySequence.includes('whoami')) {
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-black text-green-400 px-4 py-2 rounded font-mono text-sm z-50';
+      notification.innerHTML = `
+        > whoami<br/>
+        <span class="text-yellow-400">mangesh_bide</span><br/>
+        <span class="text-gray-500">Software Engineer • Python Enthusiast • Problem Solver</span>
+      `;
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 4000);
+      keySequence = '';
+    }
+
+    // Type "hack" for a fake hacking effect
+    if (keySequence.includes('hack')) {
+      triggerHackMode();
+      keySequence = '';
+    }
+  });
+
+  // Fake hacking effect
+  function triggerHackMode() {
+    window.haptics?.trigger('buzz');
+    const hackContainer = document.createElement('div');
+    hackContainer.id = 'hack-mode';
+    hackContainer.className = 'fixed inset-0 z-50 pointer-events-none flex items-center justify-center';
+    hackContainer.innerHTML = `
+      <div class="bg-black font-mono text-green-400 p-6 rounded-lg opacity-90 max-w-md text-center">
+        <div class="text-lg font-bold mb-4 animate-pulse">🔓 SYSTEM ACCESS GRANTED</div>
+        <div class="text-xs space-y-1 mb-4 text-left">
+          <div>> Accessing mangeshbide.tech...</div>
+          <div>> Algorithms loaded: ✓</div>
+          <div>> Magic configured: ✓</div>
+          <div>> Coolness level: OVER 9000 ✓</div>
+          <div class="text-yellow-400">> Access granted to cool stuff</div>
+        </div>
+        <div class="animate-pulse">
+          [████████████████████] 100%
+        </div>
+      </div>
+    `;
+    document.body.appendChild(hackContainer);
+
+    // Add screen glitch effect
+    document.body.style.filter = 'hue-rotate(20deg)';
+    
+    setTimeout(() => {
+      document.body.style.filter = '';
+      hackContainer.remove();
+    }, 2500);
+  }
+
+
+  // Easter Egg 10: Secret sound (visual only, respects user preferences)
+  if (Math.random() < 0.02) {
+    setTimeout(() => {
+      const soundNotif = document.createElement('div');
+      soundNotif.className = 'fixed bottom-20 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg z-50 text-sm animate-pulse cursor-pointer';
+      soundNotif.textContent = '🔊 *beep boop* 👾';
+      
+      soundNotif.addEventListener('click', () => {
+        soundNotif.textContent = '🎵 You found the sound!';
+        soundNotif.style.animation = 'none';
+        setTimeout(() => soundNotif.remove(), 2000);
+      });
+      
+      document.body.appendChild(soundNotif);
+      setTimeout(() => soundNotif.remove(), 5000);
+    }, Math.random() * 60000);
+  }
+
+
+</script> <div id="quote-notification" class="fixed bottom-6 left-6 z-50 hidden transform transition-all duration-500 translate-y-10 opacity-0"> <div class="bg-white dark:bg-gray-800 border-l-4 border-blue-500 shadow-2xl rounded-lg p-5 max-w-sm relative flex items-start gap-4"> <button id="close-quote" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="Close notification"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> <div class="text-2xl mt-1 animate-bounce">💡</div> <div class="flex-1 pr-4"> <h3 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Random Wisdom</h3> <p id="quote-text" class="text-sm text-gray-700 dark:text-gray-300 italic leading-relaxed"></p> </div> </div> </div> <script>(function(){const funQuotes = ["There are 10 types of people: those who understand binary and those who don't.","Why do Java developers wear glasses? Because they don't C#!","How many programmers does it take to change a light bulb? None, that's a hardware problem.","Why did the developer go broke? Because he used up all his cache!","Debugging: Removing the needles from the haystack. Programming: Adding needles to the haystack with your eyes closed.","I would tell you a UDP joke, but you might not get it.","A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'","Why do programmers prefer dark mode? Because light attracts bugs!","The best thing about programming? It doesn't get angry when you test your code multiple times.","I'm not a great programmer; I'm just a good programmer with great habits.","Talk is cheap. Show me the code. - Linus Torvalds","The only way to make sense out of change is to plunge into it, move with it, and join the dance. - Alan Watts","Code is poetry written for machines to execute and humans to understand.","First, solve the problem. Then, write the code.","Do or do not. There is no try() in production.","Java is to JavaScript what Car is to Carpet.","It's not a bug, it's an undocumented feature!","Real programmers don't comment their code. If it was hard to write, it should be hard to read.","99 little bugs in the code, 99 little bugs... Take one down, patch it around... 127 little bugs in the code.","I'm not joking around. I'm a compiler.","Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler","Premature optimization is the root of all evil. - Donald Knuth","Make it work, make it right, make it fast. In that order.","A good programmer is someone who looks both ways before crossing a one-way street. - Doug Linder","Code without tests is broken as designed. - Jacob Kaplan-Moss","If it hurts, do it more often. - Extreme Programming","You can't have great software without a great team. - Steve Jobs","The most devastating thing to any programmer is a stupid manager. - Richard Stallman","If you think hardware is expensive, try buying software. - Tom Syroid","Measuring programming progress by lines of code is like measuring aircraft building progress by weight. - Bill Gates","90% of my code is garbage. The other 10% will be rewritten tomorrow.","Git purge: where you delete your entire project and start from scratch because merge conflicts got out of hand.","CSS: Cascading Strong Suggestions. Maybe they'll work, maybe they won't.","To understand what recursion is, you must first understand what recursion is.","As a programmer, you are not paid to create code. You are paid to solve problems.","The only valid measurement of code quality: WTFs per minute.","UNIX is simple. It just takes a genius to understand its simplicity.","The best error message is one that never appears.","Debugging is like being the detective in a crime drama, except you are also the murderer.","In programming, there are 2 hard problems: cache invalidation, naming things, and off-by-one errors."];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const lastShown = localStorage.getItem('lastQuoteShownTime');
+    const now = Date.now();
+    const FOUR_HOURS = 4 * 60 * 60 * 1000;
+
+    // Check if we should show a quote (if never shown or > 4 hours ago)
+    if (!lastShown || (now - parseInt(lastShown) > FOUR_HOURS)) {
+      const notification = document.getElementById('quote-notification');
+      const quoteText = document.getElementById('quote-text');
+      const closeBtn = document.getElementById('close-quote');
+
+      if (notification && quoteText) {
+        // Select random quote
+        const randomQuote = funQuotes[Math.floor(Math.random() * funQuotes.length)];
+        quoteText.textContent = `"${randomQuote}"`;
+
+        // Show notification with a slight delay for better UX
+        setTimeout(() => {
+          notification.classList.remove('hidden');
+          // Trigger reflow to enable transition
+          void notification.offsetWidth;
+          notification.classList.remove('translate-y-10', 'opacity-0');
+
+          // Update timestamp immediately when shown
+          localStorage.setItem('lastQuoteShownTime', now.toString());
+        }, 1500);
+
+        // Close handler
+        closeBtn?.addEventListener('click', () => {
+          notification.classList.add('translate-y-10', 'opacity-0');
+          setTimeout(() => {
+            notification.classList.add('hidden');
+          }, 500);
+        });
+      }
+    }
+  });
+})();</script> <script type="module">const l=document.getElementById("theme-toggle"),c=document.documentElement,f=localStorage.getItem("theme")||"light";f==="dark"&&c.classList.add("dark");l?.addEventListener("click",()=>{c.classList.toggle("dark");const e=c.classList.contains("dark");localStorage.setItem("theme",e?"dark":"light"),l.style.transform="scale(0.95)",setTimeout(()=>{l.style.transform=""},150)});const g=document.getElementById("mobile-menu-btn"),t=document.getElementById("mobile-menu"),o=document.getElementById("menu-open-icon"),r=document.getElementById("menu-close-icon");g?.addEventListener("click",()=>{t?.classList.contains("hidden")?(t?.classList.remove("hidden"),t?.classList.add("mobile-menu-enter"),o?.classList.add("hidden"),r?.classList.remove("hidden")):(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const v=t?.querySelectorAll("a");v?.forEach(e=>{e.addEventListener("click",()=>{t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden")})});document.addEventListener("click",e=>{const s=e.target;!t?.contains(s)&&!g?.contains(s)&&(t?.classList.add("hidden"),t?.classList.remove("mobile-menu-enter"),o?.classList.remove("hidden"),r?.classList.add("hidden"))});const m=document.getElementById("reading-progress"),n=document.getElementById("navbar");let h=window.scrollY,d=!1;const u=()=>{const e=window.scrollY,s=window.innerHeight,i=document.documentElement.scrollHeight,a=Math.min(100,Math.max(0,e/(i-s)*100));if(m&&(m.style.width=`${a}%`),n){const L=e>h,y=e>100;L&&y?n.style.transform="translateY(-100%)":n.style.transform="translateY(0)",e>20?n.classList.add("backdrop-blur-md"):n.classList.remove("backdrop-blur-md")}h=e,d=!1},b=()=>{d||(requestAnimationFrame(u),d=!0)},w={threshold:.1,rootMargin:"0px 0px -50px 0px"},p=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&(s.target.classList.add("in-view"),p.unobserve(s.target))})},w),E=document.querySelectorAll(".animate-on-scroll");E.forEach(e=>p.observe(e));const k=document.querySelectorAll("[data-stagger]");k.forEach(e=>{const s=e.children;Array.from(s).forEach((i,a)=>{i.style.animationDelay=`${a*.1}s`})});window.addEventListener("scroll",b);u();console.log(`
+        🎨 Welcome to Mangesh's Blog!
+        
+        ✨ Now with smooth animations and enhanced UX!
+        
+        🔍 Developer Tools Detected!
+        Since you're here, you might enjoy these easter eggs:
+        
+        🎮 Try the Konami Code: ↑↑↓↓←→←→BA
+        🖱️ Triple click anywhere for a surprise
+        ⌨️ Type "rainbow" for rainbow mode
+        ⌨️ Type "surprise" for a random surprise  
+        ⌨️ Type "dev" for developer mode
+        🔤 Type "mangesh", "hello", or "awesome"
+        
+        💡 There might be a secret page somewhere... 👀
+        
+        🎭 Notice the smooth animations? They respect your motion preferences!
+        
+        Happy exploring! 🚀
+      `);</script> <!-- Living Site disabled — KV free tier limit hit. Uncomment to re-enable. --> <!-- <script async src="/living-site.js" is:inline></script> --> <script type="module" src="/assets/Haptics.astro_astro_type_script_index_0_lang.uC82l1JI.js"></script> <script type="module">const w="https://portfolio-ai-proxy.mangeshbide1.workers.dev",f="ai_msg_timestamps";const L=crypto.randomUUID();function g(){const e=localStorage.getItem(f);return e?JSON.parse(e).filter(s=>Date.now()-s<36e5):[]}function p(){return g().length<40}function C(){const e=g();e.push(Date.now()),localStorage.setItem(f,JSON.stringify(e))}function T(){const e=g();return Math.max(0,40-e.length)}const y=document.getElementById("ai-chat-button"),c=document.getElementById("ai-chat-window"),R=document.getElementById("ai-chat-close"),a=document.getElementById("ai-chat-messages"),b=document.getElementById("ai-chat-form"),n=document.getElementById("ai-chat-input"),m=document.getElementById("ai-chat-submit"),u=document.getElementById("ai-chat-counter"),l=document.getElementById("ai-chat-welcome"),v=document.querySelectorAll(".ai-suggestion-chip");let d=null;y.addEventListener("click",()=>{c.classList.contains("hidden")?(c.classList.remove("hidden"),setTimeout(()=>{c.classList.add("scale-100","opacity-100"),c.classList.remove("scale-95","opacity-0")},10),n.focus()):I()});R.addEventListener("click",I);function I(){c.classList.remove("scale-100","opacity-100"),c.classList.add("scale-95","opacity-0"),setTimeout(()=>c.classList.add("hidden"),300)}n.addEventListener("input",()=>{n.style.height="auto",n.style.height=Math.min(n.scrollHeight,96)+"px";const e=n.value.trim().length;u&&(u.textContent=`${e}/300`),m.disabled=e===0||!p()});b.addEventListener("submit",async e=>{e.preventDefault();const t=n.value.trim();if(!(!t||!p())){if(!p()){r(`Rate limited: ${T()} requests remaining this hour`,"error");return}C(),r(t,"user"),n.value="",n.style.height="auto",m.disabled=!0,u&&(u.textContent="0/300"),_();try{const s=await fetch(w,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:t,sessionId:L})});if(E(),!s.ok){s.status===429?r("Rate limited. Try again later.","error"):r("Error fetching response. Please try again.","error");return}const i=(await s.json()).result||"No response received";r(i,"assistant")}catch{E(),r("Connection error. Please check your internet.","error")}finally{m.disabled=!1}}});function r(e,t){l&&l.parentElement===a&&l.remove();const s=document.createElement("div");s.className=`ai-message-wrapper ${t==="user"?"is-user":"is-bot"}`;const o=document.createElement("span");o.className=`ai-msg-label ${t==="user"?"label-user":"label-bot"}`,o.textContent=t==="user"?"You":t==="error"?"":"Mangesh AI";const i=document.createElement("div");i.className=`ai-message ai-message-${t}`,i.textContent=e,t!=="error"&&s.appendChild(o),s.appendChild(i),a.appendChild(s),a.scrollTop=a.scrollHeight}function _(){l&&l.parentElement===a&&l.remove();const e=document.createElement("div");e.className="ai-typing-wrapper";const t=document.createElement("span");t.className="ai-msg-label label-bot",t.textContent="Mangesh AI";const s=document.createElement("div");s.className="ai-typing-bubble";for(let o=0;o<3;o++){const i=document.createElement("span");i.className="ai-typing-dot",s.appendChild(i)}e.appendChild(t),e.appendChild(s),d=e,a.appendChild(e),a.scrollTop=a.scrollHeight}function E(){d&&d.parentElement===a&&(d.remove(),d=null)}v.forEach(e=>{e.addEventListener("click",()=>{n.value=e.textContent?.replace(/^\u2192\s*/,"").trim()||"",n.style.height="auto",n.style.height=n.scrollHeight+"px",m.disabled=!1,n.focus()})});function h(){const e=window.haptics;e?.nudge&&e.nudge()}y.addEventListener("click",h);v.forEach(e=>{e.addEventListener("click",h)});b.addEventListener("submit",h);</script><div id="ai-chat-container" class="fixed bottom-6 right-6 z-50" data-astro-cid-zasvxobd> <!-- Chat Button --> <button id="ai-chat-button" aria-label="Open AI Chat" data-astro-cid-zasvxobd> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-astro-cid-zasvxobd> <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" data-astro-cid-zasvxobd></path> </svg> </button> <!-- Chat Window --> <div id="ai-chat-window" class="hidden absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-[400px] h-[520px] flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0" data-astro-cid-zasvxobd> <!-- Header --> <div class="ai-header" data-astro-cid-zasvxobd> <div class="ai-header-left" data-astro-cid-zasvxobd> <div class="ai-header-avatar" data-astro-cid-zasvxobd>M</div> <div class="ai-header-info" data-astro-cid-zasvxobd> <span class="ai-header-title" data-astro-cid-zasvxobd>Ask Mangesh</span> <span class="ai-header-status" data-astro-cid-zasvxobd> <span class="ai-status-dot" data-astro-cid-zasvxobd></span>
+Online
+</span> </div> </div> <button id="ai-chat-close" aria-label="Close chat" data-astro-cid-zasvxobd> <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" data-astro-cid-zasvxobd> <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" data-astro-cid-zasvxobd></path> </svg> </button> </div> <!-- Message Area --> <div id="ai-chat-messages" class="flex-1 overflow-y-auto" data-astro-cid-zasvxobd> <!-- Welcome Message --> <div id="ai-chat-welcome" data-astro-cid-zasvxobd> <div class="ai-welcome-greeting" data-astro-cid-zasvxobd> <span class="ai-msg-label label-bot" data-astro-cid-zasvxobd>Mangesh AI</span> <div class="ai-message ai-message-assistant" data-astro-cid-zasvxobd>
+Hey! I can answer questions about Mangesh's skills, projects, and experience. What would you like to know?
+</div> </div> <div class="ai-suggestions" data-astro-cid-zasvxobd> <button class="ai-suggestion-chip" data-astro-cid-zasvxobd>What are your top skills?</button> <button class="ai-suggestion-chip" data-astro-cid-zasvxobd>Tell me about your projects</button> <button class="ai-suggestion-chip" data-astro-cid-zasvxobd>Are you available for work?</button> </div> </div> </div> <!-- Input Area --> <div class="ai-input-area" data-astro-cid-zasvxobd> <form id="ai-chat-form" data-astro-cid-zasvxobd> <div class="ai-input-wrapper" data-astro-cid-zasvxobd> <textarea id="ai-chat-input" rows="1" placeholder="Ask something..." maxlength="300" data-astro-cid-zasvxobd></textarea> </div> <button id="ai-chat-submit" type="submit" disabled data-astro-cid-zasvxobd> <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" data-astro-cid-zasvxobd> <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" data-astro-cid-zasvxobd></path> </svg> </button> </form> <div class="ai-input-footer" data-astro-cid-zasvxobd> <span class="ai-disclaimer" data-astro-cid-zasvxobd>AI responses may not be accurate and chats are logged(deleted after 90 days)</span> <span class="ai-counter" id="ai-chat-counter" data-astro-cid-zasvxobd>0/300</span> </div> </div> </div> </div> </body></html>
