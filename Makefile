@@ -105,7 +105,11 @@ maintenance-deploy-off: maintenance-off
 	@echo "✅ Site is back online!"
 
 # AI Chat Analytics - instant view of recent chats
-chats:
+chats all:
+	@node scripts/show-chats.cjs 20 all
+	@echo "📊 Opening chat viewer..."
+	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
+chats last20:
 	@node scripts/show-chats.cjs 20 all
 	@echo "📊 Opening chat viewer..."
 	@open chats-viewer.html 2>/dev/null || xdg-open chats-viewer.html 2>/dev/null || echo "✅ View: chats-viewer.html"
