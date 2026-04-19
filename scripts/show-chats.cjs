@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const limit = process.argv[2] || '20';
+const limit = process.argv[2];
 const timeFilter = process.argv[3] || 'all';
 
 // Build the SQL query
@@ -27,8 +27,11 @@ if (timeFilter === 'today') {
 } else if (timeFilter !== 'all' && !isNaN(timeFilter)) {
   sqlQuery += ` WHERE created_at >= datetime('now', '-${timeFilter} days')`;
 }
-
+if (!limit || isNaN(limit)) {
+  sqlQuery += ` ORDER BY created_at DESC;`;
+} else {
 sqlQuery += ` ORDER BY created_at DESC LIMIT ${limit};`;
+}
 
 console.log(`📊 Fetching ${limit} recent chats (${timeFilter})...`);
 
