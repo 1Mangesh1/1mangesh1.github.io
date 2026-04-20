@@ -8,9 +8,11 @@ draft: false
 
 Contact forms don't work. Visitors bounce. Questions disappear.
 
-So I built a chatbot that lives on my portfolio. It answers questions about my work, rates my skills, explains my projects. Runs on Cloudflare Workers AI (free tier), costs nothing, requires zero API keys. Response time is under 5 seconds.
+So I built a chatbot that lives on my portfolio. It answers questions about my work, rates my skills, explains my projects. Runs on Cloudflare Workers AI (free tier*), no API keys. Typical response is ~1.8s, worst-case under 5s at cold edges.
 
-This is how the whole system works. The Worker code, rate limiting, database logging, frontend integration, and what I actually learned building this.
+This is how the whole system works — the Worker code, rate limiting, database logging, frontend integration, and what I actually learned building it. I'm also going to be honest about what this architecture *doesn't* defend against, because most posts in this genre oversell it.
+
+> \* *"Free" has an asterisk.* Workers AI on the free plan runs on a daily neuron quota (roughly ~10k neurons/day at the time of writing). For a portfolio with a few dozen conversations a day you'll never notice. If a post goes viral and drives thousands of messages, you cross into paid territory. Budget accordingly.
 
 ---
 
@@ -38,40 +40,48 @@ Here's what's running:
 
 The Worker handles everything server-side. It lives in a single file: [`worker.js`](https://github.com/1mangesh1/1mangesh1.github.io/blob/main/worker.js).
 
-### CORS and Origin Validation
+### CORS and Origin Validation (and what it actually buys you)
 
 First thing the Worker does: check where the request came from.
 
-```javascript
-// worker.js — origin validation
-const ALLOWED_DOMAINS = [
-  "https://mangeshbide.tech",
-  "http://localhost",
-  "http://127.0.0.1",
-];
+A version of this check I shipped in an earlier draft had a subtle bug. Worth calling out, because I've seen the same mistake in other tutorials:
 
-const origin = request.headers.get("Origin") || "";
+```javascript
+// ❌ Broken — strips the protocol from the allowlist, but Origin always includes it.
+// "https://mangeshbide.tech".startsWith("mangeshbide.tech") === false.
+// The check passes nothing. It's a silent no-op.
 const isAllowedOrigin = ALLOWED_DOMAINS.some((domain) =>
   origin.startsWith(domain.replace("https://", "").replace("http://", ""))
 );
 ```
 
-Then it checks the `Referer` header separately:
+The fix is to match origins as whole strings (they're always exact: `scheme://host[:port]`, no path):
 
 ```javascript
-const referer = request.headers.get("Referer");
-const isAllowedReferer = ALLOWED_DOMAINS.some((domain) =>
-  referer?.startsWith(domain)
-);
-if (!referer || !isAllowedReferer) {
-  return new Response("Forbidden: Invalid Referer", {
-    status: 403,
-    headers: corsHeaders,
-  });
+// ✅ worker.js — origin check
+const ALLOWED_ORIGINS = [
+  "https://mangeshbide.tech",
+  "http://localhost:4321",
+  "http://127.0.0.1:4321",
+];
+
+const origin = request.headers.get("Origin") || "";
+const isAllowedOrigin = ALLOWED_ORIGINS.includes(origin);
+```
+
+Then I check the `Referer` header as a second layer:
+
+```javascript
+const referer = request.headers.get("Referer") || "";
+const isAllowedReferer = ALLOWED_ORIGINS.some((o) => referer.startsWith(o));
+if (!isAllowedOrigin && !isAllowedReferer) {
+  return new Response("Forbidden", { status: 403, headers: corsHeaders });
 }
 ```
 
-Two checks, not one. Origin can be spoofed. Referer can be spoofed. Together they stop casual abuse from random domains embedding your endpoint. Is this bulletproof? No. But for a public chatbot on a portfolio site, it blocks the stuff that actually happens.
+**Be honest about what this buys you.** Both `Origin` and `Referer` are client-set headers. Any scripted client — `curl`, a Python job, a hostile Worker — can send whatever it wants. These checks stop exactly one thing: a random third-party *browser page* embedding your endpoint, because the browser refuses to let the page forge them. They do **nothing** against a motivated attacker running a script.
+
+The actual defense against abuse is the rate limit, which I'll get to next. I used to describe Origin + Referer as "defense in depth"; I don't think that's honest. It's one weak check (CORS as enforced by the browser) plus one placebo (Referer on the server). Keep them — they're free — but don't count them as security.
 
 ### Rate Limiting with KV
 
@@ -106,7 +116,9 @@ if (env.RATE_LIMIT_KV) {
 
 The `expirationTtl: 3600` is critical. Without it, the counter lives forever and your visitor is permanently rate-limited. With it, KV automatically deletes the key after one hour. No cron job. No cleanup logic. The storage layer handles expiry for you.
 
-**Why 40 requests per hour?** A real conversation is 5-15 exchanges. 40 gives room for someone to have multiple conversations or come back later in the hour. But it prevents someone from scripting 10,000 requests against the endpoint.
+**Why 40 requests per hour?** A real conversation is 5-15 exchanges. 40 gives room for someone to have multiple conversations or come back later in the hour. It also prevents someone from scripting 10,000 requests against the endpoint from a single IP.
+
+**What this limit doesn't stop.** IP-based rate limiting has a known ceiling: an attacker rotating through residential proxies gets N × 40 requests/hour, where N is however many proxies they have. At 25 proxies, that's 1,000/hour — which on the free neuron quota is enough to do damage. For a portfolio chatbot this is fine, because there's nothing worth the effort of building that pipeline. But if you're protecting something more valuable, you need per-session tokens, proof-of-work, or auth — not just IP counting. Don't mistake "I have a rate limiter" for "I'm hardened."
 
 The KV binding is configured in [`wrangler.toml`](https://github.com/1mangesh1/1mangesh1.github.io/blob/main/wrangler.toml):
 
@@ -447,20 +459,34 @@ Without limits, 1000 bot requests = $0-1. But it's not about money. It's about n
 
 Two layers work: server says no, client hides the button. Users see good UX, not rate limit errors.
 
-### D1 Logging Actually Tells You Things
+### D1 Logging Actually Tells You Things (at the scale you have)
 
-Hashed IPs (with daily salt) show unique visitors but protect privacy. The logs revealed:
+Hashed IPs with a daily salt give you two useful properties at once:
+- Per-day unique visitor counts.
+- No cross-day correlation — yesterday's hash is unrecoverable, so a returning user looks like a new one. That matters, because a static hash is still a persistent identifier; daily rotation is what makes this actually privacy-preserving and not just security theatre.
 
-- 18 unique visitors in the first week
-- Questions cluster on experience, skills, projects
-- Average question: 8-15 words
-- Infrastructure and AWS dominated
+First week's logs:
 
-Real data beats guesswork. People care about infrastructure. Updated the prompt to reflect that. Without it, you're just burning tokens.
+- 25 conversations
+- 18 unique visitors
+- Average question: 8–15 words
+- Questions clustered around experience, skills, projects — infrastructure/AWS came up most often
+
+**Caveat: this is not a dataset.** 25 conversations from 18 visitors isn't enough to conclude anything with confidence. What the logs are good for at this scale is *direction-finding* — "people ask about infrastructure more than I expected" is a hypothesis worth acting on, not a validated finding. I updated the prompt to cover infra better. Whether that was the right call needs another few hundred conversations to know. Real data beats guesswork; a small amount of real data beats a large amount of guesswork by less than you'd think.
 
 ### The Real Cost is Context Switching
 
-Cloudflare Workers AI costs nothing per inference. The real costs are time: building, tuning the prompt, querying logs. The infrastructure is cheap. The thinking is expensive.
+Cloudflare Workers AI costs nothing per inference, up to the free-tier neuron quota. The real costs are time: building, tuning the prompt, querying logs. The infrastructure is cheap. The thinking is expensive.
+
+### Does this thing actually work? (The question I almost skipped)
+
+The stated motivation was "contact forms don't work, visitors bounce." The honest follow-up is: does the chatbot change that?
+
+What I know:
+- 25 conversations in a week is real engagement my contact form wasn't getting.
+- I have zero data on whether any of those 18 visitors turned into an inquiry, a hire, or anything other than a session in my logs.
+
+So the success metric I can point to is *engagement*, and the metric I actually care about — *conversion* — is still unmeasured. It's possible a well-written FAQ would do the same job with a fraction of the code. It's possible the novelty decays in month two. I'll write a follow-up once I have honest numbers on the conversion side. Until then: this post documents building the thing, not evaluating it.
 
 ## Infrastructure: Wrangler Configuration & Deployment
 
