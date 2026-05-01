@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import CopyCode from '../../components/CopyCode.astro';
+
+export async function getStaticPaths() {
+  const items = await getCollection('portfolio');
+  return items.map(item => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(d);
+---
+
+<Layout title={`${item.data.title} — Mangesh Bide`} description={item.data.description}>
+  <article class="max-w-2xl mx-auto px-6 pt-16 pb-8">
+    <header class="mb-10">
+      <h1 class="font-serif text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-3">
+        {item.data.title}
+      </h1>
+      <p class="text-lg text-ink dark:text-neutral-300 leading-relaxed mb-4">
+        {item.data.description}
+      </p>
+      <div class="text-sm text-ink-muted dark:text-neutral-500 font-mono flex flex-wrap gap-x-4 gap-y-1">
+        <time datetime={item.data.date.toISOString()}>{fmt(item.data.date)}</time>
+        <span>{item.data.tech.join(' · ')}</span>
+        {item.data.github && (
+          <a href={item.data.github} class="hover:text-forest dark:hover:text-forest-dark" rel="noopener">github</a>
+        )}
+        {item.data.demo && (
+          <a href={item.data.demo} class="hover:text-forest dark:hover:text-forest-dark" rel="noopener">demo</a>
+        )}
+      </div>
+    </header>
+
+    <div class="prose dark:prose-invert">
+      <Content />
+    </div>
+
+    <nav class="mt-16 pt-6 border-t border-neutral-200 dark:border-neutral-800 text-sm">
+      <a href="/projects" class="text-ink-muted dark:text-neutral-400 hover:text-forest dark:hover:text-forest-dark">← All projects</a>
+    </nav>
+  </article>
+
+  <CopyCode />
+</Layout>

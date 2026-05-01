@@ -1,0 +1,15 @@
+---
+import { siteConfig } from '../config/site';
+
+const lastUpdated = new Date().toISOString().slice(0, 10);
+---
+
+<footer class="border-t border-neutral-200 dark:border-neutral-800 mt-24">
+  <div class="max-w-2xl mx-auto px-6 py-8 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm text-ink-muted dark:text-neutral-400">
+    <a href={`mailto:${siteConfig.email}`} class="hover:text-forest dark:hover:text-forest-dark">{siteConfig.email}</a>
+    <a href={siteConfig.social.github} class="hover:text-forest dark:hover:text-forest-dark" rel="me noopener">GitHub</a>
+    <a href={siteConfig.social.linkedin} class="hover:text-forest dark:hover:text-forest-dark" rel="me noopener">LinkedIn</a>
+    <a href="/rss.xml" class="hover:text-forest dark:hover:text-forest-dark">RSS</a>
+    <span class="ml-auto text-xs opacity-70">Updated {lastUpdated}</span>
+  </div>
+</footer>

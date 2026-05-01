@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('portfolio'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Projects — Mangesh Bide" description="Selected engineering projects.">
+  <div class="max-w-2xl mx-auto px-6 pt-16 pb-8">
+    <h1 class="font-serif text-3xl font-bold tracking-tight mb-2">Projects</h1>
+    <p class="text-ink-muted dark:text-neutral-400 text-sm">
+      {projects.length} projects. Most recent first.
+    </p>
+  </div>
+
+  <ul class="max-w-2xl mx-auto px-6 pb-16 space-y-10">
+    {projects.map(p => (
+      <li>
+        <h2 class="mb-2">
+          <a href={`/projects/${p.id}`} class="font-serif text-xl font-bold tracking-tight text-ink dark:text-neutral-100 hover:text-forest dark:hover:text-forest-dark underline underline-offset-4 decoration-transparent hover:decoration-forest/50 dark:hover:decoration-forest-dark/50">
+            {p.data.title}
+          </a>
+        </h2>
+        <p class="text-ink dark:text-neutral-300 leading-relaxed mb-2">
+          {p.data.description}
+        </p>
+        <div class="text-xs text-ink-muted dark:text-neutral-500 font-mono flex flex-wrap gap-x-3 gap-y-1">
+          <span>{p.data.tech.join(' · ')}</span>
+          {p.data.github && (
+            <a href={p.data.github} class="hover:text-forest dark:hover:text-forest-dark" rel="noopener">github</a>
+          )}
+          {p.data.demo && (
+            <a href={p.data.demo} class="hover:text-forest dark:hover:text-forest-dark" rel="noopener">demo</a>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+</Layout>

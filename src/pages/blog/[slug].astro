@@ -1,278 +1,65 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { getCollection, getEntry, render } from "astro:content";
-import {
-  calculateReadingTime,
-  formatReadingTime,
-} from "../../utils/reading-time";
-import { getRelatedPosts } from "../../utils/related-posts";
-import SocialShare from "../../components/SocialShare.astro";
-import SummarizeWithAI from "../../components/SummarizeWithAI.astro";
-import TableOfContents from "../../components/TableOfContents.astro";
-import Giscus from "../../components/Giscus.astro";
-import CopyCode from "../../components/CopyCode.astro";
-
-import { siteConfig } from "../../config/site";
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+import CopyCode from '../../components/CopyCode.astro';
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("blog", ({ data }) => data.draft !== true);
-
-  return blogPosts.map((post) => {
-    return {
-      params: { slug: post.id },
-      props: { allPosts: blogPosts },
-    };
-  });
+  const posts = await getCollection('blog', ({ data }) => data.draft !== true);
+  return posts.map(post => ({ params: { slug: post.id } }));
 }
 
-const { allPosts } = Astro.props;
 const { slug } = Astro.params;
-const post = await getEntry("blog", slug!);
+const post = await getEntry('blog', slug!);
+if (!post) return Astro.redirect('/404');
 
-if (!post) {
-  return Astro.redirect("/404");
-}
+const { Content } = await render(post);
 
-const { Content, headings } = await render(post);
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
 
-const relatedPosts = getRelatedPosts(post, allPosts, 3);
-
-// Calculate reading time
-const readingTime = calculateReadingTime(post.body || '');
-
-// Current post URL for sharing
-const currentUrl = `${siteConfig.url}/blog/${post.id}`;
-
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(date);
-};
+const showUpdated =
+  post.data.updatedDate &&
+  post.data.updatedDate.getTime() !== post.data.pubDate.getTime();
 ---
 
 <Layout
-  title={`${post.data.title} - Mangesh's Blog`}
+  title={`${post.data.title} — Mangesh Bide`}
   description={post.data.description}
-  image={post.data.ogImage || `/og/${post.id}.png`}
+  image={post.data.ogImage || '/og-image.png'}
 >
-  <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body>
-    <header class="mb-8">
-      <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400"
-          >Blog</a
-        >
-        <span class="mx-2">/</span>
-        <span class="text-gray-900 dark:text-gray-100">{post.data.title}</span>
-      </nav>
-
-      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-
-      <div
-        class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4"
-      >
-        <time datetime={post.data.pubDate.toISOString()}>
-          {formatDate(post.data.pubDate)}
-        </time>
-        {post.data.updatedDate && post.data.updatedDate !== post.data.pubDate && (
-          <>
-            <span class="mx-2">•</span>
-            <span title="Last updated">Updated {formatDate(post.data.updatedDate)}</span>
-          </>
-        )}
-        <span class="mx-2">•</span>
-        <span>{formatReadingTime(readingTime)}</span>
+  <article class="max-w-2xl mx-auto px-6 pt-16 pb-8">
+    <header class="mb-10">
+      <h1 class="font-serif text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-4">
+        {post.data.title}
+      </h1>
+      <div class="text-sm text-ink-muted dark:text-neutral-500 font-mono">
+        <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+        {showUpdated && <span> · updated {fmt(post.data.updatedDate!)}</span>}
       </div>
-
-      {
-        post.data.description && (
-          <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
-            {post.data.description}
-          </p>
-        )
-      }
-
-      {
-        post.data.tags && (
-          <div class="flex flex-wrap gap-2 mb-8">
-            {post.data.tags.map((tag) => (
-              <a
-                href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              >
-                {tag}
-              </a>
-            ))}
-          </div>
-        )
-      }
-
     </header>
 
-    <!-- Share + Summarize actions -->
-    <div class="mb-8 flex flex-col md:flex-row md:items-center md:flex-wrap gap-3 md:gap-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-      <SocialShare
-        title={post.data.title}
-        url={currentUrl}
-        description={post.data.description}
-      />
-      <div class="hidden md:block h-6 w-px bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
-      <SummarizeWithAI url={currentUrl} />
-    </div>
-
-    <div class="prose prose-lg dark:prose-invert max-w-none">
+    <div class="prose dark:prose-invert">
       <Content />
     </div>
 
-    {
-      relatedPosts.length > 0 && (
-        <section class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
-          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {relatedPosts.map((relatedPost) => (
-              <article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                <h3 class="text-lg font-semibold mb-2">
-                  <a
-                    href={`/blog/${relatedPost.id}`}
-                    class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    {relatedPost.data.title}
-                  </a>
-                </h3>
+    {post.data.tags && post.data.tags.length > 0 && (
+      <footer class="mt-16 pt-6 border-t border-neutral-200 dark:border-neutral-800 text-sm text-ink-muted dark:text-neutral-500">
+        Tagged: {post.data.tags.map((tag, i) => (
+          <>
+            {i > 0 && <span>, </span>}
+            <a
+              href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+              class="hover:text-forest dark:hover:text-forest-dark underline underline-offset-4 decoration-transparent hover:decoration-forest/50 dark:hover:decoration-forest-dark/50"
+            >{tag}</a>
+          </>
+        ))}
+      </footer>
+    )}
 
-                <time class="text-sm text-gray-600 dark:text-gray-400 mb-3 block">
-                  {formatDate(relatedPost.data.pubDate)}
-                </time>
-
-                {relatedPost.data.description && (
-                  <p class="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
-                    {relatedPost.data.description}
-                  </p>
-                )}
-
-                {relatedPost.data.tags && (
-                  <div class="flex flex-wrap gap-1">
-                    {relatedPost.data.tags.slice(0, 3).map((tag) => (
-                      <a
-                        href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                        class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                      >
-                        {tag}
-                      </a>
-                    ))}
-                    {relatedPost.data.tags.length > 3 && (
-                      <span class="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
-                        +{relatedPost.data.tags.length - 3}
-                      </span>
-                    )}
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        </section>
-      )
-    }
-
-    <Giscus />
-
-    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-      <a
-        href="/blog"
-        class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
-      >
-        <svg
-          class="w-4 h-4 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"></path>
-        </svg>
-        Back to blog
-      </a>
-    </div>
+    <nav class="mt-8 text-sm">
+      <a href="/blog" class="text-ink-muted dark:text-neutral-400 hover:text-forest dark:hover:text-forest-dark">← All posts</a>
+    </nav>
   </article>
 
-  <!-- Floating Table of Contents -->
-  <TableOfContents headings={headings} />
-
-  <!-- Code Block Copy Functionality -->
   <CopyCode />
-
-  <!-- Mermaid JS Rendering -->
-  <script is:inline type="module">
-    document.addEventListener('DOMContentLoaded', async () => {
-      const mermaidElements = document.querySelectorAll('pre[data-language="mermaid"]');
-      if (mermaidElements.length > 0) {
-        const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
-        mermaid.initialize({ 
-          startOnLoad: false, 
-          theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'neutral' 
-        });
-        
-        for (const pre of mermaidElements) {
-          const content = pre.textContent || '';
-          const div = document.createElement('div');
-          div.className = 'mermaid flex justify-center my-8 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl overflow-x-auto border border-gray-100 dark:border-gray-700';
-          div.textContent = content;
-          pre.replaceWith(div);
-        }
-        
-        await mermaid.run({ querySelector: '.mermaid' });
-      }
-    });
-  </script>
-
-  <!-- BlogPosting Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.data.title,
-    "description": post.data.description,
-    "datePublished": post.data.pubDate.toISOString(),
-    "dateModified": post.data.updatedDate ? post.data.updatedDate.toISOString() : post.data.pubDate.toISOString(),
-    "author": {
-      "@type": "Person",
-      "name": "Mangesh Bide",
-      "url": "https://mangeshbide.tech"
-    },
-    "image": post.data.ogImage ? `https://mangeshbide.tech${post.data.ogImage}` : `https://mangeshbide.tech/og/${post.id}.png`,
-    "url": `https://mangeshbide.tech/blog/${post.id}`,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://mangeshbide.tech/blog/${post.id}`
-    }
-  })} />
-
-  <!-- BreadcrumbList Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://mangeshbide.tech"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": "https://mangeshbide.tech/blog"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": post.data.title,
-        "item": `https://mangeshbide.tech/blog/${post.id}`
-      }
-    ]
-  })} />
 </Layout>

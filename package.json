@@ -6,33 +6,22 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "test": "node --experimental-strip-types --test src/utils/reading-time.test.ts",
-    "build": "astro check && astro build && pagefind --site dist",
+    "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "maintenance:toggle": "node scripts/toggle-maintenance.js",
-    "maintenance:on": "node -e \"const fs=require('fs'); let c=fs.readFileSync('src/config/site.ts','utf8'); c=c.replace('maintenanceMode: false','maintenanceMode: true'); fs.writeFileSync('src/config/site.ts',c); console.log('🚧 Maintenance mode ON');\"",
-    "maintenance:off": "node -e \"const fs=require('fs'); let c=fs.readFileSync('src/config/site.ts','utf8'); c=c.replace('maintenanceMode: true','maintenanceMode: false'); fs.writeFileSync('src/config/site.ts',c); console.log('✅ Maintenance mode OFF');\""
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/mdx": "^4.3.13",
-    "@astrojs/partytown": "^2.1.5",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.2",
-    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/typography": "^0.5.16",
     "astro": "^6.0.8",
-    "satori": "^0.19.1",
-    "satori-html": "^0.3.2",
-    "typescript": "^5.8.3",
-    "web-haptics": "^0.0.6"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
-    "baseline-browser-mapping": "^2.9.7",
-    "pagefind": "^1.4.0",
     "tailwindcss": "^3.4.17"
   }
 }

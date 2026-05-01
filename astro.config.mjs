@@ -13,20 +13,11 @@ export default defineConfig({
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
-      // Exclude maintenance page from sitemap
-      filter: (page) => !page.includes("/maintenance"),
     }),
   ],
   site: "https://mangeshbide.tech",
   base: "/",
   build: {
     assets: "assets",
-  },
-  vite: {
-    build: {
-      rollupOptions: {
-        external: ['/pagefind/pagefind.js'],
-      },
-    },
   },
 });

@@ -1,464 +1,72 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-const title = "Mangesh Bide - Software Developer";
-const description =
-  "Mangesh Bide — software engineer. Python, Django, React, TypeScript, ML. Writing about what I build and learn.";
-
-// Get latest blog posts for featured section
-const allPosts = await getCollection("blog", ({ data }) => data.draft !== true);
-const latestPosts = allPosts
+const posts = (await getCollection('blog', ({ data }) => data.draft !== true))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 6);
+
+const projects = (await getCollection('portfolio'))
+  .filter(p => p.data.featured)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-// Get featured portfolio projects
-const allProjects = await getCollection("portfolio");
-const featuredProjects = allProjects
-  .filter((project) => project.data.featured)
-  .sort(
-    (a, b) =>
-      new Date(b.data.date || new Date()).valueOf() -
-      new Date(a.data.date || new Date()).valueOf(),
-  )
-  .slice(0, 2);
-// If no featured projects, just get the latest 2
-const projectsToShow =
-  featuredProjects.length > 0 ? featuredProjects : allProjects.slice(0, 2);
-
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }).format(new Date(date));
-};
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(d);
 ---
 
-<Layout title={title} description={description}>
-  <div class="max-w-4xl mx-auto px-4 py-12">
-    <!-- Hero Section -->
-    <div class="text-center mb-12 animate-on-scroll">
-      <div class="mb-6 animate-on-scroll scale stagger-1">
-        <img
-          src="/me.jpg"
-          alt="Mangesh Bide"
-          width="128"
-          height="128"
-          fetchpriority="high"
-          class="w-32 h-32 rounded-full mx-auto shadow-lg object-cover hover-lift transition-all duration-300 hover:shadow-2xl hover:scale-105"
-        />
-      </div>
-      <h1
-        class="text-4xl md:text-5xl font-bold mb-4 custom-gradient-text py-2 leading-tight animate-on-scroll stagger-2"
-      >
-        Hey, I'm Mangesh <span>👋</span>
-      </h1>
-      <p
-        class="text-2xl text-gray-800 dark:text-gray-200 mt-2 font-medium animate-on-scroll stagger-3"
-      >
-        Software Engineer
-      </p>
-      <p
-        class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4 leading-relaxed animate-on-scroll stagger-4"
-      >
-        I build things across the stack — Python, Django, React, TypeScript, ML, AI — and
-        write about what I learn while doing it.
-      </p>
-    </div>
+<Layout title="Mangesh Bide" description="Software engineer. Python, Django, infrastructure. Writing about what I build and learn.">
+  <article class="max-w-2xl mx-auto px-6 pt-16 pb-8">
+    <p class="text-lg leading-relaxed text-ink dark:text-neutral-200">
+      Software engineer working on backend systems and infrastructure —
+      Python, Django, AWS. Currently at Houseworks Technologies building
+      healthcare APIs. I write about what I ship, the tools I pick up,
+      and the problems that keep me up.
+    </p>
+  </article>
 
-    <!-- Proof / Numbers Row -->
-    <div class="mb-16 animate-on-scroll slide-up relative">
-      <div
-        class="bg-gray-50/50 dark:bg-gray-800/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700/50 rounded-2xl p-6 shadow-sm"
-      >
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div
-            class="flex flex-col justify-center items-center md:items-start space-y-4 md:border-r border-gray-200 dark:border-gray-700 md:pr-8"
-          >
-            <div class="flex items-center space-x-4 hover-lift">
-              <div
-                class="p-3 bg-blue-100 dark:bg-blue-900/40 rounded-lg text-blue-600 dark:text-cyan-400"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  ><path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                  ></path></svg
-                >
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold">{allPosts.length}+</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                  Technical Articles Written
-                </p>
-              </div>
+  <section class="max-w-2xl mx-auto px-6 py-8">
+    <h2 class="font-serif text-sm tracking-wider uppercase text-ink-muted dark:text-neutral-500 mb-5">Writing</h2>
+    <ul class="space-y-4">
+      {posts.map(post => (
+        <li class="flex items-baseline justify-between gap-6">
+          <a href={`/blog/${post.id}`} class="text-ink dark:text-neutral-100 hover:text-forest dark:hover:text-forest-dark underline-offset-4 decoration-transparent hover:decoration-forest/50 dark:hover:decoration-forest-dark/50 underline">
+            {post.data.title}
+          </a>
+          <time datetime={post.data.pubDate.toISOString()} class="shrink-0 text-sm text-ink-muted dark:text-neutral-500 font-mono">
+            {fmt(post.data.pubDate)}
+          </time>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-6 text-sm">
+      <a href="/blog" class="text-ink-muted dark:text-neutral-400 hover:text-forest dark:hover:text-forest-dark">All posts →</a>
+    </p>
+  </section>
+
+  <section class="max-w-2xl mx-auto px-6 py-8">
+    <h2 class="font-serif text-sm tracking-wider uppercase text-ink-muted dark:text-neutral-500 mb-5">Projects</h2>
+    <ul class="space-y-5">
+      {projects.map(project => (
+        <li>
+          <a href={`/projects/${project.id}`} class="block group">
+            <div class="flex items-baseline justify-between gap-4 mb-1">
+              <span class="text-ink dark:text-neutral-100 group-hover:text-forest dark:group-hover:text-forest-dark underline underline-offset-4 decoration-transparent group-hover:decoration-forest/50 dark:group-hover:decoration-forest-dark/50">
+                {project.data.title}
+              </span>
+              <span class="shrink-0 text-xs text-ink-muted dark:text-neutral-500 font-mono">
+                {project.data.tech.slice(0, 3).join(' · ')}
+              </span>
             </div>
-            <div class="flex items-center space-x-4 hover-lift">
-              <div
-                class="p-3 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg text-emerald-600 dark:text-cyan-400"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  ><path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg
-                >
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold">Production Apps</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                  Deployed and actively serving users
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="w-full flex-col items-center flex hover-lift">
-            <h3
-              class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 text-center"
-            >
-              GitHub Activity
-            </h3>
-            <a
-              href="https://github.com/1mangesh1"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block w-full overflow-hidden hover:opacity-90 transition-opacity"
-            >
-              <!-- Fetch GitHub chart for 1mangesh1 -->
-              <img
-                src="https://ghchart.rshah.org/1mangesh1"
-                alt="Mangesh's GitHub Contributions"
-                class="w-full dark:hidden rounded-lg mx-auto"
-              />
-              <!-- Invert for dark mode viewing -->
-              <img
-                src="https://ghchart.rshah.org/1mangesh1"
-                alt="Mangesh's GitHub Contributions"
-                class="w-full hidden dark:block rounded-lg mx-auto"
-                style="filter: invert(1) hue-rotate(180deg);"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Featured Blog Posts -->
-    <div class="mb-16">
-      <div class="flex justify-between items-end mb-6">
-        <h2 class="text-3xl font-bold">Latest Writing</h2>
-        <a
-          href="/blog"
-          class="text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
-          >View all posts →</a
-        >
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6 mb-6" data-stagger>
-        {
-          latestPosts.map((post) => (
-            <article class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col">
-              <div class="p-6 flex flex-col h-full">
-                <time class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 block">
-                  {formatDate(post.data.pubDate)}
-                </time>
-                <h3 class="text-lg font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-2">
-                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                </h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                  {post.data.description}
-                </p>
-                <div class="mt-auto pt-4">
-                  <a
-                    href={`/blog/${post.id}`}
-                    class="inline-flex items-center text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium"
-                  >
-                    Read article →
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-      <div class="text-center sm:hidden mb-12">
-        <a
-          href="/blog"
-          class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
-        >
-          View all posts
-        </a>
-      </div>
-    </div>
-
-    <!-- Featured Projects -->
-    <div class="mb-20">
-      <div class="flex justify-between items-end mb-6">
-        <h2 class="text-3xl font-bold">Featured Projects</h2>
-        <a
-          href="/portfolio"
-          class="text-emerald-600 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
-          >View portfolio →</a
-        >
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8 mb-6" data-stagger>
-        {
-          projectsToShow.map((project) => (
-            <article class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col">
-              <a href={`/portfolio/${project.id}`} class="block">
-                {project.data.image ? (
-                  <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-                    <img
-                      src={project.data.image}
-                      alt={project.data.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ) : (
-                  <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 relative flex items-center justify-center p-6">
-                    <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiAvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMDAwIiAvPgo8L3N2Zz4=')]"></div>
-                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-emerald-500/10 dark:bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
-                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-colors duration-500"></div>
-                    <h3 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 z-10 drop-shadow-sm group-hover:scale-105 transition-transform duration-500">{project.data.title}</h3>
-                  </div>
-                )}
-              </a>
-              <div class="p-6 flex flex-col flex-grow">
-                <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-cyan-400 transition-colors">
-                  <a href={`/portfolio/${project.id}`}>
-                    {project.data.title}
-                  </a>
-                </h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">
-                  {project.data.description}
-                </p>
-                {project.data.tech && (
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    {project.data.tech.slice(0, 3).map((t: string) => (
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md font-medium">
-                        {t}
-                      </span>
-                    ))}
-                    {project.data.tech.length > 3 && (
-                      <span class="text-xs text-gray-500 flex items-center px-1">
-                        +{project.data.tech.length - 3}
-                      </span>
-                    )}
-                  </div>
-                )}
-                <a
-                  href={`/portfolio/${project.id}`}
-                  class="inline-flex items-center text-emerald-600 dark:text-cyan-400 hover:underline text-sm font-medium mt-auto border border-emerald-200 dark:border-cyan-800 px-4 py-2 rounded self-start"
-                >
-                  View Details
-                </a>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-      <div class="text-center sm:hidden mb-12">
-        <a
-          href="/portfolio"
-          class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
-        >
-          View all projects
-        </a>
-      </div>
-    </div>
-
-    <hr class="border-gray-200 dark:border-gray-800 my-16" />
-
-    <!-- About Section / Philosophy -->
-    <div class="prose prose-lg dark:prose-invert max-w-none mb-16">
-      <div
-        class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 mb-12 hover-lift animate-on-scroll border border-gray-200 dark:border-gray-700/50"
-      >
-        <h2 class="text-2xl font-semibold mb-6 text-center mt-0 border-b-0">
-          My Tech Sandbox
-        </h2>
-        <div class="grid md:grid-cols-3 gap-6 text-center mt-8" data-stagger>
-          <div class="animate-on-scroll card-animate">
-            <div class="text-4xl mb-3">🐍</div>
-            <h3 class="text-lg font-bold mb-2">Backend Architecture</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              APIs and backend systems with Python, Django, and
-              PostgreSQL.
+            <p class="text-sm text-ink-muted dark:text-neutral-400 leading-relaxed">
+              {project.data.description}
             </p>
-          </div>
-          <div class="animate-on-scroll card-animate">
-            <div class="text-4xl mb-3">🤖</div>
-            <h3 class="text-lg font-bold mb-2">Applied AI/ML</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Integrating language models, vector stores, and intelligent agents
-              into products.
-            </p>
-          </div>
-          <div class="animate-on-scroll card-animate">
-            <div class="text-4xl mb-3">🌐</div>
-            <h3 class="text-lg font-bold mb-2">Web Development</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              React, Next.js, Astro, TypeScript — building the frontend
-              side of things.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="animate-on-scroll mb-10">
-        <h3>Why this site exists</h3>
-        <p>
-          Mostly so I have somewhere to put the things I figure out. If it
-          helps someone else along the way, even better.
-        </p>
-      </div>
-    </div>
-
-    <!-- Quick navigation to secondary sections -->
-    <div class="mt-16 pt-12 border-t border-gray-200 dark:border-gray-700">
-      <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">
-        Explore More
-      </h2>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-stagger>
-        <a
-          href="/about"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
-        >
-          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
-            👨‍💻
-          </div>
-          <h4 class="font-semibold mb-2">About Me</h4>
-          <p class="text-xs text-gray-600 dark:text-gray-400 m-0">
-            My journey as a dev
-          </p>
-        </a>
-        <a
-          href="/resources"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
-        >
-          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
-            📚
-          </div>
-          <h4 class="font-semibold mb-2">Resources</h4>
-          <p class="text-xs text-gray-600 dark:text-gray-400 m-0">
-            Curated learning
-          </p>
-        </a>
-        <a
-          href="/now"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
-        >
-          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
-            🎯
-          </div>
-          <h4 class="font-semibold mb-2">Now</h4>
-          <p class="text-xs text-gray-600 dark:text-gray-400 m-0">
-            Current focus
-          </p>
-        </a>
-        <a
-          href="/games"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
-        >
-          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">
-            🎮
-          </div>
-          <h4 class="font-semibold mb-2">Games</h4>
-          <p class="text-xs text-gray-600 dark:text-gray-400 m-0">
-            Interactive demos
-          </p>
-        </a>
-      </div>
-
-      <!-- Call to Action & Quick Links -->
-      <div class="mt-20 pt-8 animate-on-scroll">
-        <div class="text-center mb-10">
-          <h3 class="text-xl font-bold mb-2">Say hi</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-6">
-            Got a question, idea, or just want to chat? I'm around.
-          </p>
-          <a
-            href="/contact"
-            class="inline-block custom-gradient-bg text-white px-8 py-3 rounded-lg hover:opacity-90 transition-all font-medium btn-primary hover-lift shadow-md"
-          >
-            Get In Touch
           </a>
-        </div>
-
-        <div
-          class="flex flex-wrap justify-center items-center gap-6 text-sm"
-          data-stagger
-        >
-          <a
-            href="/rss.xml"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
-          >
-            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M3.429 2.4A17.5 17.5 0 0118 18h-2.5a15 15 0 00-15-15v-2.5zM3.429 7.9A7.5 7.5 0 0111 15.5H8.5a5 5 0 00-5-5V7.9zM6.4 13.6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
-              ></path>
-            </svg>
-            RSS Feed
-          </a>
-          <span class="text-gray-300 dark:text-gray-600 animate-on-scroll"
-            >•</span
-          >
-          <a
-            href="/search"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
-          >
-            <svg
-              class="w-4 h-4 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            Search
-          </a>
-          <span class="text-gray-300 dark:text-gray-600 animate-on-scroll"
-            >•</span
-          >
-          <a
-            href="/resume"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
-          >
-            <svg
-              class="w-4 h-4 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              ></path>
-            </svg>
-            Resume
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-6 text-sm">
+      <a href="/projects" class="text-ink-muted dark:text-neutral-400 hover:text-forest dark:hover:text-forest-dark">All projects →</a>
+    </p>
+  </section>
 </Layout>

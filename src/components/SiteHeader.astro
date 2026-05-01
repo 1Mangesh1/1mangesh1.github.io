@@ -1,0 +1,33 @@
+---
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  if (href === '/') return path === '/';
+  return path === href || path.startsWith(href + '/');
+};
+
+const links = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/now', label: 'Now' },
+  { href: '/uses', label: 'Uses' },
+];
+---
+
+<header class="border-b border-neutral-200 dark:border-neutral-800">
+  <nav class="max-w-2xl mx-auto px-6 py-6 flex items-baseline justify-between gap-6">
+    <a href="/" class={`font-serif text-lg ${isActive('/') ? 'font-bold' : 'font-normal'} hover:text-forest dark:hover:text-forest-dark`}>
+      Mangesh Bide
+    </a>
+    <div class="flex items-baseline gap-5 text-sm">
+      {links.map(link => (
+        <a
+          href={link.href}
+          class={`${isActive(link.href) ? 'text-ink dark:text-neutral-100 font-medium underline underline-offset-4 decoration-forest dark:decoration-forest-dark' : 'text-ink-muted dark:text-neutral-400'} hover:text-ink dark:hover:text-neutral-100`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

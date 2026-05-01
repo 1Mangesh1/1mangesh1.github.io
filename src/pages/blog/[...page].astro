@@ -1,134 +1,54 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { calculateReadingTime, formatReadingTime } from '../../utils/reading-time';
 import type { GetStaticPaths, Page } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const allPosts = (await getCollection('blog')).filter(post => post.data.draft !== true);
+  const posts = (await getCollection('blog'))
+    .filter(p => p.data.draft !== true)
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-  // Sort by date (newest first)
-  const sortedPosts = allPosts.sort((a, b) => {
-    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-  });
-
-  return paginate(sortedPosts, { pageSize: 6 });
+  return paginate(posts, { pageSize: 20 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props as { page: Page<CollectionEntry<'blog'>> };
 
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date);
-};
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(d);
+
+const title = page.currentPage > 1 ? `Blog — Page ${page.currentPage}` : 'Blog';
 ---
 
-<Layout title={`Blog ${page.currentPage > 1 ? `• Page ${page.currentPage}` : ''} | Mangesh Bide`} description="Articles about software development, machine learning, Python, Django, JavaScript, web development, and tech insights.">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-    <div class="mb-12">
-      <h1 class="text-4xl font-bold mb-4">Blog</h1>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">Thoughts on software development, AI, and technology</p>
-      
-      <div class="flex items-center gap-4">
-        <a 
-          href="/blog/tags" 
-          class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        >
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-          </svg>
-          Browse by Tags
-        </a>
-        
-        <a 
-          href="/rss.xml" 
-          class="inline-flex items-center px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-lg hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors"
-        >
-          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M3.429 2.429A.571.571 0 002.857 3v14c0 .316.256.571.572.571h14c.315 0 .571-.255.571-.571V3a.571.571 0 00-.571-.571H3.43zM8.57 15.429a1.714 1.714 0 11-3.428 0 1.714 1.714 0 013.428 0zm2.857 0c0-2.527-2.044-4.571-4.571-4.571V9.143c3.78 0 6.857 3.077 6.857 6.857h-2.286zm2.857 0c0-3.78-3.077-6.857-6.857-6.857V6.857c5.037 0 9.143 4.106 9.143 9.143h-2.286z"></path>
-          </svg>
-          RSS Feed
-        </a>
-      </div>
-    </div>
-
-    <div class="space-y-8">
-      {page.data.map((post) => (
-        <article class="border-b border-gray-200 dark:border-gray-700 pb-8 last:border-b-0">
-          <div class="flex flex-col space-y-3">
-            <h2 class="text-2xl font-semibold">
-              <a 
-                href={`/blog/${post.id}`}
-                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                {post.data.title}
-              </a>
-            </h2>
-            
-            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-              <time datetime={post.data.pubDate.toISOString()}>
-                {formatDate(post.data.pubDate)}
-              </time>
-              <span class="mx-2">•</span>
-              <span>{formatReadingTime(calculateReadingTime(post.body|| ''))}</span>
-            </div>
-            
-            {post.data.description && (
-              <p class="text-gray-700 dark:text-gray-300">{post.data.description}</p>
-            )}
-            
-            {post.data.tags && (
-              <div class="flex flex-wrap gap-2">
-                {post.data.tags.map((tag) => (
-                  <a
-                    href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-                    class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            )}
-            
-            <a 
-              href={`/blog/${post.id}`}
-              class="text-blue-600 dark:text-blue-400 hover:underline font-medium self-start"
-            >
-              Read more →
-            </a>
-          </div>
-        </article>
-      ))}
-    </div>
-
-    {/* Pagination Controls */}
-    <nav aria-label="Blog pagination" class="mt-12 mb-8 flex justify-between items-center relative z-[70]">
-      {page.url.prev ? (
-        <a href={page.url.prev.endsWith('/') ? page.url.prev : `${page.url.prev}/`} class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-          ← Previous
-        </a>
-      ) : (
-        <span class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900 cursor-not-allowed">
-          ← Previous
-        </span>
-      )}
-
-      <span class="text-sm text-gray-600 dark:text-gray-400">
-        Page {page.currentPage} of {page.lastPage}
-      </span>
-
-      {page.url.next ? (
-        <a href={page.url.next.endsWith('/') ? page.url.next : `${page.url.next}/`} class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-          Next →
-        </a>
-      ) : (
-        <span class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900 cursor-not-allowed">
-          Next →
-        </span>
-      )}
-    </nav>
+<Layout title={`${title} — Mangesh Bide`} description="Writing on software, infrastructure, and things I learn.">
+  <div class="max-w-2xl mx-auto px-6 pt-16 pb-8">
+    <h1 class="font-serif text-3xl font-bold tracking-tight mb-2">Writing</h1>
+    <p class="text-ink-muted dark:text-neutral-400 text-sm">
+      {page.total} posts. <a href="/rss.xml" class="hover:text-forest dark:hover:text-forest-dark">RSS</a>.
+    </p>
   </div>
+
+  <ul class="max-w-2xl mx-auto px-6 pb-16 space-y-4">
+    {page.data.map(post => (
+      <li class="flex items-baseline justify-between gap-6">
+        <a href={`/blog/${post.id}`} class="text-ink dark:text-neutral-100 hover:text-forest dark:hover:text-forest-dark underline underline-offset-4 decoration-transparent hover:decoration-forest/50 dark:hover:decoration-forest-dark/50">
+          {post.data.title}
+        </a>
+        <time datetime={post.data.pubDate.toISOString()} class="shrink-0 text-sm text-ink-muted dark:text-neutral-500 font-mono">
+          {fmt(post.data.pubDate)}
+        </time>
+      </li>
+    ))}
+  </ul>
+
+  {(page.url.prev || page.url.next) && (
+    <nav aria-label="Pagination" class="max-w-2xl mx-auto px-6 pb-16 flex justify-between text-sm">
+      {page.url.prev ? (
+        <a href={page.url.prev} class="text-ink-muted dark:text-neutral-400 hover:text-forest dark:hover:text-forest-dark">← Newer</a>
+      ) : <span />}
+      <span class="text-ink-muted dark:text-neutral-500 font-mono text-xs">{page.currentPage} / {page.lastPage}</span>
+      {page.url.next ? (
+        <a href={page.url.next} class="text-ink-muted dark:text-neutral-400 hover:text-forest dark:hover:text-forest-dark">Older →</a>
+      ) : <span />}
+    </nav>
+  )}
 </Layout>
