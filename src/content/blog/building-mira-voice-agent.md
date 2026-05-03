@@ -187,10 +187,10 @@ In rough priority order.
 
 ## Where it lives
 
-- Backend repo: github.com/1Mangesh1/voice-agent-demo-backend
-- Frontend repo: github.com/1Mangesh1/voice-agent-demo-frontend
-- Live: voice-agent-demo-frontend.vercel.app
-- Backend health: voice-agent-demo-api.onrender.com/health
+- Backend repo: [github.com/1Mangesh1/voice-agent-demo-backend](https://github.com/1Mangesh1/voice-agent-demo-backend)
+- Frontend repo: [github.com/1Mangesh1/voice-agent-demo-frontend](https://github.com/1Mangesh1/voice-agent-demo-frontend)
+- Live: [voice-agent-demo-frontend.vercel.app](https://voice-agent-demo-frontend.vercel.app)
+- Backend health: [voice-agent-demo-api.onrender.com/health](https://voice-agent-demo-api.onrender.com/health)
 
 Both READMEs are written like a person wrote them, because one did. Each repo has a "what's not implemented (and why)" section, which I find more useful than the usual feature list.
 
