@@ -135,6 +135,7 @@ Link copied to clipboard!
 </ul>
 <p>More on the second one below.</p>
 <h2 id="how-tool-calling-actually-works-in-this-stack">How tool calling actually works in this stack</h2>
+<p><img src="/images/blogs/voice-agent/live%20avatar%20with%20tool%20call.png" alt="Mira&#x27;s live avatar mid-call, with the tool ticker showing a tool execution"></p>
 <p>Tavus’s documentation says explicitly: <em>Tavus does not execute tool calls on the backend.</em> When the LLM decides to call <code>book_appointment</code>, it broadcasts a <code>conversation.tool_call</code> event into the Daily room as an <code>app-message</code>:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
 <span class="line"><span style="color:#79B8FF">  "message_type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"conversation"</span><span style="color:#E1E4E8">,</span></span>
@@ -242,6 +243,7 @@ Link copied to clipboard!
 <li><strong>Filter any utterance containing <code>[tool_result]</code> out of the visible transcript</strong> (Tavus emits a <code>conversation.utterance</code> event for our <code>respond</code> text, which would otherwise appear in the chat panel as the user saying it).</li>
 </ol>
 <p>Belt and braces and a third thing. Without all three, the experience falls apart.</p>
+<p><img src="/images/blogs/voice-agent/chat.png" alt="Live transcript panel: only the user&#x27;s words and Mira&#x27;s spoken replies, with [tool_result] echoes filtered out"></p>
 <p>The current echo includes a directive sentence so the LLM knows what to do with the data:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#B392F0">sendRespond</span><span style="color:#E1E4E8">(</span></span>
 <span class="line"><span style="color:#9ECBFF">  `${</span><span style="color:#79B8FF">TOOL_PREFIX</span><span style="color:#9ECBFF">} The ${</span><span style="color:#E1E4E8">name</span><span style="color:#9ECBFF">} tool returned: ${</span><span style="color:#79B8FF">JSON</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">stringify</span><span style="color:#9ECBFF">(</span><span style="color:#E1E4E8">result</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">}. `</span><span style="color:#F97583"> +</span></span>
@@ -306,6 +308,7 @@ Link copied to clipboard!
 <h2 id="what-it-costs-to-run">What it costs to run</h2>
 <p>Per-call cost is <code>duration_minutes × TAVUS_RATE_USD_PER_MIN</code> (default 0.15). Gemini summaries are effectively free at this volume (a 60-second call’s transcript is under 1k tokens).</p>
 <p>A 90-second call comes out to ~$0.225 USD or about ₹19. The free Tavus tier is 25 minutes per month, roughly 16 calls. The summary card shows both USD and INR, with <code>USD_TO_INR</code> as an env var so the rate updates without a redeploy.</p>
+<p><img src="/images/blogs/voice-agent/summary.png" alt="Post-call summary card: Gemini-generated recap with duration, cost in USD/INR, and tool calls made"></p>
 <p>At weekend volumes that math is fine. At anything resembling production volume the Tavus per-minute would dominate, which is why most of what comes next is about owning more of the pipeline.</p>
 <h2 id="what-id-change-for-production">What I’d change for production</h2>
 <p>In rough priority order.</p>
