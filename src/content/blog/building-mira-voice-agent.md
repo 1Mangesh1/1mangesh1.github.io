@@ -43,6 +43,8 @@ More on the second one below.
 
 ## How tool calling actually works in this stack
 
+![Mira's live avatar mid-call, with the tool ticker showing a tool execution](</images/blogs/voice-agent/live avatar with tool call.png>)
+
 Tavus's documentation says explicitly: *Tavus does not execute tool calls on the backend.* When the LLM decides to call `book_appointment`, it broadcasts a `conversation.tool_call` event into the Daily room as an `app-message`:
 
 ```json
@@ -130,6 +132,8 @@ The fix has three parts:
 
 Belt and braces and a third thing. Without all three, the experience falls apart.
 
+![Live transcript panel: only the user's words and Mira's spoken replies, with `[tool_result]` echoes filtered out](/images/blogs/voice-agent/chat.png)
+
 The current echo includes a directive sentence so the LLM knows what to do with the data:
 
 ```ts
@@ -173,6 +177,8 @@ The 512 MB memory cap killed my LiveKit Agents stack under default subprocess pr
 Per-call cost is `duration_minutes × TAVUS_RATE_USD_PER_MIN` (default 0.15). Gemini summaries are effectively free at this volume (a 60-second call's transcript is under 1k tokens).
 
 A 90-second call comes out to ~$0.225 USD or about ₹19. The free Tavus tier is 25 minutes per month, roughly 16 calls. The summary card shows both USD and INR, with `USD_TO_INR` as an env var so the rate updates without a redeploy.
+
+![Post-call summary card: Gemini-generated recap with duration, cost in USD/INR, and tool calls made](/images/blogs/voice-agent/summary.png)
 
 At weekend volumes that math is fine. At anything resembling production volume the Tavus per-minute would dominate, which is why most of what comes next is about owning more of the pipeline.
 
