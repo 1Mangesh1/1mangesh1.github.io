@@ -3,7 +3,7 @@ title: "Tavus CVI + Daily React: hands-on with tool calling"
 description: "What actually happens when an AI replica calls a function on the wire: Daily app-messages, conversation.respond, the [tool_result] convention, and why <DailyVideo> beats raw <video>."
 pubDate: 2026-05-04T00:00:00Z
 tags: ["tavus", "daily", "react", "voice-ai", "webrtc"]
-draft: true
+draft: false
 ---
 
 I built a clinic front-desk voice agent on Tavus CVI over a weekend, mostly to see what the integration actually felt like under load. The companion post, *Building Mira: a voice front-desk in 48 hours*, is the journey version. This one is the technical writeup: what happens on the wire when the LLM calls a tool, how the frontend wires into Daily, and the patterns that took me three iterations to get right.
