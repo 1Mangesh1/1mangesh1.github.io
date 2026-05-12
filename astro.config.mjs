@@ -19,6 +19,9 @@ export default defineConfig({
   ],
   site: "https://mangeshbide.tech",
   base: "/",
+  redirects: {
+    "/dead": "https://mangeshbide-job-researcher.hf.space",
+  },
   build: {
     assets: "assets",
   },
