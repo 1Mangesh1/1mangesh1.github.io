@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection, getEntry, render } from "astro:content";
+import { getEntry, render } from "astro:content";
+import { getPublishedPosts } from "../../utils/published-posts";
 import {
   calculateReadingTime,
   formatReadingTime,
@@ -15,7 +16,7 @@ import CopyCode from "../../components/CopyCode.astro";
 import { siteConfig } from "../../config/site";
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("blog", ({ data }) => data.draft !== true);
+  const blogPosts = await getPublishedPosts();
 
   return blogPosts.map((post) => {
     return {

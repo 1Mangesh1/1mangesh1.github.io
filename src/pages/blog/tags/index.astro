@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../../../utils/published-posts';
 import Layout from '../../../layouts/Layout.astro';
 
 // Get all blog posts
-const posts = await getCollection('blog');
+const posts = await getPublishedPosts();
 
 // Extract and count tags
 const tagCounts = new Map<string, number>();
