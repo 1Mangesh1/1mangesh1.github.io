@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../../../utils/published-posts';
 import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getPublishedPosts();
   const tags = new Set();
   
   posts.forEach(post => {
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.params;
-const posts = await getCollection('blog');
+const posts = await getPublishedPosts();
 
 // Find the original tag name (with proper casing)
 const originalTag = posts

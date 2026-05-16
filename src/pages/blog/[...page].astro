@@ -1,11 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
+import { getPublishedPosts } from '../../utils/published-posts';
 import { calculateReadingTime, formatReadingTime } from '../../utils/reading-time';
 import type { GetStaticPaths, Page } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const allPosts = (await getCollection('blog')).filter(post => post.data.draft !== true);
+  const allPosts = await getPublishedPosts();
 
   // Sort by date (newest first)
   const sortedPosts = allPosts.sort((a, b) => {
