@@ -4,6 +4,9 @@
 
 <style>
   #ai-chat-container {
+    /* Respect iOS safe area so FAB doesn't sit under the home indicator */
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    right: calc(1.5rem + env(safe-area-inset-right, 0px));
     --chat-emerald: #10b981;
     --chat-emerald-dark: #059669;
     --chat-blue: #3b82f6;
@@ -24,6 +27,18 @@
     border-radius: 16px;
     width: 52px;
     height: 52px;
+  }
+
+  /* Shrink FAB on small viewports so it doesn't occlude footer/nav content */
+  @media (max-width: 640px) {
+    #ai-chat-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+    }
+  }
+
+  #ai-chat-button {
     display: flex;
     align-items: center;
     justify-content: center;
