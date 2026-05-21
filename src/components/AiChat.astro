@@ -559,7 +559,9 @@
 </style>
 
 <script>
-  const WORKER_URL = 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
+  // Defer initialization to improve Interaction to Next Paint (INP)
+  const initAiChat = () => {
+    const WORKER_URL = 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
   const MESSAGE_REQUEST_KEY = 'ai_msg_timestamps';
   const RATE_LIMIT_PER_HOUR = 40;
 
@@ -782,6 +784,13 @@
     chip.addEventListener('click', triggerHaptic);
   });
   form.addEventListener('submit', triggerHaptic);
+  };
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(initAiChat);
+  } else {
+    setTimeout(initAiChat, 1);
+  }
 </script>
 
 <div id="ai-chat-container" class="fixed bottom-6 right-6 z-50">
