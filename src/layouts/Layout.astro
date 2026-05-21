@@ -12,6 +12,7 @@ export interface Props {
   image?: string;
   canonical?: string;
   noindex?: boolean;
+  schema?: Record<string, any> | Record<string, any>[];
 }
 
 const { 
@@ -19,7 +20,8 @@ const {
   description = "Software Developer | Python | Django | Machine Learning | Web Development", 
   image = "/og-image.png",
   canonical,
-  noindex = false
+  noindex = false,
+  schema
 } = Astro.props;
 
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteConfig.url);
@@ -98,10 +100,13 @@ try {
     <meta name="image" content={imageURL} />
     
     <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
+    <script type="application/ld+json" set:html={JSON.stringify((() => {
+      const isHomePage = Astro.url.pathname === '/';
+      
+      const personSchema = {
         "@context": "https://schema.org",
         "@type": "Person",
+        "@id": "https://mangeshbide.tech/#person",
         "name": "Mangesh Bide",
         "url": "https://mangeshbide.tech",
         "image": "https://mangeshbide.tech/og-image.png",
@@ -112,14 +117,70 @@ try {
           "name": "Houseworks Technologies"
         },
         "alumniOf": "https://www.rcpit.ac.in",
-        "knowsAbout": ["Python", "Django", "Machine Learning", "Web Development", "TensorFlow"],
+        "knowsAbout": ["Python", "Django", "React", "TypeScript", "Astro", "Terraform", "OCI", "AWS"],
         "sameAs": [
           "https://github.com/1mangesh1",
           "https://x.com/Mangesh_Bide",
           "https://linkedin.com/in/mangesh-bide/"
         ]
+      };
+
+      const websiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://mangeshbide.tech/#website",
+        "url": "https://mangeshbide.tech/",
+        "name": "Mangesh Bide",
+        "publisher": { "@id": "https://mangeshbide.tech/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://mangeshbide.tech/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      };
+
+      const baseSchemas = [websiteSchema, personSchema];
+      
+      if (!isHomePage) {
+        const paths = Astro.url.pathname.split('/').filter(Boolean);
+        if (paths.length > 0) {
+          const breadcrumbSchema = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://mangeshbide.tech/"
+              }
+            ]
+          };
+          
+          let currentPath = "https://mangeshbide.tech";
+          paths.forEach((path, index) => {
+            currentPath += `/${path}`;
+            breadcrumbSchema.itemListElement.push({
+              "@type": "ListItem",
+              "position": index + 2,
+              "name": path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' '),
+              "item": currentPath + (index === paths.length - 1 && !currentPath.endsWith('/') ? '/' : '')
+            });
+          });
+          baseSchemas.push(breadcrumbSchema as any);
+        }
       }
-    </script>
+
+      if (schema) {
+        if (Array.isArray(schema)) {
+          baseSchemas.push(...schema);
+        } else {
+          baseSchemas.push(schema as any);
+        }
+      }
+
+      return baseSchemas;
+    })())} />
     
     <!-- Animation Styles (loaded synchronously to prevent FOUC) -->
     <link rel="stylesheet" href="/animations.css">
