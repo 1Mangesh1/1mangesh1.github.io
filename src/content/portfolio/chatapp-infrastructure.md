@@ -90,3 +90,16 @@ graph TD
 - **Resource Tagging**: Organization and cost tracking for all resources
 - **State Management**: Remote state storage with locking mechanism
 
+## Architecture Decisions
+
+- **Why Terraform over CloudFormation**: Provider-agnostic syntax kept the door open for multi-cloud, and the module ecosystem meant battle-tested patterns for VPC/ALB/ASG were available rather than hand-rolling each resource.
+- **Why EC2 + ASG over Fargate/EKS**: For a chat app at this scale, container orchestration overhead wasn't justified — EC2 with an Auto Scaling Group gave horizontal scale without the control-plane cost of Kubernetes.
+- **Public/private subnet split**: Application instances live in private subnets; only the ALB sits public-facing. Removes the SSH attack surface and forces traffic through one observable choke point.
+- **Remote state with locking**: S3 backend + DynamoDB lock table prevents concurrent `terraform apply` from corrupting state — important once more than one engineer touches the repo.
+
+## Trade-offs
+
+- ASG-based scaling is slower to react than serverless cold starts but predictably cheaper at sustained load — the right call for a long-lived socket workload.
+- All-in on AWS means provider lock-in; Terraform's syntax mitigates this but the resource graph itself is AWS-shaped.
+- CloudFront was specced but only adds value once static assets dominate egress — left as an opt-in module rather than a default.
+
