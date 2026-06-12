@@ -25,6 +25,7 @@ const portfolioProjects = await getCollection('portfolio');
                   src={project.data.image}
                   alt={project.data.title}
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
             ) : (
