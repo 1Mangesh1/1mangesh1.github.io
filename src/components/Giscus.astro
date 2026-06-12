@@ -1,6 +1,17 @@
 <div class="giscus-wrapper mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
   <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Comments</h2>
-  <div class="giscus-container"></div>
+  
+  {/* Skeleton loader while Giscus iframe loads */}
+  <div id="giscus-skeleton" class="giscus-skeleton space-y-3">
+    <div class="skeleton skeleton-text w-3/4 h-4"></div>
+    <div class="skeleton skeleton-text w-full h-3"></div>
+    <div class="skeleton skeleton-text w-5/6 h-3"></div>
+    <div class="skeleton skeleton-text w-4/5 h-3"></div>
+    <div class="skeleton skeleton-text w-3/4 h-4 mt-4"></div>
+    <div class="skeleton skeleton-text w-full h-3"></div>
+  </div>
+  
+  <div class="giscus-container hidden"></div>
 </div>
 
 <style is:global>
@@ -8,9 +19,22 @@
     width: 100%;
   }
 
+  .giscus-skeleton {
+    animation: skeleton-shimmer 2s infinite;
+  }
+
   .giscus-container {
     width: 100%;
     min-width: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .giscus-container.loaded {
+    opacity: 1;
+  }
+
+  .giscus-container.loading {
+    opacity: 0;
   }
 
   /* Target giscus wrapper created by the client script */
@@ -78,12 +102,26 @@
     // Append the script to the wrapper — giscus will create a .giscus div as a sibling
     wrapper.appendChild(script);
 
-    // Watch for the iframe to appear and force full width
+    // Watch for the iframe to appear and force full width + hide skeleton
     const iframeWatcher = new MutationObserver(() => {
       const iframe = wrapper.querySelector<HTMLIFrameElement>('iframe');
       if (iframe) {
         iframe.style.setProperty('width', '100%', 'important');
         iframe.style.setProperty('max-width', '100%', 'important');
+        
+        // Hide skeleton and show comments when iframe is loaded
+        const skeleton = document.getElementById('giscus-skeleton');
+        const container = wrapper.querySelector('.giscus-container');
+        if (skeleton) {
+          skeleton.style.display = 'none';
+        }
+        if (container) {
+          container.classList.remove('hidden');
+          container.classList.add('loaded');
+        }
+        
+        // Stop observing after iframe appears
+        iframeWatcher.disconnect();
       }
       // Also ensure the .giscus wrapper div is full width
       const giscusDiv = wrapper.querySelector<HTMLElement>('.giscus');

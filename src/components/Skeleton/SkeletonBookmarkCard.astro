@@ -1,0 +1,73 @@
+---
+/**
+ * Skeleton loader for bookmark cards
+ * Matches BookmarkCard component layout
+ * @param {number} [pulse] - Animation stagger delay (1-5)
+ */
+interface Props {
+  pulse?: number;
+}
+
+const { pulse } = Astro.props;
+---
+
+<article 
+  class:list={[
+    'group relative rounded-lg border border-gray-200 bg-white p-3 transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50',
+    'space-y-2'
+  ]}
+>
+  {/* Skeleton category badge */}
+  <div 
+    class:list={[
+      'skeleton',
+      'skeleton-button w-16 h-5 rounded-full inline-block',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+  
+  {/* Skeleton title */}
+  <div 
+    class:list={[
+      'skeleton',
+      'skeleton-text w-full h-4',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+  
+  {/* Skeleton description lines */}
+  <div class="space-y-1">
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-text w-full h-3',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-text w-4/5 h-3',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+  </div>
+  
+  {/* Skeleton tags */}
+  <div class="flex flex-wrap gap-1 pt-1">
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-button w-12 h-5 rounded-full text-xs',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-button w-14 h-5 rounded-full text-xs',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+  </div>
+</article>

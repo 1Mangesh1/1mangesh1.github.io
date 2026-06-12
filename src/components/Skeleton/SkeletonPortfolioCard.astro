@@ -1,0 +1,80 @@
+---
+/**
+ * Skeleton loader for portfolio project cards
+ * Matches PortfolioCard component layout
+ * @param {number} [pulse] - Animation stagger delay (1-5)
+ */
+interface Props {
+  pulse?: number;
+}
+
+const { pulse } = Astro.props;
+---
+
+<article 
+  class:list={[
+    'group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition-all dark:border-gray-800 dark:bg-gray-900/50',
+    'space-y-3 p-4'
+  ]}
+>
+  {/* Skeleton project image */}
+  <div 
+    class:list={[
+      'skeleton',
+      'w-full h-48 rounded-md',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+  
+  {/* Skeleton title */}
+  <div 
+    class:list={[
+      'skeleton',
+      'skeleton-text w-2/3 h-5',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+  
+  {/* Skeleton description */}
+  <div class="space-y-2">
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-text w-full h-4',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-text w-4/5 h-4',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+  </div>
+  
+  {/* Skeleton tech stack tags */}
+  <div class="flex flex-wrap gap-2 pt-2">
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-button w-16 h-6 rounded-full',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-button w-20 h-6 rounded-full',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-button w-16 h-6 rounded-full',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+  </div>
+</article>

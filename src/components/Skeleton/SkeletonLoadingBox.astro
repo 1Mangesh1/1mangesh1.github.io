@@ -1,0 +1,32 @@
+---
+/**
+ * Generic flexible skeleton placeholder
+ * @param {string} [width="w-full"] - Tailwind width class
+ * @param {string} [height="h-12"] - Tailwind height class
+ * @param {string} [className=""] - Additional CSS classes
+ * @param {number} [pulse] - Animation stagger delay (1-5 for skeleton-pulse-{1-5})
+ */
+interface Props {
+  width?: string;
+  height?: string;
+  className?: string;
+  pulse?: number;
+}
+
+const { 
+  width = 'w-full', 
+  height = 'h-12', 
+  className = '',
+  pulse
+} = Astro.props;
+---
+
+<div 
+  class:list={[
+    'skeleton',
+    width,
+    height,
+    className,
+    pulse && `skeleton-pulse-${pulse}`
+  ]}
+/>

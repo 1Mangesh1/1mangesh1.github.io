@@ -1,0 +1,64 @@
+---
+/**
+ * Skeleton loader for TIL (Today I Learned) cards
+ * Matches TilCard component layout
+ * @param {number} [pulse] - Animation stagger delay (1-5)
+ */
+interface Props {
+  pulse?: number;
+}
+
+const { pulse } = Astro.props;
+---
+
+<article 
+  class:list={[
+    'group relative rounded-lg border border-gray-200 bg-white p-3 transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50',
+    'space-y-2'
+  ]}
+>
+  {/* Skeleton category badge */}
+  <div 
+    class:list={[
+      'skeleton',
+      'skeleton-button w-14 h-5 rounded-full inline-block',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+  
+  {/* Skeleton title */}
+  <div 
+    class:list={[
+      'skeleton',
+      'skeleton-text w-full h-4',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+  
+  {/* Skeleton excerpt */}
+  <div class="space-y-1">
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-text w-full h-3 text-sm',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+    <div 
+      class:list={[
+        'skeleton',
+        'skeleton-text w-4/5 h-3 text-sm',
+        pulse && `skeleton-pulse-${pulse}`
+      ]}
+    />
+  </div>
+  
+  {/* Skeleton date */}
+  <div 
+    class:list={[
+      'skeleton',
+      'skeleton-text w-24 h-3 text-xs pt-1',
+      pulse && `skeleton-pulse-${pulse}`
+    ]}
+  />
+</article>

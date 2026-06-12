@@ -1,0 +1,58 @@
+---
+/**
+ * Reusable skeleton grid for showing loading state
+ * Generates a grid of skeleton items with staggered animation
+ * @param {number} [count=6] - Number of skeleton items to show
+ * @param {'blog'|'portfolio'|'book'|'bookmark'|'til'|'snippet'|'resource'} [type='blog'] - Type of skeleton to display
+ */
+import SkeletonBlogCard from './SkeletonBlogCard.astro';
+import SkeletonPortfolioCard from './SkeletonPortfolioCard.astro';
+import SkeletonBookCard from './SkeletonBookCard.astro';
+import SkeletonBookmarkCard from './SkeletonBookmarkCard.astro';
+import SkeletonTilCard from './SkeletonTilCard.astro';
+import SkeletonSnippetCard from './SkeletonSnippetCard.astro';
+import SkeletonResourceCard from './SkeletonResourceCard.astro';
+import SkeletonBlogListItem from './SkeletonBlogListItem.astro';
+
+interface Props {
+  count?: number;
+  type?: 'blog' | 'portfolio' | 'book' | 'bookmark' | 'til' | 'snippet' | 'resource' | 'blog-list';
+  gridClass?: string;
+}
+
+const { count = 6, type = 'blog', gridClass } = Astro.props;
+
+// Map skeleton types to components
+const componentMap = {
+  blog: SkeletonBlogCard,
+  portfolio: SkeletonPortfolioCard,
+  book: SkeletonBookCard,
+  bookmark: SkeletonBookmarkCard,
+  til: SkeletonTilCard,
+  snippet: SkeletonSnippetCard,
+  resource: SkeletonResourceCard,
+  'blog-list': SkeletonBlogListItem,
+};
+
+const Component = componentMap[type] || SkeletonBlogCard;
+
+// Grid classes based on type
+const defaultGridClasses = {
+  blog: 'grid md:grid-cols-3 gap-6',
+  portfolio: 'grid md:grid-cols-2 gap-8',
+  book: 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4',
+  bookmark: 'grid grid-cols-1 md:grid-cols-2 gap-6',
+  til: 'space-y-6',
+  snippet: 'grid grid-cols-1 md:grid-cols-2 gap-6',
+  resource: 'space-y-6',
+  'blog-list': 'space-y-8',
+};
+
+const finalGridClass = gridClass || defaultGridClasses[type] || 'grid gap-6';
+---
+
+<div class:list={[finalGridClass]}>
+  {Array.from({ length: count }).map((_, index) => (
+    <Component pulse={(index % 5) + 1} />
+  ))}
+</div>
