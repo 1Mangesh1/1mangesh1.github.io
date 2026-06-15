@@ -2,7 +2,7 @@
 // src/components/AiChat.astro
 ---
 
-<style>
+<style is:global>
   #ai-chat-container {
     /* Respect iOS safe area so FAB doesn't sit under the home indicator */
     bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
@@ -83,7 +83,7 @@
     overflow: hidden;
   }
 
-  :global(.dark) #ai-chat-window {
+  .dark #ai-chat-window {
     --chat-surface: #1f2937;
     --chat-surface-alt: #1a2332;
     --chat-surface-elevated: #374151;
@@ -109,7 +109,7 @@
     position: relative;
   }
 
-  :global(.dark) .ai-header {
+  .dark .ai-header {
     background: var(--chat-surface);
     border-bottom-color: var(--chat-border);
   }
@@ -191,12 +191,12 @@
     border-color: transparent;
   }
 
-  :global(.dark) #ai-chat-close {
+  .dark #ai-chat-close {
     border-color: var(--chat-border);
     color: var(--chat-text-muted);
   }
 
-  :global(.dark) #ai-chat-close:hover {
+  .dark #ai-chat-close:hover {
     background: var(--chat-surface-elevated);
     color: var(--chat-text);
   }
@@ -216,7 +216,7 @@
     background-size: 20px 20px;
   }
 
-  :global(.dark) #ai-chat-messages {
+  .dark #ai-chat-messages {
     background-color: var(--chat-surface-alt);
     background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     color: var(--chat-text);
@@ -263,8 +263,8 @@
 
   /* ── Sender label ── */
   .ai-msg-label {
-    font-size: 0.65rem;
-    font-weight: 600;
+    font-size: 0.68rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
@@ -275,12 +275,12 @@
     color: var(--chat-emerald-dark);
   }
 
-  :global(.dark) .ai-msg-label.label-user {
+  .dark .ai-msg-label.label-user {
     color: var(--chat-emerald);
   }
 
   .ai-msg-label.label-bot {
-    color: var(--chat-text-muted);
+    color: var(--chat-blue);
   }
 
   /* ── Bubbles ── */
@@ -302,19 +302,21 @@
     box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
   }
 
-  /* Bot bubble */
+  /* Bot bubble — a defined card so it reads clearly against the panel */
   .ai-message-assistant {
     background: var(--chat-surface);
     color: var(--chat-text);
     border-radius: 14px 14px 14px 4px;
-    border: 1px solid var(--chat-border);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
   }
 
-  :global(.dark) .ai-message-assistant {
-    background: var(--chat-surface);
+  .dark .ai-message-assistant {
+    /* Lighter than the dark panel so the bubble stands out as a distinct card */
+    background: var(--chat-surface-elevated);
     color: var(--chat-text);
-    border-color: var(--chat-border);
+    border-color: #4b5563;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   }
 
   /* Error bubble */
@@ -326,7 +328,7 @@
     font-size: 0.85rem;
   }
 
-  :global(.dark) .ai-message-error {
+  .dark .ai-message-error {
     background: rgba(220, 38, 38, 0.1);
     color: #fca5a5;
     border-color: rgba(220, 38, 38, 0.2);
@@ -394,13 +396,13 @@
     transform: translateX(2px);
   }
 
-  :global(.dark) .ai-suggestion-chip {
+  .dark .ai-suggestion-chip {
     background: var(--chat-surface);
     border-color: var(--chat-border);
     color: var(--chat-text);
   }
 
-  :global(.dark) .ai-suggestion-chip:hover {
+  .dark .ai-suggestion-chip:hover {
     border-color: var(--chat-emerald);
     background: rgba(16, 185, 129, 0.08);
   }
@@ -424,7 +426,7 @@
     border-radius: 14px 14px 14px 4px;
   }
 
-  :global(.dark) .ai-typing-bubble {
+  .dark .ai-typing-bubble {
     background: var(--chat-surface);
     border-color: var(--chat-border);
   }
@@ -463,7 +465,7 @@
     background: var(--chat-surface);
   }
 
-  :global(.dark) .ai-input-area {
+  .dark .ai-input-area {
     border-top-color: var(--chat-border);
     background: var(--chat-surface);
   }
@@ -488,12 +490,12 @@
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
   }
 
-  :global(.dark) .ai-input-wrapper {
+  .dark .ai-input-wrapper {
     background: var(--chat-surface-alt);
     border-color: var(--chat-border);
   }
 
-  :global(.dark) .ai-input-wrapper:focus-within {
+  .dark .ai-input-wrapper:focus-within {
     border-color: var(--chat-emerald);
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
   }
@@ -514,7 +516,7 @@
     line-height: 1.5;
   }
 
-  :global(.dark) #ai-chat-input {
+  .dark #ai-chat-input {
     color: var(--chat-text);
   }
 
@@ -571,9 +573,53 @@
     font-size: 0.65rem;
     color: var(--chat-text-faint);
   }
+
+  /* Streamed Markdown inside bot bubbles */
+  .ai-message-assistant a {
+    color: var(--chat-emerald-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+
+  .dark .ai-message-assistant a {
+    color: var(--chat-emerald);
+  }
+
+  .ai-message-assistant code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82em;
+    background: rgba(128, 128, 128, 0.18);
+    padding: 0.1rem 0.3rem;
+    border-radius: 5px;
+  }
+
+  .ai-message-assistant ul {
+    margin: 0.35rem 0 0.1rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+
+  .ai-message-assistant li {
+    margin: 0.15rem 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-message-wrapper,
+    .ai-typing-wrapper,
+    #ai-chat-welcome {
+      animation: none;
+    }
+    .ai-typing-dot,
+    .ai-status-dot {
+      animation: none;
+    }
+  }
 </style>
 
 <script>
+  import { renderChatMarkdown } from '../utils/chat-markdown';
+
   // Defer initialization to improve Interaction to Next Paint (INP)
   const initAiChat = () => {
     const WORKER_URL = 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
@@ -582,6 +628,10 @@
 
   // Generate a unique session ID for this visitor's conversation
   const SESSION_ID = crypto.randomUUID();
+
+  // In-memory conversation (this session only) for multi-turn context.
+  const conversation: { role: 'user' | 'assistant'; content: string }[] = [];
+  const MAX_HISTORY = 6;
 
   // Store message timestamps in localStorage
   function getMessageTimestamps(): number[] {
@@ -602,17 +652,12 @@
     localStorage.setItem(MESSAGE_REQUEST_KEY, JSON.stringify(timestamps));
   }
 
-  function getRemainingMessages(): number {
-    const timestamps = getMessageTimestamps();
-    return Math.max(0, RATE_LIMIT_PER_HOUR - timestamps.length);
-  }
-
   // DOM elements with proper null assertions
   const button = document.getElementById('ai-chat-button')!;
   const window_elem = document.getElementById('ai-chat-window')!;
   const closeBtn = document.getElementById('ai-chat-close')!;
   const messagesContainer = document.getElementById('ai-chat-messages')!;
-  const form = document.getElementById('ai-chat-form')!;
+  const form = document.getElementById('ai-chat-form') as HTMLFormElement;
   const input = document.getElementById('ai-chat-input') as HTMLTextAreaElement;
   const submitBtn = document.getElementById('ai-chat-submit') as HTMLButtonElement;
   const counter = document.getElementById('ai-chat-counter')!;
@@ -655,19 +700,27 @@
     submitBtn.disabled = length === 0 || !canSendMessage();
   });
 
+  // Enter sends; Shift+Enter inserts a newline. Ignore Enter while an IME
+  // composition is active so it doesn't send a half-composed message.
+  input.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+      e.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
   // Handle form submission
   form.addEventListener('submit', async (e: Event) => {
     e.preventDefault();
     const message = input.value.trim();
 
-    if (!message || !canSendMessage()) return;
-
-    // Check rate limit
-    if (!canSendMessage()) {
-      addMessage(
-        `Rate limited: ${getRemainingMessages()} requests remaining this hour`,
-        'error'
-      );
+    if (!message || !canSendMessage()) {
+      if (message && !canSendMessage()) {
+        addMessage(
+          `You've hit the limit of ${RATE_LIMIT_PER_HOUR} messages this hour. Try again a bit later.`,
+          'error'
+        );
+      }
       return;
     }
 
@@ -680,30 +733,31 @@
 
     showTypingIndicator();
 
+    // Snapshot prior turns for context, then record this user turn.
+    const history = conversation.slice(-MAX_HISTORY);
+    conversation.push({ role: 'user', content: message });
+
     try {
       const response = await fetch(WORKER_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          question: message,
-          sessionId: SESSION_ID,
-        }),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
+        body: JSON.stringify({ question: message, sessionId: SESSION_ID, history }),
       });
 
-      hideTypingIndicator();
-
-      if (!response.ok) {
-        if (response.status === 429) {
-          addMessage('Rate limited. Try again later.', 'error');
-        } else {
-          addMessage('Error fetching response. Please try again.', 'error');
-        }
+      if (!response.ok || !response.body) {
+        hideTypingIndicator();
+        addMessage(
+          response.status === 429
+            ? 'Rate limited. Try again in a bit.'
+            : 'Something went wrong fetching a response. Please try again.',
+          'error'
+        );
         return;
       }
 
-      const data = await response.json();
-      const aiMessage = data.result || 'No response received';
-      addMessage(aiMessage, 'assistant');
+      hideTypingIndicator();
+      const answer = await streamAnswer(response.body);
+      if (answer) conversation.push({ role: 'assistant', content: answer });
     } catch (error) {
       hideTypingIndicator();
       addMessage('Connection error. Please check your internet.', 'error');
@@ -711,6 +765,121 @@
       submitBtn.disabled = false;
     }
   });
+
+  // Tokens arrive from the server very fast, so we drip them into the bubble at
+  // a gentle, typewriter-like pace decoupled from the network. Reduced-motion
+  // users get the full text immediately. Tweak these two knobs for typing speed.
+  const REVEAL_STEP = 1; // characters revealed per tick
+  const REVEAL_TICK_MS = 12; // ~80 chars/sec
+
+  async function streamAnswer(body: ReadableStream<Uint8Array>): Promise<string> {
+    const bubble = createBotBubble();
+    const reader = body.getReader();
+    const decoder = new TextDecoder();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let received = ''; // text received from the server so far
+    let shown = 0; // characters currently rendered
+    let networkDone = false;
+
+    const paint = (): void => {
+      bubble.innerHTML = renderChatMarkdown(received.slice(0, shown));
+      scrollToBottom();
+    };
+
+    // Paced reveal loop, only when motion is allowed.
+    let reveal: Promise<void> | null = null;
+    if (!reduceMotion) {
+      reveal = new Promise<void>((resolve) => {
+        const timer = setInterval(() => {
+          if (shown < received.length) {
+            shown = Math.min(received.length, shown + REVEAL_STEP);
+            paint();
+          } else if (networkDone) {
+            clearInterval(timer);
+            resolve();
+          }
+        }, REVEAL_TICK_MS);
+      });
+    }
+
+    const consumeLine = (line: string): void => {
+      const trimmed = line.trim();
+      if (!trimmed.startsWith('data:')) return;
+      const payload = trimmed.slice(5).trim();
+      if (!payload || payload === '[DONE]') return;
+      try {
+        const json = JSON.parse(payload);
+        // Newer models stream OpenAI-style (choices[].delta.content); older ones
+        // use a flat {response}. Accept either.
+        const token = json.choices?.[0]?.delta?.content ?? json.response;
+        if (typeof token === 'string' && token) {
+          received += token;
+          if (reduceMotion) {
+            shown = received.length;
+            paint();
+          }
+        }
+      } catch {
+        // partial chunk or keep-alive line — wait for the rest
+      }
+    };
+
+    try {
+      let buffer = '';
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+        for (const line of lines) consumeLine(line);
+      }
+      buffer += decoder.decode();
+      if (buffer) consumeLine(buffer);
+    } finally {
+      networkDone = true;
+    }
+
+    if (reveal) await reveal;
+    else {
+      shown = received.length;
+      paint();
+    }
+
+    if (!received) {
+      bubble.textContent = "Hmm, I didn't catch that — mind trying again?";
+    }
+    scrollToBottom();
+    return received;
+  }
+
+  // Build an empty assistant bubble and return the element to stream text into.
+  function createBotBubble(): HTMLElement {
+    if (welcomeDiv && welcomeDiv.parentElement === messagesContainer) {
+      welcomeDiv.remove();
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'ai-message-wrapper is-bot';
+
+    const label = document.createElement('span');
+    label.className = 'ai-msg-label label-bot';
+    label.textContent = 'Mangesh AI';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-message ai-message-assistant';
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(bubble);
+    messagesContainer.appendChild(wrapper);
+    scrollToBottom();
+    return bubble;
+  }
+
+  function scrollToBottom(): void {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
 
   // Add message to chat
   function addMessage(text: string, role: string): void {
@@ -845,7 +1014,7 @@
     </div>
 
     <!-- Message Area -->
-    <div id="ai-chat-messages" class="flex-1 overflow-y-auto">
+    <div id="ai-chat-messages" class="flex-1 overflow-y-auto" aria-live="polite" aria-atomic="false">
 
       <!-- Welcome Message -->
       <div id="ai-chat-welcome">
