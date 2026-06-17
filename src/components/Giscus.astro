@@ -11,7 +11,7 @@
     <div class="skeleton skeleton-text w-full h-3"></div>
   </div>
   
-  <div class="giscus-container hidden"></div>
+  <div class="giscus-container"></div>
 </div>
 
 <style is:global>
@@ -26,15 +26,6 @@
   .giscus-container {
     width: 100%;
     min-width: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .giscus-container.loaded {
-    opacity: 1;
-  }
-
-  .giscus-container.loading {
-    opacity: 0;
   }
 
   /* Target giscus wrapper created by the client script */
@@ -109,17 +100,14 @@
         iframe.style.setProperty('width', '100%', 'important');
         iframe.style.setProperty('max-width', '100%', 'important');
         
-        // Hide skeleton and show comments when iframe is loaded
-        const skeleton = document.getElementById('giscus-skeleton');
-        const container = wrapper.querySelector('.giscus-container');
-        if (skeleton) {
-          skeleton.style.display = 'none';
-        }
-        if (container) {
-          container.classList.remove('hidden');
-          container.classList.add('loaded');
-        }
-        
+        // Hide the skeleton only once giscus actually finishes loading. The iframe
+        // element is inserted immediately but stays blank (native loading="lazy",
+        // opacity 0) until its content paints, so wait for its load event.
+        iframe.addEventListener('load', () => {
+          const skeleton = document.getElementById('giscus-skeleton');
+          if (skeleton) skeleton.style.display = 'none';
+        });
+
         // Stop observing after iframe appears
         iframeWatcher.disconnect();
       }
