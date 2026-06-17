@@ -1,0 +1,6 @@
+# Vulnerability disclosure policy for mangeshbide.tech — https://securitytxt.org (RFC 9116)
+Contact: mailto:hello@mangeshbide.tech
+Contact: https://mangeshbide.tech/contact
+Expires: 2027-06-17T00:00:00.000Z
+Canonical: https://mangeshbide.tech/.well-known/security.txt
+Preferred-Languages: en
