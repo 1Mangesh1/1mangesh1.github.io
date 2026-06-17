@@ -78,8 +78,6 @@
     box-shadow:
       0 24px 48px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(0, 0, 0, 0.04);
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
   }
 
@@ -671,6 +669,7 @@
     const isHidden = window_elem.classList.contains('hidden');
     if (isHidden) {
       window_elem.classList.remove('hidden');
+      window_elem.classList.add('flex');
       setTimeout(() => {
         window_elem.classList.add('scale-100', 'opacity-100');
         window_elem.classList.remove('scale-95', 'opacity-0');
@@ -686,7 +685,10 @@
   function closeChatWindow(): void {
     window_elem.classList.remove('scale-100', 'opacity-100');
     window_elem.classList.add('scale-95', 'opacity-0');
-    setTimeout(() => window_elem.classList.add('hidden'), 300);
+    setTimeout(() => {
+      window_elem.classList.add('hidden');
+      window_elem.classList.remove('flex');
+    }, 300);
   }
 
   // Auto-resize textarea
@@ -992,7 +994,7 @@
   <!-- Chat Window -->
   <div
     id="ai-chat-window"
-    class="hidden absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-[400px] h-[520px] flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0"
+    class="hidden absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-[400px] h-[520px] flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0"
   >
     <!-- Header -->
     <div class="ai-header">
