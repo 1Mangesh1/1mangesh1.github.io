@@ -398,6 +398,9 @@ const gamesData = [
 
         <!-- Dev Bingo Game -->
         <div id="dev-bingo-game" class="game-content hidden"></div>
+
+        <!-- Emoji Clicker Game -->
+        <div id="emoji-clicker-game" class="game-content hidden"></div>
       </div>
     </div>
 
@@ -459,6 +462,10 @@ const gamesData = [
       destroy?: () => void;
     }
 
+    interface EmojiClickerGameInstance extends GameInstance {
+      init: () => void;
+    }
+
     type GameConstructor = new () => GameInstance;
 
     // Game management functions
@@ -475,6 +482,7 @@ const gamesData = [
       CodeHangman?: GameConstructor;
       TypingTest?: GameConstructor;
       DevBingo?: GameConstructor;
+      EmojiClickerGame?: EmojiClickerGameInstance;
       showGame?: (gameType: string) => void;
       hideGame?: () => void;
     }
@@ -1296,6 +1304,26 @@ const gamesData = [
               setTimeout(() => {
                 currentGame = new DevBingoClass();
               }, 100);
+            }
+          });
+        }
+      } else if (gameType === "emoji-clicker") {
+        gameTitle.textContent = "🎪 Emoji Clicker";
+        const gameContent = document.getElementById("emoji-clicker-game");
+        if (!gameContent) return;
+
+        gameContent.innerHTML = "";
+        gameContent.classList.remove("hidden");
+
+        const gameWindow = window as GameWindow;
+        if (gameWindow.EmojiClickerGame) {
+          currentGame = gameWindow.EmojiClickerGame;
+          gameWindow.EmojiClickerGame.init();
+        } else {
+          loadScript("/game-scripts/emoji-clicker.js", () => {
+            if (gameWindow.EmojiClickerGame) {
+              currentGame = gameWindow.EmojiClickerGame;
+              gameWindow.EmojiClickerGame.init();
             }
           });
         }

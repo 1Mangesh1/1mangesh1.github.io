@@ -11,11 +11,15 @@ const game = {
   currentEmojis: [],
   gameSpeed: 1,
   level: 1,
+  gameTimer: null,
+  gameEndTimeout: null,
   emojis: ['🐛', '🎮', '💻', '🚀', '📱', '⚡', '🎯', '🏆', '💡', '🌟'],
 
   init() {
+    this.clearTimers();
     this.renderUI();
     this.attachEventListeners();
+    this.updateStats();
   },
 
   renderUI() {
@@ -31,15 +35,15 @@ const game = {
           <div class="grid grid-cols-3 gap-4 text-center">
             <div>
               <p class="text-sm opacity-80">Score</p>
-              <p class="text-3xl font-bold">${this.score}</p>
+              <p id="emoji-score" class="text-3xl font-bold">${this.score}</p>
             </div>
             <div>
               <p class="text-sm opacity-80">Level</p>
-              <p class="text-3xl font-bold">${this.level}</p>
+              <p id="emoji-level" class="text-3xl font-bold">${this.level}</p>
             </div>
             <div>
               <p class="text-sm opacity-80">Multiplier</p>
-              <p class="text-3xl font-bold">x${this.multiplier}</p>
+              <p id="emoji-multiplier" class="text-3xl font-bold">x${this.multiplier}</p>
             </div>
           </div>
         </div>
@@ -58,10 +62,34 @@ const game = {
   },
 
   attachEventListeners() {
-    document.getElementById('start-game').addEventListener('click', () => this.startGame());
+    const startButton = document.getElementById('start-game');
+    startButton?.addEventListener('click', () => this.startGame());
+  },
+
+  updateStats() {
+    const scoreEl = document.getElementById('emoji-score');
+    const levelEl = document.getElementById('emoji-level');
+    const multiplierEl = document.getElementById('emoji-multiplier');
+
+    if (scoreEl) scoreEl.textContent = String(this.score);
+    if (levelEl) levelEl.textContent = String(this.level);
+    if (multiplierEl) multiplierEl.textContent = `x${this.multiplier}`;
+  },
+
+  clearTimers() {
+    if (this.gameTimer) {
+      clearInterval(this.gameTimer);
+      this.gameTimer = null;
+    }
+
+    if (this.gameEndTimeout) {
+      clearTimeout(this.gameEndTimeout);
+      this.gameEndTimeout = null;
+    }
   },
 
   startGame() {
+    this.clearTimers();
     this.gameActive = true;
     this.score = 0;
     this.multiplier = 1;
@@ -74,11 +102,12 @@ const game = {
     const gameArea = document.getElementById('game-area');
     gameArea.innerHTML = '';
     gameArea.style.overflow = 'hidden';
+    this.updateStats();
 
     // Game loop
-    const gameTimer = setInterval(() => {
+    this.gameTimer = setInterval(() => {
       if (!this.gameActive) {
-        clearInterval(gameTimer);
+        this.clearTimers();
         this.endGame();
         return;
       }
@@ -106,10 +135,11 @@ const game = {
         this.level = newLevel;
         this.multiplier = 1 + (this.level - 1) * 0.5;
         this.gameSpeed = 1 + (this.level - 1) * 0.3;
+        this.updateStats();
       }
     }, 30);
 
-    setTimeout(() => {
+    this.gameEndTimeout = setTimeout(() => {
       if (this.gameActive) {
         this.gameActive = false;
       }
@@ -136,6 +166,7 @@ const game = {
       e.stopPropagation();
       const points = Math.floor(10 * this.multiplier);
       this.score += points;
+      this.updateStats();
 
       // Floating text
       const floatingText = document.createElement('div');
@@ -151,15 +182,13 @@ const game = {
 
       setTimeout(() => floatingText.remove(), 1000);
       emojiEl.remove();
-
-      this.renderUI();
-      this.attachEventListeners();
     });
 
     container.appendChild(emojiEl);
   },
 
   endGame() {
+    this.clearTimers();
     const gameArea = document.getElementById('game-area');
     gameArea.innerHTML = `
       <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/50 text-white">
@@ -172,6 +201,11 @@ const game = {
       </div>
     `;
     document.getElementById('restart-game')?.addEventListener('click', () => this.startGame());
+  },
+
+  destroy() {
+    this.gameActive = false;
+    this.clearTimers();
   }
 };
 
@@ -191,4 +225,4 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-game.init();
+window.EmojiClickerGame = game;
