@@ -1,4 +1,4 @@
-let r=null;function l(s){const i=document.getElementById("game-container"),o=document.getElementById("game-title");if(!(!i||!o)){if(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),document.querySelectorAll(".game-content").forEach(t=>{t.classList.add("hidden")}),s==="pixel-drawer"){o.textContent="🎨 Pixel Sandbox / ASCII Drawer";const t=document.getElementById("pixel-drawer-game");if(!t)return;t.innerHTML=`
+let r=null;function l(s){const d=document.getElementById("game-container"),o=document.getElementById("game-title");if(!(!d||!o)){if(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),document.querySelectorAll(".game-content").forEach(t=>{t.classList.add("hidden")}),s==="pixel-drawer"){o.textContent="🎨 Pixel Sandbox / ASCII Drawer";const t=document.getElementById("pixel-drawer-game");if(!t)return;t.innerHTML=`
           <!-- Game Controls -->
           <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
             <div class="grid md:grid-cols-4 gap-4 mb-6">
@@ -174,7 +174,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               <li>• <strong>Completely pointless</strong> but endlessly entertaining!</li>
             </ul>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.ChaosMachine?r=new e.ChaosMachine:a("/game-scripts/useless-machine.js",()=>{if(e.ChaosMachine){const d=e.ChaosMachine;setTimeout(()=>{r=new d},100)}})}else if(s==="wack-a-bug"){o.textContent="🐛 Wack a Bug";const t=document.getElementById("wack-a-bug-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.ChaosMachine?r=new e.ChaosMachine:a("/game-scripts/useless-machine.js",()=>{if(e.ChaosMachine){const i=e.ChaosMachine;setTimeout(()=>{r=new i},100)}})}else if(s==="wack-a-bug"){o.textContent="🐛 Wack a Bug";const t=document.getElementById("wack-a-bug-game");if(!t)return;t.innerHTML=`
           <!-- Game Area -->
           <div class="flex flex-col items-center">
             <!-- Wack a Bug Canvas -->
@@ -228,7 +228,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               </div>
             </div>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.BugBlaster?r=new e.BugBlaster:a("/game-scripts/wack-a-bug.js",()=>{if(e.BugBlaster){const d=e.BugBlaster;setTimeout(()=>{r=new d},100)}})}else if(s==="code-snake"){o.textContent="🐍 Code Snake: Matrix Edition";const t=document.getElementById("code-snake-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.BugBlaster?r=new e.BugBlaster:a("/game-scripts/wack-a-bug.js",()=>{if(e.BugBlaster){const i=e.BugBlaster;setTimeout(()=>{r=new i},100)}})}else if(s==="code-snake"){o.textContent="🐍 Code Snake: Matrix Edition";const t=document.getElementById("code-snake-game");if(!t)return;t.innerHTML=`
           <div class="flex flex-col items-center">
             <canvas id="snake-canvas" width="500" height="500" class="border-2 border-green-600 dark:border-green-400 rounded-lg shadow-2xl mb-6"></canvas>
 
@@ -288,7 +288,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               </div>
             </div>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.CodeSnake?r=new e.CodeSnake:a("/game-scripts/code-snake.js",()=>{if(e.CodeSnake){const d=e.CodeSnake;setTimeout(()=>{r=new d},100)}})}else if(s==="dev-memory"){o.textContent="🧠 Dev Memory: Code Match";const t=document.getElementById("dev-memory-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.CodeSnake?r=new e.CodeSnake:a("/game-scripts/code-snake.js",()=>{if(e.CodeSnake){const i=e.CodeSnake;setTimeout(()=>{r=new i},100)}})}else if(s==="dev-memory"){o.textContent="🧠 Dev Memory: Code Match";const t=document.getElementById("dev-memory-game");if(!t)return;t.innerHTML=`
           <style>
             .memory-grid { display: grid; gap: 1rem; margin: 2rem auto; max-width: 600px; }
             .memory-grid-easy { grid-template-columns: repeat(3, 1fr); }
@@ -376,7 +376,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               Select difficulty and theme to start!
             </div>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.DevMemory?r=new e.DevMemory:a("/game-scripts/dev-memory.js",()=>{if(e.DevMemory){const d=e.DevMemory;setTimeout(()=>{r=new d},100)}})}else if(s==="code-typer"){o.textContent="⌨️ Code Typer: Speed Challenge";const t=document.getElementById("code-typer-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.DevMemory?r=new e.DevMemory:a("/game-scripts/dev-memory.js",()=>{if(e.DevMemory){const i=e.DevMemory;setTimeout(()=>{r=new i},100)}})}else if(s==="code-typer"){o.textContent="⌨️ Code Typer: Speed Challenge";const t=document.getElementById("code-typer-game");if(!t)return;t.innerHTML=`
           <style>
             #code-display {
               font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; padding: 1.5rem;
@@ -463,7 +463,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               Click Start or focus input to begin!
             </div>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.CodeTyper?r=new e.CodeTyper:a("/game-scripts/code-typer.js",()=>{if(e.CodeTyper){const d=e.CodeTyper;setTimeout(()=>{r=new d},100)}})}else if(s==="hangman"){o.textContent="🎯 Hangman Game";const t=document.getElementById("hangman-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.CodeTyper?r=new e.CodeTyper:a("/game-scripts/code-typer.js",()=>{if(e.CodeTyper){const i=e.CodeTyper;setTimeout(()=>{r=new i},100)}})}else if(s==="hangman"){o.textContent="🎯 Hangman Game";const t=document.getElementById("hangman-game");if(!t)return;t.innerHTML=`
           <!-- Game Stats -->
           <div class="grid md:grid-cols-3 gap-4 mb-6">
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center">
@@ -525,7 +525,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               <li>• Use the hint button if you're stuck (reveals a random letter)</li>
             </ul>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.CodeHangman?r=new e.CodeHangman:a("/game-scripts/hangman.js",()=>{if(e.CodeHangman){const d=e.CodeHangman;setTimeout(()=>{r=new d},100)}})}else if(s==="typing-test"){o.textContent="⌨️ Typing Speed Test";const t=document.getElementById("typing-test-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.CodeHangman?r=new e.CodeHangman:a("/game-scripts/hangman.js",()=>{if(e.CodeHangman){const i=e.CodeHangman;setTimeout(()=>{r=new i},100)}})}else if(s==="typing-test"){o.textContent="⌨️ Typing Speed Test";const t=document.getElementById("typing-test-game");if(!t)return;t.innerHTML=`
           <div class="max-w-4xl mx-auto">
             <!-- Stats -->
             <div class="grid grid-cols-4 gap-3 mb-6">
@@ -568,7 +568,7 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               Start typing to begin the test!
             </div>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.TypingTest?r=new e.TypingTest:a("/game-scripts/typing-test.js",()=>{if(e.TypingTest){const d=e.TypingTest;setTimeout(()=>{r=new d},100)}})}else if(s==="dev-bingo"){o.textContent="🎯 Developer Bingo";const t=document.getElementById("dev-bingo-game");if(!t)return;t.innerHTML=`
+        `,t.classList.remove("hidden");const e=window;e.TypingTest?r=new e.TypingTest:a("/game-scripts/typing-test.js",()=>{if(e.TypingTest){const i=e.TypingTest;setTimeout(()=>{r=new i},100)}})}else if(s==="dev-bingo"){o.textContent="🎯 Developer Bingo";const t=document.getElementById("dev-bingo-game");if(!t)return;t.innerHTML=`
           <style>
             .bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 600px; margin: 0 auto; }
             .bingo-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; text-align: center;
@@ -612,4 +612,4 @@ let r=null;function l(s){const i=document.getElementById("game-container"),o=doc
               </ul>
             </div>
           </div>
-        `,t.classList.remove("hidden");const e=window;e.DevBingo?r=new e.DevBingo:a("/game-scripts/dev-bingo.js",()=>{if(e.DevBingo){const d=e.DevBingo;setTimeout(()=>{r=new d},100)}})}i.classList.remove("hidden"),i.scrollIntoView({behavior:"smooth"})}}function g(){const s=document.getElementById("game-container");s&&(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),s.classList.add("hidden"),r=null)}function a(s,i){const o=document.createElement("script");o.src=s,o.onload=i,o.onerror=()=>console.error(`Failed to load script: ${s}`),document.head.appendChild(o)}const n=window;n.showGame=l;n.hideGame=g;
+        `,t.classList.remove("hidden");const e=window;e.DevBingo?r=new e.DevBingo:a("/game-scripts/dev-bingo.js",()=>{if(e.DevBingo){const i=e.DevBingo;setTimeout(()=>{r=new i},100)}})}else if(s==="emoji-clicker"){o.textContent="🎪 Emoji Clicker";const t=document.getElementById("emoji-clicker-game");if(!t)return;t.innerHTML="",t.classList.remove("hidden");const e=window;e.EmojiClickerGame?(r=e.EmojiClickerGame,e.EmojiClickerGame.init()):a("/game-scripts/emoji-clicker.js",()=>{e.EmojiClickerGame&&(r=e.EmojiClickerGame,e.EmojiClickerGame.init())})}d.classList.remove("hidden"),d.scrollIntoView({behavior:"smooth"})}}function g(){const s=document.getElementById("game-container");s&&(r&&typeof r.destroy=="function"&&(r.destroy(),r=null),s.classList.add("hidden"),r=null)}function a(s,d){const o=document.createElement("script");o.src=s,o.onload=d,o.onerror=()=>console.error(`Failed to load script: ${s}`),document.head.appendChild(o)}const n=window;n.showGame=l;n.hideGame=g;
