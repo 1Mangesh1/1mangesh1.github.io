@@ -7,14 +7,28 @@
 
 ## Color Palette
 
+### Contrast rule (non-negotiable)
+
+Every color used as **text** must meet WCAG 2.2 SC 1.4.3 (AA): **4.5:1** for normal text, **3:1** for large text (>=24px, or >=18.66px bold). No rounding — `#777777` at 4.47:1 fails. Measure before adding a token; ratios below are measured, not estimated.
+
+This is the only evidence-based constraint on color choice. Hue carries no reliable effect on perceived trust or competence (Elliot 2015, *Frontiers in Psychology*, is explicit that applying "color psychology" is premature), so palette decisions are argued from legibility, consistency, and differentiation — never from color-meaning folklore.
+
 ### Primary Colors
-- **Blue**: `#3b82f6` (Blue-500 - accent color for interactive elements, hover states, CTAs)
-- **Emerald**: `#10b981` (Emerald-500 - secondary accent for hover states and navigation highlights)
-- **Gray Scale**: Full range for text, backgrounds, and borders
-  - Light mode background: `#ffffff` (White)
-  - Dark mode background: `#111827` (Gray-900)
-  - Text (light): `#111827` or `#1f2937` (Gray-800/900)
-  - Text (dark): `#e5e7eb` or `#f3f4f6` (Gray-100/200)
+
+**Text-safe on light (`#ffffff`):**
+- **Blue**: `#2563eb` (Blue-600) — 5.17:1 — links and primary CTAs
+- **Emerald**: `#047857` (Emerald-700) — 5.48:1 — secondary links, nav hover
+- **Body text**: `#4b5563` (Gray-600) 7.56:1 · `#6b7280` (Gray-500) 4.83:1 for small metadata only
+- Headings: `#111827` / `#1f2937` (Gray-900/800)
+
+**Text-safe on dark (`#0b0f1a`):**
+- `#22d3ee` (Cyan-400) 10.59:1 · `#34d399` (Emerald-400) 9.95:1 · `#60a5fa` (Blue-400) 7.53:1
+- Body text: `#d1d5db` (Gray-300) 12.99:1 · `#9ca3af` (Gray-400) 7.54:1
+
+**Decorative only — never as text:**
+- `#3b82f6` (Blue-500) 3.68:1 and `#10b981` (Emerald-500) 2.54:1 both FAIL AA at body size. Fine for fills, borders, glows, and the `theme-color` meta tag. `#059669` (Emerald-600) 3.77:1 also fails as text.
+
+**Backgrounds:** `#ffffff` (light) / `#0b0f1a` (dark). Theme follows `prefers-color-scheme` unless the visitor has toggled, in which case the stored choice wins.
 
 ### Accent Gradient
 **Warm Golden-to-Amber Gradient** (used for progress bar, highlight elements):
@@ -23,8 +37,8 @@
 - Creates a warm, approachable accent that stands out against cool blues
 
 ### Color Usage
-- **Primary CTA/Links**: Blue (#3b82f6)
-- **Hover states**: Emerald green (#10b981) for navigation, darker blue for buttons
+- **Primary CTA/Links**: Blue (#2563eb light / #60a5fa dark)
+- **Hover states**: Emerald (#047857 light / #34d399 dark) for navigation, darker blue for buttons
 - **Accent/Progress bar**: Warm golden-amber gradient
 - **Backgrounds**: White (light) / Gray-900 (dark)
 - **Borders**: Gray-200 (light) / Gray-700 (dark) — subtle, not heavy
