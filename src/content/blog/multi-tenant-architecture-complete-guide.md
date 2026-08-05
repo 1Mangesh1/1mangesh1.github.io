@@ -838,31 +838,6 @@ def test_isolation(client, tenant_a_token, tenant_b_id):
 
 ---
 
-## Optional: Visual Diagrams
-
-- Data isolation patterns: DB-per-tenant vs Schema-per-tenant vs Shared Schema
-- Tenant-aware request lifecycle: auth → tenant resolve → query → cache → audit
-- Monitoring pipeline per tenant: app metrics → labels by tenant → dashboards
-
-Tip: create quick visuals with Excalidraw, or embed Mermaid if your stack supports it.
-
----
-
-### Data Isolation Patterns
-
-![Data Isolation Patterns](/images/blogs/architecture/data-isolation-patterns.png)
-_Figure 1: Three main multi-tenant data isolation patterns - Database per Tenant, Schema per Tenant, and Shared Schema_
-
-### Tenant‑Aware Request Lifecycle
-
-![Request Lifecycle](/images/blogs/architecture/request-lifecycle.png)
-_Figure 2: Sequence diagram showing the flow of a tenant-aware request from client to database_
-
-### Monitoring Pipeline per Tenant
-
-![Monitoring Pipeline](/images/blogs/architecture/monitoring-pipeline.png)
-_Figure 3: Monitoring and observability pipeline for multi-tenant applications_
-
 ## Future Considerations
 
 ### 1. Serverless Multi-Tenancy
