@@ -11,7 +11,7 @@ tech:
     "REST API",
   ]
 github: "https://github.com/1Mangesh1/brainrot-translator"
-demo: "https://brainrot-translator.onrender.com"
+demo: ""
 featured: false
 date: 2025-04-15T00:00:00Z
 ---

@@ -11,7 +11,7 @@ const allProjects = (await getCollection('portfolio')).sort(
 const groups = [
   {
     title: 'Selected work',
-    blurb: 'What I build and ship, most of it self-initiated — backend services, AI and agent tooling, and the infrastructure they run on. Most have source on GitHub and a live URL you can poke at.',
+    blurb: 'What I build and ship, most of it self-initiated — backend services, AI and agent tooling, and the infrastructure they run on. Source is on GitHub for all of them, and the ones still hosted are linked live.',
     items: allProjects.filter((project) => project.data.featured),
   },
   {

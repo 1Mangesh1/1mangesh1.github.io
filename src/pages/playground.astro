@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experiments = [
+  {
+    href: '/wall',
+    title: 'The Wall',
+    blurb: 'A shared 64x64 canvas. Everyone gets one pixel every ten minutes, rate-limited server-side by a Cloudflare Worker, so the picture is whatever visitors collectively decide it is.',
+    tags: ['Cloudflare Worker', 'Canvas', 'Multiplayer'],
+  },
+  {
+    href: '/earth-observatory',
+    title: 'Earth Observatory',
+    blurb: "A 3D globe plotting live natural events from NASA's EONET feed — wildfires, storms, volcanoes — fetched at runtime and rendered on a rotating sphere.",
+    tags: ['NASA EONET', 'WebGL', 'Live data'],
+  },
+  {
+    href: '/terminal',
+    title: 'Terminal',
+    blurb: 'The whole site behind a command line. Type `help` and navigate the portfolio the way you would navigate a filesystem.',
+    tags: ['Vanilla JS', 'Alt navigation'],
+  },
+  {
+    href: '/art',
+    title: 'Generative Art',
+    blurb: 'Flow-field experiments that redraw on every run and export to PNG. Same algorithm, never the same output twice.',
+    tags: ['Canvas', 'Generative'],
+  },
+  {
+    href: '/codegolf',
+    title: 'Code Golf',
+    blurb: 'Solve small challenges in the fewest characters possible. Scored on length, which is a good way to learn how little code a problem actually needs.',
+    tags: ['Challenges', 'JS'],
+  },
+  {
+    href: '/games',
+    title: 'Ten Small Games',
+    blurb: 'Hangman, Code Snake, Whack-a-Bug, a typing test, dev bingo, an emoji clicker and more. All vanilla JavaScript, no framework, no build step.',
+    tags: ['Vanilla JS', '10 games'],
+  },
+  {
+    href: '/tools',
+    title: 'Developer Tools',
+    blurb: 'QR codes, colour palettes, password and lorem generators, Base64, JSON formatting. Client-side only, so nothing you paste ever leaves the tab.',
+    tags: ['Client-side', '6 tools'],
+  },
+  {
+    href: '/css-art',
+    title: 'CSS Art',
+    blurb: 'Illustrations built from pure CSS — no images, no SVG. Mostly an excuse to find out how far box-shadow and gradients can be pushed.',
+    tags: ['CSS only'],
+  },
+  {
+    href: '/guestbook',
+    title: 'Guestbook',
+    blurb: 'A retro guestbook backed by Google Sheets instead of a database. Sign it if you got this far.',
+    tags: ['Google Sheets', 'No DB'],
+  },
+];
+---
+
+<Layout
+  title="Playground | Mangesh Bide"
+  description="Interactive experiments: a shared pixel canvas, a live NASA event globe, a terminal interface, generative art, games and client-side dev tools."
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-4">Playground</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+        Things I built because I wanted to find out whether they would work. Nothing here
+        is a product. Most of it is one file of vanilla JavaScript, and all of it is
+        clickable right now.
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        experiments.map((x) => (
+          <a
+            href={x.href}
+            class="group flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-all hover:shadow-md hover-lift animate-on-scroll card-animate"
+          >
+            <h2 class="text-xl font-bold mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+              {x.title}
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{x.blurb}</p>
+            <div class="flex flex-wrap gap-2">
+              {x.tags.map((t) => (
+                <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md font-medium">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 text-sm text-gray-600 dark:text-gray-400">
+      There is also a page that is not linked from anywhere. The footer knows where it is.
+    </p>
+  </div>
+</Layout>
