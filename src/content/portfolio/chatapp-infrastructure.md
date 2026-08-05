@@ -12,11 +12,9 @@ tech:
   ]
 github: "https://github.com/1Mangesh1/chat-app-infrastructure"
 demo: ""
-featured: true
+featured: false
 date: 2025-03-20T00:00:00Z
 ---
-
-# Infrastructure-as-Code ChatApp Deployment
 
 Terraform setup for deploying a real-time chat app on AWS. Handles networking, compute, DNS, and monitoring.
 

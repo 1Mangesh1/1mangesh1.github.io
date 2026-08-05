@@ -12,11 +12,9 @@ tech:
   ]
 github: "https://github.com/1Mangesh1/chat-app"
 demo: "https://chat-app-rhlw.onrender.com"
-featured: true
+featured: false
 date: 2024-07-10T00:00:00Z
 ---
-
-# Real-time ChatApp
 
 A real-time chat app built with Node.js and Socket.io. Supports private messaging, chat rooms, and activity logging.
 
