@@ -4,11 +4,9 @@ description: "Modular API for managing expenses with JWT-based auth, role-based 
 tech: ["NestJS", "TypeORM", "JWT", "Swagger", "PostgreSQL", "TypeScript"]
 github: ""
 demo: ""
-featured: true
+featured: false
 date: 2025-02-15T00:00:00Z
 ---
-
-# Expense Tracking and Budgeting API
 
 Expense management API built with NestJS and TypeORM. Handles authentication, role-based access, and spending aggregation.
 
