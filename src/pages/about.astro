@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const technologies = ['Python', 'JavaScript', 'Django', 'TensorFlow', 'React', 'Astro', 'Docker', 'Git', 'Node.js', 'Express', 'Socket.io', 'NestJS', 'TypeORM', 'JWT', 'Terraform', 'AWS']
+const technologies = ['Python', 'Django / DRF', 'FastAPI', 'PostgreSQL', 'TypeScript', 'React / Next.js', 'RAG / LLM APIs', 'pgvector', 'Docker', 'Terraform', 'Kubernetes / k3s', 'GitHub Actions', 'AWS', 'Oracle Cloud', 'Astro', 'Git']
 ---
 
 <Layout title="About | Mangesh Bide" description="About Mangesh Bide — software engineer working across Python, JavaScript, React, Django, AI, Machine Learning and cloud infra.">
@@ -21,8 +21,10 @@ const technologies = ['Python', 'JavaScript', 'Django', 'TensorFlow', 'React', '
           </p>
           
           <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-            I've built multi-tenant SaaS systems, React frontends, deployed microservices on Docker, small machine learning models, and write about it all
-            so others don't have to figure it out the hard way.
+            Day to day I build backend systems for a healthcare product — Django, PostgreSQL, and AWS — and
+            the infrastructure they run on. On my own time I ship applied-AI projects end to end: RAG pipelines,
+            tool-calling agents, and compliance tooling, most of them self-taught and running at a live URL.
+            I write about most of it so others don't have to figure it out the hard way.
           </p>
         </div>
       </div>
@@ -39,9 +41,9 @@ const technologies = ['Python', 'JavaScript', 'Django', 'TensorFlow', 'React', '
 
       <h2>What I spend my time on</h2>
       <ul>
-        <li>Full-stack apps — Django and Node on the backend, React and Astro on the frontend</li>
-        <li>ML projects with TensorFlow</li>
-        <li>AI powered small apps</li>
+        <li>Backend systems and APIs — Django and FastAPI over PostgreSQL, with auth and access control</li>
+        <li>Applied AI — RAG pipelines, tool-calling agents, and PHI/compliance tooling</li>
+        <li>Infrastructure — Terraform, Docker, and k3s, so environments rebuild from code instead of memory</li>
         <li>Writing about things I figure out (so I don't forget, mostly)</li>
         <li>Small tools that automate stuff I got tired of doing manually</li>
       </ul>
@@ -57,18 +59,24 @@ const technologies = ['Python', 'JavaScript', 'Django', 'TensorFlow', 'React', '
 
       <h2>Find me</h2>
       <p>
-        If you want to chat about code, projects, or anything tech — reach out.
+        If you want to chat about code, projects, or a role — reach out.
       </p>
 
-      <div class="flex flex-wrap gap-3 mt-6">
-        <a href="https://github.com/1mangesh1" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <span>🐙</span> GitHub
+      <div class="flex flex-wrap gap-3 mt-6 not-prose">
+        <a href="/resume" class="inline-flex items-center bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity font-medium">
+          Resume
         </a>
-        <a href="https://x.com/Mangesh_Bide" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <span>🐦</span> Twitter
+        <a href="https://linkedin.com/in/mangesh-bide/" class="inline-flex items-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          LinkedIn
         </a>
-        <a href="mailto:hello@mangeshbide.tech" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <span>📧</span> Email
+        <a href="https://github.com/1mangesh1" class="inline-flex items-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          GitHub
+        </a>
+        <a href="mailto:hello@mangeshbide.tech" class="inline-flex items-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          Email
+        </a>
+        <a href="https://x.com/Mangesh_Bide" class="inline-flex items-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          Twitter
         </a>
       </div>
     </div>
