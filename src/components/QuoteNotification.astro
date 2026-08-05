@@ -1,7 +1,3 @@
----
-import { funQuotes } from '../data/quotes';
----
-
 <div id="quote-notification" class="fixed bottom-6 left-6 z-50 hidden transform transition-all duration-500 translate-y-10 opacity-0">
   <div class="bg-white dark:bg-gray-800 border-l-4 border-blue-500 shadow-2xl rounded-lg p-5 max-w-sm relative flex items-start gap-4">
     <button id="close-quote" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="Close notification">
@@ -18,42 +14,6 @@ import { funQuotes } from '../data/quotes';
   </div>
 </div>
 
-<script define:vars={{ funQuotes }}>
-  document.addEventListener('DOMContentLoaded', () => {
-    const lastShown = localStorage.getItem('lastQuoteShownTime');
-    const now = Date.now();
-    const FOUR_HOURS = 4 * 60 * 60 * 1000;
-
-    // Check if we should show a quote (if never shown or > 4 hours ago)
-    if (!lastShown || (now - parseInt(lastShown) > FOUR_HOURS)) {
-      const notification = document.getElementById('quote-notification');
-      const quoteText = document.getElementById('quote-text');
-      const closeBtn = document.getElementById('close-quote');
-
-      if (notification && quoteText) {
-        // Select random quote
-        const randomQuote = funQuotes[Math.floor(Math.random() * funQuotes.length)];
-        quoteText.textContent = `"${randomQuote}"`;
-
-        // Show notification with a slight delay for better UX
-        setTimeout(() => {
-          notification.classList.remove('hidden');
-          // Trigger reflow to enable transition
-          void notification.offsetWidth;
-          notification.classList.remove('translate-y-10', 'opacity-0');
-
-          // Update timestamp immediately when shown
-          localStorage.setItem('lastQuoteShownTime', now.toString());
-        }, 1500);
-
-        // Close handler
-        closeBtn?.addEventListener('click', () => {
-          notification.classList.add('translate-y-10', 'opacity-0');
-          setTimeout(() => {
-            notification.classList.add('hidden');
-          }, 500);
-        });
-      }
-    }
-  });
+<script>
+  import '../scripts/quote-notification.js';
 </script>
