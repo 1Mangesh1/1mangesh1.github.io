@@ -23,7 +23,7 @@ Published **10+ technical blog posts** covering a wide range of topics:
 - [How to implement soft delete in Django](/blog/soft-delete-django) - Feb 2025
 - [Hot Reload Implementation for Django Staging Environment](/blog/hot-reloading-in-django-on-server) - June 2025
 - [Multi-Tenant SaaS Architecture: Patterns, Security, Scaling](/blog/multi-tenant-architecture-complete-guide) - Sept 2025
-- [API Benchmarking for Multi-Tenant SaaS](/blog/api-benchmarking-multitenant-saas) - Sept 2025
+- API Benchmarking for Multi-Tenant SaaS - Sept 2025 (unpublished draft)
 - [When (and When Not) to Use Microservices](/blog/when-to-use-microservices) - Oct 2025
 
 ### Web Development & Tools
@@ -34,7 +34,7 @@ Published **10+ technical blog posts** covering a wide range of topics:
 - [Mastering Astro Content Collections](/blog/astro-content-collections-guide) - Dec 2025
 
 ### AI & Emerging Tech
-- [What is GLM-4.5? The AI Model That's Changing Everything](/blog/what-is-glm-4-5-ai-model) - July 2025
+- What is GLM-4.5? The AI Model That's Changing Everything - July 2025 (unpublished draft)
 
 ---
 

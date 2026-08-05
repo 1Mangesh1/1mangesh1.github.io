@@ -11,7 +11,7 @@ tech:
     "Real-time Communication",
   ]
 github: "https://github.com/1Mangesh1/chat-app"
-demo: "https://chat-app-rhlw.onrender.com"
+demo: ""
 featured: false
 date: 2024-07-10T00:00:00Z
 ---
