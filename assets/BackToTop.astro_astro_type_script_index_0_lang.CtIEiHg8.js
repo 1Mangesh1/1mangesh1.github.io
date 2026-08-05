@@ -1,0 +1,1 @@
+const o=document.getElementById("back-to-top-btn");o&&(window.addEventListener("scroll",()=>{o.classList.toggle("hidden",window.scrollY<=300)}),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}));
