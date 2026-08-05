@@ -12,7 +12,6 @@ Well, I decided to bring that nostalgia back—but with a modern twist. No PHP, 
 
 Yep. Let me show you how I built a fully functional guestbook that costs exactly **$0/month** to run.
 
-![Guestbook Preview](/images/blog/guestbook-preview.png)
 *The final result: A clean, modern guestbook that would make 2003 proud*
 
 ---
@@ -38,7 +37,6 @@ Here's the beautiful chaos of this setup:
 - No database setup, migrations, or maintenance
 - You can literally open a spreadsheet and approve/delete messages
 
-![Architecture Diagram](/images/blog/guestbook-architecture.png)
 *When your database has conditional formatting and pivot table support*
 
 ---
@@ -77,7 +75,6 @@ Nothing fancy—just good old HTML that actually works:
 
 Notice the `maxlength="280"`? That's intentional. If Twitter taught us anything, it's that character limits make people more creative (or at least more concise).
 
-![Form Screenshot](/images/blog/guestbook-form.png)
 *Clean, minimal, and impossible to mess up*
 
 ### The Character Counter
@@ -120,7 +117,6 @@ function getAvatarColor(name) {
 
 This means "Alice" will always get the same color gradient, creating visual consistency without storing any extra data.
 
-![Avatar Colors](/images/blog/guestbook-avatars.png)
 *Every visitor gets their own signature gradient*
 
 ### Relative Time Formatting
@@ -159,7 +155,6 @@ First, create a Google Sheet with these columns:
 
 The **Draft** column is crucial—it's our spam filter. New entries come in as `TRUE` (draft), and only `FALSE` entries show up on the site.
 
-![Google Sheet Setup](/images/blog/guestbook-sheet.png)
 *Your database admin panel is literally a spreadsheet*
 
 ### The doPost Function (Receiving Messages)
@@ -195,7 +190,6 @@ function doPost(e) {
 3. `sheet.appendRow()` adds a new row to the spreadsheet
 4. The `true` at the end marks it as a draft (pending approval)
 
-![doPost Flow](/images/blog/guestbook-dopost-flow.png)
 *From browser to spreadsheet in ~500ms*
 
 ### The doGet Function (Fetching Messages)
@@ -235,7 +229,6 @@ function doGet() {
 
 Only rows matching these conditions are returned. Everything else stays hidden.
 
-![Moderation Flow](/images/blog/guestbook-moderation.png)
 *Approve messages by changing TRUE to FALSE. That's it. That's the admin panel.*
 
 ---
@@ -263,7 +256,6 @@ Here's how to get your script online:
 5. Click **Deploy**
 6. Copy the URL (this is your API endpoint!)
 
-![Deploy Settings](/images/blog/guestbook-deploy.png)
 *The settings that make the magic work*
 
 ### Step 4: Handle CORS (The Annoying Part)
@@ -311,7 +303,6 @@ This creates a graceful degradation:
 2. **Google Sheet fails** → Messages saved to localStorage only
 3. **Fresh visitor** → Shows default welcome message
 
-![Fallback System](/images/blog/guestbook-fallback.png)
 *When your database is down but the vibes are still up*
 
 ---
@@ -345,7 +336,6 @@ Both frontend and "backend" validate inputs:
 
 Honestly? No. This is a personal site. If someone wants to spam my guestbook, they're only wasting their own time. Plus, the moderation system means spam never goes public anyway.
 
-![Security Meme](/images/blog/guestbook-security.png)
 *My spam prevention strategy: just don't approve spam*
 
 ---
@@ -374,7 +364,6 @@ Let's trace a message from submission to display:
 9. Visitor sees the message with fancy avatar gradient
 ```
 
-![Message Lifecycle](/images/blog/guestbook-lifecycle.png)
 *The journey of a guestbook message*
 
 ---
@@ -407,7 +396,6 @@ Want to add a guestbook to your site? Here's the TL;DR:
 5. Fetch and display approved messages
 6. Moderate by toggling the Draft column
 
-![Final Result](/images/blog/guestbook-final.png)
 *The nostalgia is real*
 
 ---
