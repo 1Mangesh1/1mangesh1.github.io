@@ -31,6 +31,9 @@ jobs:
         run: yarn build
         env:
           GOATCOUNTER_API_KEY: ${{ secrets.GOATCOUNTER_API_KEY }}
+          # Unauthenticated GitHub API calls share the runner's IP and get rate
+          # limited, which would silently drop repo stars/forks from the build.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
