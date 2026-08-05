@@ -70,13 +70,13 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Controls -->
     <div class="flex flex-wrap gap-4 mb-6">
-      <button id="run-btn" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+      <button id="run-btn" class="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-colors font-medium">
         Run Code
       </button>
       <button id="test-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
         Test Solution
       </button>
-      <button id="hint-btn" class="px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors font-medium">
+      <button id="hint-btn" class="px-6 py-3 bg-yellow-700 text-white rounded-lg hover:bg-yellow-800 transition-colors font-medium">
         Show Hint
       </button>
       <button id="reset-btn" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
@@ -309,7 +309,7 @@ import Layout from '../layouts/Layout.astro';
         <span class="font-medium">${s.title}</span>
         <div class="flex gap-4 text-sm">
           <span class="text-gray-500">Best: ${s.best}</span>
-          <span class="${s.yours && s.yours <= s.best ? 'text-green-600 font-bold' : 'text-blue-600'}">
+          <span class="${s.yours && s.yours <= s.best ? 'text-green-700 font-bold' : 'text-blue-600'}">
             You: ${s.yours || '--'}
           </span>
         </div>

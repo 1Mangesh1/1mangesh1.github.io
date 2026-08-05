@@ -48,7 +48,7 @@ import Layout from '../layouts/Layout.astro';
             <button
               onclick="downloadQR()"
               data-haptic="success"
-              class="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+              class="mt-2 px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-colors text-sm"
             >
               Download PNG
             </button>
@@ -129,7 +129,7 @@ import Layout from '../layouts/Layout.astro';
           <button
             onclick="generateLorem()"
             data-haptic="medium"
-            class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-all btn-primary hover-lift"
+            class="w-full bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition-all btn-primary hover-lift"
           >
             Generate Text
           </button>
@@ -233,7 +233,7 @@ import Layout from '../layouts/Layout.astro';
               onclick="setBase64Mode('encode')"
               id="encode-btn"
               data-haptic="selection"
-              class="flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors"
+              class="flex-1 bg-orange-700 text-white py-2 rounded-lg hover:bg-orange-800 transition-colors"
             >
               Encode
             </button>
@@ -260,7 +260,7 @@ import Layout from '../layouts/Layout.astro';
           <button
             onclick="processBase64()"
             data-haptic="medium"
-            class="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors"
+            class="w-full bg-orange-700 text-white py-2 rounded-lg hover:bg-orange-800 transition-colors"
             id="base64-process-btn"
           >
             Encode Text
@@ -321,7 +321,7 @@ import Layout from '../layouts/Layout.astro';
             <button
               onclick="validateJSON()"
               data-haptic="success"
-              class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+              class="flex-1 bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition-colors"
             >
               Validate
             </button>
@@ -431,7 +431,7 @@ import Layout from '../layouts/Layout.astro';
           <button
             onclick="showDiff()"
             data-haptic="medium"
-            class="w-full bg-cyan-600 text-white py-2 rounded-lg hover:bg-cyan-700 transition-colors"
+            class="w-full bg-cyan-700 text-white py-2 rounded-lg hover:bg-cyan-800 transition-colors"
           >
             Compare
           </button>
@@ -464,7 +464,7 @@ import Layout from '../layouts/Layout.astro';
             <button
               onclick="timestampToDate()"
               data-haptic="medium"
-              class="flex-1 bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition-colors"
+              class="flex-1 bg-teal-700 text-white py-2 rounded-lg hover:bg-teal-800 transition-colors"
             >
               To Date
             </button>
@@ -619,7 +619,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="text-sm text-gray-600 dark:text-gray-400">Items Generated</div>
           </div>
           <div>
-            <div class="text-2xl font-bold text-green-600" id="copies-made">0</div>
+            <div class="text-2xl font-bold text-green-700" id="copies-made">0</div>
             <div class="text-sm text-gray-600 dark:text-gray-400">Copies Made</div>
           </div>
         </div>
@@ -936,13 +936,13 @@ import Layout from '../layouts/Layout.astro';
         const processBtn = document.getElementById('base64-process-btn');
 
         if (mode === 'encode') {
-          encodeBtn.className = 'flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors';
+          encodeBtn.className = 'flex-1 bg-orange-700 text-white py-2 rounded-lg hover:bg-orange-800 transition-colors';
           decodeBtn.className = 'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors';
           label.textContent = 'Text to Encode';
           processBtn.textContent = 'Encode Text';
         } else {
           encodeBtn.className = 'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors';
-          decodeBtn.className = 'flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors';
+          decodeBtn.className = 'flex-1 bg-orange-700 text-white py-2 rounded-lg hover:bg-orange-800 transition-colors';
           label.textContent = 'Base64 to Decode';
           processBtn.textContent = 'Decode Text';
         }
@@ -973,7 +973,7 @@ import Layout from '../layouts/Layout.astro';
         try {
           const parsed = JSON.parse(input);
           output.value = JSON.stringify(parsed, null, 2);
-          showStatus('✅ Valid JSON formatted successfully', 'text-green-600');
+          showStatus('✅ Valid JSON formatted successfully', 'text-green-700');
           updateStats('itemsGenerated');
           updateStats('toolsUsed');
         } catch (error) {
@@ -988,7 +988,7 @@ import Layout from '../layouts/Layout.astro';
         try {
           const parsed = JSON.parse(input);
           output.value = JSON.stringify(parsed);
-          showStatus('✅ JSON minified successfully', 'text-green-600');
+          showStatus('✅ JSON minified successfully', 'text-green-700');
           updateStats('itemsGenerated');
           updateStats('toolsUsed');
         } catch (error) {
@@ -1001,7 +1001,7 @@ import Layout from '../layouts/Layout.astro';
 
         try {
           JSON.parse(input);
-          showStatus('✅ Valid JSON!', 'text-green-600');
+          showStatus('✅ Valid JSON!', 'text-green-700');
           updateStats('toolsUsed');
         } catch (error) {
           showStatus('❌ Invalid JSON: ' + error.message, 'text-red-600');
@@ -1052,7 +1052,7 @@ import Layout from '../layouts/Layout.astro';
           const matches = testString.match(regex);
 
           if (matches && matches.length > 0) {
-            result.innerHTML = `<span class="text-green-600">✓ ${matches.length} match(es) found:</span><br><br>` +
+            result.innerHTML = `<span class="text-green-700">✓ ${matches.length} match(es) found:</span><br><br>` +
               matches.map((m, i) => `<span class="bg-yellow-200 dark:bg-yellow-800 px-1">${m}</span>`).join(', ');
           } else {
             result.innerHTML = '<span class="text-red-600">✗ No matches found</span>';
