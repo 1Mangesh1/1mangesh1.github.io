@@ -262,6 +262,84 @@ const gamesData = [
       button: "bg-yellow-700 hover:bg-yellow-800",
     },
   },
+  {
+    id: "bug-sweeper",
+    emoji: "💣",
+    title: "Bug Sweeper",
+    description:
+      "Minesweeper with a code-review twist: the board is a codebase and the mines are bugs. Read the numbers, flag the bugs, and don't step on a segfault.",
+    tags: [
+      { label: "Flood Fill", colorClass: "bg-slate-600" },
+      { label: "Event Delegation", colorClass: "bg-blue-600" },
+      { label: "Grid CSS", colorClass: "bg-purple-600" },
+      { label: "LocalStorage", colorClass: "bg-orange-700" },
+    ],
+    features: [
+      "3 board sizes: 9×9 to 14×14",
+      "First click is always safe",
+      "Flag Mode toggle for touch devices",
+      "Best times saved per difficulty",
+    ],
+    buttonText: "💣 Start Sweeping",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20 border-slate-200 dark:border-slate-800",
+      heading: "text-slate-900 dark:text-slate-100",
+      button: "bg-slate-700 hover:bg-slate-800",
+    },
+  },
+  {
+    id: "devdle",
+    emoji: "🟩",
+    title: "Devdle: Wordle for Devs",
+    description:
+      "Six guesses to find a five-letter word from a developer's vocabulary: languages, tools, keywords, infrastructure. ASYNC? REGEX? NGINX? Good luck.",
+    tags: [
+      { label: "Vanilla JS", colorClass: "bg-emerald-700" },
+      { label: "DOM Manipulation", colorClass: "bg-blue-600" },
+      { label: "Game Logic", colorClass: "bg-purple-600" },
+      { label: "LocalStorage", colorClass: "bg-orange-700" },
+    ],
+    features: [
+      "70+ five-letter dev words",
+      "On-screen and physical keyboard",
+      "Correct duplicate-letter logic",
+      "Win rate and streak tracking",
+    ],
+    buttonText: "🟩 Guess the Word",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border-emerald-200 dark:border-emerald-800",
+      heading: "text-emerald-900 dark:text-emerald-100",
+      button: "bg-emerald-700 hover:bg-emerald-800",
+    },
+  },
+  {
+    id: "hex-guess",
+    emoji: "🌈",
+    title: "Hexle: Guess the Hex",
+    description:
+      "A color appears; four hex codes claim to be it. Ten rounds, and the wrong answers get closer to the right one every round. Train your eyedropper eye.",
+    tags: [
+      { label: "Color Math", colorClass: "bg-indigo-600" },
+      { label: "RGB ↔ Hex", colorClass: "bg-pink-600" },
+      { label: "Vanilla JS", colorClass: "bg-blue-600" },
+      { label: "LocalStorage", colorClass: "bg-orange-700" },
+    ],
+    features: [
+      "10 rounds with converging distractors",
+      "Streak bonus scoring",
+      "5 ranks: CSS wizard to console.log",
+      "Best score saved locally",
+    ],
+    buttonText: "🌈 Read the Hex",
+    themeClasses: {
+      container:
+        "bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 border-indigo-200 dark:border-indigo-800",
+      heading: "text-indigo-900 dark:text-indigo-100",
+      button: "bg-indigo-600 hover:bg-indigo-700",
+    },
+  },
 ];
 ---
 
@@ -401,6 +479,15 @@ const gamesData = [
 
         <!-- Emoji Clicker Game -->
         <div id="emoji-clicker-game" class="game-content hidden"></div>
+
+        <!-- Bug Sweeper Game -->
+        <div id="bug-sweeper-game" class="game-content hidden"></div>
+
+        <!-- Devdle Game -->
+        <div id="devdle-game" class="game-content hidden"></div>
+
+        <!-- Hex Guess Game -->
+        <div id="hex-guess-game" class="game-content hidden"></div>
       </div>
     </div>
 
@@ -409,7 +496,7 @@ const gamesData = [
       <div
         class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg p-8 border border-yellow-200 dark:border-yellow-800"
       >
-        <h2 class="text-2xl font-bold mb-4">🎮 9 Games Available!</h2>
+        <h2 class="text-2xl font-bold mb-4">🎮 13 Games Available!</h2>
         <p class="text-gray-600 dark:text-gray-400 mb-4">
           From coding challenges to creative tools - each game features unique
           mechanics, beautiful animations, and hours of fun!
@@ -482,6 +569,9 @@ const gamesData = [
       CodeHangman?: GameConstructor;
       TypingTest?: GameConstructor;
       DevBingo?: GameConstructor;
+      BugSweeper?: GameConstructor;
+      Devdle?: GameConstructor;
+      HexGuess?: GameConstructor;
       EmojiClickerGame?: EmojiClickerGameInstance;
       showGame?: (gameType: string) => void;
       hideGame?: () => void;
@@ -1324,6 +1414,60 @@ const gamesData = [
             if (gameWindow.EmojiClickerGame) {
               currentGame = gameWindow.EmojiClickerGame;
               gameWindow.EmojiClickerGame.init();
+            }
+          });
+        }
+      } else if (gameType === "bug-sweeper") {
+        gameTitle.textContent = "💣 Bug Sweeper";
+        const gameContent = document.getElementById("bug-sweeper-game");
+        if (!gameContent) return;
+
+        gameContent.innerHTML = "";
+        gameContent.classList.remove("hidden");
+
+        const gameWindow = window as GameWindow;
+        if (gameWindow.BugSweeper) {
+          currentGame = new gameWindow.BugSweeper();
+        } else {
+          loadScript("/game-scripts/bug-sweeper.js", () => {
+            if (gameWindow.BugSweeper) {
+              currentGame = new gameWindow.BugSweeper();
+            }
+          });
+        }
+      } else if (gameType === "devdle") {
+        gameTitle.textContent = "🟩 Devdle: Wordle for Devs";
+        const gameContent = document.getElementById("devdle-game");
+        if (!gameContent) return;
+
+        gameContent.innerHTML = "";
+        gameContent.classList.remove("hidden");
+
+        const gameWindow = window as GameWindow;
+        if (gameWindow.Devdle) {
+          currentGame = new gameWindow.Devdle();
+        } else {
+          loadScript("/game-scripts/devdle.js", () => {
+            if (gameWindow.Devdle) {
+              currentGame = new gameWindow.Devdle();
+            }
+          });
+        }
+      } else if (gameType === "hex-guess") {
+        gameTitle.textContent = "🌈 Hexle: Guess the Hex";
+        const gameContent = document.getElementById("hex-guess-game");
+        if (!gameContent) return;
+
+        gameContent.innerHTML = "";
+        gameContent.classList.remove("hidden");
+
+        const gameWindow = window as GameWindow;
+        if (gameWindow.HexGuess) {
+          currentGame = new gameWindow.HexGuess();
+        } else {
+          loadScript("/game-scripts/hex-guess.js", () => {
+            if (gameWindow.HexGuess) {
+              currentGame = new gameWindow.HexGuess();
             }
           });
         }
