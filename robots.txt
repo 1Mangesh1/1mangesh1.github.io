@@ -9,16 +9,20 @@ Disallow: /.well-known/
 Disallow: /api/
 Disallow: /maintenance
 
+# Dev artifacts (/benchmark-reflow.html, /skeleton-demo) are deliberately NOT
+# disallowed here: they carry a noindex meta tag, and a blocked crawl would stop
+# that tag from ever being read.
+
 # Sitemap location
 Sitemap: https://mangeshbide.tech/sitemap-index.xml
 
-# Crawl delay (optional - helps with server load)
-Crawl-delay: 1
+# No global Crawl-delay: the site is static behind Cloudflare, so there is no
+# origin to protect. Google ignores the directive anyway, while Bing and the AI
+# crawlers honour it — it only ever slowed down the crawlers worth having.
 
 # Specific rules for different bots
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
