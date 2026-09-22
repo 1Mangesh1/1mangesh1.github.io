@@ -90,6 +90,12 @@ const CHAT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 const MAX_HISTORY_MESSAGES = 6; // last ~3 exchanges kept for context
 const MAX_HISTORY_CHARS = 1000; // per-message cap on client-supplied history
 
+// Route inference through AI Gateway for request logs and spend controls. The
+// cache key covers the whole messages array, so only an identical first turn
+// ("what does he work on?") can hit — mid-conversation turns carry distinct
+// history and always reach the model. "default" is created on first request.
+const AI_GATEWAY = { gateway: { id: "default", cacheTtl: 3600 } };
+
 // ── Helper: Hash IP with daily salt ─────────────────────────
 // Gives you unique visitor counts without storing raw IPs.
 // Daily salt = same IP gets a different hash each day,
@@ -413,11 +419,15 @@ async function handleChat(request, env, ctx, corsHeaders) {
 
   try {
     if (!wantsStream) {
-      const result = await env.AI.run(CHAT_MODEL, {
-        messages,
-        max_tokens: 512,
-        temperature: 0.5,
-      });
+      const result = await env.AI.run(
+        CHAT_MODEL,
+        {
+          messages,
+          max_tokens: 512,
+          temperature: 0.5,
+        },
+        AI_GATEWAY
+      );
       const answer = result.response || "No answer generated.";
       ctx.waitUntil(
         writeChatLog(env, request, ip, sessionId, trimmedQuestion, answer).catch((err) =>
@@ -430,12 +440,16 @@ async function handleChat(request, env, ctx, corsHeaders) {
       });
     }
 
-    const aiStream = await env.AI.run(CHAT_MODEL, {
-      messages,
-      max_tokens: 512,
-      temperature: 0.5,
-      stream: true,
-    });
+    const aiStream = await env.AI.run(
+      CHAT_MODEL,
+      {
+        messages,
+        max_tokens: 512,
+        temperature: 0.5,
+        stream: true,
+      },
+      AI_GATEWAY
+    );
 
     // Tee the stream: one branch streams live to the visitor, the other is
     // drained to capture the full answer for privacy-safe D1 logging.
@@ -539,6 +553,45 @@ async function handlePresence(request, env, corsHeaders) {
   });
 }
 
+// Turnstile siteverify. Fails closed: any transport error, non-2xx, or missing
+// binding rejects, because a bypass here reopens the endpoint entirely. Checking
+// action and hostname is what stops a token minted on some other widget or page
+// from being replayed against this one.
+async function verifyTurnstile(env, token, clientIp, expectedAction) {
+  const hostnames = (env.TURNSTILE_HOSTNAMES || "")
+    .split(",")
+    .map((h) => h.trim())
+    .filter(Boolean);
+
+  if (!env.TURNSTILE_SECRET || hostnames.length === 0) return false;
+  if (typeof token !== "string" || token.length === 0 || token.length > 2048) return false;
+
+  let result;
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      signal: AbortSignal.timeout(10_000),
+      body: new URLSearchParams({
+        secret: env.TURNSTILE_SECRET,
+        response: token,
+        remoteip: clientIp,
+      }),
+    });
+    if (!res.ok) throw new Error(`siteverify ${res.status}`);
+    result = await res.json();
+  } catch (err) {
+    console.error("Turnstile verify error:", err);
+    return false;
+  }
+
+  return (
+    result.success === true &&
+    result.action === expectedAction &&
+    hostnames.includes(result.hostname)
+  );
+}
+
 // Wall: shared pixel canvas
 const WALL_PALETTE = [
   '#000000', '#1a1c2c', '#5d275d', '#b13e53',
@@ -614,14 +667,33 @@ async function handleWall(request, env, corsHeaders) {
       );
     }
 
-    // Rate limit: 1 pixel per 10 minutes per visitor
+    // Rate limit: 1 pixel per 10 minutes, keyed on the connecting IP. visitorId
+    // is client-supplied, so keying on it let a caller rotate the field and
+    // repaint the whole canvas; it is kept below for the visitor stat only.
     const safeVisitorId = String(visitorId).slice(0, 36);
-    const rateKey = `wall:rate:${safeVisitorId}`;
+    const clientIp = request.headers.get("CF-Connecting-IP") || "unknown";
+    const rateKey = `wall:rate:${clientIp}`;
     const existing = await env.RATE_LIMIT_KV.get(rateKey);
     if (existing) {
       return new Response(
         JSON.stringify({ error: "Rate limited. You can place one pixel every 10 minutes." }),
         { status: 429, headers: jsonHeaders }
+      );
+    }
+
+    // Checked after the cheap validation above so malformed requests never cost
+    // a siteverify round-trip, and after the rate limit so a caller cannot burn
+    // through tokens faster than the cooldown allows.
+    const passed = await verifyTurnstile(
+      env,
+      body["cf-turnstile-response"],
+      clientIp,
+      "wall"
+    );
+    if (!passed) {
+      return new Response(
+        JSON.stringify({ error: "Verification failed. Reload the page and try again." }),
+        { status: 403, headers: jsonHeaders }
       );
     }
 
