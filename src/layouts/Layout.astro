@@ -49,7 +49,6 @@ try {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -111,13 +110,18 @@ try {
         "url": "https://mangeshbide.tech",
         "image": "https://mangeshbide.tech/og-image.png",
         "photo": "https://mangeshbide.tech/me.jpg",
-        "jobTitle": "Software Developer",
+        "jobTitle": "Backend / Platform Engineer",
         "worksFor": {
           "@type": "Organization",
           "name": "Houseworks Technologies"
         },
         "alumniOf": "https://www.rcpit.ac.in",
-        "knowsAbout": ["Python", "Django", "React", "TypeScript", "Astro", "Terraform", "OCI", "AWS"],
+        // The topic list answer engines bind this entity to, so it tracks what is
+        // actually published here and on the resume — not an aspirational stack.
+        "knowsAbout": [
+          "Keycloak", "SpiceDB", "Relationship-based access control", "Multi-tenant SaaS architecture",
+          "Python", "Django", "TypeScript", "PostgreSQL", "Cloudflare Workers", "Astro", "AWS"
+        ],
         "sameAs": [
           "https://github.com/1mangesh1",
           "https://x.com/Mangesh_Bide",
@@ -254,6 +258,15 @@ try {
                       <a href="/bookmarks" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">
                         Bookmarks
                       </a>
+                      <a href="/books" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">
+                        Books
+                      </a>
+                      <a href="/resources" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">
+                        Resources
+                      </a>
+                      <a href="/speaking" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">
+                        Speaking
+                      </a>
                       <a href="/random" class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">
                         Random
                       </a>
@@ -360,6 +373,15 @@ try {
               </a>
               <a href="/bookmarks" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Bookmarks
+              </a>
+              <a href="/books" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                Books
+              </a>
+              <a href="/resources" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                Resources
+              </a>
+              <a href="/speaking" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                Speaking
               </a>
               <a href="/random" class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Random

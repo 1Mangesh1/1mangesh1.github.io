@@ -1,5 +1,6 @@
 ---
 title: "API Benchmarking for Multi‑Tenant SaaS: A Practical, On‑Point Guide"
+seoTitle: "API Benchmarking for Multi-Tenant SaaS: A Practical Guide"
 description: "Design realistic benchmarks for tenant‑isolated APIs: datasets, scenarios, tools, metrics, diagnostics, and a repeatable report template."
 pubDate: 2025-09-20T00:00:00Z
 tags:

@@ -7,6 +7,9 @@ import { siteConfig } from '../config/site';
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Site under maintenance" />
+    <!-- Maintenance mode routes every URL here, so without this a crawl during
+         that window would index "we're down" in place of the real pages. -->
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Under Maintenance - {siteConfig.title}</title>

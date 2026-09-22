@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { excerpt } from '../../utils/excerpt';
 
 export async function getStaticPaths() {
   // Filter drafts in production, show all in development
@@ -37,7 +38,10 @@ const statusLabels: Record<string, string> = {
 };
 ---
 
-<Layout title={`${book.data.title} - Books`}>
+<Layout
+  title={`${book.data.title} - Books`}
+  description={excerpt(book.body ?? '') || `Notes on ${book.data.title} by ${book.data.author}.`}
+>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <a href="/books" class="text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block">
       ← Back to Books

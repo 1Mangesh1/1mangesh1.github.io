@@ -14,12 +14,21 @@ export default defineConfig({
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
-      // Exclude maintenance page from sitemap
-      filter: (page) => !page.includes("/maintenance"),
+      // Keep the sitemap and the noindex set in agreement — listing a page you
+      // tell crawlers to drop is a contradictory signal.
+      filter: (page) =>
+        !["/maintenance", "/thank-you", "/skeleton-demo", "/dead", "/secret"].some((p) =>
+          page.includes(p)
+        ),
     }),
   ],
   site: "https://mangeshbide.tech",
   base: "/",
+  // /reading rendered the same books collection as /books, splitting the same
+  // query intent across two URLs. /books wins: it owns the [slug] detail pages.
+  redirects: {
+    "/reading": "/books",
+  },
   markdown: {
     rehypePlugins: [rehypeImageAttrs],
   },

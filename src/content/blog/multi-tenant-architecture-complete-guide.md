@@ -1,5 +1,6 @@
 ---
 title: "Multi-Tenant SaaS Architecture: Patterns, Security, Scaling, and Best Practices"
+seoTitle: "Multi-Tenant SaaS Architecture: Patterns and Security"
 description: "Learn how to design, implement, and scale multi-tenant systems with real-world examples, patterns, and best practices for modern SaaS applications."
 pubDate: 2025-09-16T00:00:00Z
 tags:

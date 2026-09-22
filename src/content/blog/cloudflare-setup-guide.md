@@ -1,5 +1,6 @@
 ---
 title: "How to Connect Your Domain to Cloudflare in 15 Minutes: A Step-by-Step Guide"
+seoTitle: "How to Connect Your Domain to Cloudflare in 15 Minutes"
 description: "A quick, actionable tutorial for setting up Cloudflare on your website, with annotated screenshots."
 pubDate: 2025-07-23T00:00:00Z
 tags: ["Cloudflare", "Setup", "Domain", "Guide"]

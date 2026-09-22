@@ -1,5 +1,6 @@
 ---
 title: "Cloudflare Drop: Drag a Folder, Get a Live Site, No Account Required"
+seoTitle: "Cloudflare Drop: Drag a Folder, Get a Live Site"
 description: "Cloudflare Drop lets you deploy a static site by dropping a folder or zip onto a page. No account, no config, a live preview URL in seconds that stays up for an hour. Here's what it actually does, the one catch, and where it fits next to a real deploy pipeline."
 pubDate: 2026-07-09T00:00:00Z
 tags: ["cloudflare", "workers", "static-sites", "deployment"]

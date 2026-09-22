@@ -66,10 +66,16 @@ const blogPostingSchema = {
     "@id": `https://mangeshbide.tech/blog/${post.id}`
   }
 };
+
+// Google shows roughly 60 characters, so the brand suffix earns its place only
+// when the headline leaves room — otherwise it costs words that carry meaning.
+const BRAND = " — Mangesh Bide";
+const serpTitle = post.data.seoTitle ?? post.data.title;
+const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : serpTitle;
 ---
 
 <Layout
-  title={`${post.data.title} - Mangesh's Blog`}
+  title={pageTitle}
   description={post.data.description}
   image={post.data.ogImage || `/og/${post.id}.png`}
   schema={blogPostingSchema}

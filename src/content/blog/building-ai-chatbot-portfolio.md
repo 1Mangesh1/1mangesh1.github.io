@@ -1,5 +1,6 @@
 ---
 title: "How I Built an AI Chatbot for My Portfolio With Cloudflare Workers for Free"
+seoTitle: "Build a Free Portfolio AI Chatbot on Cloudflare Workers"
 description: "A complete breakdown of building a self-hosted AI chatbot using Cloudflare Workers AI (free), KV rate limiting, D1 database, and Astro. No API keys. No per-request fees. Full source code walkthrough."
 pubDate: 2026-03-25T00:00:00Z
 tags: ["cloudflare-workers", "ai-chatbot", "astro", "javascript", "workers-ai"]
