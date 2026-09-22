@@ -24,3 +24,7 @@ crons = ["0 3 * * *"]
 # Environment variables
 [vars]
 FOOTPRINT_TOKEN_HASH = "9381d8b1ab676634fa938edffd43b819465a9d948f7a634b0fbba8283497f9fd"
+# Hostnames siteverify must report for a wall token to be accepted. The widget
+# also allows localhost, but the deployed worker must never honour it — override
+# via .dev.vars for local runs. TURNSTILE_SECRET is a secret, not a var.
+TURNSTILE_HOSTNAMES = "mangeshbide.tech"

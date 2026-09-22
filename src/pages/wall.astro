@@ -32,6 +32,8 @@ import Layout from '../layouts/Layout.astro';
       <button id="grid-toggle" class="px-3 py-1 rounded text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">Grid</button>
     </div>
 
+    <div id="wall-turnstile" class="flex justify-center mb-2"></div>
+
     <p id="wall-status" class="text-sm text-green-700 dark:text-green-400 h-6"></p>
   </div>
 </Layout>
@@ -41,6 +43,24 @@ import Layout from '../layouts/Layout.astro';
   var ls = window.__livingSite;
   var WORKER_URL = ls ? ls.WORKER_URL : 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
   var VISITOR_ID = ls ? ls.VISITOR_ID : crypto.randomUUID();
+
+  // Turnstile tokens are single-use, and this page stays put after a placement,
+  // so the widget is rendered explicitly and reset after every attempt to mint
+  // the next one. Sitekey is public by design.
+  var TURNSTILE_SITEKEY = '0x4AAAAAAEcu00PJSetuym6A';
+  var turnstileWidgetId = null;
+  var turnstileToken = null;
+
+  window.onWallTurnstileLoad = function () {
+    turnstileWidgetId = window.turnstile.render('#wall-turnstile', {
+      sitekey: TURNSTILE_SITEKEY,
+      action: 'wall',
+      size: 'flexible',
+      callback: function (token) { turnstileToken = token; },
+      'expired-callback': function () { turnstileToken = null; },
+      'error-callback': function () { turnstileToken = null; },
+    });
+  };
   var PALETTE = [
     '#000000','#1a1c2c','#5d275d','#b13e53',
     '#ef7d57','#ffcd75','#a7f070','#38b764',
@@ -179,13 +199,25 @@ import Layout from '../layouts/Layout.astro';
     var py = Math.floor((e.clientY - rect.top) * scaleY / PIXEL_SIZE);
     if (px < 0 || px > 63 || py < 0 || py > 63) return;
 
+    if (!turnstileToken) {
+      statusEl.textContent = 'Still verifying you are human — try again in a moment';
+      setTimeout(function () { statusEl.textContent = ''; }, 3000);
+      return;
+    }
+
     statusEl.style.color = '';
     statusEl.textContent = 'Placing...';
     try {
       var res = await fetch(WORKER_URL + '/wall', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ x: px, y: py, color: selectedColor, visitorId: VISITOR_ID }),
+        body: JSON.stringify({
+          x: px,
+          y: py,
+          color: selectedColor,
+          visitorId: VISITOR_ID,
+          'cf-turnstile-response': turnstileToken,
+        }),
       });
       var data = await res.json();
       if (res.ok) {
@@ -206,6 +238,10 @@ import Layout from '../layouts/Layout.astro';
     } catch (err) {
       statusEl.textContent = 'Connection error';
       setTimeout(function () { statusEl.textContent = ''; }, 3000);
+    } finally {
+      // Spent whether or not the placement landed — siteverify redeems it once.
+      turnstileToken = null;
+      if (turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
     }
   });
 
@@ -224,3 +260,12 @@ import Layout from '../layouts/Layout.astro';
   load();
 })();
 </script>
+
+<!-- Loaded after the block above so onWallTurnstileLoad is defined before the
+     API can invoke it. render=explicit suppresses implicit auto-rendering. -->
+<script
+  is:inline
+  async
+  defer
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onWallTurnstileLoad"
+></script>
