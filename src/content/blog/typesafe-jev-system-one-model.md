@@ -4,7 +4,7 @@ seoTitle: "TypeSafe Jev Explained: Use Cases, Pricing, Benchmarks"
 description: "TypeSafe's Jev returns decisions, not text. How it works, what it costs, which benchmark claims hold up, and use cases from healthcare triage to logistics."
 pubDate: 2026-09-22T00:00:00Z
 tags: ["ai", "AI Engineering", "cloudflare", "workers-ai", "typesafe"]
-draft: true
+draft: false
 ---
 
 **TL;DR:** Jev is the first model from TypeSafe AI, and it never writes a word. You give it one input and a handful of typed questions. It gives back a pick, a score or a yes/no probability for each, with confidence attached. Input costs $0.042 per million tokens and output is free. The "193.6x faster, 444.6x cheaper" headline comes from TypeSafe grading Jev against two frontier models instead of against right answers, and nobody has reproduced it. Against the cheapest Gemini model my math says Jev is about 3.5x cheaper per decision, and for a side project Gemini's free tier beats it outright. I also tried calling Jev through Cloudflare. I got a 402 before a single token ran.
