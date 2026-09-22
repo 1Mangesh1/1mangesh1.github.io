@@ -30,7 +30,10 @@ const languageColors: Record<string, string> = {
 };
 ---
 
-<Layout title={`${snippet.data.title} - Snippets`}>
+<Layout
+  title={`${snippet.data.title} - Snippets`}
+  description={`${snippet.data.description.replace(/\.$/, '')}. A copy-paste ${snippet.data.language} snippet.`}
+>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <a href="/snippets" class="text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block">
       ← Back to Snippets

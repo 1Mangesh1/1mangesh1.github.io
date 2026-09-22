@@ -42,7 +42,7 @@ const blogSchema = {
 
 <Layout 
   title={`Blog ${page.currentPage > 1 ? `• Page ${page.currentPage}` : ''} | Mangesh Bide`} 
-  description="Articles about software development, machine learning, Python, Django, JavaScript, web development, and tech insights."
+  description={`Essays and build logs on backend and platform engineering — auth, multi-tenancy, Python, Django and Cloudflare Workers.${page.currentPage > 1 ? ` Page ${page.currentPage} of ${page.lastPage}.` : ''}`}
   schema={blogSchema}
 >
   <div class="max-w-4xl mx-auto px-4 py-12">

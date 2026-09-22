@@ -5,6 +5,9 @@ const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
+    // Shorter stand-in for `title` in <title> only, when the headline the post
+    // deserves is longer than a SERP will show. The page H1 keeps `title`.
+    seoTitle: z.string().max(60).optional(),
     description: z.string(),
     pubDate: z.date(),
     updatedDate: z.date().optional(),

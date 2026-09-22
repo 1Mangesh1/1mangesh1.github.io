@@ -1,5 +1,6 @@
 ---
 title: "HIPAA Guardian: Building AI Skills to Detect Healthcare Data Breaches Automatically"
+seoTitle: "HIPAA Guardian: An AI Skill That Detects PHI in Code"
 description: "Learn how to build AI agent skills for HIPAA compliance. Detect PHI/PII in code, logs, and AI outputs before they become expensive violations. Complete guide to writing reusable agent skills."
 pubDate: 2026-02-05T00:00:00Z
 tags: ["HIPAA", "Healthcare", "AI Agents", "Compliance", "Security", "Agent Skills", "Python", "Healthcare Tech"]
@@ -496,6 +497,7 @@ def test_multiple_phi():
 
 4. **Document Everything**
 
+   ````markdown
    # HIPAA Guardian Skill
    
    ## Usage
@@ -512,6 +514,7 @@ def test_multiple_phi():
    - [x] Medical record numbers
    - [x] Diagnosis codes
    ...
+   ````
 
 
 ---

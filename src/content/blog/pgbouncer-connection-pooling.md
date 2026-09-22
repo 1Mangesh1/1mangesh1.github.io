@@ -133,7 +133,7 @@ Watch `waiting_clients` in SHOW POOLS. If it's consistently > 0, your pool is un
 Simple. PgBouncer sits between your app and database, opens fewer connections to PostgreSQL, and multiplexes requests across that pool. Use transaction mode. Monitor `waiting_clients`. Adjust `default_pool_size` when you see waiting clients. Not magic. Just works.
 
 
-# References
+## References
 - [PgBouncer Documentation](https://www.pgbouncer.org/)
 - [PostgreSQL Connection Pooling](https://www.postgresql.org/docs/current/runtime-config-connection.html)
 

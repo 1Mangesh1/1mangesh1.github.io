@@ -1,5 +1,6 @@
 ---
 title: "SEO In Depth: How Google Search Index Works & How To Optimize Your Site"
+seoTitle: "How the Google Search Index Works, and How to Optimize"
 date: 2025-07-29T00:00:00Z
 description: "A comprehensive guide to SEO, covering Google Search Index, technical, on-page, and off-page optimization for modern websites."
 tags: ["SEO", "Google", "Web Development", "Performance", "Analytics"]

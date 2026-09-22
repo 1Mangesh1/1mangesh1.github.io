@@ -1,5 +1,6 @@
 ---
 title: "I Made My Portfolio Feel Alive — Ghost Cursors, Shared Pixel Art, and Other Weird Ideas"
+seoTitle: "Ghost Cursors and Shared Pixel Art on My Portfolio"
 description: "How I added real-time visitor presence, a collaborative pixel canvas, click heatmaps, and ambient mood to a static Astro site using one Cloudflare Worker and vanilla JS."
 pubDate: 2026-03-27T00:00:00Z
 tags: ["cloudflare-workers", "astro", "javascript", "real-time", "vanilla-js"]

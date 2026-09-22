@@ -2,9 +2,14 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { formatDate } from '../../utils/date';
+import { excerpt } from '../../utils/excerpt';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('til');
+  // Without this the /til index hides drafts but still builds a live, indexable
+  // page for each one — unlisted, but crawlable and in the sitemap.
+  const blogEntries = await getCollection('til', ({ data }) =>
+    import.meta.env.PROD ? data.draft !== true : true
+  );
   return blogEntries.map(entry => ({
     params: { slug: entry.id }, props: { entry },
   }));
@@ -24,7 +29,10 @@ const categoryColors: Record<string, string> = {
 };
 ---
 
-<Layout title={`${entry.data.title} - TIL`}>
+<Layout
+  title={`${entry.data.title} - TIL`}
+  description={excerpt(entry.body ?? '') || `A short ${entry.data.category ?? 'developer'} note: ${entry.data.title}.`}
+>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <div class="mb-8">
       <a href="/til" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to TILs</a>
