@@ -292,6 +292,12 @@ You: "Hey! 👋 I'm here to tell you all about Mangesh — his skills, projects,
 
 // Development-only: Clear rate limit cache
 async function handleClearCache(request, env, corsHeaders) {
+  // Local testing only (test-worker.js). Deployed, it would let any caller reset
+  // their own rate limit.
+  const { hostname } = new URL(request.url);
+  if (hostname !== "localhost" && hostname !== "127.0.0.1") {
+    return new Response("Not found", { status: 404, headers: corsHeaders });
+  }
   if (request.method !== "POST") {
     return new Response("Method not allowed", { status: 405, headers: corsHeaders });
   }
