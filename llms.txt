@@ -56,3 +56,10 @@
 - [How to implement soft delete in Django](https://mangeshbide.tech/blog/soft-delete-django/): Learn how to implement soft delete functionality in Django using custom managers and model mixins.
 - [Procedural Generation: Creating Infinite Worlds](https://mangeshbide.tech/blog/infinite-worlds/): Deep dive into procedural generation technology and its applications in creating vast game worlds.
 - [Hello World](https://mangeshbide.tech/blog/hello-world/): Welcome to my blog! Here I'll share my projects, thoughts on technology, and more.
+
+## Optional
+
+- [Full text](https://mangeshbide.tech/llms-full.txt): every project and published post in one file
+- [Resume as JSON](https://mangeshbide.tech/resume.json): roles with dates, projects, skills
+- [MCP server](https://mangeshbide.tech/.well-known/mcp/server-card.json): read-only tools for the resume, this index, and any page as markdown
+- [A2A agent](https://mangeshbide.tech/.well-known/agent-card.json): ask "Mangesh AI" questions about his work
