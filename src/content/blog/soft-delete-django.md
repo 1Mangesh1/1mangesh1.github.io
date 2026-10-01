@@ -2,7 +2,7 @@
 title: "How to implement soft delete in Django"
 description: "Learn how to implement soft delete functionality in Django using custom managers and model mixins."
 pubDate: 2025-02-13T00:00:00Z
-tags: ["Django", "Soft Delete"]
+tags: ["django"]
 ---
 
 In this post, I will show you how to implement soft delete in Django. Soft delete is a technique used to mark a record as deleted without actually removing it from the database. This is useful when you want to keep a record of deleted items or when you want to restore them later.

@@ -3,7 +3,7 @@ title: "The Complete Guide to Building AI Agent Skills: From Zero to Production"
 seoTitle: "Building AI Agent Skills: From Zero to Production"
 description: "Master AI agent skills for Claude and other models. Learn to build, structure, test, and deploy reusable skills that scale. Complete guide with templates and best practices."
 pubDate: 2026-02-07T00:00:00Z
-tags: ["AI Agents", "Claude", "Agent Skills", "AI Automation", "Developer Tools", "AI Engineering", "Prompt Engineering", "Workflow Automation"]
+tags: ["ai-agents", "claude-code", "developer-tools", "ai"]
 draft: false
 ---
 

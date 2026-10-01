@@ -2,7 +2,7 @@
 title: "Hot Reload Implementation for Django Staging Environment"
 description: "Learn how to implement hot reloading for Django applications in a staging environment with Docker Compose and Gunicorn for improved development experience."
 pubDate: 2025-06-21T00:00:00Z
-tags: ["Django", "Docker", "Gunicorn", "Hot Reload", "Development"]
+tags: ["django", "devops"]
 ---
 
 This guide describes the implementation of hot reloading for a Django application in a staging environment with Docker Compose. Hot reloading enables automatic application refreshes when code changes are detected, significantly improving the development experience by eliminating manual restarts.

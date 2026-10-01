@@ -3,7 +3,7 @@ title: "Is Cloudflare’s Free Plan Worth It? A Deep Dive into Its Best Features
 seoTitle: "Is Cloudflare's Free Plan Worth It? A Deep Dive"
 description: "Explore the analytics, security, and performance tools included in Cloudflare’s free plan, with practical tips and screenshots."
 pubDate: 2025-07-24T00:00:00Z
-tags: ["Cloudflare", "Analytics", "Features", "Review"]
+tags: ["cloudflare"]
 ogImage: "/images/blogs/cloudflare/overview.png"
 draft: false
 ---

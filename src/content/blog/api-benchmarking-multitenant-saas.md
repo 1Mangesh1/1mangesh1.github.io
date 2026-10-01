@@ -5,13 +5,10 @@ description: "Design realistic benchmarks for tenant‑isolated APIs: datasets, 
 pubDate: 2025-09-20T00:00:00Z
 tags:
   [
-    "Benchmarking",
-    "SaaS",
-    "Multi-tenant",
-    "Performance",
-    "k6",
-    "PostgreSQL",
-    "Django",
+    "performance",
+    "multi-tenancy",
+    "postgresql",
+    "django",
   ]
 draft: true
 ---

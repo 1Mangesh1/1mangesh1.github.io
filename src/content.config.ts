@@ -1,5 +1,6 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { aliases, canonical, tagSlug } from "./data/tags";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
@@ -12,7 +13,20 @@ const blog = defineCollection({
     pubDate: z.date(),
     updatedDate: z.date().optional(),
     heroImage: z.string().optional(),
-    tags: z.array(z.string()).optional(),
+    tags: z
+      .array(z.string())
+      .optional()
+      .transform((tags, ctx) => {
+        const normalized = (tags ?? []).map((raw) => {
+          const slug = tagSlug(raw);
+          const tag = aliases[slug] ?? slug;
+          if (!canonical.includes(tag)) {
+            ctx.addIssue({ code: "custom", message: `Unknown blog tag "${raw}": use a canonical tag or add an alias in src/data/tags.ts` });
+          }
+          return tag;
+        });
+        return [...new Set(normalized)];
+      }),
     draft: z.boolean().optional(),
     ogImage: z.string().optional(),
   }),

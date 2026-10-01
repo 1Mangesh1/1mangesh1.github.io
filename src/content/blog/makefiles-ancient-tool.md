@@ -2,7 +2,7 @@
 title: "Makefiles: The Ancient Tool You Should Still Be Using"
 description: "Stop burying your build logic in package.json scripts. Discover why Makefiles remain the superior, self-documenting choice for modern task orchestration in 2026."
 pubDate: 2026-02-22T00:00:00Z
-tags: ["DevOps", "Productivity", "Tools"]
+tags: ["devops", "developer-tools"]
 draft: false
 ---
 

@@ -2,7 +2,7 @@
 title: "Mastering Maintenance Mode in Static Sites"
 description: "Build a robust maintenance mode for Astro static sites using middleware and build-time configuration, without external proxies or complex infrastructure."
 pubDate: 2026-02-19T16:00:00Z
-tags: ["Astro", "DevOps", "Node.js", "Maintenance"]
+tags: ["astro", "devops", "javascript"]
 draft: false
 ---
 

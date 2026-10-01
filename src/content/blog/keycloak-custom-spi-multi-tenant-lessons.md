@@ -3,7 +3,7 @@ title: "Extending Keycloak for Multi-Tenant SaaS: SPIs, Tenant Policies, and One
 seoTitle: "Extending Keycloak for Multi-Tenant SaaS with SPIs"
 description: "Lessons from building a Keycloak identity layer for a multi-tenant healthcare platform: custom Java SPIs, deploy-time provisioning, account lifecycle, and a required-actions bug that silently cancelled itself."
 pubDate: 2026-08-13T00:00:00Z
-tags: ["keycloak", "identity", "oidc", "multi-tenancy", "java"]
+tags: ["keycloak", "auth", "multi-tenancy"]
 draft: true
 ---
 

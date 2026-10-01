@@ -2,7 +2,7 @@
 title: "Your First Week With Claude Code: A Day-by-Day Guide"
 description: "What actually clicks each day when you start using Claude Code — install, context, CLAUDE.md, plan mode, skills, git guardrails. A practical 7-day onboarding."
 pubDate: 2026-05-16T00:00:00Z
-tags: ["Claude Code", "AI Agents", "Agentic Coding", "Developer Tools", "Claude", "AI Engineering", "Productivity", "Workflow Automation"]
+tags: ["claude-code", "ai-agents", "developer-tools", "ai"]
 draft: false
 ---
 

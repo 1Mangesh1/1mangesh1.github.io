@@ -5,12 +5,10 @@ description: "Learn how to design, implement, and scale multi-tenant systems wit
 pubDate: 2025-09-16T00:00:00Z
 tags:
   [
-    "Architecture",
-    "SaaS",
-    "Multi-tenant",
-    "Scalability",
-    "Database Design",
-    "Security",
+    "architecture",
+    "multi-tenancy",
+    "postgresql",
+    "security",
   ]
 ---
 

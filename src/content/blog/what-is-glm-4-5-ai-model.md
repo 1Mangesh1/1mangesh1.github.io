@@ -2,7 +2,7 @@
 title: "What is GLM-4.5? The AI Model That's Changing Everything"
 pubDate: 2025-07-29T00:00:00Z
 description: "A deep dive into GLM-4.5, the revolutionary AI model that unifies reasoning, coding, and agentic capabilities. Learn how this 355-billion parameter model is reshaping AI development."
-tags: ["AI", "Machine Learning", "GLM-4.5", "LLM", "Technology"]
+tags: ["ai"]
 draft: true
 ---
 
