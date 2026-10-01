@@ -1,0 +1,14 @@
+name = "markdown-for-agents"
+main = "markdown-worker.js"
+compatibility_date = "2026-09-01"
+
+# Sits in front of GitHub Pages for every request on the apex domain. Set this
+# route to "Fail open" in the dashboard so the site keeps serving if the Worker
+# errors or the free plan's daily request limit is reached.
+routes = [{ pattern = "mangeshbide.tech/*", zone_name = "mangeshbide.tech" }]
+
+# Only meaningful on the route; on workers.dev there is no origin to pass through to.
+workers_dev = false
+
+[ai]
+binding = "AI"
