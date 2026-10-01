@@ -1,5 +1,5 @@
-name = "markdown-for-agents"
-main = "markdown-worker.js"
+name = "agent-edge"
+main = "index.js"
 compatibility_date = "2026-09-01"
 
 # Sits in front of GitHub Pages for every request on the apex domain. Set this
@@ -12,3 +12,10 @@ workers_dev = false
 
 [ai]
 binding = "AI"
+remote = true
+
+# The chatbot worker (../../wrangler.toml), reached directly for A2A requests.
+[[services]]
+binding = "CHAT"
+service = "portfolio-ai-proxy"
+remote = true
