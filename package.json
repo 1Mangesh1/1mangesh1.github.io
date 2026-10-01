@@ -12,7 +12,8 @@
     "astro": "astro",
     "maintenance:toggle": "node scripts/toggle-maintenance.js",
     "maintenance:on": "node -e \"const fs=require('fs'); let c=fs.readFileSync('src/config/site.ts','utf8'); c=c.replace('maintenanceMode: false','maintenanceMode: true'); fs.writeFileSync('src/config/site.ts',c); console.log('🚧 Maintenance mode ON');\"",
-    "maintenance:off": "node -e \"const fs=require('fs'); let c=fs.readFileSync('src/config/site.ts','utf8'); c=c.replace('maintenanceMode: true','maintenanceMode: false'); fs.writeFileSync('src/config/site.ts',c); console.log('✅ Maintenance mode OFF');\""
+    "maintenance:off": "node -e \"const fs=require('fs'); let c=fs.readFileSync('src/config/site.ts','utf8'); c=c.replace('maintenanceMode: true','maintenanceMode: false'); fs.writeFileSync('src/config/site.ts',c); console.log('✅ Maintenance mode OFF');\"",
+    "chat:eval": "node --experimental-strip-types scripts/chat-eval.mjs"
   },
   "dependencies": {
     "@astrojs/check": "0.9.9",
