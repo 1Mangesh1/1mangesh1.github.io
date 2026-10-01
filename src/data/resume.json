@@ -1,0 +1,99 @@
+{
+  "summary": "TODO(mangesh): summary from resume/resume.tex. The committed PDF's summary opens with the retired job title, not HEADLINE.",
+  "experience": [
+    {
+      "org": "House Works Technology",
+      "location": "Remote",
+      "start": "Feb 2025",
+      "end": "Present",
+      "roles": [
+        { "title": "Software Development Engineer – I", "start": "Apr 2025", "end": "Present" },
+        { "title": "Software Development Engineer Intern", "start": "Feb 2025", "end": "Apr 2025" }
+      ],
+      "bullets": [
+        "Led a greenfield authentication and authorization platform end-to-end, owning architecture, authorization modeling, service integration, rollout, and production deployment.",
+        "Built and operated self-hosted Keycloak in production, including deployment, configuration, upgrades, backups, and operational maintenance; developed custom Java SPIs, providers, and extensions for business-specific identity requirements.",
+        "Designed fine-grained authorization using SpiceDB (Google Zanzibar model), defining a ReBAC model spanning 16 object types and 45 permissions and integrating authorization checks across Django/DRF APIs.",
+        "Implemented multi-tenancy with Keycloak Organizations and tenant-aware authentication; built IdP Federation with domain-based SSO to route users to their enterprise identity provider based on email domain.",
+        "Kept the SpiceDB authorization graph consistent with PostgreSQL using a transactional outbox and asynchronous worker, with reconciliation and consistency mechanisms to detect and repair authorization drift.",
+        "Architected a real-time multilingual voice transcription and translation pipeline in a production EHR, streaming audio through Azure Speech into structured clinical records in PostgreSQL and serving 1,000+ patients.",
+        "Own the backend stack (Django, DRF, PostgreSQL, AWS) handling 10K–100K requests/day; designed production infrastructure with Terraform, Docker, and AWS EC2 and GitHub Actions CI/CD, reducing deployment time from ~45 min to ~12 min (~70%).",
+        "Set up observability with Sentry, ClickHouse, and Grafana; migrated legacy Django views to DRF ViewSets (~40% less boilerplate), write Pytest unit/integration tests, review code, and ship React.js/Next.js features end-to-end."
+      ]
+    },
+    {
+      "org": "Procedure Technologies",
+      "location": "Mumbai, Maharashtra",
+      "start": "Oct 2024",
+      "end": "Feb 2025",
+      "roles": [{ "title": "Software Development Engineer Trainee", "start": "Oct 2024", "end": "Feb 2025" }],
+      "bullets": [
+        "Built full-stack production features using React.js, Next.js, TypeScript, and NestJS; containerized services with Docker and provisioned cloud infrastructure with Terraform."
+      ]
+    },
+    {
+      "org": "Netwin Infosolutions Pvt Ltd",
+      "location": "Nashik, Maharashtra",
+      "start": "Feb 2024",
+      "end": "Jul 2024",
+      "roles": [{ "title": "Backend Developer Intern", "start": "Feb 2024", "end": "Jul 2024" }],
+      "bullets": [
+        "Designed REST APIs using Django and MySQL with JWT authentication and RBAC for a Flutter activity-tracking application; integrated ML-powered image search and OTP/email verification."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Mira — Voice Front-Desk Agent",
+      "portfolio": "voice-agent",
+      "stack": ["Tavus CVI", "FastAPI", "Next.js", "Supabase", "Gemini"],
+      "url": "https://mangeshbide.tech/blog/building-mira-voice-agent",
+      "bullets": [
+        "Built a real-time conversational AI agent with Daily/WebRTC voice interaction, avatar, 7 booking tools, slot-conflict and idempotency guards, 10 unit tests, and Gemini-generated call summaries."
+      ]
+    },
+    {
+      "name": "Fieldnotes — Agentic Job Research System",
+      "portfolio": "job-researcher",
+      "stack": ["FastAPI", "Gemini", "Cloudflare BGE", "GitHub API"],
+      "url": "https://fieldnotes.mangeshbide.tech",
+      "bullets": [
+        "Built a multi-stage planner–executor–synthesizer agent that researches companies, inspects GitHub engineering footprints, compares resume embeddings against job requirements, and returns structured apply/consider/skip verdicts with cost and latency observability."
+      ]
+    },
+    {
+      "name": "HIPAA Guardian",
+      "portfolio": "hipaa-guardian",
+      "stack": ["Python", "HIPAA / PHI", "Static Analysis", "CI/CD", "AI Agent Skill"],
+      "url": "https://github.com/1Mangesh1/hipaa-guardian",
+      "bullets": ["TODO(mangesh): HIPAA Guardian resume bullet from resume/resume.tex."]
+    }
+  ],
+  "skills": {
+    "Languages": ["Python", "TypeScript", "JavaScript (ES6+)", "Java"],
+    "Identity & Authorization": ["Keycloak (Organizations, custom SPIs, providers, extensions)", "SpiceDB", "ReBAC", "OAuth 2.0", "OIDC", "JWT", "SSO", "IdP Federation", "Multi-Tenant Architecture", "AWS Cognito"],
+    "Backend": ["Django (DRF, ViewSets)", "FastAPI", "NestJS", "Node.js (Express)"],
+    "Databases": ["PostgreSQL", "MySQL", "MongoDB", "DynamoDB"],
+    "Cloud & Infrastructure": ["AWS (ECS, EC2, S3, Lambda, API Gateway, IAM, Cognito, CloudWatch)", "Terraform", "Docker", "GitHub Actions", "CI/CD", "Shell Scripting"],
+    "Distributed Systems": ["Transactional Outbox", "Async Workers", "Idempotency", "Reconciliation", "Event-Driven Systems"],
+    "Observability": ["Sentry", "Grafana", "ClickHouse", "Structured Logging"],
+    "AI / Voice": ["Gemini", "OpenAI", "LLM Orchestration", "RAG", "Embeddings", "Agentic AI", "Tavus CVI", "Daily/WebRTC", "Azure Speech"],
+    "Frontend": ["React.js", "Next.js", "Tailwind CSS", "shadcn/ui"],
+    "Practices": ["REST API Design", "Pytest", "Unit/Integration Testing", "Code Review", "Agile/Scrum"]
+  },
+  "education": [
+    { "degree": "B.Tech in Computer Engineering", "school": "R. C. Patel Institute of Technology, Shirpur", "years": "2021 – 2024", "grade": "CGPA: 7.98/10" },
+    { "degree": "Diploma in Computer Engineering", "school": "R. C. Patel Polytechnic, Shirpur", "years": "2019 – 2021", "grade": "93.89%" }
+  ],
+  "certifications": [
+    { "name": "AWS Certified AI Practitioner", "issuer": "Amazon Web Services", "year": "TODO(mangesh): year earned", "verifyUrl": null }
+  ],
+  "todos": [
+    "Commit resume/resume.tex; this file mirrors the committed public/Resume.pdf (2026-08-13) until then.",
+    "summary: copy from resume.tex (FDE variant).",
+    "experience bullet order: reorder to the \\ifFDE branch of resume.tex.",
+    "projects[HIPAA Guardian].bullets: copy from resume.tex.",
+    "certifications[AWS Certified AI Practitioner].year and verifyUrl.",
+    "identity.employerUrl: House Works Technology website."
+  ]
+}
