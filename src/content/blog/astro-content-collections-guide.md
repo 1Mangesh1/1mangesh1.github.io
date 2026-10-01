@@ -2,7 +2,7 @@
 title: "Mastering Astro Content Collections: A Complete Guide"
 description: "Learn how to use Astro's Content Collections to build type-safe, organized content for your blog or portfolio site."
 pubDate: 2025-12-09T00:00:00Z
-tags: ["Astro", "Web Development", "Tutorial", "TypeScript"]
+tags: ["astro", "javascript"]
 draft: false
 ---
 

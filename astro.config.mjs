@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import { rehypeImageAttrs } from "./src/lib/rehype-image-attrs.mjs";
+import { tagRedirects } from "./src/data/tags.ts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,6 +30,7 @@ export default defineConfig({
   redirects: {
     "/reading": "/books",
     "/portfolio/job-researcher": "/portfolio/fieldnotes",
+    ...tagRedirects(),
   },
   markdown: {
     rehypePlugins: [rehypeImageAttrs],

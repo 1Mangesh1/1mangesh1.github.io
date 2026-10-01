@@ -2,7 +2,7 @@
 title: "Building a Fast Pixel Art Editor with Astro & JS"
 description: "Learn how to build a high-performance, responsive pixel art editor using the HTML5 Canvas API and Astro. No React, no overhead—just clean, vanilla JavaScript."
 pubDate: 2026-02-17T00:00:00Z
-tags: ["astro", "canvas", "javascript", "performance"]
+tags: ["astro", "gamedev", "javascript", "performance"]
 draft: false
 ---
 

@@ -5,12 +5,8 @@ description: "Microservices promise scalability and modularity, but they come wi
 pubDate: 2025-10-07T00:00:00Z
 tags:
   [
-    "Architecture",
-    "Microservices",
-    "System Design",
-    "Scalability",
-    "DevOps",
-    "Team Organization",
+    "architecture",
+    "devops",
   ]
 ---
 

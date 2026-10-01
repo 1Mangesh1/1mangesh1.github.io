@@ -2,7 +2,7 @@
 title: "Track Your Code Analytics with WakaTime"
 description: "Learn how to set up and use WakaTime to automatically track your coding time and productivity across different editors and projects."
 pubDate: 2025-07-14T00:00:00Z
-tags: ["WakaTime", "Productivity", "Analytics"]
+tags: ["developer-tools"]
 ---
 
 Ever wondered how much time you actually spend coding each day—or which languages and projects take up most of your time? That’s where **WakaTime** comes in. It’s an automatic time-tracking tool built specifically for developers. WakaTime runs quietly in the background and gives you clear, visual insights into how you write code.

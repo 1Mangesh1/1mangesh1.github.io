@@ -2,7 +2,7 @@
 title: "PgBouncer: Stop Drowning Your Database in Connections"
 description: "How to use PgBouncer to manage PostgreSQL connections efficiently"
 pubDate: 2026-03-23T00:00:00Z
-tags: ["database", "postgresql", "devops", "performance"]
+tags: ["postgresql", "devops", "performance"]
 draft: false
 ---
 

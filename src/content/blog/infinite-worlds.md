@@ -2,7 +2,7 @@
 title: "Procedural Generation: Creating Infinite Worlds"
 description: "Deep dive into procedural generation technology and its applications in creating vast game worlds."
 pubDate: 2024-11-01T00:00:00Z
-tags: ["gamedev", "procedural-generation", "algorithms", "typescript"]
+tags: ["gamedev", "javascript"]
 ---
 
 Imagine a game where every time you log in, the world feels fresh, uncharted, and limitless. Procedural generation is the magic behind these ever-expanding, dynamic environments. Games like Minecraft revolutionized the idea of endless exploration, crafting an infinite sandbox with complex landscapes, resources, and creatures—all created through algorithms rather than meticulous design.

@@ -3,7 +3,7 @@ title: "Jev Doesn't Talk, It Decides: TypeSafe's Model for Healthcare, Logistics
 seoTitle: "TypeSafe Jev Explained: Use Cases, Pricing, Benchmarks"
 description: "TypeSafe's Jev returns decisions, not text. How it works, what it costs, which benchmark claims hold up, and use cases from healthcare triage to logistics."
 pubDate: 2026-09-22T00:00:00Z
-tags: ["ai", "AI Engineering", "cloudflare", "workers-ai", "typesafe"]
+tags: ["ai", "cloudflare"]
 draft: false
 ---
 

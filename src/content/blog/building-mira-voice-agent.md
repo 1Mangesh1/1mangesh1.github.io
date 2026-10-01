@@ -2,7 +2,7 @@
 title: "Building Mira: a voice front-desk in 48 hours"
 description: "A weekend rabbit hole. Switching mid-build from LiveKit + Deepgram + Cartesia to Tavus CVI, the seven booking tools, and the bugs that taught me the system."
 pubDate: 2026-05-03T00:00:00Z
-tags: ["voice-ai", "tavus", "fastapi", "next.js", "engineering"]
+tags: ["voice-ai", "python", "javascript"]
 draft: false
 ---
 

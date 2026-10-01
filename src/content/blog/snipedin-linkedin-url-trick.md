@@ -2,7 +2,7 @@
 title: "The LinkedIn URL trick nobody talks about"
 description: "LinkedIn's job search UI fights you at every step. But their URL parameters are surprisingly powerful - so I built SnipeDin to surface them."
 pubDate: 2026-03-15T00:00:00Z
-tags: ["tools", "javascript", "productivity", "career"]
+tags: ["developer-tools", "javascript", "career"]
 draft: false
 ---
 
