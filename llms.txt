@@ -8,9 +8,19 @@
 
 ## Projects
 
-- [Mira](https://mangeshbide.tech/portfolio/voice-agent/): Browser-based voice agent (Tavus CVI) backed by a FastAPI service that runs seven tool-calling booking functions, persists transcripts, and writes an LLM call summary.
-- [Fieldnotes](https://mangeshbide.tech/portfolio/fieldnotes/): LLM pipeline that scores a job posting against your resume and returns an APPLY / CONSIDER / SKIP verdict with evidence — shipping both a deterministic DAG and an agentic planner→executor→synthesizer flow over the same steps.
-- [HIPAA Guardian](https://mangeshbide.tech/portfolio/hipaa-guardian/): PHI/PII detection engine that scans code, logs, and API responses for the 18 HIPAA Safe Harbor identifiers — built to catch leaks in developer artifacts before they ship.
+- [Mira](https://mangeshbide.tech/portfolio/voice-agent/): Browser-based voice agent (Tavus CVI) backed by a FastAPI service that runs seven tool-calling booking functions, persists transcripts, and writes an LLM call summary. (live; tech: FastAPI, Python, Tavus CVI, Supabase / Postgres, Gemini, Next.js, Tool Calling; demo: https://voice-agent-demo-frontend.vercel.app)
+- [Fieldnotes](https://mangeshbide.tech/portfolio/fieldnotes/): LLM pipeline that scores a job posting against your resume and returns an APPLY / CONSIDER / SKIP verdict with evidence — shipping both a deterministic DAG and an agentic planner→executor→synthesizer flow over the same steps. (live; tech: FastAPI, Python, Gemini, Agentic Workflow, Embeddings, RAG; demo: https://fieldnotes.mangeshbide.tech)
+- [HIPAA Guardian](https://mangeshbide.tech/portfolio/hipaa-guardian/): PHI/PII detection engine that scans code, logs, and API responses for the 18 HIPAA Safe Harbor identifiers — built to catch leaks in developer artifacts before they ship. (live; tech: Python, HIPAA / PHI, Static Analysis, CI/CD, AI Agent Skill)
+
+## Other projects
+
+- [OCI Homelab (Infrastructure as Code)](https://mangeshbide.tech/portfolio/oci-homelab-iac/): Terraform-managed multi-node k3s cluster on Oracle Cloud's always-free tier — VCN, hardened compute, WireGuard bastion, and remote state. Reproducible from zero. (in progress; tech: Terraform, OCI, Kubernetes / k3s, Cloud-init, WireGuard, Infrastructure as Code)
+- [DocTalk — RAG Document Q&A API](https://mangeshbide.tech/portfolio/doctalk/): Upload a PDF, ask questions in natural language, get answers grounded in the source with citations. A FastAPI RAG pipeline over pgvector with JWT auth, self-hosted on Oracle Cloud. (archived; tech: FastAPI, Python, RAG, PostgreSQL / pgvector, Cloudflare AI, JWT, Docker)
+- [AI Language Tools Suite](https://mangeshbide.tech/portfolio/ai-language-tools/): A collection of fun language tools powered by Gemini AI, with a clean and simple warm-beige UI. (archived; tech: Node.js, Express.js, Google Gemini AI, JavaScript, HTML/CSS, REST API)
+- [Infrastructure-as-Code ChatApp Deployment](https://mangeshbide.tech/portfolio/chatapp-infrastructure/): Provisioned and deployed real-time chat application using Terraform scripts on AWS EC2 with DNS routing. (archived; tech: Terraform, AWS EC2, DNS, Infrastructure as Code, DevOps, Cloud Architecture)
+- [Expense Tracking and Budgeting API](https://mangeshbide.tech/portfolio/expense-tracking-api/): Modular API for managing expenses with JWT-based auth, role-based access, data aggregation, and scheduled summaries. (archived; tech: NestJS, TypeORM, JWT, Swagger, PostgreSQL, TypeScript)
+- [Face Recognition & Verification Pipeline](https://mangeshbide.tech/portfolio/crimiface/): A computer-vision pipeline for face detection, feature embedding, and similarity-based identity verification, built with TensorFlow and OpenCV. (archived; tech: Python, TensorFlow, OpenCV, Machine Learning, Computer Vision)
+- [Real-time ChatApp](https://mangeshbide.tech/portfolio/realtime-chatapp/): Chat platform with private messaging, room-based communication, and activity logging using WebSockets. (archived; tech: Node.js, Express, Socket.io, WebSockets, JavaScript, Real-time Communication)
 
 ## Writing
 
