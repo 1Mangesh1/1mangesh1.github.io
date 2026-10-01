@@ -23,6 +23,19 @@ function anchor(href: string, text: string): string {
   return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${text}</a>`;
 }
 
+// Real files the sitemap doesn't list; callers add them to the sitemap's pages.
+export const SITE_FILES = [
+  "/Resume.pdf",
+  "/rss.xml",
+  "/llms.txt",
+  "/llms-full.txt",
+  "/resume.json",
+  "/openapi.json",
+  "/auth.md",
+  "/.well-known/agent-card.json",
+  "/.well-known/mcp/server-card.json",
+];
+
 // Links into this site are kept only when the page exists (sitePaths comes from
 // the sitemap), so a URL the model invents can't send a visitor to a 404.
 // Links to other hosts are not checked.

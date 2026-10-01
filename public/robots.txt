@@ -5,8 +5,8 @@ User-agent: *
 Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
-# Block access to admin/sensitive areas and maintenance
-Disallow: /.well-known/
+# Block access to admin/sensitive areas and maintenance. /.well-known/ stays
+# open: the agent discovery documents (MCP, A2A, skills, catalogs) live there.
 Disallow: /api/
 Disallow: /maintenance
 
@@ -23,7 +23,6 @@ User-agent: PerplexityBot
 User-agent: Perplexity-User
 Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
-Disallow: /.well-known/
 Disallow: /api/
 Disallow: /maintenance
 
@@ -33,6 +32,9 @@ Disallow: /maintenance
 
 # Sitemap location
 Sitemap: https://mangeshbide.tech/sitemap-index.xml
+
+# Agent capability manifest (ARD): MCP server, A2A agent, skills
+Agentmap: https://mangeshbide.tech/.well-known/ai-catalog.json
 
 # No global Crawl-delay: the site is static behind Cloudflare, so there is no
 # origin to protect. Google ignores the directive anyway, while Bing and the AI

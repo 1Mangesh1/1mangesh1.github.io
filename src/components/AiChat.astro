@@ -616,7 +616,7 @@
 </style>
 
 <script>
-  import { isKnownSiteLink, renderChatMarkdown } from '../utils/chat-markdown';
+  import { isKnownSiteLink, renderChatMarkdown, SITE_FILES } from '../utils/chat-markdown';
 
   // Defer initialization to improve Interaction to Next Paint (INP)
   const initAiChat = () => {
@@ -629,7 +629,7 @@
       .then((res) => (res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status}`))))
       .then((xml) => {
         const pages = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
-        sitePaths = new Set([...pages, '/Resume.pdf', '/llms.txt', '/rss.xml']);
+        sitePaths = new Set([...pages, ...SITE_FILES]);
       })
       .catch((err) => console.warn('chat: link check off, sitemap unavailable:', err));
     const isAllowedLink = (href: string) => sitePaths === null || isKnownSiteLink(href, sitePaths);

@@ -45,6 +45,7 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title="Mangesh's Blog" href="/rss.xml" />
+    <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Primary Meta Tags -->
@@ -493,5 +494,8 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
     <!-- <script async src="/living-site.js" is:inline></script> -->
     <Haptics />
     {showChat && <AiChat />}
+    <script>
+      import '../scripts/webmcp';
+    </script>
   </body>
 </html> 

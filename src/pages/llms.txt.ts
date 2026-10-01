@@ -38,6 +38,13 @@ export async function GET() {
     "## Writing",
     "",
     ...posts.map((p) => `- [${p.data.title}](${site}/blog/${p.id}/): ${p.data.description}`),
+    "",
+    "## Optional",
+    "",
+    `- [Full text](${site}/llms-full.txt): every project and published post in one file`,
+    `- [Resume as JSON](${site}/resume.json): roles with dates, projects, skills`,
+    `- [MCP server](${site}/.well-known/mcp/server-card.json): read-only tools for the resume, this index, and any page as markdown`,
+    `- [A2A agent](${site}/.well-known/agent-card.json): ask "Mangesh AI" questions about his work`,
   ];
   return new Response(`${lines.join("\n")}\n`);
 }
