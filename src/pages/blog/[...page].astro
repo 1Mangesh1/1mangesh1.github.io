@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { type CollectionEntry } from 'astro:content';
 import { getPublishedPosts } from '../../utils/published-posts';
 import { calculateReadingTime, formatReadingTime } from '../../utils/reading-time';
+import { siteConfig } from '../../config/site';
 import type { GetStaticPaths, Page } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -42,7 +43,7 @@ const blogSchema = {
 
 <Layout 
   title={`Blog ${page.currentPage > 1 ? `• Page ${page.currentPage}` : ''} | Mangesh Bide`} 
-  description={`Essays and build logs on backend and platform engineering — auth, multi-tenancy, Python, Django and Cloudflare Workers.${page.currentPage > 1 ? ` Page ${page.currentPage} of ${page.lastPage}.` : ''}`}
+  description={`${siteConfig.blogDescription}${page.currentPage > 1 ? ` Page ${page.currentPage} of ${page.lastPage}.` : ''}`}
   schema={blogSchema}
 >
   <div class="max-w-4xl mx-auto px-4 py-12">

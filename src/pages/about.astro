@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { identity } from '../data/identity';
 
 const technologies = ['Python', 'Django / DRF', 'FastAPI', 'PostgreSQL', 'TypeScript', 'React / Next.js', 'RAG / LLM APIs', 'pgvector', 'Docker', 'Terraform', 'Kubernetes / k3s', 'GitHub Actions', 'AWS', 'Oracle Cloud', 'Astro', 'Git']
 ---
 
-<Layout title="About | Mangesh Bide" description="About Mangesh Bide — software engineer working across Python, JavaScript, React, Django, AI, Machine Learning and cloud infra.">
+<Layout title="About | Mangesh Bide" description={`About ${identity.name} — ${identity.headline}, ${identity.location}. ${identity.tagline}`}>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <div class="prose prose-lg dark:prose-invert max-w-none">
       <h1>About Me</h1>
@@ -43,7 +44,7 @@ const technologies = ['Python', 'Django / DRF', 'FastAPI', 'PostgreSQL', 'TypeSc
       <ul>
         <li>Backend systems and APIs — Django and FastAPI over PostgreSQL, with auth and access control</li>
         <li>Applied AI — RAG pipelines, tool-calling agents, and PHI/compliance tooling</li>
-        <li>Infrastructure — Terraform, Docker, and k3s, so environments rebuild from code instead of memory</li>
+        <li>Infrastructure — Terraform and Docker, plus a k3s homelab on OCI, so environments rebuild from code instead of memory</li>
         <li>Writing about things I figure out (so I don't forget, mostly)</li>
         <li>Small tools that automate stuff I got tired of doing manually</li>
       </ul>

@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../config/site';
+import { identity } from '../data/identity';
 import BackToTop from '../components/BackToTop.astro';
 import EasterEggs from '../components/EasterEggs.astro';
 import QuoteNotification from '../components/QuoteNotification.astro';
@@ -17,7 +18,7 @@ export interface Props {
 
 const { 
   title, 
-  description = "Software Developer | Python | Django | Machine Learning | Web Development", 
+  description = `${identity.headline}. ${identity.tagline}`,
   image = "/og-image.png",
   canonical,
   noindex = false,
@@ -59,7 +60,7 @@ try {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="author" content={siteConfig.author} />
+    <meta name="author" content={identity.name} />
     <link rel="canonical" href={canonicalURL} />
     
     <!-- Robots -->
@@ -88,14 +89,13 @@ try {
     <meta property="twitter:creator" content="@Mangesh_Bide" />
     
     <!-- Additional SEO -->
-    <meta name="keywords" content="Mangesh Bide, Software Developer, Python, Django, Machine Learning, Web Development, Programming, Tech Blog" />
     <meta name="theme-color" content="#3b82f6" />
     
     <!-- Content Security Policy for GoatCounter -->
     <meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at https://giscus.app;" />
     
     <!-- LinkedIn specific -->
-    <meta property="article:author" content="Mangesh Bide" />
+    <meta property="article:author" content={identity.name} />
     <meta name="image" content={imageURL} />
     
     <!-- Structured Data -->
@@ -106,14 +106,14 @@ try {
         "@context": "https://schema.org",
         "@type": "Person",
         "@id": "https://mangeshbide.tech/#person",
-        "name": "Mangesh Bide",
+        "name": identity.name,
         "url": "https://mangeshbide.tech",
         "image": "https://mangeshbide.tech/og-image.png",
         "photo": "https://mangeshbide.tech/me.jpg",
-        "jobTitle": "Backend / Platform Engineer",
+        "jobTitle": identity.headline,
         "worksFor": {
           "@type": "Organization",
-          "name": "Houseworks Technologies"
+          "name": identity.employer
         },
         "alumniOf": "https://www.rcpit.ac.in",
         // The topic list answer engines bind this entity to, so it tracks what is
@@ -122,11 +122,7 @@ try {
           "Keycloak", "SpiceDB", "Relationship-based access control", "Multi-tenant SaaS architecture",
           "Python", "Django", "TypeScript", "PostgreSQL", "Cloudflare Workers", "Astro", "AWS"
         ],
-        "sameAs": [
-          "https://github.com/1mangesh1",
-          "https://x.com/Mangesh_Bide",
-          "https://linkedin.com/in/mangesh-bide/"
-        ]
+        "sameAs": [identity.links.github, identity.links.x, identity.links.linkedin]
       };
 
       const websiteSchema = {
