@@ -427,7 +427,7 @@ The best architecture is the one that lets you ship features fast, scale when ne
 
 ---
 
-_Ready to dive deeper into system design? Check out my previous post on [Multi-Tenant SaaS Architecture](./multi-tenant-architecture-complete-guide) for more on scaling patterns that actually work._
+_Ready to dive deeper into system design? Check out my previous post on [Multi-Tenant SaaS Architecture](/blog/multi-tenant-architecture-complete-guide/) for more on scaling patterns that actually work._
 
 [^1]: Fowler, M. (2014). [Microservices](https://martinfowler.com/articles/microservices.html). martinfowler.com
 [^2]: Conway, M. (1968). [How Do Committees Invent?](https://www.melconway.com/Home/Committees.html) Datamation
