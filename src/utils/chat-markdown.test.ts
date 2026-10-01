@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { renderChatMarkdown } from "./chat-markdown.ts";
+import { isKnownSiteLink, renderChatMarkdown } from "./chat-markdown.ts";
 
 test("plain text passes through unchanged", () => {
   assert.equal(renderChatMarkdown("Mangesh builds backend systems"), "Mangesh builds backend systems");
@@ -66,4 +66,27 @@ test("attribute-breaking quotes in a URL cannot escape the href", () => {
   // The double-quote is escaped before it can close the href attribute.
   const out = renderChatMarkdown('[x](https://e.com/"onmouseover="alert(1))');
   assert.ok(!out.includes('"onmouseover='), "quote must be escaped, not raw");
+});
+
+test("rejected markdown link renders its label as plain text", () => {
+  assert.equal(
+    renderChatMarkdown("[Read the post](https://mangeshbide.tech/blog/keycloak-deep-dive/)", () => false),
+    "Read the post"
+  );
+});
+
+test("rejected bare URL stays plain text", () => {
+  assert.equal(
+    renderChatMarkdown("See https://mangeshbide.tech/blog/keycloak-deep-dive/ for more.", () => false),
+    "See https://mangeshbide.tech/blog/keycloak-deep-dive/ for more."
+  );
+});
+
+test("isKnownSiteLink accepts existing site pages and other hosts, rejects unknown site pages", () => {
+  const sitePaths = new Set(["/", "/blog/building-mira-voice-agent/", "/Resume.pdf"]);
+  assert.equal(isKnownSiteLink("https://mangeshbide.tech/blog/building-mira-voice-agent", sitePaths), true);
+  assert.equal(isKnownSiteLink("https://www.mangeshbide.tech/Resume.pdf", sitePaths), true);
+  assert.equal(isKnownSiteLink("https://mangeshbide.tech/blog/keycloak-deep-dive/", sitePaths), false);
+  assert.equal(isKnownSiteLink("https://fieldnotes.mangeshbide.tech", sitePaths), true);
+  assert.equal(isKnownSiteLink("mailto:hello@mangeshbide.tech", sitePaths), true);
 });

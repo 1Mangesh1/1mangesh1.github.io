@@ -23,7 +23,23 @@ function anchor(href: string, text: string): string {
   return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${text}</a>`;
 }
 
-export function renderChatMarkdown(input: string): string {
+// Links into this site are kept only when the page exists (sitePaths comes from
+// the sitemap), so a URL the model invents can't send a visitor to a 404.
+// Links to other hosts are not checked.
+export function isKnownSiteLink(href: string, sitePaths: Set<string>): boolean {
+  let url: URL;
+  try {
+    url = new URL(href);
+  } catch {
+    return false;
+  }
+  if (url.hostname.replace(/^www\./, "") !== "mangeshbide.tech") return true;
+  const path = /\.[a-z0-9]+$/i.test(url.pathname) ? url.pathname : url.pathname.replace(/\/?$/, "/");
+  return sitePaths.has(path);
+}
+
+// A link that fails isAllowedLink renders as its plain text instead of an <a>.
+export function renderChatMarkdown(input: string, isAllowedLink: (href: string) => boolean = () => true): string {
   if (!input) return "";
 
   // Strip stray sentinels from input so our placeholders stay unambiguous.
@@ -38,13 +54,15 @@ export function renderChatMarkdown(input: string): string {
   // Markdown links: [label](url) — only http(s)/mailto survive.
   text = text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, label, url) => {
     const href = url.replace(/&amp;/g, "&");
-    return SAFE_LINK_SCHEME.test(href) ? stash(anchor(href, label)) : m;
+    if (!SAFE_LINK_SCHEME.test(href)) return m;
+    return isAllowedLink(href) ? stash(anchor(href, label)) : label;
   });
 
   // Bare URLs (trailing sentence punctuation kept outside the link).
   text = text.replace(/\bhttps?:\/\/[^\s<]+/g, (url) => {
     const clean = url.replace(/[.,;:!?)]+$/, "");
     const href = clean.replace(/&amp;/g, "&");
+    if (!isAllowedLink(href)) return url;
     return stash(anchor(href, clean)) + url.slice(clean.length);
   });
 

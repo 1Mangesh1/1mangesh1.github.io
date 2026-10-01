@@ -616,11 +616,23 @@
 </style>
 
 <script>
-  import { renderChatMarkdown } from '../utils/chat-markdown';
+  import { isKnownSiteLink, renderChatMarkdown } from '../utils/chat-markdown';
 
   // Defer initialization to improve Interaction to Next Paint (INP)
   const initAiChat = () => {
     const WORKER_URL = 'https://portfolio-ai-proxy.mangeshbide1.workers.dev';
+
+    // Every real page path, so a site link the model invents renders as plain
+    // text. Links stay unchecked until the sitemap loads, or if it can't.
+    let sitePaths: Set<string> | null = null;
+    fetch('/sitemap-0.xml')
+      .then((res) => (res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status}`))))
+      .then((xml) => {
+        const pages = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+        sitePaths = new Set([...pages, '/Resume.pdf', '/llms.txt', '/rss.xml']);
+      })
+      .catch((err) => console.warn('chat: link check off, sitemap unavailable:', err));
+    const isAllowedLink = (href: string) => sitePaths === null || isKnownSiteLink(href, sitePaths);
   const MESSAGE_REQUEST_KEY = 'ai_msg_timestamps';
   const RATE_LIMIT_PER_HOUR = 40;
 
@@ -785,7 +797,7 @@
     let networkDone = false;
 
     const paint = (): void => {
-      bubble.innerHTML = renderChatMarkdown(received.slice(0, shown));
+      bubble.innerHTML = renderChatMarkdown(received.slice(0, shown), isAllowedLink);
       scrollToBottom();
     };
 
