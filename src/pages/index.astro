@@ -4,10 +4,9 @@ import { getCollection } from "astro:content";
 import { getPublishedPosts } from "../utils/published-posts";
 import { Image } from "astro:assets";
 import meImage from "../assets/me.jpg";
+import { identity } from "../data/identity";
 
-const title = "Mangesh Bide - Software Developer";
-const description =
-  "Mangesh Bide — software engineer. Python, Django, React, TypeScript, ML. Writing about what I build and learn.";
+const title = `${identity.name} | ${identity.headline}`;
 
 // Get latest blog posts for featured section
 const allPosts = await getPublishedPosts();
@@ -38,7 +37,7 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title}>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <!-- Hero Section -->
     <div class="text-center mb-12 animate-on-scroll">
@@ -60,18 +59,17 @@ const formatDate = (date: Date) => {
       <p
         class="text-2xl text-gray-800 dark:text-gray-200 mt-2 font-medium animate-on-scroll stagger-3"
       >
-        Software Engineer — Backend &amp; Applied AI
+        {identity.headline}
       </p>
       <p
         class="text-base text-gray-500 dark:text-gray-400 mt-2 animate-on-scroll stagger-3"
       >
-        Houseworks Technologies · Remote (India)
+        {identity.employer} · {identity.location}
       </p>
       <p
         class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4 leading-relaxed animate-on-scroll stagger-4"
       >
-        I ship backend and AI systems end to end — from the data model to the infra they
-        run on. By day that's Django, PostgreSQL, and AWS on a production healthcare product;
+        {identity.tagline} By day that's Django, PostgreSQL, and AWS on a production healthcare product;
         on my own time I take FastAPI services, RAG pipelines, and tool-calling agents from
         idea to a live URL.
       </p>
@@ -300,8 +298,8 @@ const formatDate = (date: Date) => {
           <div class="animate-on-scroll card-animate">
             <h3 class="text-lg font-bold mb-2">Infrastructure &amp; Cloud</h3>
             <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Terraform, Docker, and k3s on OCI and AWS — reproducible infra and
-              CI/CD from zero.
+              Terraform and Docker on AWS, plus a k3s homelab on OCI — reproducible
+              infra and CI/CD from zero.
             </p>
           </div>
         </div>

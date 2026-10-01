@@ -1,5 +1,6 @@
 import rss from "@astrojs/rss";
 import { getPublishedPosts } from "../utils/published-posts";
+import { siteConfig } from "../config/site";
 import type { APIContext } from "astro";
 
 export async function GET(context: APIContext) {
@@ -10,8 +11,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: "Mangesh's Blog",
-    description:
-      "A blog about software development, machine learning, and technology",
+    description: siteConfig.blogDescription,
     site: context.site!,
     items: sortedPosts.map((post) => ({
       title: post.data.title,

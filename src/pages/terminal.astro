@@ -45,6 +45,8 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
+  import { identity } from '../data/identity';
+
   const output = document.getElementById('output')!;
   const input = document.getElementById('input') as HTMLInputElement;
   const terminal = document.getElementById('terminal')!;
@@ -85,12 +87,10 @@ import Layout from '../layouts/Layout.astro';
     about: () => [
       asciiArt,
       '',
-      "Hi! I'm Mangesh Bide, a software engineer who builds things",
-      'with Python, Django, TensorFlow, JS and whatever else gets the',
-      'job done.',
+      `Hi! I'm ${identity.name}, ${identity.headline}`,
+      `at ${identity.employer}, ${identity.location}.`,
       '',
-      'I work on ML projects, web apps, and write about what I learn',
-      'along the way.',
+      identity.tagline,
       '',
       'Type "skills" to see my tech stack.'
     ],
