@@ -24,7 +24,13 @@ try {
 // letters and digits only.
 const norm = (s) => s.normalize("NFKC").toLowerCase().replace(/[^a-z0-9]/g, "");
 const pdf = norm(text);
-const bullets = [...resume.experience, ...resume.projects]
+const entries = [...resume.experience, ...resume.projects];
+// pdfPending marks an entry added on the web before the PDF was regenerated.
+for (const e of entries.filter((e) => e.pdfPending)) {
+  console.warn(`resume-sync: "${e.name}" is pdfPending, not checked against ${PDF}`);
+}
+const bullets = entries
+  .filter((e) => !e.pdfPending)
   .flatMap((entry) => entry.bullets)
   .filter((b) => !b.includes("TODO(mangesh)"));
 const missing = bullets.filter((b) => !pdf.includes(norm(b)));

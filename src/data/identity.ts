@@ -2,7 +2,7 @@ export const identity = {
   name: "Mangesh Bide",
   headline: "Software Engineer — Backend & Applied AI",
   employer: "House Works Technology",
-  employerUrl: "TODO(mangesh): House Works Technology website URL",
+  employerUrl: "https://houseworksinc.co",
   location: "Remote (India)",
   email: "hello@mangeshbide.tech",
   links: {

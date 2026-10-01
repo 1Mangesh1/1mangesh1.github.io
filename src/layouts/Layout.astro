@@ -104,7 +104,8 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
         "jobTitle": identity.headline,
         "worksFor": {
           "@type": "Organization",
-          "name": identity.employer
+          "name": identity.employer,
+          "url": identity.employerUrl
         },
         "alumniOf": "https://www.rcpit.ac.in",
         // The topic list answer engines bind this entity to, so it tracks what is
