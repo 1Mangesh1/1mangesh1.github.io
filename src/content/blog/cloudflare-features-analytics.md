@@ -8,7 +8,7 @@ ogImage: "/images/blogs/cloudflare/overview.png"
 draft: false
 ---
 
-This guide explores the powerful analytics, security, and performance tools included in Cloudflare’s free plan. **If you haven’t connected your domain yet, start with our [step-by-step setup guide](./cloudflare-setup-guide.md) to get up and running first.**
+This guide explores the powerful analytics, security, and performance tools included in Cloudflare’s free plan. **If you haven’t connected your domain yet, start with our [step-by-step setup guide](/blog/cloudflare-setup-guide/) to get up and running first.**
 
 ---
 
@@ -113,4 +113,4 @@ If you have questions or want help setting up Cloudflare, feel free to DM me on 
 
 ---
 
-**Haven’t set up Cloudflare yet? [Read the setup guide first.](./cloudflare-setup-guide)**
+**Haven’t set up Cloudflare yet? [Read the setup guide first.](/blog/cloudflare-setup-guide/)**
