@@ -1,5 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import EasterEggs from '../components/EasterEggs.astro';
+import QuoteNotification from '../components/QuoteNotification.astro';
+
+const miscPages = [
+  { href: '/meme', label: 'Memes' },
+  { href: '/random', label: 'Random' },
+  { href: '/guestbook', label: 'Guestbook' },
+  { href: '/speaking', label: 'Speaking' },
+  { href: '/credits', label: 'Credits' },
+];
+
+let visitorCount: string | null = null;
+try {
+  const apiKey = import.meta.env.GOATCOUNTER_API_KEY;
+  if (apiKey) {
+    const res = await fetch('https://mangeshbide.goatcounter.com/api/v0/stats/total?start=2020-01-01T00:00:00Z&end=2030-01-01T00:00:00Z', {
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      visitorCount = new Intl.NumberFormat().format(data.total ?? 0);
+    }
+  }
+} catch { /* silent fail — no counter shown */ }
 ---
 
 <Layout title="Fun & Life | Mangesh Bide" description="Explore games, hobbies, space, music, and side projects. Life beyond the terminal—gaming, creativity, and tech interests.">
@@ -8,6 +35,14 @@ import Layout from '../layouts/Layout.astro';
       <h1>🎮 Fun & Life</h1>
       <p>Outside of work, I explore games, space, music, and the occasional side project. Here's a glimpse beyond my terminal window.</p>
     </div>
+
+    <nav aria-label="More pages" class="flex flex-wrap gap-3 mb-16">
+      {miscPages.map(({ href, label }) => (
+        <a href={href} class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm hover:text-emerald-700 dark:hover:text-cyan-400 hover:border-emerald-300 dark:hover:border-cyan-700 transition-colors">
+          {label}
+        </a>
+      ))}
+    </nav>
 
     <!-- Gaming Section -->
     <section class="mb-16">
@@ -187,5 +222,21 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </section>
+
+    <div class="text-center text-xs text-gray-500 dark:text-gray-400">
+      {visitorCount && (
+        <p>
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse align-middle"></span>
+          {visitorCount} visitors and counting
+        </p>
+      )}
+      <p class="mt-2 opacity-50 hover:opacity-100 transition-opacity">
+        <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span>
+        <a href="/secret" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a>
+      </p>
+    </div>
   </div>
+
+  <EasterEggs />
+  <QuoteNotification />
 </Layout>
