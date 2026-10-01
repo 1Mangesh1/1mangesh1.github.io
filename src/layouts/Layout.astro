@@ -61,7 +61,7 @@ try {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={identity.name} />
-    <link rel="canonical" href={canonicalURL} />
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
     
     <!-- Robots -->
     {noindex && <meta name="robots" content="noindex, nofollow" />}
