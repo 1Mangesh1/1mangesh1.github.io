@@ -3,7 +3,7 @@
 //   yarn chat:eval [worker-url]
 // A run spends 9 of the 40 messages/hour the worker allows per IP, and the
 // exchanges are logged to the chat D1 table under a "chat-eval-" session id.
-import { isKnownSiteLink } from "../src/utils/chat-markdown.ts";
+import { isKnownSiteLink, SITE_FILES } from "../src/utils/chat-markdown.ts";
 
 const WORKER = process.argv[2] ?? "https://portfolio-ai-proxy.mangeshbide1.workers.dev";
 const SITE = "https://mangeshbide.tech";
@@ -26,7 +26,7 @@ const stale = [/Houseworks/, /CrimiFace/, /Backend \/ Platform/, /4 companies/, 
 const sitemap = await fetch(`${SITE}/sitemap-0.xml`).then((r) => r.text());
 const sitePaths = new Set([
   ...[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname),
-  "/Resume.pdf", "/llms.txt", "/rss.xml",
+  ...SITE_FILES,
 ]);
 
 const session = `chat-eval-${Date.now()}`;
