@@ -13,7 +13,7 @@ github: "https://github.com/1Mangesh1/hipaa-guardian"
 demo: ""
 featured: true
 date: 2026-06-23T00:00:00Z
-status: "wip"
+status: "live"
 post: "hipaa-guardian-ai-skills-healthcare"
 ---
 
