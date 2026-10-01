@@ -15,6 +15,7 @@ github: "https://github.com/1Mangesh1/doctalk"
 demo: ""
 featured: true
 date: 2026-03-28T00:00:00Z
+status: "archived"
 ---
 
 **The problem.** Ask an LLM to answer from a document it "read" and it hallucinates. I wanted answers grounded in the actual text, with a citation back to where each one came from.

@@ -14,6 +14,7 @@ github: "https://github.com/1Mangesh1/oci-homelab-iac"
 demo: ""
 featured: true
 date: 2026-04-11T00:00:00Z
+status: "wip"
 ---
 
 **The problem.** I wanted somewhere to run side projects and learn Kubernetes for real, without a cloud bill — so the whole thing had to fit inside Oracle Cloud's always-free tier and stand back up from code if it burned down.

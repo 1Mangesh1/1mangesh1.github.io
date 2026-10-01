@@ -28,6 +28,7 @@ export default defineConfig({
   // query intent across two URLs. /books wins: it owns the [slug] detail pages.
   redirects: {
     "/reading": "/books",
+    "/portfolio/job-researcher": "/portfolio/fieldnotes",
   },
   markdown: {
     rehypePlugins: [rehypeImageAttrs],

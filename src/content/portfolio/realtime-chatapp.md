@@ -14,6 +14,7 @@ github: "https://github.com/1Mangesh1/chat-app"
 demo: ""
 featured: false
 date: 2024-07-10T00:00:00Z
+status: "archived"
 ---
 
 A real-time chat app built with Node.js and Socket.io. Supports private messaging, chat rooms, and activity logging.

@@ -16,6 +16,12 @@ export async function getStaticPaths() {
 const { item } = Astro.props;
 const { Content } = await render(item);
 
+const status = {
+  live: { label: 'Live', class: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300' },
+  wip: { label: 'In progress', class: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300' },
+  archived: { label: 'Archived', class: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300' },
+}[item.data.status];
+
 // Stars/forks are third-party signal, so they are worth showing — but only if
 // current. Fetched at build time (the site rebuilds weekly) rather than pinned
 // to a number in frontmatter that silently goes stale.
@@ -57,6 +63,7 @@ const portfolioSchema = {
   <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body>
     <header class="mb-8">
       <h1 class="text-4xl font-bold mb-4">{item.data.title}</h1>
+      <p class:list={['inline-block mb-4 px-2.5 py-0.5 rounded-full text-xs font-medium', status.class]}>{status.label}</p>
       {item.data.description && (
         <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{item.data.description}</p>
       )}
@@ -108,10 +115,10 @@ const portfolioSchema = {
       <Content />
     </div>
 
-    {(item.data.github || item.data.demo) && (
+    {(item.data.github || item.data.demo || item.data.post) && (
       <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
         <h3 class="text-lg font-semibold mb-4">Project Links</h3>
-        <div class="flex gap-4">
+        <div class="flex flex-wrap gap-4">
           {item.data.github && (
             <a 
               href={item.data.github}
@@ -130,6 +137,14 @@ const portfolioSchema = {
               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Live Demo
+            </a>
+          )}
+          {item.data.post && (
+            <a
+              href={`/blog/${item.data.post.id}`}
+              class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              Read the write-up
             </a>
           )}
         </div>
