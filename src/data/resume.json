@@ -1,5 +1,5 @@
 {
-  "summary": "TODO(mangesh): summary from resume/resume.tex. The committed PDF's summary opens with the retired job title, not HEADLINE.",
+  "summary": "Software engineer working across backend and applied AI, building production healthcare systems with Python, TypeScript, PostgreSQL, and AWS. Led a greenfield authentication and authorization platform from architecture through production deployment using self-hosted Keycloak, custom Java SPIs, OIDC, multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. Owns backend architecture and infrastructure end-to-end, with additional experience building real-time voice and agentic AI systems.",
   "experience": [
     {
       "org": "House Works Technology",
@@ -66,7 +66,10 @@
       "portfolio": "hipaa-guardian",
       "stack": ["Python", "HIPAA / PHI", "Static Analysis", "CI/CD", "AI Agent Skill"],
       "url": "https://github.com/1Mangesh1/hipaa-guardian",
-      "bullets": ["TODO(mangesh): HIPAA Guardian resume bullet from resume/resume.tex."]
+      "pdfPending": true,
+      "bullets": [
+        "Built a PHI/PII detection engine that scans source, data files, logs, and API responses for all 18 HIPAA Safe Harbor identifiers, scores each finding's confidence, maps it to the relevant HIPAA rule, and writes an audit report a reviewer can act on; excludes known-safe patterns (never-issued SSN ranges, 555-01xx numbers, example.com) to keep false positives low on real codebases."
+      ]
     }
   ],
   "skills": {
@@ -86,14 +89,12 @@
     { "degree": "Diploma in Computer Engineering", "school": "R. C. Patel Polytechnic, Shirpur", "years": "2019 – 2021", "grade": "93.89%" }
   ],
   "certifications": [
-    { "name": "AWS Certified AI Practitioner", "issuer": "Amazon Web Services", "year": "TODO(mangesh): year earned", "verifyUrl": null }
+    { "name": "AWS Certified AI Practitioner", "issuer": "Amazon Web Services", "year": "2026", "verifyUrl": null }
   ],
   "todos": [
-    "Commit resume/resume.tex; this file mirrors the committed public/Resume.pdf (2026-08-13) until then.",
-    "summary: copy from resume.tex (FDE variant).",
+    "Commit resume/resume.tex; experience bullets mirror the committed public/Resume.pdf (2026-08-13) until then.",
     "experience bullet order: reorder to the \\ifFDE branch of resume.tex.",
-    "projects[HIPAA Guardian].bullets: copy from resume.tex.",
-    "certifications[AWS Certified AI Practitioner].year and verifyUrl.",
-    "identity.employerUrl: House Works Technology website."
+    "Regenerate public/Resume.pdf with the summary, HIPAA Guardian project and certification above, then drop pdfPending from HIPAA Guardian.",
+    "certifications[AWS Certified AI Practitioner].verifyUrl: Credly or AWS verification link (optional)."
   ]
 }
