@@ -1,0 +1,38 @@
+name: Resume PDF
+
+on:
+  push:
+    paths: [resume/resume.tex]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Unknown facts are marked \fixme{...} in the source; a PDF with them
+      # must never replace the published one.
+      - name: Refuse unfinished placeholders
+        run: |
+          if grep -nF '\fixme{' resume/resume.tex; then
+            echo "::error file=resume/resume.tex::\\fixme placeholders remain"
+            exit 1
+          fi
+
+      - uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume/resume.tex
+          work_in_root_file_dir: true
+
+      - name: Commit PDF
+        run: |
+          cp resume/resume.pdf public/Resume.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/Resume.pdf
+          git diff --cached --quiet || git commit -m "chore(resume): rebuild Resume.pdf from resume.tex"
+          git push
