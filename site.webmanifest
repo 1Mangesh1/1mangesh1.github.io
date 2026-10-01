@@ -1,7 +1,7 @@
 {
-  "name": "Mangesh Bide - Software Developer",
+  "name": "Mangesh Bide | Software Engineer — Backend & Applied AI",
   "short_name": "by mangesh",
-  "description": "Personal website and blog of Mangesh Bide, Software Developer specializing in Python, Django, and Machine Learning",
+  "description": "Software Engineer — Backend & Applied AI. I ship backend and AI systems end to end — from the data model to the infra they run on.",
   "start_url": "/",
   "display": "minimal-ui",
   "background_color": "#ffffff",
@@ -15,7 +15,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "technology", "developer"],
+  "categories": [
+    "education",
+    "technology",
+    "developer"
+  ],
   "lang": "en",
   "scope": "/"
 }

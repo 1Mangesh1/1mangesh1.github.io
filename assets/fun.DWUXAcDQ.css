@@ -1,0 +1,1 @@
+@keyframes rainbow{0%{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}@keyframes fall{to{transform:translateY(100vh) rotate(360deg)}}#dancing-cat[data-astro-cid-mei435rj]{animation:dance .5s infinite alternate}@keyframes dance{0%{transform:rotate(-10deg) scale(1)}to{transform:rotate(10deg) scale(1.1)}}
