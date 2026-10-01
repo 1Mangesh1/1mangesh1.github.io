@@ -13,6 +13,8 @@ github: "https://github.com/1Mangesh1/hipaa-guardian"
 demo: ""
 featured: true
 date: 2026-06-23T00:00:00Z
+status: "wip"
+post: "hipaa-guardian-ai-skills-healthcare"
 ---
 
 **The problem I kept hitting.** In healthcare software, PHI rarely leaks through the front door. It leaks through developer artifacts — a seed script with real patient rows, a debug log that prints an SSN, a test fixture copied from production, an endpoint that returns a full `Patient` resource with no auth check. None of it shows up in a compliance checklist.

@@ -54,7 +54,7 @@
     },
     {
       "name": "Fieldnotes — Agentic Job Research System",
-      "portfolio": "job-researcher",
+      "portfolio": "fieldnotes",
       "stack": ["FastAPI", "Gemini", "Cloudflare BGE", "GitHub API"],
       "url": "https://fieldnotes.mangeshbide.tech",
       "bullets": [

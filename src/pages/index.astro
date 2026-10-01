@@ -5,6 +5,7 @@ import { getPublishedPosts } from "../utils/published-posts";
 import { Image } from "astro:assets";
 import meImage from "../assets/me.jpg";
 import { identity } from "../data/identity";
+import resume from "../data/resume.json";
 
 const title = `${identity.name} | ${identity.headline}`;
 
@@ -14,19 +15,13 @@ const latestPosts = allPosts
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
 
-// Get featured portfolio projects
+// Selected Work mirrors the resume's project list, in the same order.
 const allProjects = await getCollection("portfolio");
-const featuredProjects = allProjects
-  .filter((project) => project.data.featured)
-  .sort(
-    (a, b) =>
-      new Date(b.data.date || new Date()).valueOf() -
-      new Date(a.data.date || new Date()).valueOf(),
-  )
-  .slice(0, 2);
-// If no featured projects, just get the latest 2
-const projectsToShow =
-  featuredProjects.length > 0 ? featuredProjects : allProjects.slice(0, 2);
+const projectsToShow = resume.projects.map((p) => {
+  const entry = allProjects.find((e) => e.id === p.portfolio);
+  if (!entry) throw new Error(`resume.json project "${p.name}" has no portfolio entry "${p.portfolio}"`);
+  return entry;
+});
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
@@ -204,7 +199,7 @@ const formatDate = (date: Date) => {
         >
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 mb-6" data-stagger>
+      <div class="grid md:grid-cols-3 gap-6 mb-6" data-stagger>
         {
           projectsToShow.map((project, index) => (
             <article class:list={['bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col load-animate', `stagger-${(index % 5) + 1}`]}>

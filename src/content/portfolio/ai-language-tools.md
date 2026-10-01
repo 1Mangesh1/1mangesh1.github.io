@@ -14,6 +14,7 @@ github: "https://github.com/1Mangesh1/brainrot-translator"
 demo: ""
 featured: false
 date: 2025-04-15T00:00:00Z
+status: "archived"
 ---
 
 A set of AI-powered language tools that do silly things with text. Built with Google Gemini AI. Warm beige UI because why not.

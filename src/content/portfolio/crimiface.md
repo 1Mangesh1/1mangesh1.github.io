@@ -6,6 +6,7 @@ github: "https://github.com/1Mangesh1/crimiface"
 demo: ""
 featured: false
 date: 2024-10-30T00:00:00Z
+status: "archived"
 ---
 
 An early computer-vision project exploring the full face-matching pipeline end to end: detecting faces in an image with OpenCV, generating feature embeddings with a TensorFlow model, and verifying identity by comparing embeddings for similarity.

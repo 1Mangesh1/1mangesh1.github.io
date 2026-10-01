@@ -1,5 +1,5 @@
 ---
-title: "Real-Time Voice Agent"
+title: "Mira"
 description: "Browser-based voice agent (Tavus CVI) backed by a FastAPI service that runs seven tool-calling booking functions, persists transcripts, and writes an LLM call summary."
 tech:
   [
@@ -15,6 +15,8 @@ github: "https://github.com/1Mangesh1/voice-agent-demo-backend"
 demo: "https://voice-agent-demo-frontend.vercel.app"
 featured: true
 date: 2026-05-12T00:00:00Z
+status: "live"
+post: "building-mira-voice-agent"
 ---
 
 **The problem.** A voice agent that can actually *do* things — book, retrieve, modify, cancel an appointment mid-conversation — needs the LLM's tool calls to reach real services and come back fast enough to keep the conversation natural.

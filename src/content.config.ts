@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 const blog = defineCollection({
@@ -29,6 +29,8 @@ const portfolio = defineCollection({
     demo: z.string().optional(),
     featured: z.boolean().default(false),
     date: z.date(),
+    status: z.enum(["live", "wip", "archived"]),
+    post: reference("blog").optional(),
   }),
 });
 

@@ -6,6 +6,7 @@ github: ""
 demo: ""
 featured: false
 date: 2025-02-15T00:00:00Z
+status: "archived"
 ---
 
 Expense management API built with NestJS and TypeORM. Handles authentication, role-based access, and spending aggregation.
