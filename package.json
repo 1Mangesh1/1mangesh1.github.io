@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "test": "node --experimental-strip-types --test src/utils/*.test.ts",
-    "build": "astro check && astro build && pagefind --site dist",
+    "build": "astro check && node scripts/check-resume-sync.mjs && astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "maintenance:toggle": "node scripts/toggle-maintenance.js",
