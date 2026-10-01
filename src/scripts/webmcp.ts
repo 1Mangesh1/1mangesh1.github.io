@@ -12,10 +12,6 @@ interface ModelContext {
   registerTool(tool: WebMcpTool): Promise<void> | void;
 }
 
-const modelContext =
-  (document as Document & { modelContext?: ModelContext }).modelContext ??
-  (navigator as Navigator & { modelContext?: ModelContext }).modelContext;
-
 const text = (t: string): ToolResult => ({ content: [{ type: "text", text: t }] });
 
 async function get(path: string): Promise<string> {
@@ -70,10 +66,25 @@ const tools: WebMcpTool[] = [
   },
 ];
 
-if (modelContext) {
+let registered = false;
+function register() {
+  const modelContext =
+    (document as Document & { modelContext?: ModelContext }).modelContext ??
+    (navigator as Navigator & { modelContext?: ModelContext }).modelContext;
+  if (registered || !modelContext) return;
+  registered = true;
   for (const tool of tools) {
     Promise.resolve(modelContext.registerTool(tool)).catch((err) =>
       console.warn(`WebMCP: ${tool.name} not registered:`, err),
     );
   }
 }
+
+// Some agent runtimes, the agent-readiness scanner's shim among them, attach
+// modelContext only after the page's own scripts have run. So try once the DOM
+// is ready and the page is idle, and again on load.
+const whenIdle = () =>
+  "requestIdleCallback" in window ? requestIdleCallback(register, { timeout: 2000 }) : setTimeout(register, 500);
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", whenIdle);
+else whenIdle();
+addEventListener("load", register);
