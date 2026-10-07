@@ -17,6 +17,6 @@ date: 2024-07-10T00:00:00Z
 status: "archived"
 ---
 
-**What it does.** A real-time chat app on Node.js, Express and Socket.io. Everyone who joins with a name and a username shares one chat room. Private messages go to one user by username, and the server sends back an error if that user is offline or is you. Clients see typing indicators, join and leave notices, and a live list of online users; clicking a name fills in the private-message recipient.
+**What it does.** It is a real-time chat app on Node.js, Express and Socket.io. Everyone who joins with a name and a username shares one chat room. Private messages go to one user by username, and the server sends back an error if that user is offline or is you. Clients see typing indicators, join and leave notices, and a live list of online users. Clicking a name fills in the private-message recipient.
 
-**How it's built.** `server.js` serves the plain HTML and JavaScript client in `public/` through Express and handles the Socket.io events (`join`, `chatMessage`, `privateMessage`, `typing`, `stoppedTyping`, `disconnect`). Connected users live in an in-memory object keyed by socket ID, and messages are not stored. The [Terraform setup](/portfolio/chatapp-infrastructure/) runs it on a single EC2 instance.
+**How it is built.** `server.js` serves the plain HTML and JavaScript client in `public/` through Express. It also handles the Socket.io events (`join`, `chatMessage`, `privateMessage`, `typing`, `stoppedTyping`, `disconnect`). Connected users live in an in-memory object keyed by socket ID, and messages are not stored. The [Terraform setup](/portfolio/chatapp-infrastructure/) runs it on a single EC2 instance.

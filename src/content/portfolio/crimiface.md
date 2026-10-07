@@ -9,8 +9,8 @@ date: 2024-10-30T00:00:00Z
 status: "archived"
 ---
 
-An early computer-vision project exploring the full face-matching pipeline end to end: detecting faces in an image with OpenCV, generating feature embeddings with a TensorFlow model, and verifying identity by comparing embeddings for similarity.
+This is an early computer-vision project that explores the full face-matching pipeline end to end. It detects faces in an image with OpenCV, generates feature embeddings with a TensorFlow model, and verifies identity by comparing embeddings for similarity.
 
-The focus was on getting the pieces to work together — preprocessing, detection, embedding, and a distance-based match — rather than on a production deployment.
+The focus was on getting the pieces to work together rather than on a production deployment. The pieces were preprocessing, detection, embedding, and a distance-based match.
 
 [Source on GitHub](https://github.com/1Mangesh1/crimiface)

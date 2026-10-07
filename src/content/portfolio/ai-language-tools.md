@@ -17,17 +17,17 @@ date: 2025-04-15T00:00:00Z
 status: "archived"
 ---
 
-A set of AI-powered language tools that do silly things with text. Built with Google Gemini AI. Warm beige UI because why not.
+This is a set of AI-powered language tools that do silly things with text. The tools use Google Gemini AI. The UI is warm beige because why not.
 
 ## Project Overview
 
-Four tools that use Gemini to mess with language: translate corporate jargon, turn insults into backhanded compliments, generate fake buzzword phrases, and write brutally honest reviews in various styles.
+Four tools use Gemini to mess with language. They translate corporate jargon, turn insults into backhanded compliments, generate fake buzzword phrases, and write brutally honest reviews in various styles.
 
 ## Tools Included
 
 ### 1. Brainrot ↔ English Translator
 
-Transform communication between generations with bidirectional translation:
+Bidirectional translation for communication between generations:
 
 - **English to Brainrot**: Convert standard English into Gen Z "brainrot" slang
 - **Brainrot to English**: Decode modern slang back to conventional language
@@ -49,16 +49,16 @@ Master the art of passive-aggressive communication:
 - **Subtext Preservation**: Maintains the original meaning while sounding positive
 - **Contextual Conversion**: Adapts tone based on the input severity
 - **Creative Rephrasing**: Generates multiple conversion options
-- **Social Navigation**: Perfect for diplomatic communication
+- **Social Navigation**: Useful for diplomatic communication
 
 ### 4. Polite but Brutal: Bad Review Generator
 
-Craft hilariously honest reviews with style:
+Write funny, honest reviews in different styles:
 
 - **Multiple Styles**: Choose from Passive-Aggressive, Overly Polite, Fake Enthusiasm, Existential Crisis, Haiku Mode, or Corporate Reviewer
 - **Subject Customization**: Specify products, apps, or services
 - **Emotion Targeting**: Incorporate underlying feelings like frustration or confusion
-- **Creative Formats**: Including poetic reviews in haiku form
+- **Creative Formats**: Includes poetic reviews in haiku form
 
 ## Technical Implementation
 
@@ -106,7 +106,7 @@ GET /api/bad-review?style=Passive-Aggressive&subject=app
 
 ### User Experience
 
-- **Simple Navigation**: Intuitive menu system for tool switching
+- **Simple Navigation**: Menu system for tool switching
 - **Fast Response Times**: Optimized API calls for quick results
 - **Consistent Theming**: Warm beige color palette throughout
 - **Accessibility**: Clean, readable interface design
@@ -140,7 +140,7 @@ GET /api/bad-review?style=Passive-Aggressive&subject=app
 - **Runtime**: Node.js for server-side JavaScript execution
 - **Framework**: Express.js for API routing and middleware
 - **AI Integration**: Google Gemini AI API for natural language processing
-- **Frontend**: Vanilla HTML/CSS/JavaScript for lightweight performance
+- **Frontend**: Vanilla HTML, CSS, and JavaScript for lightweight performance
 - **Development**: npm scripts for development and production workflows
 - **Deployment**: Environment-based configuration for easy hosting
 
@@ -161,7 +161,7 @@ npm run dev
 
 ## Learn More
 
-Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
+Are you interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide)**. It covers architecture patterns, implementation strategies, and practical gotchas when you work with LLMs.
 
 ---
 
