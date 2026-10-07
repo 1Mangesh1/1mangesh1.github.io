@@ -1,4 +1,4 @@
-const n={name:"Mangesh Bide",headline:"Software Engineer — Backend & Applied AI",employer:"House Works Technology",location:"Remote (India)",tagline:"I ship backend and AI systems end to end — from the data model to the infra they run on."},u=document.getElementById("output"),s=document.getElementById("input"),d=document.getElementById("terminal"),r=[];let a=-1;const g=`
+const n={name:"Mangesh Bide",headline:"Backend / Platform Engineer",employer:"House Works Technology",location:"Remote (India)",tagline:"I own backend architecture and infrastructure end to end on a HIPAA-aligned multi-tenant healthcare SaaS."},u=document.getElementById("output"),s=document.getElementById("input"),d=document.getElementById("terminal"),r=[];let a=-1;const g=`
   __  __                             _
  |  \\/  | __ _ _ __   __ _  ___  ___| |__
  | |\\/| |/ _\` | '_ \\ / _\` |/ _ \\/ __| '_ \\
