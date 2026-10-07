@@ -9,11 +9,18 @@ import resume from "../data/resume.json";
 
 const title = `${identity.name} | ${identity.headline}`;
 
-// Get latest blog posts for featured section
+// Pinned, not newest-first: these posts back the work the resume leads with.
 const allPosts = await getPublishedPosts();
-const latestPosts = allPosts
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 3);
+const pinnedPosts = [
+  "building-mira-voice-agent",
+  "multi-tenant-architecture-complete-guide",
+  "hipaa-guardian-ai-skills-healthcare",
+  "pgbouncer-connection-pooling",
+].map((id) => {
+  const post = allPosts.find((p) => p.id === id);
+  if (!post) throw new Error(`pinned post "${id}" is missing or unpublished`);
+  return post;
+});
 
 // Selected Work mirrors the resume's project list, in the same order.
 const allProjects = await getCollection("portfolio");
@@ -59,14 +66,15 @@ const formatDate = (date: Date) => {
       <p
         class="text-base text-gray-500 dark:text-gray-400 mt-2 animate-on-scroll stagger-3"
       >
-        {identity.employer} · {identity.location}
+        Software Development Engineer I at {identity.employer} · {identity.location}
       </p>
       <p
         class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4 leading-relaxed animate-on-scroll stagger-4"
       >
-        {identity.tagline} By day that's Django, PostgreSQL, and AWS on a production healthcare product;
-        on my own time I take FastAPI services, RAG pipelines, and tool-calling agents from
-        idea to a live URL.
+        {identity.tagline} I led a greenfield authentication and authorization platform from
+        architecture through production deployment: self-hosted Keycloak with custom Java SPIs,
+        multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. On my own time I build voice
+        and agentic AI projects like Mira and Fieldnotes.
       </p>
 
       <div
@@ -143,7 +151,7 @@ const formatDate = (date: Date) => {
     <!-- Featured Blog Posts -->
     <div class="mb-16">
       <div class="flex justify-between items-end mb-6">
-        <h2 class="text-3xl font-bold">Latest Writing</h2>
+        <h2 class="text-3xl font-bold">Selected Writing</h2>
         <a
           href="/blog"
           class="text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
@@ -151,9 +159,9 @@ const formatDate = (date: Date) => {
         >
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 mb-6" data-stagger>
+      <div class="grid md:grid-cols-2 gap-6 mb-6" data-stagger>
         {
-          latestPosts.map((post, index) => (
+          pinnedPosts.map((post, index) => (
             <article class:list={['bg-white dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col load-animate', `stagger-${(index % 5) + 1}`]}>
               <div class="p-6 flex flex-col h-full">
                 <time class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 block">
@@ -199,7 +207,7 @@ const formatDate = (date: Date) => {
         >
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 mb-6" data-stagger>
+      <div class="grid md:grid-cols-2 gap-6 mb-6" data-stagger>
         {
           projectsToShow.map((project, index) => (
             <article class:list={['bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col load-animate', `stagger-${(index % 5) + 1}`]}>

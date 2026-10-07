@@ -1,6 +1,6 @@
 export const identity = {
   name: "Mangesh Bide",
-  headline: "Software Engineer — Backend & Applied AI",
+  headline: "Backend / Platform Engineer",
   employer: "House Works Technology",
   employerUrl: "https://houseworksinc.co",
   location: "Remote (India)",
@@ -12,5 +12,5 @@ export const identity = {
     site: "https://mangeshbide.tech",
   },
   tagline:
-    "I ship backend and AI systems end to end — from the data model to the infra they run on.",
+    "I own backend architecture and infrastructure end to end on a HIPAA-aligned multi-tenant healthcare SaaS.",
 };

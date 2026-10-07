@@ -1,11 +1,11 @@
 ---
 title: "Infrastructure-as-Code ChatApp Deployment"
-description: "Provisioned and deployed real-time chat application using Terraform scripts on AWS EC2 with DNS routing."
+description: "Terraform for a single EC2 instance with an Elastic IP inside a custom VPC, subnet, route table and security group."
 tech:
   [
     "Terraform",
     "AWS EC2",
-    "DNS",
+    "AWS VPC",
     "Infrastructure as Code",
     "DevOps",
     "Cloud Architecture",
@@ -17,88 +17,8 @@ date: 2025-03-20T00:00:00Z
 status: "archived"
 ---
 
-Terraform setup for deploying a real-time chat app on AWS. Handles networking, compute, DNS, and monitoring.
+**What it does.** Terraform that runs the [Real-time ChatApp](/portfolio/realtime-chatapp/) on one EC2 instance in AWS `ap-south-1`.
 
-## Project Overview
+**What it provisions.** `main.tf` creates a VPC (`10.0.0.0/16`) with an internet gateway, one public subnet (`10.0.1.0/24`) and a route table that sends outbound traffic through the gateway; a security group that opens SSH (port 22) and the app port (3000); a `t2.micro` instance in that subnet; and an Elastic IP for it. The instance's user data, `commands.sh`, installs Git and Node.js, clones the chat app and starts it with `npm run start`.
 
-Everything needed to spin up the chat app on AWS is defined in Terraform. Network, compute, security groups, and DNS are all version-controlled and repeatable.
-
-## Key Features
-
-- **Automated Infrastructure Provisioning**: Complete AWS infrastructure setup with Terraform
-- **Scalable Architecture**: EC2 instances with auto-scaling capabilities
-- **DNS Management**: Custom domain routing and SSL certificate management
-- **Security Best Practices**: VPC setup, security groups, and IAM role configuration
-- **Environment Management**: Separate configurations for development, staging, and production
-- **Monitoring Setup**: CloudWatch integration for application and infrastructure monitoring
-
-## Infrastructure Components
-
-```mermaid
-graph TD
-    User([Users]) --> |HTTPS| Route53[Route 53 DNS]
-    Route53 --> ALB[Application Load Balancer]
-    
-    subgraph "AWS Cloud (VPC)"
-        ALB --> ASG[Auto Scaling Group]
-        
-        subgraph "Compute"
-            ASG --> EC2_1[EC2 Node 1]
-            ASG --> EC2_2[EC2 Node 2]
-        end
-    end
-    
-    terraform((Terraform)) -.-> |Provisions| Route53
-    terraform -.-> |Provisions| ALB
-    terraform -.-> |Provisions| ASG
-```
-
-### Network Layer
-
-- **VPC Configuration**: Custom Virtual Private Cloud with public and private subnets
-- **Security Groups**: Firewall rules for web traffic and SSH access
-- **Internet Gateway**: Public internet access configuration
-- **Route Tables**: Network routing for optimal traffic flow
-
-### Compute Layer
-
-- **EC2 Instances**: Optimized instance types for chat application workload
-- **Auto Scaling Groups**: Automatic scaling based on traffic demand
-- **Load Balancer**: Application Load Balancer for high availability
-- **Key Pair Management**: SSH key management for secure access
-
-### DNS and SSL
-
-- **Route 53**: DNS management and domain routing
-- **Certificate Manager**: SSL/TLS certificate provisioning
-- **CloudFront**: CDN setup for improved performance
-
-## Technology Stack
-
-- **Infrastructure as Code**: Terraform with HCL syntax
-- **Cloud Provider**: AWS (EC2, VPC, Route 53, CloudWatch)
-- **Configuration Management**: Terraform modules and variables
-- **Version Control**: Git-based infrastructure versioning
-- **CI/CD Integration**: GitHub Actions for automated deployments
-
-## DevOps Practices
-
-- **Infrastructure Versioning**: Git-based infrastructure change tracking
-- **Environment Parity**: Consistent infrastructure across all environments
-- **Automated Deployments**: One-click infrastructure provisioning
-- **Resource Tagging**: Organization and cost tracking for all resources
-- **State Management**: Remote state storage with locking mechanism
-
-## Architecture Decisions
-
-- **Why Terraform over CloudFormation**: Provider-agnostic syntax kept the door open for multi-cloud, and the module ecosystem meant battle-tested patterns for VPC/ALB/ASG were available rather than hand-rolling each resource.
-- **Why EC2 + ASG over Fargate/EKS**: For a chat app at this scale, container orchestration overhead wasn't justified — EC2 with an Auto Scaling Group gave horizontal scale without the control-plane cost of Kubernetes.
-- **Public/private subnet split**: Application instances live in private subnets; only the ALB sits public-facing. Removes the SSH attack surface and forces traffic through one observable choke point.
-- **Remote state with locking**: S3 backend + DynamoDB lock table prevents concurrent `terraform apply` from corrupting state — important once more than one engineer touches the repo.
-
-## Trade-offs
-
-- ASG-based scaling is slower to react than serverless cold starts but predictably cheaper at sustained load — the right call for a long-lived socket workload.
-- All-in on AWS means provider lock-in; Terraform's syntax mitigates this but the resource graph itself is AWS-shaped.
-- CloudFront was specced but only adds value once static assets dominate egress — left as an opt-in module rather than a default.
-
+**Inputs and outputs.** `variables.tf` takes the region (default `ap-south-1`), the AWS credentials, a project name used in resource tags, and the EC2 key pair name. `outputs.tf` returns the instance's public IP, the Elastic IP, and the VPC and subnet IDs.

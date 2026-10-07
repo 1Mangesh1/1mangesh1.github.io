@@ -1,5 +1,5 @@
 {
-  "summary": "Software engineer working across backend and applied AI, building production healthcare systems with Python, TypeScript, PostgreSQL, and AWS. Led a greenfield authentication and authorization platform from architecture through production deployment using self-hosted Keycloak, custom Java SPIs, OIDC, multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. Owns backend architecture and infrastructure end-to-end, with additional experience building real-time voice and agentic AI systems.",
+  "summary": "Backend / Platform Engineer with 2+ years of production Python and Django experience (since Feb 2024), building production healthcare systems with Python, TypeScript, PostgreSQL, and AWS. Led a greenfield authentication and authorization platform from architecture through production deployment using self-hosted Keycloak, custom Java SPIs, OIDC, multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. Owns backend architecture and infrastructure end to end on a HIPAA-aligned multi-tenant healthcare SaaS, with additional production experience in real-time voice pipelines and agentic AI systems.",
   "experience": [
     {
       "org": "House Works Technology",
@@ -7,18 +7,27 @@
       "start": "Feb 2025",
       "end": "Present",
       "roles": [
-        { "title": "Software Development Engineer – I", "start": "Apr 2025", "end": "Present" },
-        { "title": "Software Development Engineer Intern", "start": "Feb 2025", "end": "Apr 2025" }
+        { "title": "Software Development Engineer I (promoted from intern, Apr 2025)", "start": "Feb 2025", "end": "Present" }
       ],
+      "pdfPending": true,
       "bullets": [
-        "Led a greenfield authentication and authorization platform end-to-end, owning architecture, authorization modeling, service integration, rollout, and production deployment.",
-        "Built and operated self-hosted Keycloak in production, including deployment, configuration, upgrades, backups, and operational maintenance; developed custom Java SPIs, providers, and extensions for business-specific identity requirements.",
-        "Designed fine-grained authorization using SpiceDB (Google Zanzibar model), defining a ReBAC model spanning 16 object types and 45 permissions and integrating authorization checks across Django/DRF APIs.",
-        "Implemented multi-tenancy with Keycloak Organizations and tenant-aware authentication; built IdP Federation with domain-based SSO to route users to their enterprise identity provider based on email domain.",
-        "Kept the SpiceDB authorization graph consistent with PostgreSQL using a transactional outbox and asynchronous worker, with reconciliation and consistency mechanisms to detect and repair authorization drift.",
-        "Architected a real-time multilingual voice transcription and translation pipeline in a production EHR, streaming audio through Azure Speech into structured clinical records in PostgreSQL and serving 1,000+ patients.",
-        "Own the backend stack (Django, DRF, PostgreSQL, AWS) handling 10K–100K requests/day; designed production infrastructure with Terraform, Docker, and AWS EC2 and GitHub Actions CI/CD, reducing deployment time from ~45 min to ~12 min (~70%).",
-        "Set up observability with Sentry, ClickHouse, and Grafana; migrated legacy Django views to DRF ViewSets (~40% less boilerplate), write Pytest unit/integration tests, review code, and ship React.js/Next.js features end-to-end."
+        "Led a greenfield authentication and authorization platform for a multi-tenant healthcare SaaS, owning architecture, authorization modeling, service integration, rollout, and production deployment.",
+        "Built and operated self-hosted Keycloak in production for healthcare identity management (deployment, configuration, upgrades, backups, operational maintenance), including OIDC integration, session management, and account lifecycle controls; developed custom Java SPIs, providers, and extensions for business-specific identity requirements.",
+        "Designed fine-grained authorization with SpiceDB (Google Zanzibar model): a ReBAC model spanning 16 object types and 45 permissions across organizations, programs, patients, cases, review boards, and clinical documents, integrated across Django/DRF APIs.",
+        "Implemented multi-tenancy with Keycloak Organizations and tenant-aware authentication flows; built IdP Federation with domain-based SSO routing users to their enterprise identity provider by email domain.",
+        "Kept the SpiceDB authorization graph consistent with PostgreSQL using a transactional outbox and async worker, with reconciliation and consistency checks to detect and repair authorization drift.",
+        "Wrote the platform's architecture decision records and phased ReBAC execution plan before building it, then authored about half of the merged pull requests in its API and identity service repositories.",
+        "Hardened identity: mandatory TOTP MFA for all users, instant session revocation (OIDC back-channel logout with a Redis denylist), per-tenant password policies and an audit-event producer as custom Keycloak SPIs, and user lifecycle flows (invites, suspension, termination, rehire, credential reset) recorded in an append-only audit ledger.",
+        "Added supply-chain security gates to CI (CycloneDX SBOM, dependency audits, a release-age cooldown for new package versions, digest-pinned base images) and set up AWS ECS deploys that run database migrations as one-off tasks before services roll and reconcile Keycloak client secrets from AWS Secrets Manager.",
+        "Architected a real-time multilingual voice transcription and translation pipeline in a production EHR, streaming clinical conversations through Azure Speech (Azure Cognitive Services) with live transcription and translation across English, Spanish, and Mandarin into structured clinical notes in PostgreSQL, serving 1,000+ patients.",
+        "Built patient management and appointment scheduling APIs, an ICD-10 coding engine, and AWS Cognito-based authentication; worked across clinical documentation, ICD-10-CM diagnosis coding, modifier codes, healthcare coding logic, and NCCN-based clinical decision support.",
+        "Shipped clinical document generation to production: a PDF template manager with clinical-note and facesheet generation, DOCX-to-PDF conversion, and bulk document export (merged files, separator sheets, ZIP) through a PDF microservice, with Celery job progress, cancellation, and stale-job cleanup.",
+        "Built case-review dashboard APIs with turnaround-time metrics and organization-level filtering backed by database index optimizations, and a scheduled job that reconciles application users against AWS Cognito and emails a CSV report.",
+        "Provisioned per-tenant Medplum (FHIR server) projects and clients from Django admin, and moved the product's AI-assist feature to AWS Bedrock, removing a direct third-party model API key.",
+        "Own the backend stack (Django, DRF, PostgreSQL, AWS) handling 10K-100K requests/day; built production infrastructure with Terraform (workspaces for staging and production), Docker, AWS EC2, and GitHub Actions CI/CD with automated EC2 deployments, cutting deployment time from ~45 min to ~12 min (~70%).",
+        "Built healthcare audit and observability infrastructure with ClickHouse, Sentry, and Grafana; maintained tenant isolation across API authorization and database access; integrated Sentry performance monitoring into the EHR API and fixed the N+1 queries it surfaced.",
+        "Took part in the weekly on-call rotation, responding to production alerts from Sentry, All Quiet, and AWS.",
+        "Migrated legacy Django views to DRF ViewSets (~40% less boilerplate), set up hot reloading for the Django backend, write Pytest unit/integration tests, review code (230+ pull requests for 13 engineers since Jul 2025), and ship React.js/Next.js features end to end."
       ]
     },
     {
@@ -27,6 +36,7 @@
       "start": "Oct 2024",
       "end": "Feb 2025",
       "roles": [{ "title": "Software Development Engineer Trainee", "start": "Oct 2024", "end": "Feb 2025" }],
+      "pdfPending": true,
       "bullets": [
         "Built full-stack production features using React.js, Next.js, TypeScript, and NestJS; containerized services with Docker and provisioned cloud infrastructure with Terraform."
       ]
@@ -37,6 +47,7 @@
       "start": "Feb 2024",
       "end": "Jul 2024",
       "roles": [{ "title": "Backend Developer Intern", "start": "Feb 2024", "end": "Jul 2024" }],
+      "pdfPending": true,
       "bullets": [
         "Designed REST APIs using Django and MySQL with JWT authentication and RBAC for a Flutter activity-tracking application; integrated ML-powered image search and OTP/email verification."
       ]
@@ -48,6 +59,7 @@
       "portfolio": "voice-agent",
       "stack": ["Tavus CVI", "FastAPI", "Next.js", "Supabase", "Gemini"],
       "url": "https://mangeshbide.tech/blog/building-mira-voice-agent",
+      "pdfPending": true,
       "bullets": [
         "Built a real-time conversational AI agent with Daily/WebRTC voice interaction, avatar, 7 booking tools, slot-conflict and idempotency guards, 10 unit tests, and Gemini-generated call summaries."
       ]
@@ -58,7 +70,7 @@
       "stack": ["FastAPI", "Gemini", "Cloudflare BGE", "GitHub API"],
       "url": "https://fieldnotes.mangeshbide.tech",
       "bullets": [
-        "Built a multi-stage planner–executor–synthesizer agent that researches companies, inspects GitHub engineering footprints, compares resume embeddings against job requirements, and returns structured apply/consider/skip verdicts with cost and latency observability."
+        "Agentic RAG system: a multi-stage planner-executor-synthesizer agent with tool use and embedding-based retrieval that researches companies, inspects GitHub engineering footprints, compares resume embeddings against job requirements, and returns structured apply/consider/skip verdicts with cost and latency observability."
       ]
     },
     {
@@ -70,31 +82,42 @@
       "bullets": [
         "Built a PHI/PII detection engine that scans source, data files, logs, and API responses for all 18 HIPAA Safe Harbor identifiers, scores each finding's confidence, maps it to the relevant HIPAA rule, and writes an audit report a reviewer can act on; excludes known-safe patterns (never-issued SSN ranges, 555-01xx numbers, example.com) to keep false positives low on real codebases."
       ]
+    },
+    {
+      "name": "Claude Skills collection",
+      "portfolio": "claude-skills",
+      "stack": ["Claude Skills"],
+      "url": "https://skills.sh/1mangesh1",
+      "pdfPending": true,
+      "bullets": [
+        "Published a collection of reusable Claude Skills with 300+ downloads."
+      ]
     }
   ],
   "skills": {
-    "Languages": ["Python", "TypeScript", "JavaScript (ES6+)", "Java"],
-    "Identity & Authorization": ["Keycloak (Organizations, custom SPIs, providers, extensions)", "SpiceDB", "ReBAC", "OAuth 2.0", "OIDC", "JWT", "SSO", "IdP Federation", "Multi-Tenant Architecture", "AWS Cognito"],
-    "Backend": ["Django (DRF, ViewSets)", "FastAPI", "NestJS", "Node.js (Express)"],
-    "Databases": ["PostgreSQL", "MySQL", "MongoDB", "DynamoDB"],
-    "Cloud & Infrastructure": ["AWS (ECS, EC2, S3, Lambda, API Gateway, IAM, Cognito, CloudWatch)", "Terraform", "Docker", "GitHub Actions", "CI/CD", "Shell Scripting"],
+    "Languages": ["Python", "TypeScript", "JavaScript (ES6+)", "Java", "SQL"],
+    "Identity & Authorization": ["Keycloak (Organizations, custom SPIs, providers, extensions)", "SpiceDB", "ReBAC", "OAuth 2.0", "OIDC", "JWT", "SSO", "IdP Federation", "TOTP MFA", "OIDC Back-Channel Logout", "Multi-Tenant Architecture", "AWS Cognito"],
+    "Backend": ["Django", "Django REST Framework", "Celery", "FastAPI", "NestJS", "Node.js (Express)"],
+    "Databases": ["PostgreSQL", "MySQL", "MongoDB", "DynamoDB", "Redis", "pgvector"],
+    "Cloud & Infrastructure": ["AWS (ECS, EC2, S3, Lambda, API Gateway, IAM, Cognito, CloudWatch, Secrets Manager, Bedrock)", "Oracle Cloud", "Terraform", "Docker", "GitHub Actions", "CI/CD", "Shell Scripting"],
     "Distributed Systems": ["Transactional Outbox", "Async Workers", "Idempotency", "Reconciliation", "Event-Driven Systems"],
+    "Healthcare": ["HIPAA-aligned Systems", "EHR Workflows", "ICD-10-CM", "Modifier Codes", "Clinical Coding Workflows", "NCCN Guidelines", "FHIR (working knowledge)", "Medplum", "HL7 (working knowledge)"],
     "Observability": ["Sentry", "Grafana", "ClickHouse", "Structured Logging"],
-    "AI / Voice": ["Gemini", "OpenAI", "LLM Orchestration", "RAG", "Embeddings", "Agentic AI", "Tavus CVI", "Daily/WebRTC", "Azure Speech"],
-    "Frontend": ["React.js", "Next.js", "Tailwind CSS", "shadcn/ui"],
-    "Practices": ["REST API Design", "Pytest", "Unit/Integration Testing", "Code Review", "Agile/Scrum"]
+    "AI / Voice": ["Gemini", "OpenAI", "LLM Orchestration", "Prompt Engineering", "RAG", "Embeddings", "Agentic AI", "Tavus CVI", "Daily/WebRTC", "Azure Speech (Cognitive Services)", "Multilingual ASR/TTS", "Cloudflare Workers AI (Llama 3.2)", "Claude Skills"],
+    "Frontend": ["React.js", "Next.js", "Tailwind CSS", "shadcn/ui", "Astro"],
+    "Practices": ["REST API Design", "Pytest", "Unit/Integration Testing", "Code Review", "Architecture Decision Records", "Supply-Chain Security (SBOM, Dependabot)", "Agile/Scrum"],
+    "Spoken languages": ["Hindi (native)", "Marathi (native)", "English (full professional)"]
   },
   "education": [
     { "degree": "B.Tech in Computer Engineering", "school": "R. C. Patel Institute of Technology, Shirpur", "years": "2021 – 2024", "grade": "CGPA: 7.98/10" },
     { "degree": "Diploma in Computer Engineering", "school": "R. C. Patel Polytechnic, Shirpur", "years": "2019 – 2021", "grade": "93.89%" }
   ],
   "certifications": [
-    { "name": "AWS Certified AI Practitioner", "issuer": "Amazon Web Services", "year": "2026", "verifyUrl": null }
+    { "name": "AWS Certified AI Practitioner (AIF-C01)", "issuer": "Amazon Web Services", "year": "2026", "verifyUrl": null }
   ],
   "todos": [
-    "Commit resume/resume.tex; experience bullets mirror the committed public/Resume.pdf (2026-08-13) until then.",
+    "pdfPending entries carry wording that public/Resume.pdf (2026-10-06, 2 pages) condenses, words differently or omits; drop the flag once a regenerated PDF carries the same text.",
     "experience bullet order: reorder to the \\ifFDE branch of resume.tex.",
-    "Regenerate public/Resume.pdf with the summary, HIPAA Guardian project and certification above, then drop pdfPending from HIPAA Guardian.",
     "certifications[AWS Certified AI Practitioner].verifyUrl: Credly or AWS verification link (optional)."
   ]
 }
