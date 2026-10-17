@@ -225,7 +225,7 @@ npm run dev
 
 ## Learn More
 
-Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
+Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide/)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
 
 ---
 
@@ -439,7 +439,7 @@ A few things in there are easy to misread. `score` is the expected level index, 
 
 ## Type safety isn't the interesting part
 
-TypeSafe leans hard on "can't hallucinate" and "no type errors". When I went back to my own code, I realized I already have that. [Job Researcher](/portfolio/job-researcher) passes a Pydantic model to Gemini as `response_schema` and parses the reply straight into it. The recommendation field is an enum with three values. Structured outputs got there first.
+TypeSafe leans hard on "can't hallucinate" and "no type errors". When I went back to my own code, I realized I already have that. [Fieldnotes](/portfolio/fieldnotes/) passes a Pydantic model to Gemini as `response_schema` and parses the reply straight into it. The recommendation field is an enum with three values. Structured outputs got there first.
 
 What I don't get from that call is a distribution. Gemini hands me one recommendation and a paragraph of `reasoning` defending it. If the model was torn between APPLY and CONSIDER, I never find out. It commits, then writes a confident explanation of the commitment.
 
@@ -449,7 +449,7 @@ Jev's response is the part I'd actually pay for: 0.87 on one option, 0.13 on ano
 
 Partly. Cloudflare lists it as `typesafe/jev` in its [unified model catalog](https://developers.cloudflare.com/ai/models/), tagged "Third-party", with a 32,000-token context window. It isn't in the Workers AI catalog proper, and the model page doesn't show a price. That's only in the Cloudflare dashboard.
 
-I already use Cloudflare's AI APIs for embeddings in Job Researcher and for [this site's chatbot](/blog/building-ai-chatbot-portfolio), so I pointed the same account at Jev. The request above came back in about a second with HTTP 402:
+I already use Cloudflare's AI APIs for embeddings in Job Researcher and for [this site's chatbot](/blog/building-ai-chatbot-portfolio/), so I pointed the same account at Jev. The request above came back in about a second with HTTP 402:
 
 ```json
 {
@@ -580,7 +580,7 @@ The obvious catch: these messages are patient data. Under HIPAA, a vendor that h
 
 Referrals, lab results, imaging reports and prior-auth paperwork still arrive at a lot of clinics as faxes and PDFs, and someone files each one by hand. A single Choice over document type, with a confidence gate that drops anything uncertain into the manual pile, takes the easy ones off someone's desk without letting the model near a clinical decision. Same data caveat as above.
 
-The one healthcare use I'd skip is the most tempting: asking a model whether a log line contains patient identifiers. I've built [a PHI detector](/portfolio/hipaa-guardian), and the problem with outsourcing that check is right there in the request body. To ask a third party whether the log line contains PHI, you have to send it the log line.
+The one healthcare use I'd skip is the most tempting: asking a model whether a log line contains patient identifiers. I've built [a PHI detector](/portfolio/hipaa-guardian/), and the problem with outsourcing that check is right there in the request body. To ask a third party whether the log line contains PHI, you have to send it the log line.
 
 ### Logistics: shipment exceptions
 
@@ -635,11 +635,11 @@ Two constraints show up fast in logistics. Jev reads text only, so a driver's ph
 | E-commerce returns              | The customer's return reason plus the order           | Choice: size, damaged, not as described, changed mind. Noul: possible abuse? | Abuse probability passes 0.5, and a human reviews it; never an auto-deny |
 | Voice agent intent              | The caller's latest turn plus the conversation so far | Choice: which tool to call next                                        | Confidence is low, so the agent asks a clarifying question instead        |
 
-The moderation row uses a pattern that works for any Noul question: two thresholds instead of one. Auto-approve below 0.1, auto-reject above 0.9, and a human sees the middle. My [guestbook](/blog/building-a-retro-guestbook-with-astro-and-google-sheets) has no login, and every entry lands as a draft until I approve it by hand in Google Sheets. Two Noul questions with that double threshold would leave me only the ones in the middle.
+The moderation row uses a pattern that works for any Noul question: two thresholds instead of one. Auto-approve below 0.1, auto-reject above 0.9, and a human sees the middle. My [guestbook](/blog/building-a-retro-guestbook-with-astro-and-google-sheets/) has no login, and every entry lands as a draft until I approve it by hand in Google Sheets. Two Noul questions with that double threshold would leave me only the ones in the middle.
 
 The access-request row is the authorization rule from the previous section in practice. Jev can decide which request a reviewer sees first. It never decides the answer.
 
-The voice row is where TypeSafe's latency claims would finally matter. A caller notices a half-second pause in a way a ticket queue never does, and after building [a voice agent](/portfolio/voice-agent), I'd measure that myself before trusting any of the three numbers from launch week.
+The voice row is where TypeSafe's latency claims would finally matter. A caller notices a half-second pause in a way a ticket queue never does, and after building [a voice agent](/portfolio/voice-agent/), I'd measure that myself before trusting any of the three numbers from launch week.
 
 ## Designing the questions for Job Researcher v2
 
@@ -1361,7 +1361,7 @@ Day 5 you notice you are re-typing the same multi-step instruction. "Write the p
 
 A skill is a named, reusable capability the agent can invoke — your workflow, written down once, callable on demand. The one-off prompt is a sticky note. The skill is the procedure pinned to the wall, the same every time.
 
-A repeatable workflow beats a clever one-off. Prompts don't compound — you re-derive them every time and they drift. A skill is versioned, improvable, and consistent across sessions and projects. I won't reteach the whole thing here; I wrote it up in [the complete guide to building AI agent skills](/blog/how-to-build-ai-agent-skills). Day 5 is just the moment you feel *why* you'd want one.
+A repeatable workflow beats a clever one-off. Prompts don't compound — you re-derive them every time and they drift. A skill is versioned, improvable, and consistent across sessions and projects. I won't reteach the whole thing here; I wrote it up in [the complete guide to building AI agent skills](/blog/how-to-build-ai-agent-skills/). Day 5 is just the moment you feel *why* you'd want one.
 
 The trap is skill-ifying too early. If you have done something once, prompt it. The second or third identical multi-step ask is when it earns a skill. Premature skills are abstraction debt: you end up maintaining a little process you barely use, and worse, you froze its shape before you knew what the right shape was.
 
@@ -1422,8 +1422,8 @@ None of these are dealbreakers. They are the reasons the week-one habits — rea
 ## Resources
 
 - [Anthropic's Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code) — the official reference for install, configuration, hooks, and settings.
-- [Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide) — the patterns and failure modes behind tools like this one.
-- [The Complete Guide to Building AI Agent Skills](/blog/how-to-build-ai-agent-skills) — Day 5, in full: structuring, testing, and shipping reusable skills.
+- [Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide/) — the patterns and failure modes behind tools like this one.
+- [The Complete Guide to Building AI Agent Skills](/blog/how-to-build-ai-agent-skills/) — Day 5, in full: structuring, testing, and shipping reusable skills.
 
 The week is not about learning prompts. It is about learning where to put your judgment when the typing is no longer the bottleneck.
 
@@ -1809,7 +1809,7 @@ More on the second one below.
 
 ## How tool calling actually works in this stack
 
-![Mira's live avatar mid-call, with the tool ticker showing a tool execution](</images/blogs/voice-agent/live avatar with tool call.png>)
+![Mira's live avatar mid-call, with the tool ticker showing a tool execution](</images/blogs/voice-agent/live avatar with tool call.webp>)
 
 Tavus's documentation says explicitly: *Tavus does not execute tool calls on the backend.* When the LLM decides to call `book_appointment`, it broadcasts a `conversation.tool_call` event into the Daily room as an `app-message`:
 
@@ -1898,7 +1898,7 @@ The fix has three parts:
 
 Belt and braces and a third thing. Without all three, the experience falls apart.
 
-![Live transcript panel: only the user's words and Mira's spoken replies, with `[tool_result]` echoes filtered out](/images/blogs/voice-agent/chat.png)
+![Live transcript panel: only the user's words and Mira's spoken replies, with `[tool_result]` echoes filtered out](/images/blogs/voice-agent/chat.webp)
 
 The current echo includes a directive sentence so the LLM knows what to do with the data:
 
@@ -3249,7 +3249,7 @@ You don't always need a framework. By sticking to browser standards like the Can
 
 Next time you need an interactive component, ask yourself: *Could this just be a class and a canvas?*
 
-[Play with the Pixel Sandbox here](/games#pixel-drawer)
+[Play with the Pixel Sandbox here](/games/#pixel-drawer)
 
 ### Get a Free .dev Domain for Your Portfolio: The Complete is-a-dev/register Guide
 
@@ -5557,7 +5557,7 @@ Now go sign my guestbook. I promise I'll approve your message (unless you're a b
 ---
 
 **Links:**
-- [Check out the live guestbook](/guestbook)
+- [Check out the live guestbook](/guestbook/)
 - [Google Apps Script documentation](https://developers.google.com/apps-script)
 - [Astro documentation](https://astro.build)
 
