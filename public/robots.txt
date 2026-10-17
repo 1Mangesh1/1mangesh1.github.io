@@ -2,7 +2,7 @@
 # Allow all crawlers to access all content
 
 User-agent: *
-Content-Signal: ai-train=no, search=yes, ai-input=yes
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 
 # Block access to admin/sensitive areas and maintenance. /.well-known/ stays
@@ -21,7 +21,7 @@ User-agent: Claude-SearchBot
 User-agent: Google-Extended
 User-agent: PerplexityBot
 User-agent: Perplexity-User
-Content-Signal: ai-train=no, search=yes, ai-input=yes
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Disallow: /api/
 Disallow: /maintenance
@@ -40,15 +40,13 @@ Agentmap: https://mangeshbide.tech/.well-known/ai-catalog.json
 # origin to protect. Google ignores the directive anyway, while Bing and the AI
 # crawlers honour it — it only ever slowed down the crawlers worth having.
 
-# Specific rules for different bots
+# Search engines. A named group ignores the * group, so the rules repeat here.
 User-agent: Googlebot
-Allow: /
-
 User-agent: Bingbot
-Allow: /
-
 User-agent: Slurp
 Allow: /
+Disallow: /api/
+Disallow: /maintenance
 
 # Block specific bad bots
 User-agent: AhrefsBot
