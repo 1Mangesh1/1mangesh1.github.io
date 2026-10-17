@@ -9,6 +9,7 @@ export const identity = {
     linkedin: "https://linkedin.com/in/mangesh-bide/",
     github: "https://github.com/1mangesh1",
     x: "https://x.com/Mangesh_Bide",
+    peerlist: "https://peerlist.io/mangeshbide",
     site: "https://mangeshbide.tech",
   },
   tagline:

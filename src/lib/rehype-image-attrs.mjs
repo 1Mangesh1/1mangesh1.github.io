@@ -10,7 +10,7 @@ function readSize(file) {
   }
   if (b.length >= 30 && b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
     const chunk = b.toString('ascii', 12, 16);
-    // Lossy (VP8) and extended (VP8X, written when the source has alpha) layouts.
+    // Lossy (VP8) and extended (VP8X: alpha, metadata or animation) layouts.
     if (chunk === 'VP8 ') return { width: b.readUInt16LE(26) & 0x3fff, height: b.readUInt16LE(28) & 0x3fff };
     if (chunk === 'VP8X') return { width: b.readUIntLE(24, 3) + 1, height: b.readUIntLE(27, 3) + 1 };
   }

@@ -174,4 +174,4 @@ You don't always need a framework. By sticking to browser standards like the Can
 
 Next time you need an interactive component, ask yourself: *Could this just be a class and a canvas?*
 
-[Play with the Pixel Sandbox here](/games#pixel-drawer)
+[Play with the Pixel Sandbox here](/games/#pixel-drawer)
