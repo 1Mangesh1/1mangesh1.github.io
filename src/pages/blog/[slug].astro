@@ -43,7 +43,7 @@ const relatedPosts = getRelatedPosts(post, allPosts, 3);
 const readingTime = calculateReadingTime(post.body || '');
 
 // Current post URL for sharing
-const currentUrl = `${siteConfig.url}/blog/${post.id}`;
+const currentUrl = `${siteConfig.url}/blog/${post.id}/`;
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
@@ -85,7 +85,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
   <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body>
     <header class="mb-8">
       <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400"
+        <a href="/blog/" class="hover:text-blue-600 dark:hover:text-blue-400"
           >Blog</a
         >
         <span class="mx-2">/</span>
@@ -125,7 +125,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
           <div class="flex flex-wrap gap-2 mb-8">
             {post.data.tags.map((tag) => (
               <a
-                href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
                 class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 {tag}
@@ -161,7 +161,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
               <article class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                 <h3 class="text-lg font-semibold mb-2">
                   <a
-                    href={`/blog/${relatedPost.id}`}
+                    href={`/blog/${relatedPost.id}/`}
                     class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     {relatedPost.data.title}
@@ -182,7 +182,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
                   <div class="flex flex-wrap gap-1">
                     {relatedPost.data.tags.slice(0, 3).map((tag) => (
                       <a
-                        href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
+                        href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
                         class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                       >
                         {tag}
@@ -206,7 +206,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
 
     <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
       <a
-        href="/blog"
+        href="/blog/"
         class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
       >
         <svg

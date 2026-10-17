@@ -161,7 +161,7 @@ npm run dev
 
 ## Learn More
 
-Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
+Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide/)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
 
 ---
 

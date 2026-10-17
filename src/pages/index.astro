@@ -81,7 +81,7 @@ const formatDate = (date: Date) => {
         class="flex flex-wrap justify-center items-center gap-3 mt-8 animate-on-scroll stagger-5"
       >
         <a
-          href="/resume"
+          href="/resume/"
           class="inline-flex items-center px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium hover:opacity-90 transition-opacity"
         >
           Resume
@@ -153,7 +153,7 @@ const formatDate = (date: Date) => {
       <div class="flex justify-between items-end mb-6">
         <h2 class="text-3xl font-bold">Selected Writing</h2>
         <a
-          href="/blog"
+          href="/blog/"
           class="text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
           >View all posts →</a
         >
@@ -168,14 +168,14 @@ const formatDate = (date: Date) => {
                   {formatDate(post.data.pubDate)}
                 </time>
                 <h3 class="text-lg font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-2">
-                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
                 </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
                   {post.data.description}
                 </p>
                 <div class="mt-auto pt-4">
                   <a
-                    href={`/blog/${post.id}`}
+                    href={`/blog/${post.id}/`}
                     class="inline-flex items-center text-blue-600 dark:text-cyan-400 hover:underline text-sm font-medium"
                   >
                     Read article →
@@ -188,7 +188,7 @@ const formatDate = (date: Date) => {
       </div>
       <div class="text-center sm:hidden mb-12">
         <a
-          href="/blog"
+          href="/blog/"
           class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
         >
           View all posts
@@ -201,7 +201,7 @@ const formatDate = (date: Date) => {
       <div class="flex justify-between items-end mb-6">
         <h2 class="text-3xl font-bold">Selected Work</h2>
         <a
-          href="/portfolio"
+          href="/portfolio/"
           class="text-emerald-700 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
           >View all work →</a
         >
@@ -211,7 +211,7 @@ const formatDate = (date: Date) => {
         {
           projectsToShow.map((project, index) => (
             <article class:list={['bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift transition-all card-animate animate-on-scroll group shadow-sm hover:shadow-md flex flex-col load-animate', `stagger-${(index % 5) + 1}`]}>
-              <a href={`/portfolio/${project.id}`} class="block">
+              <a href={`/portfolio/${project.id}/`} class="block">
                 {project.data.image ? (
                   <div class="aspect-video w-full overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                     <img
@@ -231,7 +231,7 @@ const formatDate = (date: Date) => {
               </a>
               <div class="p-6 flex flex-col flex-grow">
                 <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">
-                  <a href={`/portfolio/${project.id}`}>
+                  <a href={`/portfolio/${project.id}/`}>
                     {project.data.title}
                   </a>
                 </h3>
@@ -253,7 +253,7 @@ const formatDate = (date: Date) => {
                   </div>
                 )}
                 <a
-                  href={`/portfolio/${project.id}`}
+                  href={`/portfolio/${project.id}/`}
                   class="inline-flex items-center text-emerald-700 dark:text-cyan-400 hover:underline text-sm font-medium mt-auto border border-emerald-200 dark:border-cyan-800 px-4 py-2 rounded self-start"
                 >
                   View Details
@@ -265,7 +265,7 @@ const formatDate = (date: Date) => {
       </div>
       <div class="text-center sm:hidden mb-12">
         <a
-          href="/portfolio"
+          href="/portfolio/"
           class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
         >
           View all work
@@ -323,7 +323,7 @@ const formatDate = (date: Date) => {
       <div class="flex justify-between items-end mb-6">
         <h2 class="text-3xl font-bold animate-on-scroll">Playground</h2>
         <a
-          href="/playground"
+          href="/playground/"
           class="text-emerald-700 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
           >See all experiments &rarr;</a
         >
@@ -334,7 +334,7 @@ const formatDate = (date: Date) => {
 
       <div class="grid gap-6 md:grid-cols-3 mb-8" data-stagger>
         <a
-          href="/wall"
+          href="/wall/"
           class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">The Wall</h3>
@@ -343,7 +343,7 @@ const formatDate = (date: Date) => {
           </p>
         </a>
         <a
-          href="/earth-observatory"
+          href="/earth-observatory/"
           class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">Earth Observatory</h3>
@@ -352,7 +352,7 @@ const formatDate = (date: Date) => {
           </p>
         </a>
         <a
-          href="/terminal"
+          href="/terminal/"
           class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
           <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">Terminal</h3>
@@ -363,7 +363,7 @@ const formatDate = (date: Date) => {
       </div>
       <div class="text-center sm:hidden mb-12">
         <a
-          href="/playground"
+          href="/playground/"
           class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
         >
           See all experiments
@@ -378,7 +378,7 @@ const formatDate = (date: Date) => {
             Got a question, idea, or just want to chat? I'm around.
           </p>
           <a
-            href="/contact"
+            href="/contact/"
             class="inline-block custom-gradient-bg text-white px-8 py-3 rounded-lg hover:opacity-90 transition-all font-medium btn-primary hover-lift shadow-md"
           >
             Get In Touch
@@ -404,7 +404,7 @@ const formatDate = (date: Date) => {
             >•</span
           >
           <a
-            href="/search"
+            href="/search/"
             class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
           >
             <svg
@@ -425,7 +425,7 @@ const formatDate = (date: Date) => {
             >•</span
           >
           <a
-            href="/resume"
+            href="/resume/"
             class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-cyan-400 flex items-center transition-colors animate-on-scroll"
           >
             <svg

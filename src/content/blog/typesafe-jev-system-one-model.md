@@ -114,7 +114,7 @@ A few things in there are easy to misread. `score` is the expected level index, 
 
 ## Type safety isn't the interesting part
 
-TypeSafe leans hard on "can't hallucinate" and "no type errors". When I went back to my own code, I realized I already have that. [Job Researcher](/portfolio/job-researcher) passes a Pydantic model to Gemini as `response_schema` and parses the reply straight into it. The recommendation field is an enum with three values. Structured outputs got there first.
+TypeSafe leans hard on "can't hallucinate" and "no type errors". When I went back to my own code, I realized I already have that. [Fieldnotes](/portfolio/fieldnotes/) passes a Pydantic model to Gemini as `response_schema` and parses the reply straight into it. The recommendation field is an enum with three values. Structured outputs got there first.
 
 What I don't get from that call is a distribution. Gemini hands me one recommendation and a paragraph of `reasoning` defending it. If the model was torn between APPLY and CONSIDER, I never find out. It commits, then writes a confident explanation of the commitment.
 
@@ -124,7 +124,7 @@ Jev's response is the part I'd actually pay for: 0.87 on one option, 0.13 on ano
 
 Partly. Cloudflare lists it as `typesafe/jev` in its [unified model catalog](https://developers.cloudflare.com/ai/models/), tagged "Third-party", with a 32,000-token context window. It isn't in the Workers AI catalog proper, and the model page doesn't show a price. That's only in the Cloudflare dashboard.
 
-I already use Cloudflare's AI APIs for embeddings in Job Researcher and for [this site's chatbot](/blog/building-ai-chatbot-portfolio), so I pointed the same account at Jev. The request above came back in about a second with HTTP 402:
+I already use Cloudflare's AI APIs for embeddings in Job Researcher and for [this site's chatbot](/blog/building-ai-chatbot-portfolio/), so I pointed the same account at Jev. The request above came back in about a second with HTTP 402:
 
 ```json
 {
@@ -255,7 +255,7 @@ The obvious catch: these messages are patient data. Under HIPAA, a vendor that h
 
 Referrals, lab results, imaging reports and prior-auth paperwork still arrive at a lot of clinics as faxes and PDFs, and someone files each one by hand. A single Choice over document type, with a confidence gate that drops anything uncertain into the manual pile, takes the easy ones off someone's desk without letting the model near a clinical decision. Same data caveat as above.
 
-The one healthcare use I'd skip is the most tempting: asking a model whether a log line contains patient identifiers. I've built [a PHI detector](/portfolio/hipaa-guardian), and the problem with outsourcing that check is right there in the request body. To ask a third party whether the log line contains PHI, you have to send it the log line.
+The one healthcare use I'd skip is the most tempting: asking a model whether a log line contains patient identifiers. I've built [a PHI detector](/portfolio/hipaa-guardian/), and the problem with outsourcing that check is right there in the request body. To ask a third party whether the log line contains PHI, you have to send it the log line.
 
 ### Logistics: shipment exceptions
 
@@ -310,11 +310,11 @@ Two constraints show up fast in logistics. Jev reads text only, so a driver's ph
 | E-commerce returns              | The customer's return reason plus the order           | Choice: size, damaged, not as described, changed mind. Noul: possible abuse? | Abuse probability passes 0.5, and a human reviews it; never an auto-deny |
 | Voice agent intent              | The caller's latest turn plus the conversation so far | Choice: which tool to call next                                        | Confidence is low, so the agent asks a clarifying question instead        |
 
-The moderation row uses a pattern that works for any Noul question: two thresholds instead of one. Auto-approve below 0.1, auto-reject above 0.9, and a human sees the middle. My [guestbook](/blog/building-a-retro-guestbook-with-astro-and-google-sheets) has no login, and every entry lands as a draft until I approve it by hand in Google Sheets. Two Noul questions with that double threshold would leave me only the ones in the middle.
+The moderation row uses a pattern that works for any Noul question: two thresholds instead of one. Auto-approve below 0.1, auto-reject above 0.9, and a human sees the middle. My [guestbook](/blog/building-a-retro-guestbook-with-astro-and-google-sheets/) has no login, and every entry lands as a draft until I approve it by hand in Google Sheets. Two Noul questions with that double threshold would leave me only the ones in the middle.
 
 The access-request row is the authorization rule from the previous section in practice. Jev can decide which request a reviewer sees first. It never decides the answer.
 
-The voice row is where TypeSafe's latency claims would finally matter. A caller notices a half-second pause in a way a ticket queue never does, and after building [a voice agent](/portfolio/voice-agent), I'd measure that myself before trusting any of the three numbers from launch week.
+The voice row is where TypeSafe's latency claims would finally matter. A caller notices a half-second pause in a way a ticket queue never does, and after building [a voice agent](/portfolio/voice-agent/), I'd measure that myself before trusting any of the three numbers from launch week.
 
 ## Designing the questions for Job Researcher v2
 

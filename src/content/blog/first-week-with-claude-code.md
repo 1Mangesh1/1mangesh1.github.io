@@ -79,7 +79,7 @@ Day 5 you notice you are re-typing the same multi-step instruction. "Write the p
 
 A skill is a named, reusable capability the agent can invoke — your workflow, written down once, callable on demand. The one-off prompt is a sticky note. The skill is the procedure pinned to the wall, the same every time.
 
-A repeatable workflow beats a clever one-off. Prompts don't compound — you re-derive them every time and they drift. A skill is versioned, improvable, and consistent across sessions and projects. I won't reteach the whole thing here; I wrote it up in [the complete guide to building AI agent skills](/blog/how-to-build-ai-agent-skills). Day 5 is just the moment you feel *why* you'd want one.
+A repeatable workflow beats a clever one-off. Prompts don't compound — you re-derive them every time and they drift. A skill is versioned, improvable, and consistent across sessions and projects. I won't reteach the whole thing here; I wrote it up in [the complete guide to building AI agent skills](/blog/how-to-build-ai-agent-skills/). Day 5 is just the moment you feel *why* you'd want one.
 
 The trap is skill-ifying too early. If you have done something once, prompt it. The second or third identical multi-step ask is when it earns a skill. Premature skills are abstraction debt: you end up maintaining a little process you barely use, and worse, you froze its shape before you knew what the right shape was.
 
@@ -140,7 +140,7 @@ None of these are dealbreakers. They are the reasons the week-one habits — rea
 ## Resources
 
 - [Anthropic's Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code) — the official reference for install, configuration, hooks, and settings.
-- [Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide) — the patterns and failure modes behind tools like this one.
-- [The Complete Guide to Building AI Agent Skills](/blog/how-to-build-ai-agent-skills) — Day 5, in full: structuring, testing, and shipping reusable skills.
+- [Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide/) — the patterns and failure modes behind tools like this one.
+- [The Complete Guide to Building AI Agent Skills](/blog/how-to-build-ai-agent-skills/) — Day 5, in full: structuring, testing, and shipping reusable skills.
 
 The week is not about learning prompts. It is about learning where to put your judgment when the typing is no longer the bottleneck.

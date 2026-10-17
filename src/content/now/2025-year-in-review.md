@@ -20,18 +20,18 @@ currentlyBuilding: ["Personal portfolio", "New projects for 2026"]
 Published **10+ technical blog posts** covering a wide range of topics:
 
 ### Backend & Architecture
-- [How to implement soft delete in Django](/blog/soft-delete-django) - Feb 2025
-- [Hot Reload Implementation for Django Staging Environment](/blog/hot-reloading-in-django-on-server) - June 2025
-- [Multi-Tenant SaaS Architecture: Patterns, Security, Scaling](/blog/multi-tenant-architecture-complete-guide) - Sept 2025
+- [How to implement soft delete in Django](/blog/soft-delete-django/) - Feb 2025
+- [Hot Reload Implementation for Django Staging Environment](/blog/hot-reloading-in-django-on-server/) - June 2025
+- [Multi-Tenant SaaS Architecture: Patterns, Security, Scaling](/blog/multi-tenant-architecture-complete-guide/) - Sept 2025
 - API Benchmarking for Multi-Tenant SaaS - Sept 2025 (unpublished draft)
-- [When (and When Not) to Use Microservices](/blog/when-to-use-microservices) - Oct 2025
+- [When (and When Not) to Use Microservices](/blog/when-to-use-microservices/) - Oct 2025
 
 ### Web Development & Tools
-- [Track Your Code Analytics with WakaTime](/blog/track-your-code-analytics-wakatime-extension) - July 2025
-- [How to Connect Your Domain to Cloudflare](/blog/cloudflare-setup-guide) - July 2025
-- [Is Cloudflare's Free Plan Worth It?](/blog/cloudflare-features-analytics) - July 2025
-- [SEO In Depth: How Google Search Index Works](/blog/seo-in-depth) - July 2025
-- [Mastering Astro Content Collections](/blog/astro-content-collections-guide) - Dec 2025
+- [Track Your Code Analytics with WakaTime](/blog/track-your-code-analytics-wakatime-extension/) - July 2025
+- [How to Connect Your Domain to Cloudflare](/blog/cloudflare-setup-guide/) - July 2025
+- [Is Cloudflare's Free Plan Worth It?](/blog/cloudflare-features-analytics/) - July 2025
+- [SEO In Depth: How Google Search Index Works](/blog/seo-in-depth/) - July 2025
+- [Mastering Astro Content Collections](/blog/astro-content-collections-guide/) - Dec 2025
 
 ### AI & Emerging Tech
 - What is GLM-4.5? The AI Model That's Changing Everything - July 2025 (unpublished draft)

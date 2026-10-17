@@ -9,7 +9,7 @@ draft: true
 
 **TL;DR:** Role checks stop scaling the moment your access rules depend on relationships: "reviewers see the cases assigned to their board," not "reviewers see cases." We moved a multi-tenant healthcare platform to relationship-based access control (ReBAC) on [SpiceDB](https://authzed.com/spicedb): 16 object types, 45 permissions, wired into Django. The modeling was the fun part. The real work was keeping the authorization graph consistent with the database (transactional outbox, ZedToken caching, a reconcile job) and rolling it out behind a shadow-mode flag so we could watch it disagree with the old code before letting it enforce anything.
 
-This is the companion to [my Keycloak post](/blog/keycloak-custom-spi-multi-tenant-lessons). That one covers who you are; this one covers what you can touch. It assumes you know Django/DRF and have heard of Google's [Zanzibar paper](https://research.google/pubs/pub48190/). No employer specifics here, just the learnings.
+This is the companion to [my Keycloak post](/blog/keycloak-custom-spi-multi-tenant-lessons/). That one covers who you are; this one covers what you can touch. It assumes you know Django/DRF and have heard of Google's [Zanzibar paper](https://research.google/pubs/pub48190/). No employer specifics here, just the learnings.
 
 ## Why roles weren't enough
 

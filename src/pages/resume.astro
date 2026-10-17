@@ -142,7 +142,7 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
         <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Key Projects</h2>
         <div class="grid md:grid-cols-2 gap-6">
           {resume.projects.map((p, i) => (
-            <a href={`/portfolio/${p.portfolio}`} class="block bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <a href={`/portfolio/${p.portfolio}/`} class="block bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <h3 class="font-semibold text-lg mb-2">{p.name}</h3>
               {p.bullets.filter(shown).map((b) => (
                 <p class:list={['text-gray-600 dark:text-gray-400 text-sm mb-3', isTodo(b) && todoClass]}>{b}</p>
@@ -158,7 +158,7 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
 
         <div class="mt-8 text-center">
           <a
-            href="/portfolio"
+            href="/portfolio/"
             class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

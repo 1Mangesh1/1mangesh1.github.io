@@ -53,7 +53,7 @@ const blogSchema = {
       
       <div class="flex items-center gap-4">
         <a 
-          href="/blog/tags" 
+          href="/blog/tags/" 
           class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         >
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ const blogSchema = {
           <div class="flex flex-col space-y-3">
             <h2 class="text-2xl font-semibold">
               <a 
-                href={`/blog/${post.id}`}
+                href={`/blog/${post.id}/`}
                 class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 {post.data.title}
@@ -103,7 +103,7 @@ const blogSchema = {
               <div class="flex flex-wrap gap-2">
                 {post.data.tags.map((tag) => (
                   <a
-                    href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`}
                     class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                   >
                     {tag}
@@ -113,7 +113,7 @@ const blogSchema = {
             )}
             
             <a 
-              href={`/blog/${post.id}`}
+              href={`/blog/${post.id}/`}
               class="text-blue-600 dark:text-blue-400 hover:underline font-medium self-start"
             >
               Read more →

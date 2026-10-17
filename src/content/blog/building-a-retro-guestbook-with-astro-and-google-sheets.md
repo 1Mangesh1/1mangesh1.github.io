@@ -417,7 +417,7 @@ Now go sign my guestbook. I promise I'll approve your message (unless you're a b
 ---
 
 **Links:**
-- [Check out the live guestbook](/guestbook)
+- [Check out the live guestbook](/guestbook/)
 - [Google Apps Script documentation](https://developers.google.com/apps-script)
 - [Astro documentation](https://astro.build)
 

@@ -44,6 +44,6 @@ export const retired = [
 
 export const tagRedirects = (): Record<string, string> =>
   Object.fromEntries([
-    ...Object.entries(aliases).map(([from, to]) => [`/blog/tags/${from}`, `/blog/tags/${to}`]),
-    ...retired.map((slug) => [`/blog/tags/${slug}`, "/blog/tags"]),
+    ...Object.entries(aliases).map(([from, to]) => [`/blog/tags/${from}`, `/blog/tags/${to}/`]),
+    ...retired.map((slug) => [`/blog/tags/${slug}`, "/blog/tags/"]),
   ]);

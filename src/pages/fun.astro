@@ -12,10 +12,10 @@ const interests = [
 ];
 
 const miscPages = [
-  { href: '/meme', label: 'Memes' },
-  { href: '/random', label: 'Random notes' },
-  { href: '/guestbook', label: 'Guestbook' },
-  { href: '/credits', label: 'Credits' },
+  { href: '/meme/', label: 'Memes' },
+  { href: '/random/', label: 'Random notes' },
+  { href: '/guestbook/', label: 'Guestbook' },
+  { href: '/credits/', label: 'Credits' },
 ];
 
 let visitorCount: string | null = null;
@@ -63,7 +63,7 @@ try {
       {visitorCount && <p>{visitorCount} visitors and counting</p>}
       <p class="mt-2 opacity-50 hover:opacity-100 transition-opacity">
         <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span>
-        <a href="/secret" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a>
+        <a href="/secret/" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a>
       </p>
     </div>
   </div>

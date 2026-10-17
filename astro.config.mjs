@@ -37,8 +37,8 @@ export default defineConfig({
   // /reading rendered the same books collection as /books, splitting the same
   // query intent across two URLs. /books wins: it owns the [slug] detail pages.
   redirects: {
-    "/reading": "/books",
-    "/portfolio/job-researcher": "/portfolio/fieldnotes",
+    "/reading": "/books/",
+    "/portfolio/job-researcher": "/portfolio/fieldnotes/",
     ...tagRedirects(),
   },
   markdown: {

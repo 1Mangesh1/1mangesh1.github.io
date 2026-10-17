@@ -77,7 +77,7 @@ Suspending a user sounds like one boolean. It isn't, because "suspended" has to 
 
 1. An append-only Postgres ledger. Every suspend, deactivate, or reactivate is a row, never an update. This is the source of truth and the audit trail: you can always answer who suspended an account, when, and whether it was ever reactivated.
 2. Keycloak account disable, which stops new logins and kills existing sessions.
-3. Revoking the authorization relationship that grants the user access in the graph (more on that system in [the companion post](/blog/spicedb-rebac-production-lessons)), so even a token that's still technically valid can't do anything.
+3. Revoking the authorization relationship that grants the user access in the graph (more on that system in [the companion post](/blog/spicedb-rebac-production-lessons/)), so even a token that's still technically valid can't do anything.
 
 The operations are idempotent and compensation is forward-only: if step 2 succeeds and step 3 fails, the retry re-applies both rather than trying to roll back the ledger. Re-running a suspend on an already-suspended account is a no-op at every layer.
 
@@ -113,6 +113,6 @@ The Keycloak source beats the docs for anything past the basics. Clone it, grep 
 
 Back-channel logout and session revocation are not optional in B2B. Tenant admins expect "remove this user" to mean now. Wire it up early; retrofitting revocation into flows that assumed token expiry was enough is miserable.
 
-The identity layer is only half the story. Authenticating a user tells you who they are, not what they can touch. The other half, fine-grained authorization with SpiceDB, got its own post: [ReBAC in Production: SpiceDB, Django, and the Consistency Problem](/blog/spicedb-rebac-production-lessons).
+The identity layer is only half the story. Authenticating a user tells you who they are, not what they can touch. The other half, fine-grained authorization with SpiceDB, got its own post: [ReBAC in Production: SpiceDB, Django, and the Consistency Problem](/blog/spicedb-rebac-production-lessons/).
 
 Questions or war stories of your own? DM me on [X](https://x.com/Mangesh_Bide) or mail [hello@mangeshbide.tech](mailto:hello@mangeshbide.tech).

@@ -257,6 +257,6 @@ On the free tier (100,000 KV reads/day), this scales to maybe 30-40 concurrent v
 
 Open two tabs to any page on this site. Move your mouse in one. There should be a faint dot in the other one. That's you.
 
-Go to [The Wall](/wall) and leave a pixel. I'm curious what it looks like in a month.
+Go to [The Wall](/wall/) and leave a pixel. I'm curious what it looks like in a month.
 
 All the code is in [the repo](https://github.com/1mangesh1/1mangesh1.github.io) -- Worker changes in `worker.js`, client modules in `public/living-site/`, wall page at `src/pages/wall.astro`.
