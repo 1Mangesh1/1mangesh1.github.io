@@ -42,7 +42,7 @@ const blogSchema = {
 ---
 
 <Layout 
-  title={`Blog ${page.currentPage > 1 ? `• Page ${page.currentPage}` : ''} | Mangesh Bide`} 
+  title={`Blog${page.currentPage > 1 ? ` • Page ${page.currentPage}` : ''} | Mangesh Bide`} 
   description={`${siteConfig.blogDescription}${page.currentPage > 1 ? ` Page ${page.currentPage} of ${page.lastPage}.` : ''}`}
   schema={blogSchema}
 >

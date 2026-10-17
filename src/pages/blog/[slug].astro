@@ -14,6 +14,7 @@ import Giscus from "../../components/Giscus.astro";
 import CopyCode from "../../components/CopyCode.astro";
 
 import { siteConfig } from "../../config/site";
+import { identity } from "../../data/identity";
 
 export async function getStaticPaths() {
   const blogPosts = await getPublishedPosts();
@@ -60,10 +61,10 @@ const blogPostingSchema = {
   "dateModified": post.data.updatedDate ? post.data.updatedDate.toISOString() : post.data.pubDate.toISOString(),
   "author": { "@id": "https://mangeshbide.tech/#person" },
   "image": post.data.ogImage ? `https://mangeshbide.tech${post.data.ogImage}` : `https://mangeshbide.tech/og/${post.id}.png`,
-  "url": `https://mangeshbide.tech/blog/${post.id}`,
+  "url": `https://mangeshbide.tech/blog/${post.id}/`,
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://mangeshbide.tech/blog/${post.id}`
+    "@id": `https://mangeshbide.tech/blog/${post.id}/`
   }
 };
 
@@ -79,6 +80,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
   description={post.data.description}
   image={post.data.ogImage || `/og/${post.id}.png`}
   schema={blogPostingSchema}
+  article={{ published: post.data.pubDate, modified: post.data.updatedDate }}
 >
   <article class="max-w-4xl mx-auto px-4 py-12" data-pagefind-body>
     <header class="mb-8">
@@ -95,6 +97,8 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
       <div
         class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4"
       >
+        <span>By {identity.name}</span>
+        <span class="mx-2">•</span>
         <time datetime={post.data.pubDate.toISOString()}>
           {formatDate(post.data.pubDate)}
         </time>

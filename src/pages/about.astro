@@ -5,7 +5,11 @@ import { identity } from '../data/identity';
 const technologies = ['Python', 'Django / DRF', 'FastAPI', 'PostgreSQL', 'TypeScript', 'React / Next.js', 'RAG / LLM APIs', 'pgvector', 'Docker', 'Terraform', 'Kubernetes / k3s', 'GitHub Actions', 'AWS', 'Oracle Cloud', 'Astro', 'Git']
 ---
 
-<Layout title="About | Mangesh Bide" description={`About ${identity.name} — ${identity.headline}, ${identity.location}. ${identity.tagline}`}>
+<Layout
+  title="About | Mangesh Bide"
+  description={`About ${identity.name} — ${identity.headline}, ${identity.location}. ${identity.tagline}`}
+  schema={{ "@context": "https://schema.org", "@type": "ProfilePage", "url": "https://mangeshbide.tech/about/", "mainEntity": { "@id": "https://mangeshbide.tech/#person" } }}
+>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <div class="prose prose-lg dark:prose-invert max-w-none">
       <h1>About Me</h1>
