@@ -5,6 +5,9 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import { rehypeImageAttrs } from "./src/lib/rehype-image-attrs.mjs";
 import { tagRedirects } from "./src/data/tags.ts";
+import { postDates } from "./src/utils/post-dates.ts";
+
+const DATES = postDates("src/content/blog");
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,13 +17,18 @@ export default defineConfig({
     sitemap({
       changefreq: "weekly",
       priority: 0.7,
-      lastmod: new Date(),
       // Keep the sitemap and the noindex set in agreement — listing a page you
       // tell crawlers to drop is a contradictory signal.
       filter: (page) =>
         !["/maintenance", "/thank-you", "/skeleton-demo", "/dead", "/secret"].some((p) =>
           page.includes(p)
         ),
+      serialize(item) {
+        const slug = item.url.match(/\/blog\/([^/]+)\/?$/)?.[1];
+        if (slug && DATES[slug]) item.lastmod = new Date(DATES[slug]).toISOString();
+        else delete item.lastmod;
+        return item;
+      },
     }),
   ],
   site: "https://mangeshbide.tech",
