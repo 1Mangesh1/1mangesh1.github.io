@@ -1,7 +1,7 @@
 ---
 title: "When (and When Not) to Use Microservices: A Practical Guide for Modern Developers"
 seoTitle: "When (and When Not) to Use Microservices"
-description: "Microservices promise scalability and modularity, but they come with significant complexity costs. Learn when they're worth it and when you should stick with a monolith, based on real-world experience and industry insights."
+description: "When to use microservices and when to keep a monolith: the real costs, a decision framework, case studies and anti-patterns, based on real-world stories."
 pubDate: 2025-10-07T00:00:00Z
 tags:
   [

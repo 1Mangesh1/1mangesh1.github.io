@@ -1,7 +1,7 @@
 ---
 title: "Portfolio Chatbot v2: Streaming, Memory, and Two Bugs the Tutorials Skip"
 seoTitle: "Chatbot v2: Streaming, Memory, and Two Hidden Bugs"
-description: "I rebuilt my portfolio chatbot to stream replies token-by-token, remember the conversation, and render real Markdown links. Here's the Cloudflare Worker and Astro code, plus the two bugs I only caught by testing the deployed thing."
+description: "Portfolio chatbot v2 on a Cloudflare Worker and Astro streams replies, keeps chat memory and renders Markdown links. Plus two bugs found only on the live site."
 pubDate: 2026-06-15T00:00:00Z
 tags: ["cloudflare", "ai", "astro"]
 draft: false

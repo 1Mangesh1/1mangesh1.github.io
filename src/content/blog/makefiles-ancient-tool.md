@@ -1,6 +1,6 @@
 ---
 title: "Makefiles: The Ancient Tool You Should Still Be Using"
-description: "Stop burying your build logic in package.json scripts. Discover why Makefiles remain the superior, self-documenting choice for modern task orchestration in 2026."
+description: "Makefiles versus package.json scripts: why Make is still the better, self-documenting task runner in 2026, and an answer to the claim that Make is hard."
 pubDate: 2026-02-22T00:00:00Z
 tags: ["devops", "developer-tools"]
 draft: false

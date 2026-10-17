@@ -1,7 +1,7 @@
 ---
 title: "ReBAC in Production: SpiceDB, Django, and the Consistency Problem"
 seoTitle: "ReBAC in Production: SpiceDB, Django, and Consistency"
-description: "What I learned shipping relationship-based access control on SpiceDB for a multi-tenant healthcare platform: schema design, Django integration, the transactional outbox, and rolling it out in shadow mode."
+description: "ReBAC on SpiceDB for a multi-tenant healthcare platform: schema design, Django integration, the transactional outbox, and a rollout in shadow mode first."
 pubDate: 2026-08-13T00:00:00Z
 tags: ["spicedb", "auth", "django", "multi-tenancy"]
 draft: true

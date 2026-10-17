@@ -1,6 +1,6 @@
 ---
 title: "Cloudflare Bought My Framework, So I Audited My Whole Stack"
-description: "Cloudflare acquired Astro in January 2026. My site is Astro on GitHub Pages, behind Cloudflare DNS, with a Cloudflare Worker running its AI chat. An audit of what the acquisition and Astro 6 actually change for a real site, and why I'm not migrating yet."
+description: "Cloudflare acquired Astro in January 2026. What the deal and Astro 6 change for an Astro site on GitHub Pages behind Cloudflare, and why I am not migrating yet."
 pubDate: 2026-08-10T00:00:00Z
 tags: ["astro", "cloudflare", "architecture"]
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: "Building AI Agents That Actually Work: A Practical Guide for 2026"
 seoTitle: "Building AI Agents That Actually Work"
-description: "Move beyond chatbots to autonomous AI agents. Learn the patterns, pitfalls, and practical implementation strategies for building AI agents that can reason, plan, and execute complex tasks."
+description: "How to build AI agents that reason, plan and run multi-step tasks: architecture, tool and memory patterns, common pitfalls, evaluation and a working example."
 pubDate: 2026-01-01T00:00:00Z
 tags: ["ai", "ai-agents", "python", "developer-tools"]
 draft: false

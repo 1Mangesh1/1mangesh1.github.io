@@ -1,7 +1,7 @@
 ---
 title: "My Claude Code Setup: Rule Files, Memory Plugins, and Two Personalities"
 seoTitle: "My Claude Code Setup: Rule Files and Memory Plugins"
-description: "A tour of my actual Claude Code configuration: layered CLAUDE.md rule files, a lazy-senior-dev mode called ponytail, a token-saving caveman mode, persistent memory plugins, and the skills that enforce discipline. With honest notes on what actually matters."
+description: "My Claude Code setup: layered CLAUDE.md rule files, a lazy senior dev mode called ponytail, a caveman mode that saves tokens, memory plugins and skills."
 pubDate: 2026-08-03T00:00:00Z
 tags: ["claude-code", "ai", "developer-tools"]
 draft: false

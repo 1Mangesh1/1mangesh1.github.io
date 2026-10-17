@@ -1,6 +1,6 @@
 ---
 title: "Tavus CVI + Daily React: hands-on with tool calling"
-description: "What actually happens when an AI replica calls a function on the wire: Daily app-messages, conversation.respond, the [tool_result] convention, and why <DailyVideo> beats raw <video>."
+description: "Tavus CVI tool calling with Daily React: a tool call on the wire, conversation.respond, the [tool_result] convention, and why <DailyVideo> beats <video>."
 pubDate: 2026-05-04T00:00:00Z
 tags: ["voice-ai", "javascript"]
 draft: false

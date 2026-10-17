@@ -1,6 +1,6 @@
 ---
 title: "I Had Claude Write a Blog Post. Then I Killed It."
-description: "An AI wrote me a clean, SEO-optimized, factually accurate blog post in twenty minutes. I deleted it anyway. On AI slop, content moats, and the one question that decides whether a post deserves to exist."
+description: "Claude wrote me a clean, accurate, SEO-ready post in twenty minutes, and I deleted it. On AI slop, provenance, and the test for whether a post should exist."
 pubDate: 2026-07-20T00:00:00Z
 tags: ["ai", "writing"]
 draft: false

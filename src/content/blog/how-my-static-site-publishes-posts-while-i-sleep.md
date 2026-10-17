@@ -1,7 +1,7 @@
 ---
 title: "This Post Published Itself: Scheduled Posts on a Static Site with One Predicate and a Cron"
 seoTitle: "How a Static Site Publishes Scheduled Posts on a Cron"
-description: "How to schedule blog posts on a fully static Astro site with no CMS and no server: a pure date predicate, a publish filter on every route, and a weekly GitHub Actions cron. Full code included."
+description: "Scheduled posts on a static Astro site, with no CMS or server. It takes a pure date predicate, a publish filter on every route and a weekly GitHub Actions cron."
 pubDate: 2026-07-27T00:00:00Z
 tags: ["astro", "devops", "writing"]
 draft: false

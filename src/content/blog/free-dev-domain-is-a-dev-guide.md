@@ -1,7 +1,7 @@
 ---
 title: "Get a Free .dev Domain for Your Portfolio: The Complete is-a-dev/register Guide"
 seoTitle: "Get a Free .dev Domain with is-a-dev/register"
-description: "Learn how to claim your free .is-a.dev subdomain in 5 minutes. Perfect for portfolios, blogs, and personal projects. No credit card required, powered by Cloudflare."
+description: "Claim a free .is-a.dev subdomain for your portfolio or blog in 5 minutes with is-a-dev/register. No credit card and no fees. Step by step, with common fixes."
 pubDate: 2026-02-07T00:00:00Z
 tags: ["developer-tools", "career"]
 draft: false

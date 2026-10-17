@@ -1,7 +1,7 @@
 ---
 title: "What is GLM-4.5? The AI Model That's Changing Everything"
 pubDate: 2025-07-29T00:00:00Z
-description: "A deep dive into GLM-4.5, the revolutionary AI model that unifies reasoning, coding, and agentic capabilities. Learn how this 355-billion parameter model is reshaping AI development."
+description: "GLM-4.5 from Zhipu AI is a 355-billion parameter model for reasoning, coding and agent tasks. What it is, its two modes, how good it is, and how to try it."
 tags: ["ai"]
 draft: true
 ---
