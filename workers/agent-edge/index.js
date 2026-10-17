@@ -38,7 +38,7 @@ export default {
             Vary: "Accept",
             "x-markdown-tokens": String(tokens),
             // The same usage terms robots.txt declares.
-            "Content-Signal": "ai-train=no, search=yes, ai-input=yes",
+            "Content-Signal": "ai-train=yes, search=yes, ai-input=yes",
           },
         });
       } catch (err) {

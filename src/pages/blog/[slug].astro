@@ -138,7 +138,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
     </header>
 
     <!-- Share + Summarize actions -->
-    <div class="mb-8 flex flex-col md:flex-row md:items-center md:flex-wrap gap-3 md:gap-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+    <div data-agent-skip class="mb-8 flex flex-col md:flex-row md:items-center md:flex-wrap gap-3 md:gap-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
       <SocialShare
         title={post.data.title}
         url={currentUrl}
