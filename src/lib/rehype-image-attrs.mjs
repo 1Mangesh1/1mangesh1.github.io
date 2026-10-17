@@ -2,11 +2,17 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { visit } from 'unist-util-visit';
 
-/** Read intrinsic size from the file header. Covers the PNG/JPEG in public/images. */
+/** Read intrinsic size from the file header. Covers the PNG/JPEG/WebP in public/images. */
 function readSize(file) {
   const b = readFileSync(file);
   if (b.length > 24 && b.toString('ascii', 1, 4) === 'PNG') {
     return { width: b.readUInt32BE(16), height: b.readUInt32BE(20) };
+  }
+  if (b.length >= 30 && b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
+    const chunk = b.toString('ascii', 12, 16);
+    // Lossy (VP8) and extended (VP8X, written when the source has alpha) layouts.
+    if (chunk === 'VP8 ') return { width: b.readUInt16LE(26) & 0x3fff, height: b.readUInt16LE(28) & 0x3fff };
+    if (chunk === 'VP8X') return { width: b.readUIntLE(24, 3) + 1, height: b.readUIntLE(27, 3) + 1 };
   }
   if (b.length > 4 && b[0] === 0xff && b[1] === 0xd8) {
     let i = 2;

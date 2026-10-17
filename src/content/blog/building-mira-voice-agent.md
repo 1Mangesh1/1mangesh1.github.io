@@ -43,7 +43,7 @@ More on the second one below.
 
 ## How tool calling actually works in this stack
 
-![Mira's live avatar mid-call, with the tool ticker showing a tool execution](</images/blogs/voice-agent/live avatar with tool call.png>)
+![Mira's live avatar mid-call, with the tool ticker showing a tool execution](</images/blogs/voice-agent/live avatar with tool call.webp>)
 
 Tavus's documentation says explicitly: *Tavus does not execute tool calls on the backend.* When the LLM decides to call `book_appointment`, it broadcasts a `conversation.tool_call` event into the Daily room as an `app-message`:
 
@@ -132,7 +132,7 @@ The fix has three parts:
 
 Belt and braces and a third thing. Without all three, the experience falls apart.
 
-![Live transcript panel: only the user's words and Mira's spoken replies, with `[tool_result]` echoes filtered out](/images/blogs/voice-agent/chat.png)
+![Live transcript panel: only the user's words and Mira's spoken replies, with `[tool_result]` echoes filtered out](/images/blogs/voice-agent/chat.webp)
 
 The current echo includes a directive sentence so the LLM knows what to do with the data:
 
