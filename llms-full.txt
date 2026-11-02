@@ -9,65 +9,65 @@ Resume: https://mangeshbide.tech/resume/ (as JSON: https://mangeshbide.tech/resu
 ### HIPAA Guardian
 
 URL: https://mangeshbide.tech/portfolio/hipaa-guardian/
-PHI/PII detection engine that scans code, logs, and API responses for the 18 HIPAA Safe Harbor identifiers — built to catch leaks in developer artifacts before they ship.
+A PHI and PII detection engine that scans code, logs, and API responses for the 18 HIPAA Safe Harbor identifiers. It is built to catch leaks in developer artifacts before they ship.
 
-**The problem I kept hitting.** In healthcare software, PHI rarely leaks through the front door. It leaks through developer artifacts — a seed script with real patient rows, a debug log that prints an SSN, a test fixture copied from production, an endpoint that returns a full `Patient` resource with no auth check. None of it shows up in a compliance checklist.
+**The problem I kept hitting.** In healthcare software, PHI rarely leaks through the front door. It leaks through developer artifacts such as a seed script with real patient rows and a debug log that prints an SSN. Other examples are a test fixture copied from production and an endpoint that returns a full `Patient` resource with no auth check. None of it shows up in a compliance checklist.
 
-**What I built.** A detection engine that scans source, data files, logs, and API responses for all 18 HIPAA Safe Harbor identifiers, scores each finding's confidence (0–100%), maps it to the relevant HIPAA rule, and writes an audit report a reviewer can act on. I kept it plain Python with no runtime dependencies, so it drops into a pre-commit hook or a CI job as easily as it runs on demand — and I ship it as a skill for Claude and other AI coding agents, so "scan this for PHI" is a single instruction.
+**What I built.** It is a detection engine that scans source, data files, logs, and API responses for all 18 HIPAA Safe Harbor identifiers. It scores each finding's confidence (0–100%), maps it to the relevant HIPAA rule, and writes an audit report that a reviewer can act on. I kept it plain Python with no runtime dependencies. So it drops into a pre-commit hook or a CI job as easily as it runs on demand. I also ship it as a skill for Claude and other AI coding agents, so "scan this for PHI" is a single instruction.
 
-**Getting precision right.** SSNs in federally never-issued ranges, documentation phone numbers (`555-01xx`), `example.com` emails, and private/loopback IPs are excluded by default to keep the false-positive rate low on real codebases.
+**Getting precision right.** By default, the engine excludes SSNs in federally never-issued ranges, documentation phone numbers (`555-01xx`), `example.com` emails, and private and loopback IPs. The exclusions are there to keep the false-positive rate low on real codebases.
 
-**Honest scope.** This is detection and triage, not certification — it catches the obvious and semi-obvious fast, and distinguishes a likely SSN from a phone number that merely looks like one. A clean scan means "nothing obvious found," not "safe to ship."
+**Honest scope.** This is detection and triage, not certification. It catches the obvious and semi-obvious fast, and it distinguishes a likely SSN from a phone number that merely looks like one. A clean scan means "nothing obvious found," not "safe to ship."
 
 ### Fieldnotes
 
 URL: https://mangeshbide.tech/portfolio/fieldnotes/
-LLM pipeline that scores a job posting against your resume and returns an APPLY / CONSIDER / SKIP verdict with evidence — shipping both a deterministic DAG and an agentic planner→executor→synthesizer flow over the same steps.
+An LLM pipeline that scores a job posting against your resume and returns an APPLY, CONSIDER, or SKIP verdict with evidence. It ships both a deterministic DAG and an agentic flow (planner, then executor, then synthesizer) over the same steps.
 
-**The problem.** Deciding whether a job is worth applying to means reading the posting, researching the company, comparing it against your resume, and being honest about the gaps. That's a repeatable pipeline, not a gut call. Fieldnotes was previously called Job Researcher.
+**The problem.** Deciding whether a job is worth applying to means reading the posting and researching the company. It also means comparing the posting against your resume and being honest about the gaps. That is a repeatable pipeline, not a gut call. Fieldnotes was previously called Job Researcher.
 
-**What it does.** It fetches and parses the JD, researches the company (Gemini with Google Search grounding), scans the hiring org's GitHub, scores resume-vs-JD similarity with embeddings, then synthesizes a verdict — match score, strengths, gaps, and an APPLY / CONSIDER / SKIP recommendation. It can also tailor the resume to a specific posting and return a PDF.
+**What it does.** It fetches and parses the JD, researches the company (Gemini with Google Search grounding), and scans the hiring org's GitHub. It scores resume-vs-JD similarity with embeddings, then synthesizes a verdict: match score, strengths, gaps, and an APPLY, CONSIDER, or SKIP recommendation. It can also tailor the resume to a specific posting and return a PDF.
 
-**Two flows, one step library.** I built `POST /analyze` as a deterministic DAG — five sequential steps, predictable and debuggable — and `POST /analyze/agent`, which hands the same steps to a planner LLM that decides tool order at runtime and returns the verdict plus its plan and a per-step trace. Same building blocks, two execution models — a concrete look at where a fixed pipeline ends and an agent earns its keep.
+**Two flows, one step library.** I built `POST /analyze` as a deterministic DAG: five sequential steps, predictable and debuggable. I also built `POST /analyze/agent`, which hands the same steps to a planner LLM that decides tool order at runtime. It returns the verdict plus its plan and a per-step trace. The flows share the same building blocks but use two execution models. This is a concrete look at where a fixed pipeline ends and an agent earns its keep.
 
 ### Mira
 
 URL: https://mangeshbide.tech/portfolio/voice-agent/
 Browser-based voice agent (Tavus CVI) backed by a FastAPI service that runs seven tool-calling booking functions, persists transcripts, and writes an LLM call summary.
 
-**The problem.** A voice agent that can actually *do* things — book, retrieve, modify, cancel an appointment mid-conversation — needs the LLM's tool calls to reach real services and come back fast enough to keep the conversation natural.
+**The problem.** When a voice agent can actually *do* things (book, retrieve, modify, cancel an appointment mid-conversation), the LLM's tool calls must reach real services. They must also come back fast enough to keep the conversation natural.
 
-**What I built.** The browser holds the call; Tavus CVI runs voice and a talking-head replica. When the model emits a `tool_call`, Tavus broadcasts it as a Daily app-message; the Next.js frontend dispatches it to a FastAPI backend I wrote, which runs one of seven booking tools against Supabase Postgres and replies via `conversation.respond`. At the end of the call, the service writes a Gemini summary of the transcript.
+**What I built.** The browser holds the call. Tavus CVI runs voice and a talking-head replica. When the model emits a `tool_call`, Tavus broadcasts it as a Daily app-message. The Next.js frontend dispatches it to a FastAPI backend that I wrote. The backend runs one of seven booking tools against Supabase Postgres and replies via `conversation.respond`. At the end of the call, the service writes a Gemini summary of the transcript.
 
-**The decision that mattered.** I split tool execution across the frontend (dispatch) and backend (business logic) to keep the round-trip inside the same Daily session instead of bolting on a separate signaling path — so the agent stays responsive while still talking to a real database.
+**The decision that mattered.** I split tool execution across the frontend (dispatch) and backend (business logic). I did this to keep the round-trip inside the same Daily session instead of bolting on a separate signaling path. So the agent stays responsive while still talking to a real database.
 
 **Shipped, with the rough edge stated.** The live frontend runs against the deployed backend. Tavus's free tier caps conversation-minutes, so a recorded walkthrough covers the full happy path when a live session is rate-limited.
 
 ### OCI Homelab (Infrastructure as Code)
 
 URL: https://mangeshbide.tech/portfolio/oci-homelab-iac/
-Terraform-managed multi-node k3s cluster on Oracle Cloud's always-free tier — VCN, hardened compute, WireGuard bastion, and remote state. Reproducible from zero.
+A Terraform-managed multi-node k3s cluster on Oracle Cloud's always-free tier, with a VCN, hardened compute, a WireGuard bastion, and remote state. It is reproducible from zero.
 
-**The problem.** I wanted somewhere to run side projects and learn Kubernetes for real, without a cloud bill — so the whole thing had to fit inside Oracle Cloud's always-free tier and stand back up from code if it burned down.
+**The problem.** I wanted somewhere to run side projects and learn Kubernetes for real, without a cloud bill. So the whole thing had to fit inside Oracle Cloud's always-free tier and stand back up from code if it burned down.
 
-**What I built.** Four instances using 100% of the free compute quota: a k3s control plane and worker (2 OCPU / 12 GB ARM each) running Traefik, cert-manager, and monitoring; plus two AMD micros for a WireGuard/SSH bastion and external uptime monitoring. Networking is a `10.0.0.0/16` VCN with an internet gateway and network security groups scoped per service.
+**What I built.** Four instances use 100% of the free compute quota. A k3s control plane and worker (ARM, 2 OCPU and 12 GB each) run Traefik, cert-manager, and monitoring. Two AMD micros run a bastion for WireGuard and SSH, and external uptime monitoring. Networking is a `10.0.0.0/16` VCN with an internet gateway and network security groups scoped per service.
 
-**Security by default.** Cloud-init hardens every instance on first boot — password and root SSH disabled, fail2ban and a UFW firewall enabled. k3s nodes are reached through a WireGuard VPN bastion rather than exposed directly.
+**Security by default.** Cloud-init hardens every instance on first boot. It disables password and root SSH, and it enables fail2ban and a UFW firewall. k3s nodes are reached through a WireGuard VPN bastion rather than exposed directly.
 
-**How it's structured.** I split it into `network`, `security`, and `compute` modules with remote state in OCI Object Storage — reproducible, versioned, and reviewable rather than click-ops.
+**How it is structured.** I split it into `network`, `security`, and `compute` modules with remote state in OCI Object Storage. This setup is reproducible, versioned, and reviewable rather than click-ops.
 
-### DocTalk — RAG Document Q&A API
+### DocTalk: RAG Document Q&A API
 
 URL: https://mangeshbide.tech/portfolio/doctalk/
 Upload a PDF, ask questions in natural language, get answers grounded in the source with citations. A FastAPI RAG pipeline over pgvector with JWT auth, self-hosted on Oracle Cloud.
 
-**The problem.** Ask an LLM to answer from a document it "read" and it hallucinates. I wanted answers grounded in the actual text, with a citation back to where each one came from.
+**The problem.** If you ask an LLM to answer from a document that it "read," it hallucinates. I wanted answers grounded in the actual text, with a citation back to where each one came from.
 
-**The pipeline I built.** On upload, DocTalk extracts the PDF text, chunks it (~500 tokens), embeds each chunk, and stores the vectors in Postgres with pgvector. On a question, it embeds the query, runs a similarity search for the top-5 chunks, and feeds only those to the LLM — retrieval-augmented generation, so answers are grounded and citable rather than recalled from memory.
+**The pipeline I built.** On upload, DocTalk extracts the PDF text and chunks it (~500 tokens). It embeds each chunk and stores the vectors in Postgres with pgvector. On a question, it embeds the query and runs a similarity search for the top-5 chunks. It feeds only those chunks to the LLM. This is retrieval-augmented generation, so answers are grounded and citable rather than recalled from memory.
 
-**Stack.** FastAPI (async) for the API, Cloudflare Workers AI for embeddings and generation, PyMuPDF for extraction, JWT for auth. Containerized with Docker, provisioned with Terraform, deployed via GitHub Actions onto Oracle Cloud's free ARM tier. The public instance is currently down — it ran on free-tier hardware I have since repurposed, so the repo is the honest artifact.
+**Stack.** DocTalk uses FastAPI (async) for the API, Cloudflare Workers AI for embeddings and generation, PyMuPDF for extraction, and JWT for auth. I containerized it with Docker, provisioned it with Terraform, and deployed it via GitHub Actions onto Oracle Cloud's free ARM tier. The public instance is currently down. It ran on free-tier hardware that I later repurposed, so the repo is the honest artifact.
 
-**Where it breaks.** Retrieval is a single similarity pass with no reranking, so a question whose answer is spread across many chunks can pull the wrong five — grounding narrows hallucination, it doesn't remove it. Chunking is fixed-size rather than structure-aware, which cuts tables and code blocks mid-thought. Extraction reads the PDF text layer, so scanned or image-only documents come back empty until I add OCR. The citations tell you which chunk an answer came from, which makes these failures visible instead of silent — that was the point of returning them.
+**Where it breaks.** Retrieval is a single similarity pass with no reranking, so a question whose answer spans many chunks can pull the wrong five. Grounding narrows hallucination, but it does not remove it. Chunking is fixed-size rather than structure-aware, which cuts tables and code blocks mid-thought. Extraction reads the PDF text layer, so scanned or image-only documents come back empty until I add OCR. The citations tell you which chunk an answer came from, which makes these failures visible instead of silent. That was the point of returning them.
 
 ### Claude Skills collection
 
@@ -81,17 +81,17 @@ A collection of reusable Claude Skills with 300+ downloads.
 URL: https://mangeshbide.tech/portfolio/ai-language-tools/
 A collection of fun language tools powered by Gemini AI, with a clean and simple warm-beige UI.
 
-A set of AI-powered language tools that do silly things with text. Built with Google Gemini AI. Warm beige UI because why not.
+This is a set of AI-powered language tools that do silly things with text. The tools use Google Gemini AI. The UI is warm beige because why not.
 
 ## Project Overview
 
-Four tools that use Gemini to mess with language: translate corporate jargon, turn insults into backhanded compliments, generate fake buzzword phrases, and write brutally honest reviews in various styles.
+Four tools use Gemini to mess with language. They translate corporate jargon, turn insults into backhanded compliments, generate fake buzzword phrases, and write brutally honest reviews in various styles.
 
 ## Tools Included
 
 ### 1. Brainrot ↔ English Translator
 
-Transform communication between generations with bidirectional translation:
+Bidirectional translation for communication between generations:
 
 - **English to Brainrot**: Convert standard English into Gen Z "brainrot" slang
 - **Brainrot to English**: Decode modern slang back to conventional language
@@ -113,16 +113,16 @@ Master the art of passive-aggressive communication:
 - **Subtext Preservation**: Maintains the original meaning while sounding positive
 - **Contextual Conversion**: Adapts tone based on the input severity
 - **Creative Rephrasing**: Generates multiple conversion options
-- **Social Navigation**: Perfect for diplomatic communication
+- **Social Navigation**: Useful for diplomatic communication
 
 ### 4. Polite but Brutal: Bad Review Generator
 
-Craft hilariously honest reviews with style:
+Write funny, honest reviews in different styles:
 
 - **Multiple Styles**: Choose from Passive-Aggressive, Overly Polite, Fake Enthusiasm, Existential Crisis, Haiku Mode, or Corporate Reviewer
 - **Subject Customization**: Specify products, apps, or services
 - **Emotion Targeting**: Incorporate underlying feelings like frustration or confusion
-- **Creative Formats**: Including poetic reviews in haiku form
+- **Creative Formats**: Includes poetic reviews in haiku form
 
 ## Technical Implementation
 
@@ -170,7 +170,7 @@ GET /api/bad-review?style=Passive-Aggressive&subject=app
 
 ### User Experience
 
-- **Simple Navigation**: Intuitive menu system for tool switching
+- **Simple Navigation**: Menu system for tool switching
 - **Fast Response Times**: Optimized API calls for quick results
 - **Consistent Theming**: Warm beige color palette throughout
 - **Accessibility**: Clean, readable interface design
@@ -204,7 +204,7 @@ GET /api/bad-review?style=Passive-Aggressive&subject=app
 - **Runtime**: Node.js for server-side JavaScript execution
 - **Framework**: Express.js for API routing and middleware
 - **AI Integration**: Google Gemini AI API for natural language processing
-- **Frontend**: Vanilla HTML/CSS/JavaScript for lightweight performance
+- **Frontend**: Vanilla HTML, CSS, and JavaScript for lightweight performance
 - **Development**: npm scripts for development and production workflows
 - **Deployment**: Environment-based configuration for easy hosting
 
@@ -225,7 +225,7 @@ npm run dev
 
 ## Learn More
 
-Interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide/)** — covering architecture patterns, implementation strategies, and practical gotchas when working with LLMs.
+Are you interested in building AI-powered applications? Read my in-depth guide on **[Building AI Agents That Actually Work](/blog/building-ai-agents-practical-guide/)**. It covers architecture patterns, implementation strategies, and practical gotchas when you work with LLMs.
 
 ---
 
@@ -234,9 +234,9 @@ Interested in building AI-powered applications? Read my in-depth guide on **[Bui
 URL: https://mangeshbide.tech/portfolio/chatapp-infrastructure/
 Terraform for a single EC2 instance with an Elastic IP inside a custom VPC, subnet, route table and security group.
 
-**What it does.** Terraform that runs the [Real-time ChatApp](/portfolio/realtime-chatapp/) on one EC2 instance in AWS `ap-south-1`.
+**What it does.** It uses Terraform to run the [Real-time ChatApp](/portfolio/realtime-chatapp/) on one EC2 instance in AWS `ap-south-1`.
 
-**What it provisions.** `main.tf` creates a VPC (`10.0.0.0/16`) with an internet gateway, one public subnet (`10.0.1.0/24`) and a route table that sends outbound traffic through the gateway; a security group that opens SSH (port 22) and the app port (3000); a `t2.micro` instance in that subnet; and an Elastic IP for it. The instance's user data, `commands.sh`, installs Git and Node.js, clones the chat app and starts it with `npm run start`.
+**What it provisions.** `main.tf` creates a VPC (`10.0.0.0/16`) with an internet gateway, one public subnet (`10.0.1.0/24`) and a route table. The route table sends outbound traffic through the gateway. The file also creates a security group, a `t2.micro` instance in that subnet, and an Elastic IP for the instance. The security group opens SSH (port 22) and the app port (3000). The instance's user data, `commands.sh`, installs Git and Node.js, clones the chat app and starts it with `npm run start`.
 
 **Inputs and outputs.** `variables.tf` takes the region (default `ap-south-1`), the AWS credentials, a project name used in resource tags, and the EC2 key pair name. `outputs.tf` returns the instance's public IP, the Elastic IP, and the VPC and subnet IDs.
 
@@ -245,13 +245,13 @@ Terraform for a single EC2 instance with an Elastic IP inside a custom VPC, subn
 URL: https://mangeshbide.tech/portfolio/expense-tracking-api/
 Modular API for managing expenses with JWT-based auth, role-based access, data aggregation, and scheduled summaries.
 
-Expense management API built with NestJS and TypeORM. Handles authentication, role-based access, and spending aggregation.
+This is an expense management API built with NestJS and TypeORM. It handles authentication, role-based access, and spending aggregation.
 
 ## Key Features
 
 - **JWT-based Authentication**: Secure user authentication and authorization system
 - **Role-based Access Control**: Different permission levels for users and administrators
-- **Data Aggregation**: Intelligent expense categorization and spending analysis
+- **Data Aggregation**: Expense categorization and spending analysis
 - **Scheduled Summaries**: Automated expense reports and budget notifications
 - **RESTful API Design**: Clean, well-documented API endpoints
 - **Swagger Documentation**: Interactive API documentation for easy integration
@@ -288,31 +288,31 @@ The application follows a modular architecture with clean separation of concerns
 - **Backend Framework**: NestJS with TypeScript
 - **Database**: PostgreSQL with TypeORM
 - **Authentication**: JWT tokens with role-based access
-- **Documentation**: Swagger/OpenAPI specification
+- **Documentation**: Swagger and OpenAPI specification
 - **Validation**: Class-validator for input validation
 - **Testing**: Jest for unit and integration tests
 
 ## Architecture Decisions
 
-- **Why NestJS over Express**: Module boundaries are enforced at the framework level, so the auth, expense, budget, and reporting domains stay isolated instead of bleeding into a single router file. Dependency injection also keeps test setup small — providers swap in cleanly.
-- **Why TypeORM**: Entity-first modelling lined up with the domain (User, Expense, Budget, Category) and made schema changes traceable via migrations rather than hand-rolled SQL diffs.
-- **JWT over session cookies**: API is consumed by multiple clients (mobile, web); stateless tokens removed the need for shared session storage and kept horizontal scaling cheap.
-- **Role-based access**: Encoded as claims in the JWT and checked with NestJS guards, so authorization lives next to the route definition instead of scattered through controllers.
-- **Scheduled summaries**: Cron-driven aggregation jobs sit in their own module so the read/write hot path stays uncoupled from reporting workloads.
+- **Why NestJS over Express**: NestJS enforces module boundaries at the framework level. So the auth, expense, budget, and reporting domains stay isolated instead of bleeding into a single router file. Dependency injection also keeps test setup small. Providers swap in cleanly.
+- **Why TypeORM**: Entity-first modelling lined up with the domain (User, Expense, Budget, Category). It also made schema changes traceable via migrations rather than hand-rolled SQL diffs.
+- **JWT over session cookies**: Multiple clients (mobile, web) consume the API. Stateless tokens removed the need for shared session storage and kept horizontal scaling cheap.
+- **Role-based access**: Roles are encoded as claims in the JWT and checked with NestJS guards. So authorization lives next to the route definition instead of being scattered through controllers.
+- **Scheduled summaries**: Cron-driven aggregation jobs sit in their own module so that the read-write hot path stays uncoupled from reporting workloads.
 
 ## Trade-offs
 
-- TypeORM's metadata-driven model is convenient but leaks abstractions in complex joins — a few reporting queries were dropped to raw SQL where the query builder fought the schema.
-- JWT statelessness means revocation is non-trivial; the current model relies on short-lived tokens rather than a denylist, which is a deliberate simplicity choice.
+- TypeORM's metadata-driven model is convenient but leaks abstractions in complex joins. A few reporting queries were dropped to raw SQL where the query builder fought the schema.
+- JWT statelessness means revocation is non-trivial. The current model relies on short-lived tokens rather than a denylist, which is a deliberate simplicity choice.
 
 ### Face Recognition & Verification Pipeline
 
 URL: https://mangeshbide.tech/portfolio/crimiface/
 A computer-vision pipeline for face detection, feature embedding, and similarity-based identity verification, built with TensorFlow and OpenCV.
 
-An early computer-vision project exploring the full face-matching pipeline end to end: detecting faces in an image with OpenCV, generating feature embeddings with a TensorFlow model, and verifying identity by comparing embeddings for similarity.
+This is an early computer-vision project that explores the full face-matching pipeline end to end. It detects faces in an image with OpenCV, generates feature embeddings with a TensorFlow model, and verifies identity by comparing embeddings for similarity.
 
-The focus was on getting the pieces to work together — preprocessing, detection, embedding, and a distance-based match — rather than on a production deployment.
+The focus was on getting the pieces to work together rather than on a production deployment. The pieces were preprocessing, detection, embedding, and a distance-based match.
 
 [Source on GitHub](https://github.com/1Mangesh1/crimiface)
 
@@ -321,9 +321,9 @@ The focus was on getting the pieces to work together — preprocessing, detectio
 URL: https://mangeshbide.tech/portfolio/realtime-chatapp/
 Node.js and Socket.io chat with a shared room, private messages and typing indicators.
 
-**What it does.** A real-time chat app on Node.js, Express and Socket.io. Everyone who joins with a name and a username shares one chat room. Private messages go to one user by username, and the server sends back an error if that user is offline or is you. Clients see typing indicators, join and leave notices, and a live list of online users; clicking a name fills in the private-message recipient.
+**What it does.** It is a real-time chat app on Node.js, Express and Socket.io. Everyone who joins with a name and a username shares one chat room. Private messages go to one user by username, and the server sends back an error if that user is offline or is you. Clients see typing indicators, join and leave notices, and a live list of online users. Clicking a name fills in the private-message recipient.
 
-**How it's built.** `server.js` serves the plain HTML and JavaScript client in `public/` through Express and handles the Socket.io events (`join`, `chatMessage`, `privateMessage`, `typing`, `stoppedTyping`, `disconnect`). Connected users live in an in-memory object keyed by socket ID, and messages are not stored. The [Terraform setup](/portfolio/chatapp-infrastructure/) runs it on a single EC2 instance.
+**How it is built.** `server.js` serves the plain HTML and JavaScript client in `public/` through Express. It also handles the Socket.io events (`join`, `chatMessage`, `privateMessage`, `typing`, `stoppedTyping`, `disconnect`). Connected users live in an in-memory object keyed by socket ID, and messages are not stored. The [Terraform setup](/portfolio/chatapp-infrastructure/) runs it on a single EC2 instance.
 
 ## Posts
 
