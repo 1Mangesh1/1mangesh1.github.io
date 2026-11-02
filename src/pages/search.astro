@@ -157,8 +157,10 @@ import Layout from '../layouts/Layout.astro';
     // Initialize Pagefind
     async function initPagefind() {
       try {
-        // @ts-ignore
-        pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+        // The index exists only after `pagefind --site dist`. A variable path stops
+        // Vite from resolving it at compile time, so dev falls through to the catch.
+        const pagefindPath = '/pagefind/pagefind.js';
+        pagefind = await import(/* @vite-ignore */ pagefindPath);
         pagefind.init();
       } catch (e) {
         console.error('Pagefind not found. Search will be unavailable until site is built.');
