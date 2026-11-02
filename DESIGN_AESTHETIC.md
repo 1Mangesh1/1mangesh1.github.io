@@ -16,8 +16,8 @@ This is the only evidence-based constraint on color choice. Hue carries no relia
 ### Primary Colors
 
 **Text-safe on light (`#ffffff`):**
-- **Blue**: `#2563eb` (Blue-600) — 5.17:1 — links and primary CTAs
-- **Emerald**: `#047857` (Emerald-700) — 5.48:1 — secondary links, nav hover
+- **Emerald**: `#047857` (Emerald-700) 5.48:1. The accent in light mode: links, nav hover, the progress bar and the floating buttons.
+- **Blue**: `#2563eb` (Blue-600) 5.17:1. Only in the resume's category palettes. It is not an accent.
 - **Body text**: `#4b5563` (Gray-600) 7.56:1 · `#6b7280` (Gray-500) 4.83:1 for small metadata only
 - Headings: `#111827` / `#1f2937` (Gray-900/800)
 
@@ -30,20 +30,17 @@ This is the only evidence-based constraint on color choice. Hue carries no relia
 
 **Backgrounds:** `#ffffff` (light) / `#0b0f1a` (dark). Theme follows `prefers-color-scheme` unless the visitor has toggled, in which case the stored choice wins.
 
-### Accent Gradient
-**Warm Golden-to-Amber Gradient** (used for progress bar, highlight elements):
-- Gradient: `hsla(51, 89%, 61%, 1)` → `hsla(25, 83%, 57%, 1)`
-- More human translation: Golden Yellow (#F4D941) → Warm Orange-Amber (#EC8235)
-- Creates a warm, approachable accent that stands out against cool blues
+### Accent
+The site has one accent: Emerald-700 (`#047857`) in light mode and Cyan-400 (`#22d3ee`) in dark mode. Do not use gradients for text, buttons or the progress bar.
 
 ### Color Usage
-- **Primary CTA/Links**: Blue (#2563eb light / #60a5fa dark)
-- **Hover states**: Emerald (#047857 light / #34d399 dark) for navigation, darker blue for buttons
-- **Accent/Progress bar**: Warm golden-amber gradient
+- **Links**: Emerald-700 light / Cyan-400 dark
+- **Hover states**: The same accent for links. Primary buttons go to 90% opacity.
+- **Progress bar**: Solid accent
 - **Backgrounds**: White (light) / Gray-900 (dark)
 - **Borders**: Gray-200 (light) / Gray-700 (dark) — subtle, not heavy
 - **Text**: Gray-900 → Gray-100 throughout spectrum
-- **Secondary icons/backgrounds**: Light blue, emerald, or gray tinted boxes
+- **Secondary icons/backgrounds**: Gray tinted boxes
 
 ---
 
@@ -104,9 +101,9 @@ Generous, clean whitespace. Never cramped. The site breathes. This creates a pre
 ```
 
 ### Buttons & CTAs
-- **Primary**: Blue gradient background with subtle shine animation on hover
+- **Primary**: Solid Gray-900 with white text (Gray-100 with Gray-900 text in dark mode)
 - **Secondary**: Gray background, border or outline style
-- **Hover State**: Lift effect (translateY -2px to -4px), enhanced shadow, scale slightly (0.02—0.05)
+- **Hover State**: Buttons change opacity or background only. Only cards that are links lift on hover.
 - **Border-radius**: rounded-lg (0.5rem)
 - **Font-weight**: Medium—Bold (500—700)
 
@@ -232,8 +229,9 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 - **Logo/Brand**: Bold text "by mangesh", uses nav-link hover color (emerald)
 
 ### Hero Section
-- **Profile Image**: 128px rounded-full, hover scale and shadow enhancement
-- **Heading**: Gradient text (golden-amber), large and bold
+- **Profile Image**: 128px rounded-full, no hover effect
+- **Heading**: Solid text color, large and bold
+- **Motion**: None. The hero is visible from the first paint.
 - **Subheading**: Large, medium weight, good line-height
 - **Spacing**: Centered, with generous vertical spacing
 
@@ -252,7 +250,7 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 
 ### Reading Progress Bar
 - **Style**: Fixed top, height 1 (4px)
-- **Color**: Custom golden-amber gradient
+- **Color**: Solid accent (Emerald-700 light / Cyan-400 dark)
 - **Animation**: Smooth width transition (0.3s)
 - **Z-index**: 50 (above content)
 
@@ -298,9 +296,9 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 To match this aesthetic when redesigning the chatbot:
 
 ### Colors
-- Use **Blue** (#3b82f6) for primary UI elements
-- Use **Emerald** (#10b981) for hover/active states
-- Use **Golden-amber gradient** for accent highlights or progress indicators
+- Use **Emerald-700** (#047857) for filled controls and the user bubble. White text on it is 5.48:1.
+- Use **Emerald-400** (#34d399) for links in dark mode.
+- Do not use gradients.
 - Dark backgrounds (Gray-900 / near-black) for chat windows when in dark mode
 - White backgrounds with subtle borders for light mode
 
@@ -332,7 +330,6 @@ To match this aesthetic when redesigning the chatbot:
 ### Components
 - Use **card-like message bubbles** with borders and backgrounds
 - Implement **hover effects** (lift, shadow enhancement) on interactive elements
-- Add **gradient text** for important headings (matching the golden-amber or blue gradient)
 - Use **status badges** with colored backgrounds (blue, emerald, etc.)
 - Include **transition states** for loading, sending, and received messages
 

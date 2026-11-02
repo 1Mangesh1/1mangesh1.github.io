@@ -9,13 +9,13 @@ date: 2025-02-15T00:00:00Z
 status: "archived"
 ---
 
-Expense management API built with NestJS and TypeORM. Handles authentication, role-based access, and spending aggregation.
+This is an expense management API built with NestJS and TypeORM. It handles authentication, role-based access, and spending aggregation.
 
 ## Key Features
 
 - **JWT-based Authentication**: Secure user authentication and authorization system
 - **Role-based Access Control**: Different permission levels for users and administrators
-- **Data Aggregation**: Intelligent expense categorization and spending analysis
+- **Data Aggregation**: Expense categorization and spending analysis
 - **Scheduled Summaries**: Automated expense reports and budget notifications
 - **RESTful API Design**: Clean, well-documented API endpoints
 - **Swagger Documentation**: Interactive API documentation for easy integration
@@ -52,20 +52,20 @@ The application follows a modular architecture with clean separation of concerns
 - **Backend Framework**: NestJS with TypeScript
 - **Database**: PostgreSQL with TypeORM
 - **Authentication**: JWT tokens with role-based access
-- **Documentation**: Swagger/OpenAPI specification
+- **Documentation**: Swagger and OpenAPI specification
 - **Validation**: Class-validator for input validation
 - **Testing**: Jest for unit and integration tests
 
 ## Architecture Decisions
 
-- **Why NestJS over Express**: Module boundaries are enforced at the framework level, so the auth, expense, budget, and reporting domains stay isolated instead of bleeding into a single router file. Dependency injection also keeps test setup small — providers swap in cleanly.
-- **Why TypeORM**: Entity-first modelling lined up with the domain (User, Expense, Budget, Category) and made schema changes traceable via migrations rather than hand-rolled SQL diffs.
-- **JWT over session cookies**: API is consumed by multiple clients (mobile, web); stateless tokens removed the need for shared session storage and kept horizontal scaling cheap.
-- **Role-based access**: Encoded as claims in the JWT and checked with NestJS guards, so authorization lives next to the route definition instead of scattered through controllers.
-- **Scheduled summaries**: Cron-driven aggregation jobs sit in their own module so the read/write hot path stays uncoupled from reporting workloads.
+- **Why NestJS over Express**: NestJS enforces module boundaries at the framework level. So the auth, expense, budget, and reporting domains stay isolated instead of bleeding into a single router file. Dependency injection also keeps test setup small. Providers swap in cleanly.
+- **Why TypeORM**: Entity-first modelling lined up with the domain (User, Expense, Budget, Category). It also made schema changes traceable via migrations rather than hand-rolled SQL diffs.
+- **JWT over session cookies**: Multiple clients (mobile, web) consume the API. Stateless tokens removed the need for shared session storage and kept horizontal scaling cheap.
+- **Role-based access**: Roles are encoded as claims in the JWT and checked with NestJS guards. So authorization lives next to the route definition instead of being scattered through controllers.
+- **Scheduled summaries**: Cron-driven aggregation jobs sit in their own module so that the read-write hot path stays uncoupled from reporting workloads.
 
 ## Trade-offs
 
-- TypeORM's metadata-driven model is convenient but leaks abstractions in complex joins — a few reporting queries were dropped to raw SQL where the query builder fought the schema.
-- JWT statelessness means revocation is non-trivial; the current model relies on short-lived tokens rather than a denylist, which is a deliberate simplicity choice.
+- TypeORM's metadata-driven model is convenient but leaks abstractions in complex joins. A few reporting queries were dropped to raw SQL where the query builder fought the schema.
+- JWT statelessness means revocation is non-trivial. The current model relies on short-lived tokens rather than a denylist, which is a deliberate simplicity choice.
 

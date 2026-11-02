@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"portfolio">;
+}
+
+const { project } = Astro.props;
+const { title, description, image, tech, date } = project.data;
+const shownTech = tech.slice(0, 3);
+---
+
+<a
+  href={`/portfolio/${project.id}/`}
+  class="group flex flex-col bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover-lift shadow-sm hover:shadow-md animate-on-scroll"
+>
+  {image && (
+    <div class="aspect-video overflow-hidden border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+      <img src={image} alt="" loading="lazy" class="w-full h-full object-cover" />
+    </div>
+  )}
+  <div class="p-6 flex flex-col flex-grow">
+    <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">
+      {title}
+    </h3>
+    <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{description}</p>
+    {tech.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-4">
+        {shownTech.map((t) => (
+          <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md font-medium">
+            {t}
+          </span>
+        ))}
+        {tech.length > shownTech.length && (
+          <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center px-1">
+            +{tech.length - shownTech.length}
+          </span>
+        )}
+      </div>
+    )}
+    <div class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mt-auto pt-4 border-t border-gray-100 dark:border-gray-700/50">
+      <time datetime={date.toISOString()}>
+        {date.toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+      </time>
+      <span class="text-emerald-700 dark:text-cyan-400 font-medium group-hover:underline">
+        View details →
+      </span>
+    </div>
+  </div>
+</a>

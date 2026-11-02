@@ -8,8 +8,7 @@
     bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
     right: calc(1.5rem + env(safe-area-inset-right, 0px));
     --chat-emerald: #10b981;
-    --chat-emerald-dark: #059669;
-    --chat-blue: #3b82f6;
+    --chat-emerald-dark: #047857;
     --chat-surface: #ffffff;
     --chat-surface-alt: #f9fafb;
     --chat-surface-elevated: #f3f4f6;
@@ -21,7 +20,7 @@
 
   /* ── Floating trigger ── */
   #ai-chat-button {
-    background: linear-gradient(135deg, var(--chat-emerald) 0%, var(--chat-blue) 100%);
+    background: var(--chat-emerald-dark);
     color: white;
     border: none;
     border-radius: 16px;
@@ -51,13 +50,6 @@
     overflow: hidden;
   }
 
-  #ai-chat-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
-    border-radius: inherit;
-  }
 
   #ai-chat-button:hover {
     transform: translateY(-3px) scale(1.04);
@@ -122,7 +114,7 @@
     width: 32px;
     height: 32px;
     border-radius: 10px;
-    background: linear-gradient(135deg, var(--chat-emerald) 0%, var(--chat-blue) 100%);
+    background: var(--chat-emerald-dark);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -149,11 +141,15 @@
 
   .ai-header-status {
     font-size: 0.7rem;
-    color: var(--chat-emerald);
+    color: var(--chat-emerald-dark);
     display: flex;
     align-items: center;
     gap: 0.3rem;
     font-weight: 500;
+  }
+
+  .dark .ai-header-status {
+    color: var(--chat-emerald);
   }
 
   .ai-status-dot {
@@ -278,7 +274,7 @@
   }
 
   .ai-msg-label.label-bot {
-    color: var(--chat-blue);
+    color: var(--chat-text-muted);
   }
 
   /* ── Bubbles ── */
@@ -293,7 +289,7 @@
 
   /* User bubble */
   .ai-message-user {
-    background: linear-gradient(135deg, var(--chat-emerald) 0%, #0d9488 100%);
+    background: var(--chat-emerald-dark);
     color: white;
     border-radius: 14px 14px 4px 14px;
     font-weight: 450;
@@ -523,7 +519,7 @@
   }
 
   #ai-chat-submit {
-    background: linear-gradient(135deg, var(--chat-emerald) 0%, var(--chat-blue) 100%);
+    background: var(--chat-emerald-dark);
     border: none;
     color: white;
     width: 38px;
@@ -563,7 +559,7 @@
 
   .ai-counter {
     font-size: 0.7rem;
-    color: var(--chat-text-faint);
+    color: var(--chat-text-muted);
     font-variant-numeric: tabular-nums;
   }
 
@@ -581,7 +577,7 @@
   }
 
   .dark .ai-message-assistant a {
-    color: var(--chat-emerald);
+    color: #34d399;
   }
 
   .ai-message-assistant code {
@@ -862,7 +858,7 @@
     }
 
     if (!received) {
-      bubble.textContent = "Hmm, I didn't catch that — mind trying again?";
+      bubble.textContent = "Hmm, I did not catch that. Can you try again?";
     }
     scrollToBottom();
     return received;
@@ -1061,6 +1057,7 @@
         </div>
         <button
           id="ai-chat-submit"
+          aria-label="Send message"
           type="submit"
           disabled
         >
