@@ -41,6 +41,15 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Inline and blocking so the theme class is set before first paint. Saved choice wins; otherwise follow the OS setting. -->
+    <script is:inline>
+      {
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title="Mangesh's Blog" href="/rss.xml" />
@@ -176,6 +185,8 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
     
     <!-- Animation Styles (loaded synchronously to prevent FOUC) -->
     <link rel="stylesheet" href="/animations.css">
+    <!-- .animate-on-scroll starts hidden and only the IntersectionObserver below reveals it. -->
+    <noscript><style>.animate-on-scroll { opacity: 1 !important; transform: none !important; }</style></noscript>
 
     <!-- GoatCounter Analytics (deferred to not block rendering) -->
     <script data-goatcounter="https://mangeshbide.goatcounter.com/count"
@@ -341,14 +352,6 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
       // Theme toggle functionality with enhanced animation
       const themeToggle = document.getElementById('theme-toggle');
       const html = document.documentElement;
-
-      // Saved choice wins; otherwise follow the OS setting rather than forcing light
-      const storedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-        html.classList.add('dark');
-      }
 
       themeToggle?.addEventListener('click', () => {
         html.classList.toggle('dark');
