@@ -24,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
               name="name" 
               required
               minlength="2"
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 transition-colors"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-700 dark:focus:ring-cyan-400 focus:border-transparent bg-white dark:bg-gray-800 transition-colors"
               placeholder="Your Name"
             />
             <div class="text-red-600 dark:text-red-400 text-sm mt-1 hidden" id="name-error"></div>
@@ -37,7 +37,7 @@ import Layout from '../layouts/Layout.astro';
               id="email" 
               name="email" 
               required
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 transition-colors"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-700 dark:focus:ring-cyan-400 focus:border-transparent bg-white dark:bg-gray-800 transition-colors"
               placeholder="your.email@example.com"
             />
             <div class="text-red-600 dark:text-red-400 text-sm mt-1 hidden" id="email-error"></div>
@@ -50,7 +50,7 @@ import Layout from '../layouts/Layout.astro';
               name="message" 
               rows="6"
               required
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 transition-colors resize-vertical"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-700 dark:focus:ring-cyan-400 focus:border-transparent bg-white dark:bg-gray-800 transition-colors resize-vertical"
               placeholder="Your message..."
             ></textarea>
             <div class="text-red-600 dark:text-red-400 text-sm mt-1 hidden" id="message-error"></div>
@@ -63,7 +63,7 @@ import Layout from '../layouts/Layout.astro';
             type="submit"
             id="submit-btn"
             data-haptic="heavy"
-            class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-6 py-3 rounded-lg hover:opacity-90 transition-opacity font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send Message
           </button>
@@ -76,48 +76,48 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="space-y-6">
           <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-              <span class="text-blue-600 dark:text-blue-400">📧</span>
+            <div class="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+              <span class="text-emerald-700 dark:text-cyan-400">📧</span>
             </div>
             <div>
               <h3 class="font-medium">Email</h3>
-              <a href="mailto:hello@mangeshbide.tech" class="text-blue-600 dark:text-blue-400 hover:underline">
+              <a href="mailto:hello@mangeshbide.tech" class="text-emerald-700 dark:text-cyan-400 hover:underline">
                 hello@mangeshbide.tech
               </a>
             </div>
           </div>
 
           <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-              <span class="text-blue-600 dark:text-blue-400 text-sm font-bold" aria-hidden="true">in</span>
+            <div class="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+              <span class="text-emerald-700 dark:text-cyan-400 text-sm font-bold" aria-hidden="true">in</span>
             </div>
             <div>
               <h3 class="font-medium">LinkedIn</h3>
-              <a href="https://linkedin.com/in/mangesh-bide/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">
+              <a href="https://linkedin.com/in/mangesh-bide/" target="_blank" rel="noopener noreferrer" class="text-emerald-700 dark:text-cyan-400 hover:underline">
                 linkedin.com/in/mangesh-bide
               </a>
             </div>
           </div>
 
           <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-              <span class="text-blue-600 dark:text-blue-400">🐙</span>
+            <div class="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+              <span class="text-emerald-700 dark:text-cyan-400">🐙</span>
             </div>
             <div>
               <h3 class="font-medium">GitHub</h3>
-              <a href="https://github.com/1mangesh1" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">
+              <a href="https://github.com/1mangesh1" target="_blank" rel="noopener noreferrer" class="text-emerald-700 dark:text-cyan-400 hover:underline">
                 @1mangesh1
               </a>
             </div>
           </div>
           
           <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-              <span class="text-blue-600 dark:text-blue-400">🐦</span>
+            <div class="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+              <span class="text-emerald-700 dark:text-cyan-400">🐦</span>
             </div>
             <div>
               <h3 class="font-medium">Twitter</h3>
-              <a href="https://x.com/Mangesh_Bide" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">
+              <a href="https://x.com/Mangesh_Bide" target="_blank" rel="noopener noreferrer" class="text-emerald-700 dark:text-cyan-400 hover:underline">
                 @Mangesh_Bide
               </a>
             </div>
@@ -133,9 +133,9 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Form Tips -->
-        <div class="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-          <h3 class="font-medium mb-2 text-blue-800 dark:text-blue-200">💡 Quick Tips</h3>
-          <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+        <div class="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+          <h3 class="font-medium mb-2 text-gray-900 dark:text-gray-100">💡 Quick Tips</h3>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
             <li>• Be specific about what you want to discuss</li>
             <li>• If applicable, include relevant links or context</li>
             <li>• For collaborations, mention your timeline</li>

@@ -32,16 +32,16 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
       <h1 class="text-4xl font-bold mb-4">{identity.name}</h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{identity.headline}</p>
       <div class="flex justify-center flex-wrap gap-x-5 gap-y-2 text-sm">
-        <a href={`mailto:${identity.email}`} class="text-blue-600 dark:text-blue-400 hover:underline">
+        <a href={`mailto:${identity.email}`} class="text-emerald-700 dark:text-cyan-400 hover:underline">
           {identity.email}
         </a>
-        <a href={identity.links.linkedin} class="text-blue-600 dark:text-blue-400 hover:underline">
+        <a href={identity.links.linkedin} class="text-emerald-700 dark:text-cyan-400 hover:underline">
           LinkedIn
         </a>
-        <a href={identity.links.github} class="text-blue-600 dark:text-blue-400 hover:underline">
+        <a href={identity.links.github} class="text-emerald-700 dark:text-cyan-400 hover:underline">
           GitHub
         </a>
-        <a href={identity.links.site} class="text-blue-600 dark:text-blue-400 hover:underline">
+        <a href={identity.links.site} class="text-emerald-700 dark:text-cyan-400 hover:underline">
           mangeshbide.tech
         </a>
       </div>
@@ -49,7 +49,7 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
       <div class="mt-6">
         <a
           href="/Resume.pdf"
-          class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          class="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-90 transition-opacity"
           download="Mangesh_Bide_Resume.pdf"
         >
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,8 +74,8 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
         <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Experience</h2>
         <div class="space-y-8">
           {resume.experience.map((job) => (
-            <div class="relative pl-8 border-l-2 border-blue-200 dark:border-blue-800">
-              <div class="absolute -left-2 top-0 w-4 h-4 bg-blue-500 rounded-full"></div>
+            <div class="relative pl-8 border-l-2 border-gray-200 dark:border-gray-700">
+              <div class="absolute -left-2 top-0 w-4 h-4 bg-emerald-700 dark:bg-cyan-400 rounded-full"></div>
               <div class="mb-1">
                 {job.roles.map((role, i) => (
                   <div class={i > 0 ? 'mt-1' : ''}>
@@ -83,7 +83,7 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
                     <p class="text-sm text-gray-500">{role.start} – {role.end}</p>
                   </div>
                 ))}
-                <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">{job.org}, {job.location}</p>
+                <p class="text-emerald-700 dark:text-cyan-400 font-medium mt-1">{job.org}, {job.location}</p>
               </div>
               <ul class="mt-3 space-y-2 text-gray-700 dark:text-gray-300">
                 {job.bullets.filter(shown).map((b) => (
@@ -101,8 +101,8 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
           {resume.education.map((ed) => (
             <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h3 class="text-xl font-semibold mb-2">{ed.degree}</h3>
-              <p class="text-blue-600 dark:text-blue-400 font-medium">{ed.school}</p>
-              <p class="text-sm text-gray-500 mb-3">{ed.years}</p>
+              <p class="text-emerald-700 dark:text-cyan-400 font-medium">{ed.school}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">{ed.years}</p>
               <p class="text-gray-700 dark:text-gray-300">{ed.grade}</p>
             </div>
           ))}
@@ -117,7 +117,7 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
               <li>
                 • <span class="font-medium">{c.name}</span>, {c.issuer},{' '}
                 <span class:list={[isTodo(c.year) && todoClass]}>{c.year}</span>
-                {c.verifyUrl && <a href={c.verifyUrl} class="ml-2 text-blue-600 dark:text-blue-400 hover:underline">Verify</a>}
+                {c.verifyUrl && <a href={c.verifyUrl} class="ml-2 text-emerald-700 dark:text-cyan-400 hover:underline">Verify</a>}
               </li>
             ))}
           </ul>
@@ -159,7 +159,7 @@ const certifications = resume.certifications.filter((c) => shown(c.year));
         <div class="mt-8 text-center">
           <a
             href="/portfolio"
-            class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            class="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-90 transition-opacity"
           >
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
