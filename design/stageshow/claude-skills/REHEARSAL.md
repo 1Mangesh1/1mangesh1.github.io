@@ -40,7 +40,7 @@ Assumptions:
 Unresolved:
 
 - `mb-oci-homelab-iac` is also a terminal with a card on the lower right. In date order it sits directly above this still in the portfolio grid. This still differs on purpose: a tall terminal, a picker, and a small count in place of a list panel. Look at the two in the real grid before you ship them.
-- The entry says "300+ downloads". On 2026-11-12 the listing shows 775 total installs for the account and 599 for this repo. The still follows the entry. If the entry changes, change `300+` in `index.tsx` and film again.
+- On 2026-11-12 the listing at skills.sh showed 775 total installs for the account: 599 for this repo, 172 for hipaa-guardian and 4 for deslop. The entry and the still say "750+ downloads" from that date on. Before that they said "300+".
 
 Not checked:
 

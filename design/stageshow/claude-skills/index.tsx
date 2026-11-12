@@ -55,7 +55,7 @@ export default function ClaudeSkills() {
           </Window>
 
           <Card lift gap={10} className="cs-stat">
-            <Text className="cs-count">300+</Text>
+            <Text className="cs-count">750+</Text>
             <Text className="cs-unit">downloads</Text>
           </Card>
         </>

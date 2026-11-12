@@ -1,6 +1,6 @@
 ---
 title: "Claude Skills collection"
-description: "A collection of reusable Claude Skills with 300+ downloads."
+description: "A collection of reusable Claude Skills with 750+ downloads."
 image: "/images/portfolio/claude-skills.webp"
 imageDark: "/images/portfolio/claude-skills-dark.webp"
 tech: ["Claude Skills"]
