@@ -11,6 +11,8 @@
 
 Every color used as **text** must meet WCAG 2.2 SC 1.4.3 (AA): **4.5:1** for normal text, **3:1** for large text (>=24px, or >=18.66px bold). No rounding — `#777777` at 4.47:1 fails. Measure before adding a token; ratios below are measured, not estimated.
 
+An axe audit does not check text that sits on the dotted page background: it reports that text as "incomplete", not as a violation, because the background is a gradient. Before an audit, turn the pattern off with `document.body.style.backgroundImage = 'none'`. On 2026-11-12 this found failures that earlier audits reported as clean.
+
 This is the only evidence-based constraint on color choice. Hue carries no reliable effect on perceived trust or competence (Elliot 2015, *Frontiers in Psychology*, is explicit that applying "color psychology" is premature), so palette decisions are argued from legibility, consistency, and differentiation — never from color-meaning folklore.
 
 ### Primary Colors
@@ -22,7 +24,8 @@ This is the only evidence-based constraint on color choice. Hue carries no relia
 - Headings: `#111827` / `#1f2937` (Gray-900/800)
 
 **Text-safe on dark (`#0b0f1a`):**
-- `#22d3ee` (Cyan-400) 10.59:1 · `#34d399` (Emerald-400) 9.95:1 · `#60a5fa` (Blue-400) 7.53:1
+- **Emerald**: `#34d399` (Emerald-400) 9.95:1 on the page and 7.64:1 on Gray-800 cards. The accent in dark mode.
+- `#22d3ee` (Cyan-400) 10.59:1 · `#60a5fa` (Blue-400) 7.53:1. Only in category palettes. Neither is an accent.
 - Body text: `#d1d5db` (Gray-300) 12.99:1 · `#9ca3af` (Gray-400) 7.54:1
 
 **Decorative only — never as text:**
@@ -31,13 +34,13 @@ This is the only evidence-based constraint on color choice. Hue carries no relia
 **Backgrounds:** `#ffffff` (light) / `#0b0f1a` (dark). Theme follows `prefers-color-scheme` unless the visitor has toggled, in which case the stored choice wins.
 
 ### Accent
-The site has one accent: Emerald-700 (`#047857`) in light mode and Cyan-400 (`#22d3ee`) in dark mode. Do not use gradients for text, buttons or the progress bar.
+The site has one accent hue: Emerald-700 (`#047857`) in light mode and Emerald-400 (`#34d399`) in dark mode. Do not use gradients for text, buttons, the nav underline or the progress bar.
 
 ### Color Usage
-- **Links**: Emerald-700 light / Cyan-400 dark
+- **Links**: Emerald-700 light / Emerald-400 dark
 - **Hover states**: The same accent for links. Primary buttons go to 90% opacity.
 - **Progress bar**: Solid accent
-- **Backgrounds**: White (light) / Gray-900 (dark)
+- **Backgrounds**: White (light) / `#0b0f1a` (dark)
 - **Borders**: Gray-200 (light) / Gray-700 (dark) — subtle, not heavy
 - **Text**: Gray-900 → Gray-100 throughout spectrum
 - **Secondary icons/backgrounds**: Gray tinted boxes
@@ -47,13 +50,16 @@ The site has one accent: Emerald-700 (`#047857`) in light mode and Cyan-400 (`#2
 ## Typography
 
 ### Font Stack
-- **Default/Body**: System fonts (Tailwind default/sans-serif)
-- **Code/Monospace**: `JetBrains Mono`, `Space Mono` (used for special elements like AI chat)
-- **Headings**: Bold weight, no special fonts—using system stack
+- **Body and headings**: `Atkinson Hyperlegible Next`, then the system stack. One family for everything.
+- **Code**: `Atkinson Hyperlegible Mono`, then the system monospace stack. Use it for code, commands and identifiers only, not for labels.
+- Both are variable fonts (weights 200 to 800), self-hosted as Latin subsets in `public/fonts/` with their OFL license files. `Layout.astro` declares the `@font-face` rules and preloads the body font. `tailwind.config.mjs` sets `fontFamily.sans` and `fontFamily.mono`.
+- The typeface was designed for legibility. Its zero has a slash and its capital I has serifs, so `0`/`O` and `I`/`l`/`1` cannot be confused. There is no alternate zero.
+- The Latin subset has no arrow glyphs. Use an inline SVG for an arrow, not `→` or `←`.
 
 ### Type Scales
-- **H1**: 2.5rem—3.25rem (text-4xl to text-5xl), bold, leading-tight
-- **H2**: 1.875rem (text-3xl), bold
+- **Home statement**: 2rem on phones, 2.5rem from `sm`, semibold, line-height 1.14, tight tracking. It is the largest text on the site.
+- **H1**: 2.25rem (text-4xl), bold, tight tracking. On the homepage the H1 is the name at 1.25rem, beside the avatar.
+- **H2**: 1.5rem (text-2xl), bold, tight tracking
 - **H3**: 1.25rem—1.5rem (text-xl—2xl), bold or semibold
 - **Body**: 1rem—1.125rem (text-base—lg), color-dependent on context
 - **Small**: 0.75rem—0.875rem (text-xs—sm), for metadata, timestamps
@@ -78,9 +84,9 @@ The site has one accent: Emerald-700 (`#047857`) in light mode and Cyan-400 (`#2
   - Internal padding: 1.5rem—2rem
 
 ### Grid System
-- **Blog/Portfolio Cards**: 3 columns on desktop, 1 column mobile
+- **Project Cards**: 2 columns on desktop, 1 column mobile
 - **Responsive breakpoints**: Tailwind defaults (md: 768px, lg: 1024px)
-- **Alignment**: Centered content with generous margins
+- **Alignment**: A centered column with generous margins. Inside it, text is left-aligned on one reading edge.
 
 ### Whitespace Philosophy
 Generous, clean whitespace. Never cramped. The site breathes. This creates a premium, uncluttered feel.
@@ -109,8 +115,8 @@ Generous, clean whitespace. Never cramped. The site breathes. This creates a pre
 
 ### Navigation Links
 - **Underline Effect**: Animated underline that grows on hover (left to right)
-- **Underline Color**: Blue-to-purple gradient (#3b82f6 → #8b5cf6)
-- **Hover Color**: Emerald green text color
+- **Underline Color**: Solid accent (Emerald-700 light / Emerald-400 dark)
+- **Hover Color**: The accent
 - **Transition**: 0.3s ease
 
 ### Borders
@@ -152,8 +158,7 @@ Generous, clean whitespace. Never cramped. The site breathes. This creates a pre
 - **Pulse**: Subtle scale pulse in lists (1 → 1.05 → 1)
 - **Float**: Subtle vertical bounce (6s ease-in-out infinite)
 - **Shimmer**: Loading state with gradient sweep (1.5s infinite)
-- **Theme Toggle Rotate**: 180deg rotation on theme button hover
-- **Shine Effect**: Button shine animation (pseudo-element sweep left-to-right)
+- **Theme Toggle Rotate**: 180deg rotation on theme button hover. The button keeps its gray background.
 
 ### Motion Philosophy
 - **Purposeful**: All animations have a reason (feedback, attention, delight)
@@ -178,7 +183,7 @@ Generous, clean whitespace. Never cramped. The site breathes. This creates a pre
 - **Shadows**: Soft and subtle
 
 ### Dark Mode
-- **Background**: Gray-900 (#111827) with subtle 28x28px dot pattern (`rgba(255,255,255,0.05)`)
+- **Background**: `#0b0f1a` with subtle 28x28px dot pattern (`rgba(255,255,255,0.05)`)
 - **Text**: Light gray
 - **Borders**: Dark gray (Gray-700)
 - **Shadows**: Stronger, more visible
@@ -205,7 +210,7 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 ## Visual Hierarchy
 
 ### Contrast Levels
-1. **Primary CTA**: Blue button with contrast against background
+1. **Primary CTA**: Solid Gray-900 button (Gray-100 in dark mode)
 2. **Secondary**: Outlined or gray button
 3. **Tertiary**: Text link with underline animation
 4. **Disabled**: Grayed out with reduced opacity (0.5—0.7)
@@ -229,18 +234,20 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 - **Logo/Brand**: Bold text "by mangesh", uses nav-link hover color (emerald)
 
 ### Hero Section
-- **Profile Image**: 128px rounded-full, no hover effect
-- **Heading**: Solid text color, large and bold
+- **Layout**: Left-aligned. From `lg` it has two columns: the text, and a ruled list of results from the current job.
+- **Identity row**: 64px round avatar, then the name (the H1) and the headline.
+- **Statement**: The tagline from `src/data/identity.ts`, set as the largest text on the site.
+- **Results list**: `highlights` in `src/data/resume.json`. Each figure is quoted from an experience bullet, and the build fails if the two disagree.
+- **Actions**: One primary button (Resume), one outlined button (email), then plain accent links.
 - **Motion**: None. The hero is visible from the first paint.
-- **Subheading**: Large, medium weight, good line-height
-- **Spacing**: Centered, with generous vertical spacing
 
-### Blog/Portfolio Cards
-- **Layout**: 3-column grid (desktop), single column (mobile)
+### Project Cards
+- **Layout**: 2-column grid (desktop), single column (mobile)
 - **Style**: White/Gray-800 background, subtle border, rounded corners
+- **Still**: A 3:2 product illustration at the top, one file per theme (`image` and `imageDark` in the portfolio entry). The stills are 840x560 and show at 420px wide. Their sources and the steps to rebuild them are in `design/stageshow/`.
 - **Hover**: Lift effect, shadow enhancement, text color change on title
-- **Metadata**: Small, gray, uppercase timestamp
-- **Content**: Title, description (line-clamp-2/3), link
+- **Content**: Title, description, the first three stack chips, month and year
+- Earlier work has no card. It is a plain ruled list on `/portfolio/`.
 
 ### Footer
 - **Background**: Matches body background
@@ -250,7 +257,7 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 
 ### Reading Progress Bar
 - **Style**: Fixed top, height 1 (4px)
-- **Color**: Solid accent (Emerald-700 light / Cyan-400 dark)
+- **Color**: Solid accent (Emerald-700 light / Emerald-400 dark)
 - **Animation**: Smooth width transition (0.3s)
 - **Z-index**: 50 (above content)
 
@@ -285,7 +292,7 @@ The pattern is subtle enough to not compete with content but adds texture and vi
 5. **Generous Whitespace**: Content has room to breathe
 6. **Accessibility-First**: Motion, colors, and contrast checked against WCAG standards
 7. **Responsive by Default**: Mobile-first design, not an afterthought
-8. **Warm & Approachable**: The golden gradient accent and emerald hover colors add warmth
+8. **Warm & Approachable**: The emerald accent and the friendly, open typeface add warmth
 9. **Smooth Interactions**: All transitions are 0.3—0.6s with easing, never harsh
 10. **Dark Mode Parity**: Both modes are equally polished, not afterthoughts
 
@@ -304,8 +311,8 @@ To match this aesthetic when redesigning the chatbot:
 
 ### Typography
 - Keep headings **bold** (700 weight)
-- Use **system fonts** for general text (no serif)
-- Use **monospace** (JetBrains Mono) for code snippets or system responses
+- Use the **site font** for general text (no serif)
+- Use the **site monospace font** for code snippets or system responses
 - Maintain **1.5rem+ line-height** for readability
 
 ### Animations
