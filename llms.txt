@@ -11,7 +11,7 @@
 - [Mira](https://mangeshbide.tech/portfolio/voice-agent/): Browser-based voice agent (Tavus CVI) backed by a FastAPI service that runs seven tool-calling booking functions, persists transcripts, and writes an LLM call summary. (live; tech: FastAPI, Python, Tavus CVI, Supabase / Postgres, Gemini, Next.js, Tool Calling; demo: https://voice-agent-demo-frontend.vercel.app)
 - [Fieldnotes](https://mangeshbide.tech/portfolio/fieldnotes/): An LLM pipeline that scores a job posting against your resume and returns an APPLY, CONSIDER, or SKIP verdict with evidence. It ships both a deterministic DAG and an agentic flow (planner, then executor, then synthesizer) over the same steps. (live; tech: FastAPI, Python, Gemini, Agentic Workflow, Embeddings, RAG; demo: https://fieldnotes.mangeshbide.tech)
 - [HIPAA Guardian](https://mangeshbide.tech/portfolio/hipaa-guardian/): A PHI and PII detection engine that scans code, logs, and API responses for the 18 HIPAA Safe Harbor identifiers. It is built to catch leaks in developer artifacts before they ship. (live; tech: Python, HIPAA / PHI, Static Analysis, CI/CD, AI Agent Skill)
-- [Claude Skills collection](https://mangeshbide.tech/portfolio/claude-skills/): A collection of reusable Claude Skills with 300+ downloads. (live; tech: Claude Skills; demo: https://skills.sh/1mangesh1)
+- [Claude Skills collection](https://mangeshbide.tech/portfolio/claude-skills/): A collection of reusable Claude Skills with 750+ downloads. (live; tech: Claude Skills; demo: https://skills.sh/1mangesh1)
 
 ## Other projects
 

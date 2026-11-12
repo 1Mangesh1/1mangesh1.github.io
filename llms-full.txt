@@ -72,7 +72,7 @@ Upload a PDF, ask questions in natural language, get answers grounded in the sou
 ### Claude Skills collection
 
 URL: https://mangeshbide.tech/portfolio/claude-skills/
-A collection of reusable Claude Skills with 300+ downloads.
+A collection of reusable Claude Skills with 750+ downloads.
 
 
 
