@@ -22,10 +22,10 @@ main {
 
   --color-neutral-muted: #6e7681;
 
-  --color-accent-fg: #60a5fa; /* text-blue-400 */
-  --color-accent-emphasis: #2563eb; /* bg-blue-600 */
-  --color-accent-muted: #388bfd66;
-  --color-accent-subtle: #388bfd26;
+  --color-accent-fg: #34d399; /* text-emerald-400 */
+  --color-accent-emphasis: #047857; /* bg-emerald-700 */
+  --color-accent-muted: #34d39966;
+  --color-accent-subtle: #34d39926;
 
   --color-fg-default: #f3f4f6; /* text-gray-100 */
   --color-fg-muted: #d1d5db; /* text-gray-300 */
@@ -42,11 +42,11 @@ main {
   --color-btn-active-border: #6b7280;
 
   --color-btn-primary-text: #ffffff;
-  --color-btn-primary-bg: #2563eb; /* bg-blue-600 */
+  --color-btn-primary-bg: #047857; /* bg-emerald-700 */
   --color-btn-primary-border: rgba(240,246,252,0.1);
   --color-btn-primary-shadow: 0 0 transparent;
   --color-btn-primary-inset-shadow: 0 0 transparent;
-  --color-btn-primary-hover-bg: #1d4ed8; /* hover:bg-blue-700 */
+  --color-btn-primary-hover-bg: #065f46; /* hover:bg-emerald-800 */
   --color-btn-primary-hover-border: rgba(240,246,252,0.1);
 
   --color-scale-gray-1: #21262d;
@@ -79,7 +79,7 @@ main .pagination-loader-container {
 }
 
 .gsc-comment-box-textarea:focus {
-  border-color: #60a5fa; /* focus:ring-blue-400 */
+  border-color: #34d399; /* focus:ring-emerald-400 */
   outline: none;
   box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5); /* focus:ring-2 */
 }

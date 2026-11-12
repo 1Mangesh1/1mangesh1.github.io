@@ -43,12 +43,15 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The browser toolbar takes the page background: #ffffff, or #0b0f1a in dark mode (set by the scripts). -->
+    <meta name="theme-color" content="#ffffff" />
     <!-- Inline and blocking so the theme class is set before first paint. Saved choice wins; otherwise follow the OS setting. -->
     <script is:inline>
       {
         const storedTheme = localStorage.getItem('theme');
         if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.classList.add('dark');
+          document.querySelector('meta[name="theme-color"]').content = '#0b0f1a';
         }
       }
     </script>
@@ -94,7 +97,6 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
     <meta name="twitter:creator" content="@Mangesh_Bide" />
     
     <!-- Additional SEO -->
-    <meta name="theme-color" content="#3b82f6" />
     
     <!-- Content Security Policy for GoatCounter -->
     <meta http-equiv="Content-Security-Policy" content="font-src 'self' https://gc.zgo.at https://static.zgo.at data:; style-src 'self' 'unsafe-inline' https://gc.zgo.at https://static.zgo.at https://giscus.app;" />
@@ -208,7 +210,7 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
       }
       html.dark body {
         background-color: #0b0f1a;
-        background-image: radial-gradient(rgba(0, 229, 255, 0.04) 1.5px, transparent 1.5px);
+        background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
       }
     </style>
   </head>
@@ -216,7 +218,7 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
     <!-- Reading Progress Bar -->
     <div 
       id="reading-progress" 
-      class="fixed top-0 left-0 h-1 bg-emerald-700 dark:bg-cyan-400 z-50 transition-all duration-300"
+      class="fixed top-0 left-0 h-1 bg-emerald-700 dark:bg-emerald-400 z-50 transition-all duration-300"
       style="width: 0%"
     ></div>
     
@@ -229,19 +231,19 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
           <!-- Desktop Navigation -->
           <div class="flex justify-between items-center">
             <div class="flex items-center space-x-8">
-              <a href="/" class="text-xl font-bold hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors nav-link">
+              <a href="/" class="text-xl font-bold hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors nav-link">
                 by mangesh
               </a>
               <div class="hidden md:flex space-x-6">
-                <a href="/portfolio/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors nav-link">Work</a>
-                <a href="/blog/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors nav-link">Writing</a>
-                <a href="/about/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors nav-link">About</a>
-                <a href="/resume/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors nav-link">Resume</a>
-                <a href="/contact/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors nav-link">Contact</a>
+                <a href="/portfolio/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors nav-link">Work</a>
+                <a href="/blog/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors nav-link">Writing</a>
+                <a href="/about/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors nav-link">About</a>
+                <a href="/resume/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors nav-link">Resume</a>
+                <a href="/contact/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors nav-link">Contact</a>
 
                 <!-- More Dropdown -->
                 <div class="relative group">
-                  <button class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors flex items-center nav-link">
+                  <button class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors flex items-center nav-link">
                     More
                     <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -253,7 +255,7 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
                         <div>
                           <div class="px-4 pt-2 pb-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{group.label}</div>
                           {group.links.map(([href, label]) => (
-                            <a href={href} class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">{label}</a>
+                            <a href={href} class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">{label}</a>
                           ))}
                         </div>
                       ))}
@@ -302,19 +304,19 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
           <div id="mobile-menu" class="hidden md:hidden mt-4 mobile-menu-enter">
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-lg hover-lift">
               <!-- Primary -->
-              <a href="/portfolio/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <a href="/portfolio/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Work
               </a>
-              <a href="/blog/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <a href="/blog/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Writing
               </a>
-              <a href="/about/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <a href="/about/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 About
               </a>
-              <a href="/resume/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <a href="/resume/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Resume
               </a>
-              <a href="/contact/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <a href="/contact/" class="block px-3 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 Contact
               </a>
 
@@ -322,7 +324,7 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
                 <>
                   <div class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">{group.label}</div>
                   {group.links.map(([href, label]) => (
-                    <a href={href} class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">{label}</a>
+                    <a href={href} class="block px-6 py-2 rounded-md text-base font-medium hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">{label}</a>
                   ))}
                 </>
               ))}
@@ -338,16 +340,16 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
       <footer class="border-t border-gray-200 dark:border-gray-700 mt-16 animate-on-scroll">
         <div class="max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400">
           <nav class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm mb-6">
-            <a href="/portfolio/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">Work</a>
-            <a href="/blog/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">Writing</a>
-            <a href="/about/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">About</a>
-            <a href="/resume/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">Resume</a>
-            <a href="/contact/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">Contact</a>
-            <a href="/playground/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">Playground</a>
-            <a href="/fun/" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">Outside work</a>
-            <a href="/rss.xml" class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">RSS</a>
+            <a href="/portfolio/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Work</a>
+            <a href="/blog/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Writing</a>
+            <a href="/about/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">About</a>
+            <a href="/resume/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Resume</a>
+            <a href="/contact/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Contact</a>
+            <a href="/playground/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Playground</a>
+            <a href="/fun/" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Outside work</a>
+            <a href="/rss.xml" class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">RSS</a>
           </nav>
-          <p>Built by <a href="https://github.com/1mangesh1" class="text-emerald-700 dark:text-cyan-400 hover:underline link-glow">Mangesh</a> using <a href="https://astro.build" class="text-emerald-700 dark:text-cyan-400 hover:underline link-glow">Astro</a> & <a href="https://tailwindcss.com" class="text-emerald-700 dark:text-cyan-400 hover:underline link-glow">Tailwind CSS</a></p>
+          <p>Built by <a href="https://github.com/1mangesh1" class="text-emerald-700 dark:text-emerald-400 hover:underline">Mangesh</a> using <a href="https://astro.build" class="text-emerald-700 dark:text-emerald-400 hover:underline">Astro</a> & <a href="https://tailwindcss.com" class="text-emerald-700 dark:text-emerald-400 hover:underline">Tailwind CSS</a></p>
         </div>
       </footer>
     </div>
@@ -364,6 +366,7 @@ const showChat = ['/', '/about', '/resume', '/contact'].includes(Astro.url.pathn
         html.classList.toggle('dark');
         const isDark = html.classList.contains('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#0b0f1a' : '#ffffff');
         
         // Add a little bounce effect
         themeToggle.style.transform = 'scale(0.95)';

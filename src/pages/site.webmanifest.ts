@@ -10,7 +10,7 @@ export function GET() {
         start_url: "/",
         display: "minimal-ui",
         background_color: "#ffffff",
-        theme_color: "#3b82f6",
+        theme_color: "#ffffff",
         orientation: "portrait-primary",
         icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }],
         categories: ["education", "technology", "developer"],

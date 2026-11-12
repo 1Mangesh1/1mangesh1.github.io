@@ -93,51 +93,7 @@ html {
 }
 
 .dark .hover-lift:hover {
-  box-shadow:
-    0 10px 25px -5px rgba(0, 0, 0, 0.3),
-    0 4px 20px -2px rgba(0, 229, 255, 0.1);
-}
-
-/* Button animations */
-.btn-primary {
-  background: linear-gradient(135deg, #0284c7, #6366f1);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.dark .btn-primary {
-  background: linear-gradient(135deg, #00e5ff, #818cf8);
-  color: #0b0f1a;
-}
-
-.btn-primary::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.btn-primary:hover::before {
-  left: 100%;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3);
-}
-
-.dark .btn-primary:hover {
-  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
 /* Card animations */
@@ -152,9 +108,7 @@ html {
 }
 
 .dark .card-animate:hover {
-  box-shadow:
-    0 20px 40px -12px rgba(0, 0, 0, 0.4),
-    0 0 20px -4px rgba(0, 229, 255, 0.1);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
 }
 
 /* Theme toggle animation */
@@ -164,11 +118,6 @@ html {
 
 .theme-toggle:hover {
   transform: rotate(180deg) scale(1.1);
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-}
-
-.dark .theme-toggle:hover {
-  background: linear-gradient(135deg, #00e5ff, #818cf8);
 }
 
 /* Navigation animations */
@@ -184,12 +133,12 @@ html {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #0284c7, #6366f1);
+  background: #047857;
   transition: width 0.3s ease;
 }
 
 .dark .nav-link::after {
-  background: linear-gradient(90deg, #00e5ff, #818cf8);
+  background: #34d399;
 }
 
 .nav-link:hover::after {
@@ -341,20 +290,6 @@ html {
   background-size: 200px 100%;
 }
 
-/* Link hover effects */
-.link-glow {
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.link-glow:hover {
-  text-shadow: 0 0 8px rgba(2, 132, 199, 0.5);
-}
-
-.dark .link-glow:hover {
-  text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
-}
-
 /* Mobile menu animation */
 .mobile-menu-enter {
   animation: slideInRight 0.3s ease-out;
@@ -364,68 +299,6 @@ html {
 .footer-float {
   animation: float 6s ease-in-out infinite;
   animation-delay: 2s;
-}
-
-/* Custom gradient styles */
-/* .custom-gradient-bg {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
-  background: -moz-linear-gradient(
-    135deg,
-    #60a5fa 0%,
-    #a78bfa 50%,
-    #f472b6 100%
-  );
-  background: -webkit-linear-gradient(
-    135deg,
-    #60a5fa 0%,
-    #a78bfa 50%,
-    #f472b6 100%
-  );
-} */
-
-/* .custom-gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
-  background: -moz-linear-gradient(
-    135deg,
-    #60a5fa 0%,
-    #a78bfa 50%,
-    #f472b6 100%
-  );
-  background: -webkit-linear-gradient(
-    135deg,
-    #60a5fa 0%,
-    #a78bfa 50%,
-    #f472b6 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-} */
-
-/* Gradient — light: sky-blue to indigo, dark: neon cyan to soft indigo */
-.custom-gradient-bg {
-  background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
-}
-
-.dark .custom-gradient-bg {
-  background: linear-gradient(135deg, #00e5ff 0%, #818cf8 100%);
-}
-
-.custom-gradient-text {
-  background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-.dark .custom-gradient-text {
-  background: linear-gradient(135deg, #00e5ff 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
 }
 
 /* Prefers reduced motion */

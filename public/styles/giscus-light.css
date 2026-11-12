@@ -22,10 +22,10 @@ main {
 
   --color-neutral-muted: #afb8c1;
 
-  --color-accent-fg: #2563eb; /* text-blue-600 */
-  --color-accent-emphasis: #2563eb; /* bg-blue-600 */
-  --color-accent-muted: #ddf4ff;
-  --color-accent-subtle: #ddf4ff;
+  --color-accent-fg: #047857; /* text-emerald-700 */
+  --color-accent-emphasis: #047857; /* bg-emerald-700 */
+  --color-accent-muted: #d1fae5;
+  --color-accent-subtle: #ecfdf5;
 
   --color-fg-default: #111827; /* text-gray-900 */
   --color-fg-muted: #4b5563; /* text-gray-600 */
@@ -42,11 +42,11 @@ main {
   --color-btn-active-border: #d1d5db;
 
   --color-btn-primary-text: #ffffff;
-  --color-btn-primary-bg: #2563eb; /* bg-blue-600 */
+  --color-btn-primary-bg: #047857; /* bg-emerald-700 */
   --color-btn-primary-border: rgba(27,31,35,0.15);
   --color-btn-primary-shadow: 0 1px 0 rgba(27,31,35,0.1);
   --color-btn-primary-inset-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-  --color-btn-primary-hover-bg: #1d4ed8; /* hover:bg-blue-700 */
+  --color-btn-primary-hover-bg: #065f46; /* hover:bg-emerald-800 */
   --color-btn-primary-hover-border: rgba(27,31,35,0.15);
 
   --color-scale-gray-1: #eaeef2;
@@ -84,7 +84,7 @@ main .pagination-loader-container {
 }
 
 .gsc-comment-box-textarea:focus {
-  border-color: #2563eb; /* focus:ring-blue-500 */
+  border-color: #047857; /* focus:ring-emerald-700 */
   outline: none;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5); /* focus:ring-2 */
 }

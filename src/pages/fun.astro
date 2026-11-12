@@ -54,7 +54,7 @@ try {
     <ul class="flex flex-wrap gap-x-5 gap-y-2 mb-16">
       {miscPages.map(({ href, label }) => (
         <li>
-          <a href={href} class="underline underline-offset-4 decoration-gray-300 dark:decoration-gray-600 hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors">{label}</a>
+          <a href={href} class="underline underline-offset-4 decoration-gray-300 dark:decoration-gray-600 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">{label}</a>
         </li>
       ))}
     </ul>
@@ -63,7 +63,7 @@ try {
       {visitorCount && <p>{visitorCount} visitors and counting</p>}
       <p class="mt-2 opacity-50 hover:opacity-100 transition-opacity">
         <span class="cursor-help footer-float" title="Curious minds might find something interesting...">👀</span>
-        <a href="/secret/" class="text-gray-400 hover:text-blue-400 transition-colors ml-1 link-glow">.</a>
+        <a href="/secret/" class="text-gray-400 hover:text-blue-400 transition-colors ml-1">.</a>
       </p>
     </div>
   </div>
