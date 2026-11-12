@@ -42,6 +42,8 @@ export default defineConfig({
     ...tagRedirects(),
   },
   markdown: {
+    // github-dark comments are 3.05:1 on their background. github-dark-default comments are 6.15:1.
+    shikiConfig: { theme: "github-dark-default" },
     rehypePlugins: [rehypeImageAttrs],
   },
   build: {

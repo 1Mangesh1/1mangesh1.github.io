@@ -52,9 +52,9 @@ const formatDate = (date: Date) => {
   <div class="max-w-4xl mx-auto px-4 py-12">
     <div class="mb-12">
       <nav class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        <a href="/blog/" class="hover:text-emerald-700 dark:hover:text-cyan-400">Blog</a>
+        <a href="/blog/" class="hover:text-emerald-700 dark:hover:text-emerald-400">Blog</a>
         <span class="mx-2">/</span>
-        <a href="/blog/tags/" class="hover:text-emerald-700 dark:hover:text-cyan-400">Tags</a>
+        <a href="/blog/tags/" class="hover:text-emerald-700 dark:hover:text-emerald-400">Tags</a>
         <span class="mx-2">/</span>
         <span class="text-gray-900 dark:text-gray-100">{originalTag || tag}</span>
       </nav>
@@ -75,7 +75,7 @@ const formatDate = (date: Date) => {
               <h2 class="text-2xl font-bold mb-2">
                 <a 
                   href={`/blog/${post.id}/`}
-                  class="hover:text-emerald-700 dark:hover:text-cyan-400 transition-colors"
+                  class="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
                 >
                   {post.data.title}
                 </a>
@@ -112,7 +112,7 @@ const formatDate = (date: Date) => {
               
               <a 
                 href={`/blog/${post.id}/`}
-                class="text-emerald-700 dark:text-cyan-400 hover:underline font-medium"
+                class="text-emerald-700 dark:text-emerald-400 hover:underline font-medium"
               >
                 Read more →
               </a>
@@ -127,13 +127,13 @@ const formatDate = (date: Date) => {
         </p>
         <a 
           href="/blog/tags/" 
-          class="text-emerald-700 dark:text-cyan-400 hover:underline mr-4"
+          class="text-emerald-700 dark:text-emerald-400 hover:underline mr-4"
         >
           Browse all tags
         </a>
         <a 
           href="/blog/" 
-          class="text-emerald-700 dark:text-cyan-400 hover:underline"
+          class="text-emerald-700 dark:text-emerald-400 hover:underline"
         >
           View all posts
         </a>

@@ -1,6 +1,8 @@
 ---
 title: "Fieldnotes"
 description: "An LLM pipeline that scores a job posting against your resume and returns an APPLY, CONSIDER, or SKIP verdict with evidence. It ships both a deterministic DAG and an agentic flow (planner, then executor, then synthesizer) over the same steps."
+image: "/images/portfolio/fieldnotes.webp"
+imageDark: "/images/portfolio/fieldnotes-dark.webp"
 tech:
   [
     "FastAPI",

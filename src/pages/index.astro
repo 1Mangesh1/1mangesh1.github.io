@@ -31,6 +31,12 @@ const projectsToShow = resume.projects.map((p) => {
   return entry;
 });
 
+// Each highlight quotes its figure from an experience bullet, so the hero and the resume cannot disagree.
+const experienceText = resume.experience.flatMap((job) => job.bullets).join(" ");
+for (const { figure } of resume.highlights) {
+  if (!experienceText.includes(figure)) throw new Error(`resume.json highlight "${figure}" is not in any experience bullet`);
+}
+
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -38,111 +44,100 @@ const formatDate = (date: Date) => {
     day: "numeric",
   }).format(new Date(date));
 };
+
+const sectionLink = "text-emerald-700 dark:text-emerald-400 hover:underline text-sm font-medium whitespace-nowrap";
+const textLink = "font-medium text-emerald-700 dark:text-emerald-400 hover:underline";
 ---
 
 <Layout title={title}>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <!-- Hero Section -->
-    <div class="text-center mb-16">
-      <div class="mb-6">
-        <Image
-          src={meImage}
-          alt="Mangesh Bide"
-          width={128}
-          height={128}
-          fetchpriority="high"
-          loading="eager"
-          class="w-32 h-32 rounded-full mx-auto shadow-lg object-cover"
-        />
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 py-2 leading-tight">
-        Mangesh Bide
-      </h1>
-      <p class="text-2xl text-gray-800 dark:text-gray-200 mt-2 font-medium">
-        {identity.headline}
-      </p>
-      <p class="text-base text-gray-500 dark:text-gray-400 mt-2">
-        Software Development Engineer I at {identity.employer} · {identity.location}
-      </p>
-      <p
-        class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4 leading-relaxed"
-      >
-        {identity.tagline} I led a greenfield authentication and authorization platform from
-        architecture through production deployment. It uses self-hosted Keycloak with custom Java
-        SPIs, multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. On my own time I build
-        voice and agentic AI projects like Mira and Fieldnotes.
-      </p>
+    <div class="mb-20 lg:grid lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-12">
+      <div>
+        <div class="flex items-center gap-4">
+          <Image
+            src={meImage}
+            alt="Mangesh Bide"
+            width={128}
+            height={128}
+            fetchpriority="high"
+            loading="eager"
+            class="w-16 h-16 flex-none rounded-full object-cover"
+          />
+          <div>
+            <h1 class="text-xl font-semibold leading-tight">Mangesh Bide</h1>
+            <p class="text-gray-700 dark:text-gray-300">{identity.headline}</p>
+          </div>
+        </div>
 
-      <div class="flex flex-wrap justify-center items-center gap-3 mt-8">
-        <a
-          href="/resume/"
-          class="inline-flex items-center px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium hover:opacity-90 transition-opacity"
-        >
-          Resume
-        </a>
-        <a
-          href="mailto:hello@mangeshbide.tech"
-          class="inline-flex items-center px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        >
-          hello@mangeshbide.tech
-        </a>
-        <a
-          href="https://linkedin.com/in/mangesh-bide/"
-          class="inline-flex items-center px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        >
-          LinkedIn
-        </a>
-        <a
-          href="https://github.com/1mangesh1"
-          class="inline-flex items-center px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        >
-          GitHub
-        </a>
-        <a
-          href="https://x.com/Mangesh_Bide"
-          class="inline-flex items-center px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        >
-          X
-        </a>
+        <p class="mt-8 text-[2rem] sm:text-[2.5rem] font-semibold leading-[1.14] tracking-tight text-pretty">
+          {identity.tagline}
+        </p>
+        <p class="mt-6 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+          I led a greenfield authentication and authorization platform from
+          architecture through production deployment. It uses self-hosted Keycloak with custom Java
+          SPIs, multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. On my own time I build
+          voice and agentic AI projects like Mira and Fieldnotes.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-3 mt-8">
+          <a
+            href="/resume/"
+            class="inline-flex items-center px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium hover:opacity-90 transition-opacity"
+          >
+            Resume
+          </a>
+          <a
+            href="mailto:hello@mangeshbide.tech"
+            class="inline-flex items-center px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            hello@mangeshbide.tech
+          </a>
+          <div class="flex gap-x-5">
+            <a href="https://linkedin.com/in/mangesh-bide/" class={textLink}>LinkedIn</a>
+            <a href="https://github.com/1mangesh1" class={textLink}>GitHub</a>
+            <a href="https://x.com/Mangesh_Bide" class={textLink}>X</a>
+          </div>
+        </div>
       </div>
+
+      <aside class="mt-12 lg:mt-1">
+        <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Software Development Engineer I at {identity.employer} · {identity.location}
+        </h2>
+        <ul class="mt-4 border-t border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800">
+          {
+            resume.highlights.map(({ figure, label }) => (
+              <li class="py-4">
+                <strong class="block font-semibold">{figure}</strong>
+                <span class="block mt-1 text-sm text-gray-600 dark:text-gray-400">{label}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </aside>
     </div>
 
     <!-- Selected Work -->
-    <div class="mb-16">
-      <div class="flex justify-between items-end mb-6">
-        <h2 class="text-3xl font-bold">Selected Work</h2>
-        <a
-          href="/portfolio/"
-          class="text-emerald-700 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
-          >View all work →</a
-        >
+    <div class="mb-20">
+      <div class="flex justify-between items-baseline gap-4 mb-6">
+        <h2 class="text-2xl font-bold tracking-tight">Selected Work</h2>
+        <a href="/portfolio/" class={sectionLink}>View all work</a>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div class="grid md:grid-cols-2 gap-6">
         {projectsToShow.map((project) => <ProjectCard project={project} />)}
-      </div>
-      <div class="text-center sm:hidden mb-12">
-        <a
-          href="/portfolio/"
-          class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
-        >
-          View all work
-        </a>
       </div>
     </div>
 
     <!-- Featured Blog Posts -->
     <div class="mb-20">
-      <div class="flex justify-between items-end mb-2">
-        <h2 class="text-3xl font-bold">Selected Writing</h2>
-        <a
-          href="/blog/"
-          class="text-emerald-700 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
-          >View all posts →</a
-        >
+      <div class="flex justify-between items-baseline gap-4 mb-2">
+        <h2 class="text-2xl font-bold tracking-tight">Selected Writing</h2>
+        <a href="/blog/" class={sectionLink}>View all posts</a>
       </div>
 
-      <ul class="divide-y divide-gray-200 dark:divide-gray-800 mb-6">
+      <ul class="divide-y divide-gray-200 dark:divide-gray-800">
         {
           pinnedPosts.map((post) => (
             <li class="animate-on-scroll">
@@ -150,7 +145,7 @@ const formatDate = (date: Date) => {
                 <time datetime={post.data.pubDate.toISOString()} class="text-sm text-gray-500 dark:text-gray-400">
                   {formatDate(post.data.pubDate)}
                 </time>
-                <h3 class="text-lg font-semibold mt-1 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">
+                <h3 class="text-lg font-semibold mt-1 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
                   {post.data.title}
                 </h3>
                 <p class="text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
@@ -161,64 +156,48 @@ const formatDate = (date: Date) => {
           ))
         }
       </ul>
-      <div class="text-center sm:hidden mb-12">
-        <a
-          href="/blog/"
-          class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
-        >
-          View all posts
-        </a>
-      </div>
     </div>
-
-    <hr class="border-gray-200 dark:border-gray-800 my-16" />
 
     <!-- About Section / Philosophy -->
-    <div class="prose prose-lg dark:prose-invert max-w-none mb-16">
-      <div class="mb-12">
-        <h2 class="text-2xl font-semibold mb-6 text-center mt-0 border-b-0">
-          What I work with
-        </h2>
-        <div class="grid md:grid-cols-3 gap-6 text-center mt-8" data-stagger>
-          <div class="animate-on-scroll card-animate">
-            <h3 class="text-lg font-bold mb-2">Backend &amp; APIs</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Python, Django, FastAPI, and PostgreSQL: auth, data modeling, and
-              APIs built to hold up in production.
-            </p>
-          </div>
-          <div class="animate-on-scroll card-animate">
-            <h3 class="text-lg font-bold mb-2">Applied AI &amp; Agents</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              LLM applications, RAG pipelines, and tool-calling agents: wiring
-              models into products that do real work.
-            </p>
-          </div>
-          <div class="animate-on-scroll card-animate">
-            <h3 class="text-lg font-bold mb-2">Infrastructure &amp; Cloud</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-              Terraform and Docker on AWS, plus a k3s homelab on OCI: reproducible
-              infra and CI/CD from zero.
-            </p>
-          </div>
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold tracking-tight mb-6">What I work with</h2>
+      <div class="grid md:grid-cols-3 gap-x-8 gap-y-6" data-stagger>
+        <div class="animate-on-scroll border-t border-gray-200 dark:border-gray-800 pt-4">
+          <h3 class="font-semibold mb-1">Backend &amp; APIs</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Python, Django, FastAPI, and PostgreSQL: auth, data modeling, and
+            APIs built to hold up in production.
+          </p>
         </div>
-      </div>
-
-      <div class="animate-on-scroll mb-10">
-        <h3>Why this site exists</h3>
-        <p>
-          I learn things by building the smallest version that actually runs. Then I
-          write down what broke. This site is where both halves end up: the projects
-          and the post-mortems. If it saves you an afternoon, even better.
-        </p>
+        <div class="animate-on-scroll border-t border-gray-200 dark:border-gray-800 pt-4">
+          <h3 class="font-semibold mb-1">Applied AI &amp; Agents</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            LLM applications, RAG pipelines, and tool-calling agents: wiring
+            models into products that do real work.
+          </p>
+        </div>
+        <div class="animate-on-scroll border-t border-gray-200 dark:border-gray-800 pt-4">
+          <h3 class="font-semibold mb-1">Infrastructure &amp; Cloud</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Terraform and Docker on AWS, plus a k3s homelab on OCI: reproducible
+            infra and CI/CD from zero.
+          </p>
+        </div>
       </div>
     </div>
 
-    <!-- GitHub Activity -->
-    <div class="mb-16 animate-on-scroll">
-      <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3">
-        GitHub Activity
-      </h2>
+    <div class="animate-on-scroll mb-16 max-w-2xl">
+      <h2 class="text-2xl font-bold tracking-tight mb-3">Why this site exists</h2>
+      <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+        I learn things by building the smallest version that actually runs. Then I
+        write down what broke. This site is where both halves end up: the projects
+        and the post-mortems. If it saves you an afternoon, even better.
+      </p>
+    </div>
+
+    <!-- GitHub Activity. The chart is a third-party image: if it fails to load, the section removes itself. -->
+    <div class="mb-16 animate-on-scroll" id="github-activity">
+      <h2 class="font-semibold mb-3">GitHub Activity</h2>
       <a
         href="https://github.com/1mangesh1"
         target="_blank"
@@ -230,6 +209,7 @@ const formatDate = (date: Date) => {
           alt="Mangesh's GitHub Contributions"
           class="w-full dark:hidden rounded-lg mx-auto"
           loading="lazy"
+          onerror="document.getElementById('github-activity')?.remove()"
         />
         <img
           src="https://ghchart.rshah.org/1mangesh1"
@@ -237,84 +217,67 @@ const formatDate = (date: Date) => {
           class="w-full hidden dark:block rounded-lg mx-auto"
           style="filter: invert(1) hue-rotate(180deg);"
           loading="lazy"
+          onerror="document.getElementById('github-activity')?.remove()"
         />
       </a>
     </div>
 
     <!-- Playground -->
-    <div class="mt-16 pt-12 border-t border-gray-200 dark:border-gray-700">
-      <div class="flex justify-between items-end mb-6">
-        <h2 class="text-3xl font-bold animate-on-scroll">Playground</h2>
-        <a
-          href="/playground/"
-          class="text-emerald-700 dark:text-cyan-400 hover:underline text-sm font-medium whitespace-nowrap hidden sm:block"
-          >See all experiments &rarr;</a
-        >
+    <div class="pt-12 border-t border-gray-200 dark:border-gray-800">
+      <div class="flex justify-between items-baseline gap-4 mb-2">
+        <h2 class="text-2xl font-bold tracking-tight animate-on-scroll">Playground</h2>
+        <a href="/playground/" class={sectionLink}>See all experiments</a>
       </div>
       <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl animate-on-scroll">
         Not everything needs to be a product. These run in your browser right now.
       </p>
 
-      <div class="grid gap-6 md:grid-cols-3 mb-8" data-stagger>
+      <div class="grid gap-6 md:grid-cols-3" data-stagger>
         <a
           href="/wall/"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
-          <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">The Wall</h3>
+          <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">The Wall</h3>
           <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
             A shared 64x64 canvas. One pixel per visitor every ten minutes.
           </p>
         </a>
         <a
           href="/earth-observatory/"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
-          <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">Earth Observatory</h3>
+          <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">Earth Observatory</h3>
           <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
             A 3D globe of live wildfires and storms, straight from NASA&rsquo;s EONET feed.
           </p>
         </a>
         <a
           href="/terminal/"
-          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-cyan-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
+          class="bg-gray-50 dark:bg-gray-800/80 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover-lift transition-all group card-animate animate-on-scroll shadow-sm"
         >
-          <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-cyan-400 transition-colors">Terminal</h3>
+          <h3 class="font-semibold mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">Terminal</h3>
           <p class="text-sm text-gray-600 dark:text-gray-400 m-0">
             This whole site behind a command line. Type <code>help</code>.
           </p>
         </a>
       </div>
-      <div class="text-center sm:hidden mb-12">
-        <a
-          href="/playground/"
-          class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-medium border border-gray-200 dark:border-gray-700 text-sm"
-        >
-          See all experiments
-        </a>
-      </div>
 
       <!-- Call to Action & Quick Links -->
-      <div class="mt-20 pt-8 animate-on-scroll">
-        <div class="text-center mb-10">
-          <h3 class="text-xl font-bold mb-2">Say hi</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-6">
-            Got a question, idea, or just want to chat? I am around.
-          </p>
+      <div class="mt-20 animate-on-scroll">
+        <h2 class="text-2xl font-bold tracking-tight mb-2">Say hi</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">
+          Got a question, idea, or just want to chat? I am around.
+        </p>
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
           <a
             href="/contact/"
-            class="inline-block px-8 py-3 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium hover:opacity-90 transition-opacity"
+            class="inline-block px-6 py-2.5 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-base font-medium hover:opacity-90 transition-opacity"
           >
             Get In Touch
           </a>
-        </div>
-
-        <div
-          class="flex flex-wrap justify-center items-center gap-6 text-sm"
-          data-stagger
-        >
           <a
             href="/rss.xml"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-cyan-400 flex items-center transition-colors"
+            class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center transition-colors"
           >
             <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -323,12 +286,9 @@ const formatDate = (date: Date) => {
             </svg>
             RSS Feed
           </a>
-          <span class="text-gray-300 dark:text-gray-600"
-            >•</span
-          >
           <a
             href="/search/"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-cyan-400 flex items-center transition-colors"
+            class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center transition-colors"
           >
             <svg
               class="w-4 h-4 mr-1"
@@ -344,12 +304,9 @@ const formatDate = (date: Date) => {
             </svg>
             Search
           </a>
-          <span class="text-gray-300 dark:text-gray-600"
-            >•</span
-          >
           <a
             href="/resume/"
-            class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-cyan-400 flex items-center transition-colors"
+            class="text-gray-600 dark:text-gray-400 hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center transition-colors"
           >
             <svg
               class="w-4 h-4 mr-1"

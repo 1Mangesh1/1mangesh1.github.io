@@ -1,5 +1,11 @@
 {
   "summary": "Backend / Platform Engineer with 2+ years of production Python and Django experience (since Feb 2024) on healthcare systems in Python, TypeScript, PostgreSQL, and AWS. Led a greenfield authentication and authorization platform from architecture to production deployment. It runs on self-hosted Keycloak, custom Java SPIs, OIDC, multi-tenant SSO with IdP federation, and SpiceDB-based ReBAC. Own the backend architecture and infrastructure end to end on a HIPAA-aligned, multi-tenant healthcare SaaS. Additional production experience: real-time voice pipelines and agentic AI systems.",
+  "highlights": [
+    { "figure": "16 object types and 45 permissions", "label": "in the SpiceDB ReBAC model that I designed for a multi-tenant healthcare SaaS." },
+    { "figure": "1,000+ patients", "label": "on the production EHR that runs my real-time voice transcription pipeline." },
+    { "figure": "~45 min to ~12 min", "label": "deployment time, after I built the CI/CD pipeline with Terraform and GitHub Actions." },
+    { "figure": "230+ pull requests for 13 engineers", "label": "reviewed since Jul 2025." }
+  ],
   "experience": [
     {
       "org": "House Works Technology",
@@ -94,7 +100,7 @@
       "url": "https://skills.sh/1mangesh1",
       "pdfPending": true,
       "bullets": [
-        "Published a collection of reusable Claude Skills with 300+ downloads."
+        "Published a collection of reusable Claude Skills with 750+ downloads."
       ]
     }
   ],

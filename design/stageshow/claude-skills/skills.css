@@ -1,0 +1,95 @@
+/* All rules belong to this example. The stage's ground, font and accent come
+   from ../mb-look.css. */
+.mb-claude-skills {
+  /* One gutter: the terminal's top and left, the count's right and bottom. */
+  & .ss-stage {
+    --gutter: 24px;
+  }
+
+  /* Pinned top and left, off the bottom. Its right edge stops inside the
+     stage, and the count straddles it. */
+  .cs-term {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: 322px;
+    height: 330px;
+    /* The site's gray-900, so the terminal is a cool near-black like the
+       site's own dark ground. Its prompt stays gray. */
+    --ss-term-bg: var(--ss-text-strong);
+    --ss-term-path: var(--ss-text-faint);
+    --ss-term-sigil: var(--ss-text-faint);
+    --ss-term-ok: var(--mb-term-ok);
+    --cs-bar: color-mix(in srgb, var(--ss-text-faint) 28%, transparent);
+  }
+
+  /* On dark the ground is that same gray-900: the terminal steps up to the
+     canvas and the count to the raised surface */
+  & .ss-stage[data-theme="dark"] .cs-term {
+    --ss-term-bg: var(--ss-canvas);
+    --ss-term-path: var(--ss-text);
+    --ss-term-sigil: var(--ss-text);
+    --cs-bar: color-mix(in srgb, var(--ss-text) 22%, transparent);
+  }
+
+  /* The command's second line starts under its first word: the path, the
+     prompt mark and the 7px each side of the mark */
+  .cs-cont {
+    padding-left: calc(2ch + 14px);
+  }
+
+  /* One blank row of the grid (a line and its gap) sets the command apart
+     from the CLI's output */
+  .cs-cont + .cs-line {
+    margin-top: calc(1.65em + 3px);
+  }
+
+  .cs-line {
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    min-height: 1.65em;
+  }
+
+  .cs-mark {
+    flex: none;
+    width: 1ch;
+    text-align: center;
+  }
+
+  /* The picker's rows sit two cells in, under the question */
+  .cs-opt {
+    padding-left: 2ch;
+  }
+
+  /* The satellite: a level above the terminal, a gutter from the stage's
+     right and bottom. The terminal's right edge (24 + 322) is its middle.
+     It hugs the number: 16px to the ink on every side. */
+  .cs-stat {
+    position: absolute;
+    right: var(--gutter);
+    bottom: var(--gutter);
+    width: 100px;
+    height: 68px;
+    align-content: center;
+    background: var(--ss-raised);
+  }
+
+  /* Both lines are cut to their letters, so the card's padding is the same
+     to the ink on every side */
+  .cs-count {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ss-text-strong);
+    text-box: trim-both cap alphabetic;
+  }
+
+  .cs-unit {
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ss-text);
+    text-box: trim-both cap alphabetic;
+  }
+}

@@ -1,6 +1,8 @@
 ---
 title: "OCI Homelab (Infrastructure as Code)"
 description: "A Terraform-managed multi-node k3s cluster on Oracle Cloud's always-free tier, with a VCN, hardened compute, a WireGuard bastion, and remote state. It is reproducible from zero."
+image: "/images/portfolio/oci-homelab-iac.webp"
+imageDark: "/images/portfolio/oci-homelab-iac-dark.webp"
 tech:
   [
     "Terraform",

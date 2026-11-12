@@ -1,6 +1,8 @@
 ---
 title: "Mira"
 description: "Browser-based voice agent (Tavus CVI) backed by a FastAPI service that runs seven tool-calling booking functions, persists transcripts, and writes an LLM call summary."
+image: "/images/portfolio/voice-agent.webp"
+imageDark: "/images/portfolio/voice-agent-dark.webp"
 tech:
   [
     "FastAPI",

@@ -1,0 +1,55 @@
+/* The portfolio site's look, shared by every project still (examples/mb-*).
+   Tokens come from the site: Tailwind's cool grays, emerald as the one accent,
+   Atkinson Hyperlegible Next and Mono. Use it as:
+   <Stage className="look-mb mb-<id>" width={420} height={280} greys="cool"> */
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: block;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("/fonts/atkinson-hyperlegible-mono-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: block;
+}
+
+.look-mb .ss-stage {
+  --ss-font: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+  --ss-mono: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
+  --ss-accent: #047857;
+  --ss-accent-soft: rgba(4, 120, 87, 0.1);
+  /* Success is the same emerald family as the accent, so a still has one green.
+     The fill is emerald-600: it reads on white (3.8:1) and on a dark terminal (4.6:1). */
+  --ss-success: #059669;
+  --ss-success-text: #047857;
+  --ss-success-soft: rgba(5, 150, 105, 0.12);
+  /* A terminal is dark in both themes, so its ticks take the dark-theme emerald. */
+  --mb-term-ok: #34d399;
+  --ss-well: #f3f4f6;
+  --ss-canvas: #f9fafb;
+  --ss-text-strong: #111827;
+  --ss-text: #6b7280;
+  --ss-text-faint: #9ca3af;
+  /* The site card clips the still, so the stage has square corners. */
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--ss-well);
+}
+
+.look-mb .ss-stage[data-theme="dark"] {
+  --ss-accent: #34d399;
+  --ss-accent-soft: rgba(52, 211, 153, 0.16);
+  --ss-success: #34d399;
+  --ss-success-text: #34d399;
+  --ss-success-soft: rgba(52, 211, 153, 0.16);
+  --ss-well: #111827;
+  --ss-canvas: #18212f;
+  --ss-surface: #1f2937;
+  --ss-chrome: #1f2937;
+  --ss-raised: #283445;
+  --ss-text-strong: #f3f4f6;
+  --ss-text: #9ca3af;
+  --ss-text-faint: #6b7280;
+}

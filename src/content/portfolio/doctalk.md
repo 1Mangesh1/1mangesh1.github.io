@@ -1,6 +1,8 @@
 ---
 title: "DocTalk: RAG Document Q&A API"
 description: "Upload a PDF, ask questions in natural language, get answers grounded in the source with citations. A FastAPI RAG pipeline over pgvector with JWT auth, self-hosted on Oracle Cloud."
+image: "/images/portfolio/doctalk.webp"
+imageDark: "/images/portfolio/doctalk-dark.webp"
 tech:
   [
     "FastAPI",
