@@ -240,7 +240,7 @@ const pageTitle = serpTitle.length + BRAND.length <= 60 ? serpTitle + BRAND : se
         const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
         mermaid.initialize({ 
           startOnLoad: false, 
-          theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'neutral' 
+          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'neutral' 
         });
         
         for (const pre of mermaidElements) {
