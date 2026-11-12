@@ -8,41 +8,51 @@ const allProjects = (await getCollection('portfolio')).sort(
   (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
 );
 
-// Split so current work leads and older learning projects read as archive, not as current output
-const groups = [
-  {
-    title: 'Selected work',
-    blurb: 'What I build and ship, most of it self-initiated — backend services, AI and agent tooling, and the infrastructure they run on. Source is on GitHub for all of them, and the ones still hosted are linked live.',
-    items: allProjects.filter((project) => project.data.featured),
-  },
-  {
-    title: 'Earlier work',
-    blurb: 'Older projects from while I was learning the stack. Kept for the record.',
-    items: allProjects.filter((project) => !project.data.featured),
-  },
-].filter((group) => group.items.length > 0);
+// Current work leads as cards. Older learning projects are a plain list, so they read as archive, not as current output.
+const selected = allProjects.filter((project) => project.data.featured);
+const earlier = allProjects.filter((project) => !project.data.featured);
 ---
 
 <Layout title="Portfolio | Mangesh Bide" description="Projects I've built — apps, APIs, and tools.">
   <div class="max-w-4xl mx-auto px-4 py-12">
     <div class="mb-12">
-      <h1 class="text-4xl font-bold mb-4">Work</h1>
-      <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl">
+      <h1 class="text-4xl font-bold tracking-tight mb-4">Work</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
         Backend systems, AI and agent tooling, and infrastructure — most with source on GitHub and a live
         deployment you can poke at. Most representative work first.
       </p>
-      
-
     </div>
 
-    {groups.map((group) => (
+    {selected.length > 0 && (
     <section class="mb-16">
-      <h2 class="text-2xl font-bold mb-2">{group.title}</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl">{group.blurb}</p>
-      <div class="grid gap-8 md:grid-cols-2">
-      {group.items.map((project) => <ProjectCard project={project} />)}
+      <h2 class="text-2xl font-bold tracking-tight mb-2">Selected work</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl">What I build and ship, most of it self-initiated — backend services, AI and agent tooling, and the infrastructure they run on. Source is on GitHub for all of them, and the ones still hosted are linked live.</p>
+      <div class="grid gap-6 md:grid-cols-2">
+      {selected.map((project) => <ProjectCard project={project} />)}
       </div>
     </section>
-    ))}
+    )}
+
+    {earlier.length > 0 && (
+    <section>
+      <h2 class="text-2xl font-bold tracking-tight mb-2">Earlier work</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4 max-w-2xl">Older projects from while I was learning the stack. Kept for the record.</p>
+      <ul class="border-t border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800">
+      {earlier.map((project) => (
+        <li>
+          <a href={`/portfolio/${project.id}/`} class="group flex gap-6 justify-between items-baseline py-4">
+            <div>
+              <h3 class="font-semibold group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">{project.data.title}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{project.data.description}</p>
+            </div>
+            <time datetime={project.data.date.toISOString()} class="flex-none text-sm text-gray-500 dark:text-gray-400">
+              {project.data.date.getFullYear()}
+            </time>
+          </a>
+        </li>
+      ))}
+      </ul>
+    </section>
+    )}
   </div>
-</Layout> 
+</Layout>

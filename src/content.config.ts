@@ -38,6 +38,8 @@ const portfolio = defineCollection({
     title: z.string(),
     description: z.string(),
     image: z.string().optional(),
+    // The same still for dark mode. Without it, `image` shows in both themes.
+    imageDark: z.string().optional(),
     tech: z.array(z.string()),
     github: z.string().optional(),
     demo: z.string().optional(),
