@@ -1,0 +1,166 @@
+/* All rules belong to this example. The stage's ground, type and accent come
+   from ../mb-look.css. */
+.mb-voice-agent {
+  /* One gutter for every edge something sits near: the window's top, and the
+     tool card's left and bottom. */
+  & .ss-stage {
+    --gutter: 24px;
+  }
+
+  /* Pinned top-left with a wider column on the left for the tool card; runs a
+     quarter past the right edge and off the bottom. */
+  .va-window {
+    position: absolute;
+    top: var(--gutter);
+    left: 104px;
+    width: 420px;
+    height: 300px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  /* The still is shown at 85% on a phone, where the kit's faint 10.5px address
+     stops reading: it takes the page's type floor and the body gray */
+  .va-window .ss-window__url {
+    font-size: 11.5px;
+    color: var(--ss-text);
+  }
+
+  /* The header's capitals sit the side inset (20px) under the chrome's rule */
+  .va-page {
+    padding: 16px 20px 0;
+  }
+
+  .va-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 18px;
+  }
+
+  .va-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ss-text-strong);
+  }
+
+  .va-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ss-accent-text);
+  }
+
+  .va-live__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ss-accent);
+  }
+
+  /* Centered over the video, as the product draws it */
+  .va-ticker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 14px;
+    margin-top: 10px;
+    color: var(--ss-accent-text);
+  }
+
+  .va-ticker__label {
+    /* Trimmed to its capitals, so they center on the tick; the tracking after
+       the last letter is taken back, so the pair centers on its ink */
+    text-box: trim-both cap alphabetic;
+    margin-right: -0.16em;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* The video: 16:9, inset from the header's column, off the right and bottom.
+     The product paints the tile in its ink */
+  .va-tile {
+    --tile: var(--ss-text-strong);
+    --tile-lit: color-mix(in srgb, var(--ss-text) 20%, var(--tile));
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 180px;
+    margin: 10px 30px 0;
+    border-radius: 8px;
+  }
+
+  /* On dark the ground is that same ink, and a tile in it reads as a notch cut
+     through the window. So the tile is a step darker than the ground, and only
+     its lit center comes up to the ground's tone */
+  & .ss-stage[data-theme="dark"] .va-tile {
+    --tile: color-mix(in srgb, var(--ss-well) 35%, black);
+    --tile-lit: var(--ss-well);
+  }
+
+  /* A little neutral light round the speaker, so the tile reads as video */
+  .va-video {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(60% 75% at 50% 50%, var(--tile-lit), var(--tile));
+  }
+
+  /* The speaking ring, in the accent, its gap cut from the tile's lit center */
+  .va-avatar {
+    --ss-ring-bg: var(--tile-lit);
+    --ss-ring: var(--ss-accent);
+  }
+
+  /* White on the dark theme's pale accent is too faint: a deeper step of it */
+  & .ss-stage[data-theme="dark"] .va-avatar {
+    background: color-mix(in srgb, var(--ss-accent) 55%, var(--ss-well));
+  }
+
+  /* The satellite: straddles the window's lower-left edge, a level above it.
+     The window's radius, as on the raised cards of the other project stills */
+  .va-tool {
+    --ss-card-radius: var(--ss-radius-window);
+    position: absolute;
+    bottom: var(--gutter);
+    left: var(--gutter);
+    width: 184px;
+    background: var(--ss-raised);
+  }
+
+  .va-tool__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .va-tool__name {
+    font-family: var(--ss-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ss-text-strong);
+  }
+
+  /* One grid for both rows, so the values share a left edge */
+  .va-tool__rows {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    font-family: var(--ss-mono);
+    font-size: 11.5px;
+    line-height: 16px;
+  }
+
+  .va-key {
+    color: var(--ss-text);
+  }
+
+  .va-val {
+    color: var(--ss-text-strong);
+  }
+}

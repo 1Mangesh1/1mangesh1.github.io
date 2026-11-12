@@ -1,6 +1,8 @@
 ---
 title: "HIPAA Guardian"
 description: "A PHI and PII detection engine that scans code, logs, and API responses for the 18 HIPAA Safe Harbor identifiers. It is built to catch leaks in developer artifacts before they ship."
+image: "/images/portfolio/hipaa-guardian.webp"
+imageDark: "/images/portfolio/hipaa-guardian-dark.webp"
 tech:
   [
     "Python",

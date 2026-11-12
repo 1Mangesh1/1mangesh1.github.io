@@ -1,0 +1,119 @@
+/* All rules belong to this example. The stage's ground, font and corners come
+   from ../mb-look.css. */
+.mb-fieldnotes {
+  /* One gutter: the window's top and left, the verdict card's right and bottom */
+  & .ss-stage {
+    --gutter: 24px;
+  }
+
+  /* Pinned top-left, whole across, a quarter of it past the bottom. Its right
+     edge is the verdict card's middle. */
+  .fn-window {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: 300px;
+    height: 340px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-hero);
+    /* The chrome's own side inset (the lights' and the address field's), so
+       the checks, the rule and the bars line up with the bar above them */
+    --fn-inset: calc(var(--ss-lights-y) - var(--ss-dot) / 2);
+  }
+
+  /* The still is shown at 85% on a phone, where the kit's faint 10.5px address
+     stops reading: it takes the page's type floor and the body gray */
+  .fn-window .ss-window__url {
+    font-size: 11.5px;
+    color: var(--ss-text);
+  }
+
+  .fn-trace {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 8px var(--fn-inset) 0;
+  }
+
+  /* The rail: one line behind the checks, from the first one's center to the
+     last one's, so five rows read as one run */
+  .fn-trace::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    bottom: 16px;
+    left: calc(var(--fn-inset) + 7px);
+    width: 2px;
+    background: var(--ss-ink-3);
+  }
+
+  .fn-step {
+    align-content: center;
+    height: 32px;
+  }
+
+  /* Separators start at the names (past the 16px check and the row's 10px
+     gap), as a list with an icon column draws them, so the rail runs through
+     the checks unbroken */
+  .fn-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 26px;
+    height: 1px;
+    background: var(--ss-line-faint);
+  }
+
+  .fn-tool {
+    font-family: var(--ss-mono);
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--ss-text-strong);
+  }
+
+  /* The rule closes the list on the rows' own pitch; the bars end on the
+     bottom gutter line, level with the verdict card's foot */
+  .fn-foot {
+    display: flex;
+    gap: 12px;
+    margin: 0 var(--fn-inset);
+    padding-top: 19px;
+    border-top: 1px solid var(--ss-line);
+  }
+
+  /* The satellite: a level above the window, so the raised surface and the
+     tighter shadow */
+  .fn-verdict {
+    position: absolute;
+    right: var(--gutter);
+    bottom: var(--gutter);
+    width: 160px;
+    background: var(--ss-raised);
+  }
+
+  .fn-ruling {
+    display: grid;
+    gap: 12px;
+  }
+
+  .fn-apply {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--ss-success-text);
+    text-box: trim-both cap alphabetic;
+  }
+
+  .fn-evidence {
+    display: grid;
+    gap: 12px;
+  }
+
+  .fn-evidence__line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

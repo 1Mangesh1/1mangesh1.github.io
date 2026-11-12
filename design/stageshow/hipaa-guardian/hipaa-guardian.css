@@ -1,0 +1,157 @@
+/* All rules belong to this still. The stage's ground, corners and clip come
+   from ../mb-look.css. */
+.mb-hipaa-guardian {
+  /* One gutter: the window's top, and the open card's two sides. */
+  & .ss-stage {
+    --gutter: 24px;
+  }
+
+  /* Pinned top, centered, off the bottom: the report continues past the crop.
+     Two gutters in at each side, so the open card can stand one gutter proud.
+     The body keeps the kit's canvas. */
+  .hg-window {
+    position: absolute;
+    top: var(--gutter);
+    left: calc(var(--gutter) * 2);
+    right: calc(var(--gutter) * 2);
+    height: 320px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  /* The kit Badge is 11px. The still is also shown at 85%, so nothing is
+     under 12px. */
+  .hg-count {
+    font-size: 12px;
+  }
+
+  /* 4.5px at the sides plus the rows' 10px puts their words on the title
+     bar's own 14.5px inset, under the lights and the badge. */
+  .hg-list {
+    display: grid;
+    align-content: start;
+    padding: 8px 4.5px;
+  }
+
+  /* As tall as the open card. */
+  .hg-slot {
+    height: 122px;
+  }
+
+  /* The open finding, a level above the list: 8px under the title bar's rule
+     (38 + 1 + 8) and a gutter from each side of the stage. One ring, drawn
+     outside, so the band below can reach the card's edge. The window's
+     radius, as on the raised cards of the other project stills. */
+  .hg-focus {
+    --ss-card-radius: var(--ss-radius-window);
+    position: absolute;
+    top: calc(var(--gutter) + 47px);
+    left: var(--gutter);
+    right: var(--gutter);
+    background: var(--ss-raised);
+    box-shadow: var(--ss-shadow-satellite);
+  }
+
+  /* The kit Row's own type tokens: a 13px name needs an 18px line. */
+  .hg-row {
+    --ss-row-line: 18px;
+  }
+
+  .hg-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ss-text-strong);
+  }
+
+  /* A path is an identifier, so it is set in mono. A block with the row's
+     own 16px line, so the second font cannot stretch the line box. */
+  .hg-file {
+    display: block;
+    font-family: var(--ss-mono);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--ss-text);
+  }
+
+  .hg-score {
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--ss-text);
+  }
+
+  /* The card's header: the row, and its confidence as the one big number.
+     Bottom-aligned, so "confidence" shares the path's baseline. */
+  .hg-head {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+  }
+
+  .hg-head > .hg-row {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hg-stat {
+    display: grid;
+    flex: none;
+    justify-items: end;
+    gap: 2px;
+  }
+
+  /* Neutral ink, not the accent: the number says how sure the scanner is
+     that this is a leak, and green would read as a pass. */
+  .hg-stat__value {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 20px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ss-text-strong);
+  }
+
+  .hg-stat__label {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--ss-text);
+  }
+
+  /* The matched line, a band across the card: the field name is real, the
+     value is a Bar. It bleeds to the card's edges so its text keeps the
+     card's left edge. Red because this line is the violation. */
+  .hg-match {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 28px;
+    margin: 0 -12px;
+    padding: 0 12px;
+    background: var(--ss-danger-soft);
+  }
+
+  .hg-code {
+    font-family: var(--ss-mono);
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--ss-text-strong);
+  }
+
+  /* The rule the finding maps to: a label and its value, as in the report. */
+  .hg-rule {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .hg-rule__label {
+    color: var(--ss-text);
+  }
+
+  .hg-rule__value {
+    margin-left: auto;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--ss-text-strong);
+  }
+}

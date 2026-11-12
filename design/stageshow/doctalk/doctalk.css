@@ -1,0 +1,171 @@
+/* All rules belong to this still. The shared look (font, grays, accent, the
+   stage's ground and square corners) is ../mb-look.css. */
+.mb-doctalk {
+  & .ss-stage {
+    /* One gutter for every edge something sits near: the window's top and
+       left, the page's right and bottom */
+    --gutter: 24px;
+    /* The page sits half over the window's right edge */
+    --page: 104px;
+    /* The window bar's own inset (its lights sit 14.5px in): the content
+       keeps it, so the answer starts under the lights and the question ends
+       under the status */
+    --inset: 14.5px;
+  }
+
+  /* Pinned top-left, off the bottom. The right column is wider by half the
+     page, which straddles that edge. */
+  .dt-win {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: calc(420px - var(--gutter) * 2 - var(--page) / 2);
+    height: 320px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  /* A smaller word beside the title: half a pixel down puts both on one
+     baseline */
+  .dt-status {
+    position: relative;
+    top: 0.5px;
+    font-size: 11.5px;
+    color: var(--ss-text);
+  }
+
+  .dt-body {
+    padding: 14px var(--inset) 0;
+  }
+
+  .dt-q {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .dt-q .ss-text {
+    padding: 7px 12px;
+    border-radius: 15px;
+    background: var(--ss-ink-1);
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  /* The answer and its sources stop short of the page: the selected row's
+     fill, 8px past the text, ends 12px before it */
+  .dt-col {
+    width: 233.5px;
+    margin-top: 12px;
+  }
+
+  .dt-a {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    line-height: 19px;
+    white-space: nowrap;
+  }
+
+  /* A citation mark: the kit's accent badge at the size of a figure in a
+     line of text. The open source's mark is solid. */
+  .dt-cite {
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border-radius: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+
+  .dt-cite[data-on] {
+    background: var(--ss-accent);
+    color: var(--ss-surface);
+  }
+
+  .dt-a .dt-cite {
+    margin-left: 6px;
+    vertical-align: 0.5px;
+  }
+
+  /* Kit Rows: the fill is inset 8px past the text on both sides, so the
+     negative margin is on the list */
+  .dt-sources {
+    margin: 12px -8px 0;
+  }
+
+  .dt-src {
+    border-radius: 8px;
+  }
+
+  .dt-src[data-selected] {
+    background: var(--ss-accent-soft);
+  }
+
+  .dt-ref {
+    font-weight: 500;
+  }
+
+  /* An identifier, so mono; a mono space is a full cell, wider than this
+     pair wants. A block, so its own font sets the line: inline, the mono
+     face beside the row's strut makes the row a pixel taller. */
+  .dt-chunk {
+    display: block;
+    /* Half a pixel down: the smaller mono face on the page name's baseline */
+    position: relative;
+    top: 0.5px;
+    font-family: var(--ss-mono);
+    font-size: 11.5px;
+    line-height: 16px;
+    word-spacing: -0.3em;
+    color: var(--ss-text);
+  }
+
+  /* The satellite: a sheet of paper a level above the window (the kit
+     Card), its right and bottom edges one gutter from the stage's. Lines at
+     a 10px pitch; the marked passage is 32px tall and starts 50px down,
+     level with the first source row. */
+  .dt-page {
+    --sheet: var(--ss-raised);
+    --mark: var(--ss-accent-soft);
+    --mark-ink: color-mix(in srgb, var(--ss-accent) 60%, var(--sheet));
+    /* Paper has a tighter corner than a card */
+    --ss-card-radius: 4px;
+    position: absolute;
+    right: var(--gutter);
+    bottom: var(--gutter);
+    width: var(--page);
+    height: 138px;
+    background: var(--sheet);
+    /* One crisp hairline outside the sheet: over the window it is white on
+       white, and the Card's inner ring beside the shadow's outer one reads
+       as a soft double edge */
+    box-shadow: 0 0 0 1px var(--ss-line), var(--ss-shadow-satellite);
+  }
+
+  /* Paper stays paper in dark: a light sheet with its own ink, never a dim
+     panel. The dark theme's one light token is its text, and its surface is
+     the ink. */
+  & .ss-stage[data-theme="dark"] .dt-page {
+    --sheet: var(--ss-text-strong);
+    --ss-ink-3: color-mix(in srgb, var(--ss-surface) 11%, transparent);
+    --ss-ink-5: color-mix(in srgb, var(--ss-surface) 22%, transparent);
+    --mark: color-mix(in srgb, var(--ss-accent) 26%, var(--sheet));
+    --mark-ink: color-mix(in srgb, var(--ss-accent) 78%, var(--ss-surface));
+    box-shadow: var(--ss-shadow-satellite);
+  }
+
+  .dt-page__title {
+    margin-bottom: 2px;
+  }
+
+  /* The cited passage: the same lines, marked the way a highlighter would */
+  .dt-mark {
+    display: grid;
+    gap: 6px;
+    margin: 5px -4px;
+    padding: 4px;
+    border-radius: 3px;
+    background: var(--mark);
+  }
+}

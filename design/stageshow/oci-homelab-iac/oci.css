@@ -1,0 +1,95 @@
+/* All rules belong to this example. The stage's ground, font and accent come
+   from ../mb-look.css. */
+.mb-oci-homelab-iac {
+  /* One gutter for every edge something sits near: the terminal's top and
+     left, the panel's right and bottom. */
+  & .ss-stage {
+    --gutter: 24px;
+  }
+
+  /* Pinned top-left, off the right. It is as tall as its lines, so nothing is
+     empty below them and its bottom edge is the line the panel straddles. */
+  .oci-term {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: 480px;
+    /* The site's gray-900: a cool near-black, like the site's own dark
+       ground. The prompt stays gray, so the ticks are its only color */
+    --ss-term-bg: var(--ss-text-strong);
+    --ss-term-path: var(--ss-text-faint);
+    --ss-term-sigil: var(--ss-text-faint);
+    --ss-term-ok: var(--mb-term-ok);
+  }
+
+  /* On dark the ground is that same gray-900: the terminal steps up to the
+     canvas and the panel to the raised surface */
+  & .ss-stage[data-theme="dark"] .oci-term {
+    --ss-term-bg: var(--ss-canvas);
+    --ss-term-path: var(--ss-text);
+    --ss-term-sigil: var(--ss-text);
+  }
+
+  /* A terminal is a character grid: the tick owns one cell, one cell clear
+     of the words */
+  .oci-line {
+    display: flex;
+    gap: 1ch;
+  }
+
+  /* One blank row of the grid (a line and its gap) sets the command apart
+     from its output. It also keeps the terminal's bottom edge below the
+     panel's middle, so the panel sits on the terminal, not beside it */
+  .ss-term__prompt + .oci-line {
+    margin-top: calc(1.65em + 3px);
+  }
+
+  .oci-tick {
+    width: 1ch;
+    text-align: center;
+  }
+
+  /* The satellite: a gutter from the stage's right and bottom, its left edge
+     clear of the module lines and its top clear of the command */
+  .oci-panel {
+    position: absolute;
+    right: var(--gutter);
+    bottom: var(--gutter);
+    width: 220px;
+    background: var(--ss-raised);
+    /* The set's cards share the window radius */
+    --ss-card-radius: var(--ss-radius-window);
+  }
+
+  /* Both on the kit's own tokens. The line is 18px for the baseline that
+     index.tsx names. The shape takes the role's size: at 11.5px beside the
+     role's 12px it sat 1px high in the film */
+  .oci-row {
+    --ss-row-line: 18px;
+    --ss-row-meta: 12px;
+  }
+
+  /* A node that is a later step of the rollout: an open ring and quiet ink */
+  .oci-dot {
+    box-sizing: border-box;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--ss-text-faint);
+    border-radius: 50%;
+  }
+
+  /* The one solid color in the still: the node that runs */
+  .oci-dot[data-running] {
+    border: 0;
+    background: var(--ss-success);
+  }
+
+  .oci-next {
+    color: var(--ss-text);
+  }
+
+  /* A step up from the kit's faint meta ink, which is too pale on white */
+  .oci-shape {
+    color: var(--ss-text);
+  }
+}
